@@ -1,0 +1,35 @@
+{
+  "name": "diazoxide/dev-log",
+  "description": "Standalone i18n.",
+  "keywords": ["i18n","i10n"],
+  "type": "project",
+  "license": "GPL2",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-pdo": "*",
+    "novembit/active-data": "*"
+  },
+  "require-dev": {
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "scripts": {
+
+  },
+  "extra": {
+
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
+}
