@@ -1,13 +1,17 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 try {
 
 	include_once "vendor/autoload.php";
 
 	spl_autoload_register( function ( $className ) {
 
-		if ( preg_match( '/^BLi18n\\\\.*/', $className ) ) {
+		if (strpos($className, "NovemBit\i18n") === 0) {
+
+			$className = str_replace("NovemBit\i18n",'src',$className);
+
 			$className = str_replace( "\\", DIRECTORY_SEPARATOR, $className );
 
 			include_once( __DIR__ . "/$className.php" );
@@ -16,7 +20,7 @@ try {
 	} );
 
 } catch ( Exception $e ) {
-	throw new Exception( 'Cannot include BLi18n php file.' );
+	throw new Exception( 'Cannot include i18n php file.' );
 }
 
-$i18n = new \i18n\Module();
+$i18n = new NovemBit\i18n\Module();

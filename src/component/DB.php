@@ -1,9 +1,11 @@
 <?php
 
-namespace i18n\component\db;
+namespace NovemBit\i18n\component;
 
 
-class Component extends \NovemBit\i18n\system\Component {
+use NovemBit\i18n\system\Component;
+
+class DB extends Component {
 
 	public $pdo;
 	public $username;

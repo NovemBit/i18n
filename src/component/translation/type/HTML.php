@@ -1,23 +1,23 @@
 <?php
 
-namespace i18n\component\translation\component\html;
+namespace NovemBit\i18n\component\translation\type;
 
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Exception;
+use NovemBit\i18n\component\Translation;
 
 /**
- * @property  \i18n\component\translation\Component context
+ * @property  Translation context
  */
-class Component extends \NovemBit\i18n\system\Component {
+class HTML extends Type
+{
+
+
+    public $type = 3;
 
 	public $alias_domains = [];
-
-	function init() {
-		// TODO: Implement init() method.
-	}
-
 
 	public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()]';
 
@@ -27,8 +27,7 @@ class Component extends \NovemBit\i18n\system\Component {
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public function translate( array $htmls ) {
-
+	public function doTranslate( array $htmls ) {
 		$languages         = $this->context->getLanguages();
 		$result            = [];
 		$to_translate_text = [];

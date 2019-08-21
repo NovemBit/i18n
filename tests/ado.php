@@ -1,6 +1,6 @@
 <?php
 
-use i18n\component\translation\models\Translation;
+use NovemBit\i18n\component\translation\models\Translation;
 
 include_once '../autoload.php';
 echo "<textarea cols='200' rows='50'>";

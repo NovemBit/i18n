@@ -1,20 +1,25 @@
 <?php
 
 
-namespace i18n\component\translation;
+namespace NovemBit\i18n\component;
 
 
-use NovemBit\i18n\Module;
+use NovemBit\i18n\component\translation\method\Method;
+use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\Text;
+use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\system\exception\Exception;
+use NovemBit\i18n\Module;
+use NovemBit\i18n\system\Component;
 
 /**
- * @property component\method\Component method
- * @property component\text\Component $text
- * @property component\url\Component $url
- * @property component\html\Component $html
+ * @property Method method
+ * @property Text $text
+ * @property URL $url
+ * @property HTML $html
  * @property Module $context
  */
-class Component extends \NovemBit\i18n\system\Component {
+class Translation extends Component {
 
 	private $languages;
 
@@ -25,7 +30,7 @@ class Component extends \NovemBit\i18n\system\Component {
 	/**
 	 * @param array $languages
 	 *
-	 * @return Component
+	 * @return Translation
 	 * @throws \Exception
 	 */
 	public function setLanguages(array $languages){

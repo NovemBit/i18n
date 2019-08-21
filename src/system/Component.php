@@ -12,6 +12,7 @@ namespace NovemBit\i18n\system;
  * Its simple but provides very useful functionality
  * */
 
+
 abstract class Component {
 
 	public $config;
