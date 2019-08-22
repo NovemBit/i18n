@@ -304,4 +304,5 @@ class Languages extends Component
 
         return $accept_languages;
     }
+
 }

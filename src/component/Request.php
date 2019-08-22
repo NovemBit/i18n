@@ -22,7 +22,12 @@ class Request extends Component {
             $content = ob_get_contents();
             ob_end_clean();
             $language = $this->context->languages->getCurrentLanguage();
-            echo $this->context->translation->setLanguages([$language])->html->translate([$content])[$content][$language];
+
+            if($language != $this->context->languages->default_language) {
+                $content = $this->context->translation->setLanguages([$language])->html->translate([$content])[$content][$language];
+            }
+
+            echo $content;
         });
     }
 }

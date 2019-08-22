@@ -6,6 +6,7 @@ namespace NovemBit\i18n\component\translation;
 
 use Exception;
 use NovemBit\i18n\system\Component;
+
 /**
  * @property  \NovemBit\i18n\component\Translation context
  */
@@ -17,7 +18,8 @@ abstract class Translation extends Component
 
     public $use_saved_translations = true;
 
-    public function init(){
+    public function init()
+    {
 
     }
 
@@ -34,7 +36,7 @@ abstract class Translation extends Component
      */
     public function translate(array $texts)
     {
-        $languages         = $this->context->getLanguages();
+        $languages = $this->context->getLanguages();
 
         $translations = [];
 
@@ -119,7 +121,8 @@ abstract class Translation extends Component
      *
      * @return array
      */
-    protected function doTranslate(array $texts){
+    protected function doTranslate(array $texts)
+    {
         return [];
     }
 

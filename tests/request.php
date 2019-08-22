@@ -39,7 +39,7 @@ $i18n->request->start();
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/test/test2/test3?test=1">Test 1</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>

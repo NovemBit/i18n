@@ -18,7 +18,7 @@ class Module extends system\Component
                 'class'  => component\Translation::class,
                 'method' => [
                     'class'      => component\translation\method\Dummy::class,
-                    'exclusions' => ['barev', 'barev duxov', "hayer"],
+                    'exclusions' => ['Hello','barev', 'barev duxov', "hayer"],
                 ],
                 'text'   => [
                     'class' => component\translation\type\Text::class
@@ -29,7 +29,7 @@ class Module extends system\Component
                 'html'   => [
                     'class'             => component\translation\type\HTML::class,
                     'alias_domains'     => ['test.com'],
-                    'save_translations' => false
+//                    'save_translations' => false
                 ]
             ],
             'languages'   => [
@@ -37,7 +37,7 @@ class Module extends system\Component
                 'accept_languages' => ['hy', 'fr', 'it', 'de', 'ru']
             ],
             'request'     => [
-                'class' => component\Request::class
+                'class' => component\Request::class,
             ],
             'db'          => [
                 'class' => system\components\DB::class,
