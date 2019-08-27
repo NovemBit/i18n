@@ -1,6 +1,6 @@
 <?php
 
-include_once '../autoload.php';
+include_once '../../autoload.php';
 
 global $i18n;
 
@@ -13,7 +13,8 @@ $i18n->request->start();
     <title>Bootstrap 4 Website Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -33,19 +34,23 @@ $i18n->request->start();
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/test/test2/test3?test=1">Test 1</a>
+                <a class="nav-link" href="/tests/i18n/tests/dynamic">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/tests/i18n/tests/dynamic/text-1">Text 1</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/tests/i18n/tests/dynamic/text-2">Text 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tests/i18n/tests/dynamic/text-3">Text 3</a>
             </li>
         </ul>
     </div>
@@ -53,11 +58,26 @@ $i18n->request->start();
 
 <div class="container" style="margin-top:30px">
     <div class="row">
+
+        <?php
+
+        if (strpos($_SERVER['REQUEST_URI'], 'text-1') !== false) {
+            include("text1.php");
+        } elseif (strpos($_SERVER['REQUEST_URI'], 'text-2') !== false) {
+            include("text2.php");
+        } elseif (strpos($_SERVER['REQUEST_URI'], 'text-3') !== false) {
+            include("text3.php");
+        }
+        ?>
+
+    </div>
+    <div class="row">
         <div class="col-sm-4">
             <h2>About Me</h2>
             <h5>Photo of me:</h5>
             <div class="fakeimg">Fake Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+            <p>Some text about me in culpa qui officia deserunt mollit
+                anim..</p>
             <h3>Some Links</h3>
             <p>Lorem ipsum dolor sit ame.</p>
             <ul class="nav nav-pills flex-column">
@@ -81,13 +101,19 @@ $i18n->request->start();
             <h5>Title description, Dec 7, 2017</h5>
             <div class="fakeimg">Fake Image</div>
             <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco.</p>
             <br>
             <h2>TITLE HEADING</h2>
             <h5>Title description, Sep 2, 2017</h5>
             <div class="fakeimg">Fake Image</div>
             <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco.</p>
         </div>
     </div>
 </div>

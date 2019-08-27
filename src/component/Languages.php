@@ -11,7 +11,8 @@ class Languages extends Component
 
     public $accept_languages = ['fr', 'it', 'de'];
 
-    public $language_from_uri_pattern = '/^\/(?<language>\w{2})($|((\/|\?).*))/';
+    public $language_from_uri_pattern = '/^\/(?<language>\w{2})($|(?>(?>\/|\?).*))/';
+
     /*
      * iso 639-1 languages list
      * */
@@ -225,28 +226,123 @@ class Languages extends Component
 
     }
 
+    /**
+     * Return full destination after script name
+     * Included Language name
+     *
+     * @param bool $query
+     *
+     * @return string|null
+     */
+    public static function getUrlFullDest($query = false){
 
+        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
+            return null;
+        }
+
+        $request_uri = $_SERVER['REQUEST_URI'];
+
+        $script_url = '/'.self::getScriptUrl();
+
+        $dest = str_replace($script_url, '', $request_uri);
+
+        if($query == false){
+            $dest = preg_replace('/\?.*/', '', $dest);
+        }
+
+        $dest = rtrim($dest,' /');
+
+        return $dest;
+    }
+
+    private static $script_url;
+    /**
+     * Get script url
+     * F.e. /path/to/my/dir/index.php or /path/to/my/dir
+     *
+     * @return mixed|string|null
+     */
+    public static function getScriptUrl(){
+
+        if(isset(self::$script_url)){
+            return self::$script_url;
+        }
+
+        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
+            return null;
+        }
+
+        $request_uri = $_SERVER['REQUEST_URI'];
+        $script_name = $_SERVER['SCRIPT_NAME'];
+
+        if (strpos($request_uri, $script_name) === 0) {
+            $str = $script_name;
+        } else {
+            $paths = explode('/', $_SERVER['SCRIPT_NAME']);
+
+            unset($paths[count($paths) - 1]);
+            $str = implode('/', $paths);
+        }
+
+        $str = ltrim($str,'/');
+
+        self::$script_url = $str;
+        return self::$script_url;
+    }
+
+    /**
+     * Get url destination excluded language name;
+     *
+     * @param bool $query
+     *
+     * @return string|null
+     */
+    public function getUrlDest($query = false){
+
+        $full_dest = self::getUrlFullDest($query);
+        /*
+         * If full destination with language is not null
+         * Then need to unset language name from full destination
+         * */
+        if($full_dest!==null) {
+            /*
+             * Using preg replace with callback to unset
+             * "language" key from matches, and unset next equal element
+             * Because In preg_replace_callback returns elements with keys and
+             * Numerical values also.
+             * */
+            $dest = preg_replace_callback($this->language_from_uri_pattern, function($matches){
+                unset($matches[0]);
+                $next_id = array_search('language',array_keys( $matches ))+1;
+                unset($matches['language']);
+                unset( $matches[$next_id]);
+                $res = implode('',$matches);
+                return $res;
+            }, $full_dest);
+
+            /*
+             * Remove double trailing slashes if exists
+             * */
+            $dest=str_replace('//','/',$dest);
+
+            $dest = trim($dest,' /');
+
+            return $dest;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string
+     */
     private function getCurrentLanguageFromUri()
     {
         $language = $this->default_language;;
 
-        if (isset($_SERVER['REQUEST_URI']) && isset($_SERVER['SCRIPT_NAME'])) {
+        $dest = $this->getUrlFullDest();
 
-
-            $request_uri = $_SERVER['REQUEST_URI'];
-            $script_name = $_SERVER['SCRIPT_NAME'];
-
-
-            if (strpos($request_uri, $script_name) === 0) {
-                $str = $script_name;
-            } else {
-                $paths = explode('/', $_SERVER['SCRIPT_NAME']);
-                unset($paths[count($paths) - 1]);
-                $str = implode('/', $paths);
-            }
-
-
-            $dest = str_replace($str, '', $request_uri);
+        if ($dest!==null) {
 
             preg_match($this->language_from_uri_pattern, $dest, $matches);
 
@@ -256,10 +352,23 @@ class Languages extends Component
                 $language = $matches['language'];
             }
 
+
         }
         return $language;
     }
 
+    /**
+     * @param $url
+     *
+     * @return mixed|string
+     */
+    public function removeScriptNameFromUrl($url){
+
+        $url = ltrim($url,'/ ');
+        $url = str_replace($this->getScriptUrl(),'', $url);
+        $url = ltrim($url,'/ ');
+        return $url;
+    }
     /**
      * @param $language
      *
@@ -291,10 +400,16 @@ class Languages extends Component
     }
 
     /**
+     * @param bool $with_names
+     *
      * @return array|null
      */
-    public function getAcceptLanguages()
+    public function getAcceptLanguages($with_names = false)
     {
+
+        if(!$with_names){
+            return $this->accept_languages;
+        }
 
         $accept_languages = array_flip($this->accept_languages);
 

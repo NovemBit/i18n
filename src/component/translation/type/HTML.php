@@ -99,9 +99,10 @@ class HTML extends Type
 						&& $tag->hasAttribute( 'href' )
 						&& $this->validateUrl( $tag->getAttribute( 'href' ) )
 					) {
-						$tag->setAttribute( 'href', $url_translations[ $tag->getAttribute( 'href' ) ][ $language ] );
+					    if(isset($url_translations[ $tag->getAttribute( 'href' ) ][ $language ] )) {
+                            $tag->setAttribute('href', $url_translations[$tag->getAttribute('href')][$language]);
+                        }
 					}
-
 					if ( $tag->hasAttribute( 'title' ) ) {
 						$tag->setAttribute( 'title', $text_translations[ $tag->getAttribute( 'title' ) ][ $language ] );
 					}

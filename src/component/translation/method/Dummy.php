@@ -7,17 +7,19 @@ namespace NovemBit\i18n\component\translation\method;
  * Dummy method of translation
  * That returns {lang}-{text} as translation
  * */
+
+use Exception;
+
 class Dummy extends Method
 {
 
     public $exclusion_pattern = '{e-$0-e}';
 
-
     /**
      * @param array $texts
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function doTranslate(array $texts)
     {
@@ -28,8 +30,7 @@ class Dummy extends Method
         foreach ($texts as $key => $text) {
 
             foreach ($languages as $language) {
-                $result[$text][$language] = $language . '-'
-                                            . $this->prepareText($text);
+                $result[$text][$language] = $language . '-' . $text;
             }
 
         }

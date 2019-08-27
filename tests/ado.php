@@ -1,6 +1,6 @@
 <?php
 
-use NovemBit\i18n\component\translation\models\Translation;
+use NovemBit\i18n\component\translation\models\TranslationNode;
 
 include_once '../autoload.php';
 echo "<textarea cols='200' rows='50'>";
@@ -20,7 +20,7 @@ echo "<textarea cols='200' rows='50'>";
 //$model = Translation::findByPk(18);
 //var_dump($model->getFields());
 
-$models = Translation::find( null,null,'10');
+$models = TranslationNode::find( null,null,'10');
 var_dump($models);
 
 

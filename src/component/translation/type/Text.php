@@ -12,6 +12,7 @@ class Text extends Type
 {
 
     public $type = 1;
+//    public $validation = true;
 
 	/**
 	 * @param array $texts
@@ -19,7 +20,7 @@ class Text extends Type
 	 * @return array
 	 * @throws Exception
 	 */
-	public function translate(array $texts){
+	public function doTranslate(array $texts){
 		return $this->context->method->translate($texts);
 	}
 }
