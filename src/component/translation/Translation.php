@@ -24,7 +24,9 @@ abstract class Translation extends Component
 
     public $exclusion_pattern = '<span translate="no">$0</span>';
 
-    private $_original_texts = [];
+    private $_translate_original_texts = [];
+
+    private $_re_translate_original_texts = [];
 
     /**
      * Init
@@ -42,7 +44,7 @@ abstract class Translation extends Component
     {
 
         if ($this->validation == true) {
-            $this->validateAllBefore($texts);
+            $this->validateAllBeforeTranslate($texts);
         }
 
     }
@@ -53,7 +55,7 @@ abstract class Translation extends Component
     public function afterTranslate(array &$translations)
     {
         if ($this->validation == true) {
-            $this->validateAllAfter($translations);
+            $this->validateAllAfterTranslate($translations);
         }
     }
 
@@ -70,10 +72,14 @@ abstract class Translation extends Component
      */
     public function translate(array $texts)
     {
+
+        $texts = array_filter($texts);
+
         /*
          * Remove duplicate texts
          * */
         $texts = array_unique($texts);
+
 
         /*
          * Event before translation
@@ -103,9 +109,10 @@ abstract class Translation extends Component
             $saved_translations_models = models\TranslationNode::findTranslations(
                 $this->type,
                 $texts,
-                $this->context->context->languages->default_language,
+                $this->context->context->languages->from_language,
                 $languages
             );
+
 
             foreach ($saved_translations_models as $saved_translation) {
 
@@ -147,7 +154,7 @@ abstract class Translation extends Component
              * */
             if ($this->save_translations) {
                 models\TranslationNode::saveTranslations(
-                    $this->context->context->languages->default_language,
+                    $this->context->context->languages->from_language,
                     $this->type,
                     $new_translations
                 );
@@ -156,8 +163,7 @@ abstract class Translation extends Component
             /*
              * Merge new and saved translations
              * */
-            $translations = array_merge($translations,
-                $new_translations);
+            $translations = $translations + $new_translations;
         }
 
         /*
@@ -180,12 +186,14 @@ abstract class Translation extends Component
         if (count($this->context->getLanguages()) != 1) {
             throw new Exception("Language not set or set multiple languages.");
         }
+
         $language = $this->context->getLanguages()[0];
 
         $result = [];
 
-        $default_language
-            = $this->context->context->languages->default_language;
+        $default_language = $this->context->context->languages->from_language;
+
+        $this->beforeReTranslate($texts);
 
         foreach ($texts as $text) {
 
@@ -206,7 +214,88 @@ abstract class Translation extends Component
 
         }
 
+        $this->afterReTranslate($result);
+
         return $result;
+
+    }
+
+
+    /**
+     * @param $texts
+     */
+    public function beforeReTranslate(&$texts)
+    {
+        if ($this->validation == true) {
+            $this->validateAllBeforeReTranslate($texts);
+        }
+    }
+
+    /**
+     * @param $texts
+     * @param $result
+     */
+    public function afterReTranslate(&$result)
+    {
+        if ($this->validation == true) {
+            $this->validateAllAfterReTranslate($result);
+        }
+    }
+
+    /**
+     * @param $texts
+     */
+    public function validateAllBeforeReTranslate(&$texts)
+    {
+
+        foreach ($texts as $key => & $text) {
+            $original = $text;
+            if ( ! $this->validateBeforeReTranslate($text)) {
+                unset($texts[$key]);
+            } else {
+//                $this->doExclusion($text);
+                $this->_re_translate_original_texts[$original] = $text;
+            }
+        }
+        //$texts = array_filter($texts);
+        $texts = array_unique($texts);
+    }
+
+    /**
+     * @param $texts
+     * @param $result
+     */
+    public function validateAllAfterReTranslate(&$result)
+    {
+
+        /*
+        * Restore translation keys
+        * Building result from origin values
+        * */
+        foreach ($this->_re_translate_original_texts as $before => $after) {
+
+            if ($before != $after && isset($result[$after])) {
+
+
+                $result[$before] = $result[$after];
+
+                if ( ! $this->validateAfterReTranslate($before, $after, $result)) {
+                    unset($result[$before]);
+                }
+
+            }
+        }
+
+        /*
+         * Unset unnecessary keys from result
+         * */
+        foreach ($this->_re_translate_original_texts as $before => $after) {
+            if ($before != $after) {
+                unset($result[$after]);
+            }
+        }
+
+        unset($this->_re_translate_original_texts);
 
     }
 
@@ -215,7 +304,31 @@ abstract class Translation extends Component
      *
      * @return bool
      */
-    public function validateBefore(&$text)
+    public function validateBeforeReTranslate(&$text)
+    {
+        return true;
+    }
+
+    /**
+     * @param $before
+     * @param $after
+     *
+     * @param $result
+     *
+     * @return bool
+     */
+    public function validateAfterReTranslate($before, $after, &$result)
+    {
+        return true;
+    }
+
+
+    /**
+     * @param $text
+     *
+     * @return bool
+     */
+    public function validateBeforeTranslate(&$text)
     {
         return true;
     }
@@ -228,7 +341,7 @@ abstract class Translation extends Component
      *
      * @return bool
      */
-    public function validateAfter($before, $after, &$translates)
+    public function validateAfterTranslate($before, $after, &$translates)
     {
         return true;
     }
@@ -236,39 +349,56 @@ abstract class Translation extends Component
     /**
      * @param array $texts
      */
-    public function validateAllBefore(array &$texts)
+    public function validateAllBeforeTranslate(array &$texts)
     {
+
         foreach ($texts as $key => & $text) {
             $original = $text;
-            if ( ! $this->validateBefore($text)) {
+            if ( ! $this->validateBeforeTranslate($text)) {
                 unset($texts[$key]);
             } else {
                 $this->doExclusion($text);
-                $this->_original_texts[$original] = $text;
+                $this->_translate_original_texts[$original] = $text;
             }
         }
+//        $texts = array_filter($texts);
+        $texts = array_unique($texts);
 
     }
 
     /**
      * @param array $translates
      */
-    public function validateAllAfter(array &$translates)
+    public function validateAllAfterTranslate(array &$translates)
     {
-        foreach ($this->_original_texts as $before => $after) {
+
+        /*
+         * Restore translation keys
+         * Building result from origin values
+         * */
+        foreach ($this->_translate_original_texts as $before => $after) {
+
             if ($before != $after && isset($translates[$after])) {
+
                 $translates[$before] = $translates[$after];
 
-                if ( ! $this->validateAfter($before, $after, $translates)) {
+                if ( ! $this->validateAfterTranslate($before, $after, $translates)) {
                     unset($translates[$before]);
                 }
-
-                unset($translates[$after]);
 
             }
         }
 
-        unset($this->_original_texts);
+        /*
+         * Unset unnecessary keys from result
+         * */
+        foreach ($this->_translate_original_texts as $before => $after) {
+            if ($before != $after) {
+                unset($translates[$after]);
+            }
+        }
+
+        unset($this->_translate_original_texts);
     }
 
     /**

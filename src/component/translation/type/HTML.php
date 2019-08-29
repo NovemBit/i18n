@@ -17,9 +17,7 @@ class HTML extends Type
 
     public $type = 3;
 
-	public $alias_domains = [];
-
-	public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()]';
+	public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
 
 	/**
 	 * @param array $htmls
@@ -48,7 +46,6 @@ class HTML extends Type
 				if (
 					$tag->tagName == 'a'
 					&& $tag->hasAttribute( 'href' )
-					&& $this->validateUrl( $tag->getAttribute( 'href' ) )
 				) {
 					$to_translate_url[] = $tag->getAttribute( 'href' );
 				}
@@ -97,7 +94,6 @@ class HTML extends Type
 					if (
 						$tag->tagName == 'a'
 						&& $tag->hasAttribute( 'href' )
-						&& $this->validateUrl( $tag->getAttribute( 'href' ) )
 					) {
 					    if(isset($url_translations[ $tag->getAttribute( 'href' ) ][ $language ] )) {
                             $tag->setAttribute('href', $url_translations[$tag->getAttribute('href')][$language]);
@@ -121,26 +117,6 @@ class HTML extends Type
 
 		return $result;
 
-	}
-
-	/**
-	 * @param $url
-	 *
-	 * @return bool
-	 */
-	private function validateUrl( $url ) {
-		$parts = parse_url( $url );
-
-		/*
-		 * Relative url
-		 * */
-		if ( ! isset( $parts['host'] ) ) {
-			return true;
-		} elseif ( in_array( $parts['host'], $this->alias_domains ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

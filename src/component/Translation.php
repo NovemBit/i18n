@@ -37,7 +37,6 @@ class Translation extends Component
      */
     public function setLanguages($languages)
     {
-
         if (is_string($languages)) {
             $languages = [$languages];
         }

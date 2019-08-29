@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 try {
 
@@ -41,11 +41,19 @@ if(!defined('NOVEMBIT_I18N_CONFIG')){
                 'validation' => false,
             ],
             'url'    => [
-                'class' => NovemBit\i18n\component\translation\type\URL::class
+                'class' => NovemBit\i18n\component\translation\type\URL::class,
+                'path_exclusion_patterns' => [
+                    '.*\.php',
+                    '^wp-admin(\/|$)',
+                ],
+                'url_validation_rules' => [
+                    'host' => [
+                        '^$|^swanson\.co\.uk$|^wp\.me$',
+                    ]
+                ]
             ],
             'html'   => [
                 'class'             => NovemBit\i18n\component\translation\type\HTML::class,
-                'alias_domains'     => ['swanson.co.uk'],
                 'save_translations' => false
             ]
         ],

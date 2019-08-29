@@ -7,12 +7,15 @@ use NovemBit\i18n\system\Component;
 class Languages extends Component
 {
 
+    public $from_language = 'en';
+
     public $default_language = 'en';
 
     public $accept_languages = ['fr', 'it', 'de'];
 
-    public $language_from_uri_pattern = '/^\/(?<language>\w{2})($|(?>(?>\/|\?).*))/';
+    public $language_from_uri_pattern = '/^(?<language>\w{2})($|(?>(?>\/|\?).*))/';
 
+    public $language_query_key = 'language';
     /*
      * iso 639-1 languages list
      * */
@@ -211,7 +214,7 @@ class Languages extends Component
         /*
          * Remove default language from accept languages list if exists
          * */
-        if (($key = array_search($this->default_language,
+        if (($key = array_search($this->from_language,
                 $this->accept_languages)) !== false
         ) {
             unset($this->accept_languages[$key]);
@@ -222,53 +225,34 @@ class Languages extends Component
     public function getCurrentLanguage()
     {
 
-        return $this->getCurrentLanguageFromUri();
 
-    }
+        $language = $this->getCurrentLanguageFromQuery();
 
-    /**
-     * Return full destination after script name
-     * Included Language name
-     *
-     * @param bool $query
-     *
-     * @return string|null
-     */
-    public static function getUrlFullDest($query = false){
-
-        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
-            return null;
+        if ($language != null) {
+            return $language;
         }
 
-        $request_uri = $_SERVER['REQUEST_URI'];
+        return $this->default_language;
 
-        $script_url = '/'.self::getScriptUrl();
 
-        $dest = str_replace($script_url, '', $request_uri);
-
-        if($query == false){
-            $dest = preg_replace('/\?.*/', '', $dest);
-        }
-
-        $dest = rtrim($dest,' /');
-
-        return $dest;
     }
 
     private static $script_url;
+
     /**
      * Get script url
      * F.e. /path/to/my/dir/index.php or /path/to/my/dir
      *
      * @return mixed|string|null
      */
-    public static function getScriptUrl(){
+    public static function getScriptUrl()
+    {
 
-        if(isset(self::$script_url)){
+        if (isset(self::$script_url)) {
             return self::$script_url;
         }
 
-        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
+        if ( ! isset($_SERVER['REQUEST_URI']) || ! isset($_SERVER['SCRIPT_NAME'])) {
             return null;
         }
 
@@ -284,77 +268,29 @@ class Languages extends Component
             $str = implode('/', $paths);
         }
 
-        $str = ltrim($str,'/');
+        $str = trim($str, '/');
 
         self::$script_url = $str;
+
         return self::$script_url;
-    }
-
-    /**
-     * Get url destination excluded language name;
-     *
-     * @param bool $query
-     *
-     * @return string|null
-     */
-    public function getUrlDest($query = false){
-
-        $full_dest = self::getUrlFullDest($query);
-        /*
-         * If full destination with language is not null
-         * Then need to unset language name from full destination
-         * */
-        if($full_dest!==null) {
-            /*
-             * Using preg replace with callback to unset
-             * "language" key from matches, and unset next equal element
-             * Because In preg_replace_callback returns elements with keys and
-             * Numerical values also.
-             * */
-            $dest = preg_replace_callback($this->language_from_uri_pattern, function($matches){
-                unset($matches[0]);
-                $next_id = array_search('language',array_keys( $matches ))+1;
-                unset($matches['language']);
-                unset( $matches[$next_id]);
-                $res = implode('',$matches);
-                return $res;
-            }, $full_dest);
-
-            /*
-             * Remove double trailing slashes if exists
-             * */
-            $dest=str_replace('//','/',$dest);
-
-            $dest = trim($dest,' /');
-
-            return $dest;
-        }
-
-        return null;
     }
 
     /**
      * @return string
      */
-    private function getCurrentLanguageFromUri()
+    private function getCurrentLanguageFromQuery()
     {
-        $language = $this->default_language;;
 
-        $dest = $this->getUrlFullDest();
 
-        if ($dest!==null) {
+        if (isset($_GET[$this->language_query_key])) {
 
-            preg_match($this->language_from_uri_pattern, $dest, $matches);
-
-            if (isset($matches['language'])
-                && $this->validateLanguage($matches['language'])
-            ) {
-                $language = $matches['language'];
+            if ($this->validateLanguage($_GET[$this->language_query_key]) || $_GET[$this->language_query_key] == $this->from_language) {
+                return $_GET[$this->language_query_key];
             }
 
-
         }
-        return $language;
+
+        return null;
     }
 
     /**
@@ -362,13 +298,15 @@ class Languages extends Component
      *
      * @return mixed|string
      */
-    public function removeScriptNameFromUrl($url){
+    public function removeScriptNameFromUrl($url)
+    {
+        $url = ltrim($url, '/ ');
+        $url = preg_replace("/^" . preg_quote($this->getScriptUrl(), '/') . "/", '', $url);
+        $url = ltrim($url, '/ ');
 
-        $url = ltrim($url,'/ ');
-        $url = str_replace($this->getScriptUrl(),'', $url);
-        $url = ltrim($url,'/ ');
         return $url;
     }
+
     /**
      * @param $language
      *
@@ -391,7 +329,7 @@ class Languages extends Component
     public function validateLanguages($languages)
     {
         foreach ($languages as $language) {
-            if (!$this->validateLanguage($language)) {
+            if ( ! $this->validateLanguage($language)) {
                 return false;
             }
         }
@@ -407,7 +345,7 @@ class Languages extends Component
     public function getAcceptLanguages($with_names = false)
     {
 
-        if(!$with_names){
+        if ( ! $with_names) {
             return $this->accept_languages;
         }
 

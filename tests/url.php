@@ -3,8 +3,18 @@
 include_once '../autoload.php';
 
 $urls = [
-    '/tests/i18n/tests/url.php/text-1',
-    '/letter-sequence.php'
+    'https://wp.me/',
+//    'https://wp.me/wp-admin/post.php?post=1&action=edit',
+//    '/tests/i18n/tests/url.php/text-1',
+    '/i18n/tests/url.php/text-1',
+    '/letter-sequence.php',
+    "https://wordpress.org/",
+    "https://wordpress.org",
+    "https://wp.me/wp-admin/",
+    "https://wp.me/wp-admin/asd/asda",
+    "https://wp.me/sample-page/",
+    'https://wp.me/i18n/tests/url.php/text-1',
+    'https://wp.me/alala/i18n/tests/url.php/text-1',
 //    'help/bro/#asd',
 //    '/#',
 //    '/#test',

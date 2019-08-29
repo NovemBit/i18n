@@ -10,7 +10,8 @@
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-pdo": "*",
-    "novembit/active-data": "*"
+    "novembit/active-data": "*",
+    "ext-http": "*"
   },
   "require-dev": {
   },

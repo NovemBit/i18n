@@ -30,7 +30,7 @@ class Dummy extends Method
         foreach ($texts as $key => $text) {
 
             foreach ($languages as $language) {
-                $result[$text][$language] = $language . '-' . $text;
+                $result[(string)$text][$language] = $text.'-'.$language;
             }
 
         }
