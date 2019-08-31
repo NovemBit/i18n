@@ -17,157 +17,304 @@ class HTML extends Type
 
     public $type = 3;
 
-	public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
+//clean    public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
+//    public $to_translate_xpath_query_expression = './/*[not(child::*[not(text()[normalize-space()])]) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
+//    public $to_translate_xpath_query_expression = './/*[not(child::*)]';
+    public $to_translate_xpath_query_expression = './/text()[normalize-space()] | .//@*';
 
-	/**
-	 * @param array $htmls
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 */
-	public function doTranslate( array $htmls ) {
-		$languages         = $this->context->getLanguages();
-		$result            = [];
-		$to_translate_text = [];
-		$to_translate_url  = [];
+    private $_to_translate_text = [];
+    private $_to_translate_url = [];
 
-		/*
-		 * Finding translatable node values and attributes
-		 * */
-		foreach ( $htmls as $html ) {
-			$dom = $this->getHtmlDom( $html );
-
-			$xpath = new DOMXpath( $dom );
-
-			$tags = $xpath->query( $this->to_translate_xpath_query_expression );
-
-			/** @var DOMElement $tag */
-			foreach ( $tags as $tag ) {
-				if (
-					$tag->tagName == 'a'
-					&& $tag->hasAttribute( 'href' )
-				) {
-					$to_translate_url[] = $tag->getAttribute( 'href' );
-				}
-
-				if ( $tag->hasAttribute( 'title' ) ) {
-					$to_translate_text[] = $tag->getAttribute( 'title' );
-				}
-
-				if ( $tag->hasAttribute( 'alt' ) ) {
-					$to_translate_text[] = $tag->getAttribute( 'alt' );
-				}
-
-				$to_translate_text[] = $tag->nodeValue;
-			}
-		}
-
-		/*
-		 * Translate texts with method
-		 * */
-		$text_translations = $this->getTextTranslations( $to_translate_text );
-
-		/*
-		 * Translate urls with method
-		 * */
-		$url_translations = $this->getUrlTranslations( $to_translate_url );
+    private $_text_translations = [];
+    private $_url_translations = [];
 
 
-		/*
-		 * Replace html node values to
-		 * Translated values
-		 * */
-		foreach ( $htmls as $html ) {
+    public $fields_to_translate
+        = [
+            ['tag' => 'title', 'translate_value' => true],
+            ['tag' => ['button'], 'translate_value' => true],
+            ['tag' => ['input'], 'attr' => ['type' => 'submit'], 'translate_attrs' => ['value' => 'text']],
+            ['tag' => ['input'], 'attr' => ['placeholder' => '*'], 'translate_attrs' => ['placeholder' => 'text']],
+            ['tag' => 'a', 'translate_attrs' => ['href' => 'url'], 'translate_value' => true],
+            [
+                'tag'             => ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5'],
+                'translate_attrs' => ['title' => 'text', 'alt' => 'text'],
+                'translate_value' => true
+            ],
+        ];
 
-			foreach ( $languages as $language ) {
+    public function init()
+    {
+        $this->prepareFieldsToTranslateRules();
+    }
 
-				$dom = $this->getHtmlDom( $html );
+    private function prepareFieldsToTranslateRules()
+    {
+        foreach ($this->fields_to_translate as &$rule) {
+            if (isset($rule['tag']) && ! empty($rule['tag'])) {
+                if (is_string($rule['tag'])) {
+                    $rule['tag'] = [$rule['tag']];
+                }
+            }
 
-				$xpath = new DOMXpath( $dom );
+            if (isset($rule['attr']) && ! empty($rule['attr'])) {
+                if (is_string($rule['attr'])) {
+                    $rule['attr'] = [$rule['attr'] => ['*']];
+                }
 
-				$tags = $xpath->query( $this->to_translate_xpath_query_expression );
+                foreach ($rule['attr'] as $attr => &$value) {
+                    if (is_string($value)) {
+                        $value = [$value];
+                    }
+                }
+            }
 
-				/** @var DOMElement $tag */
-				foreach ( $tags as $tag ) {
+            if (isset($rule['value']) && ! empty($rule['value'])) {
+                if (is_string($rule['value'])) {
+                    $rule['value'] = [$rule['value']];
+                }
+            }
+
+            if (isset($rule['translate_attrs']) && $rule['translate_attrs'] != false
+                && ! empty($rule['translate_attrs'])
+            ) {
+                if (is_string($rule['translate_attrs'])) {
+                    $rule['translate_attrs'] = [$rule['translate_attrs']];
+                }
+            }
+
+        }
+    }
+
+    private $_node_mutex = [];
+
+    /**
+     * @param DOMElement $node
+     * @param            $callback
+     *
+     */
+    private function fetchFields(&$node, $callback)
+    {
+
+        foreach ($this->fields_to_translate as $key => &$rule) {
+
+            $elementNode = $node;
+
+            if($node->nodeType != XML_ELEMENT_NODE){
+                $elementNode = $node->parentNode;
+            }
 
 
-					if (
-						$tag->tagName == 'a'
-						&& $tag->hasAttribute( 'href' )
-					) {
-					    if(isset($url_translations[ $tag->getAttribute( 'href' ) ][ $language ] )) {
-                            $tag->setAttribute('href', $url_translations[$tag->getAttribute('href')][$language]);
+            if (isset($rule['tag']) && ! in_array($elementNode->tagName, $rule['tag'])) {
+                continue;
+            }
+
+            if (isset($rule['attr'])) {
+
+                foreach ($rule['attr'] as $attribute => $values) {
+                    if ( ! $elementNode->hasAttribute($attribute)) {
+                        continue 2;
+                    } else {
+                        if ( ! in_array('*', $values) && ! in_array($elementNode->getAttribute($attribute), $values)) {
+                            continue 2;
                         }
-					}
-					if ( $tag->hasAttribute( 'title' ) ) {
-						$tag->setAttribute( 'title', $text_translations[ $tag->getAttribute( 'title' ) ][ $language ] );
-					}
+                    }
+                }
+            }
 
-					if ( $tag->hasAttribute( 'alt' ) ) {
-						$tag->setAttribute( 'alt', $text_translations[ $tag->getAttribute( 'alt' ) ][ $language ] );
-					}
-
-					$tag->nodeValue = $text_translations[ $tag->nodeValue ][ $language ];
-				}
+            if ($node->nodeType == XML_TEXT_NODE && isset($rule['value']) && ! in_array($node->nodeValue, $rule['value'])) {
+                continue;
+            }
 
 
-				$result[ $html ][ $language ] = $this->getDomHtmlString( $dom );
-			}
-		}
+            call_user_func_array($callback, [&$node, &$rule]);
 
-		return $result;
+            break;
+        }
 
-	}
+    }
 
-	/**
-	 * @param DOMDocument $dom
-	 *
-	 * @return string|string[]|null
-	 */
-	private function getDomHtmlString( $dom ) {
-		return preg_replace( '/(^\<root>|\<\/root>$)/', '', $dom->saveHTML() );
-	}
 
-	/**
-	 * @param $html
-	 *
-	 * @return DOMDocument
-	 */
-	private function getHtmlDom( $html ) {
+    /**
+     * @param array $html_list
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function doTranslate(array $html_list)
+    {
+        $languages = $this->context->getLanguages();
+        $result    = [];
 
-		if ( ! preg_match( '/\<html.*?\>/i', $html ) ) {
-			$html = '<root>' . $html . '</root>';
-		}
-		$dom = new DomDocument();
+        $this->_to_translate_text = [];
+        $this->_to_translate_url  = [];
+        $this->_text_translations = [];
+        $this->_url_translations  = [];
 
-		@$dom->loadHTML( $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+        /*
+         * Finding translatable node values and attributes
+         * */
+        foreach ($html_list as $html) {
+            $dom = $this->getHtmlDom($html);
 
-		return $dom;
-	}
+            $xpath = new DOMXpath($dom);
 
-	/**
-	 * @param array $strings
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 */
-	private function getTextTranslations( array $strings ) {
+            $tags = $xpath->query($this->to_translate_xpath_query_expression);
+            
+            $hashes = [];
 
-		$translate = $this->context->text->translate( $strings );
+            /** @var DOMElement $tag */
+            foreach ($tags as $tag) {
 
-		return $translate;
-	}
 
-	/**
-	 * @param array $urls
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 */
-	private function getUrlTranslations( array $urls ) {
+                $this->fetchFields($tag, function (&$node, &$rule) use($hashes) {
+                    /** @var DOMElement $trueNode */
+                    /** @var DOMElement $node */
 
-		$translate = $this->context->url->translate( $urls );
+                    if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value']) && $rule['translate_value']) {
+                         $this->_to_translate_text[] = $node->nodeValue;
+                    }
 
-		return $translate;
-	}
+                    if ($node->nodeType == XML_ATTRIBUTE_NODE && isset($rule['translate_attrs'])) {
+                        /** @var \DOMAttr $node */
+                        if(isset($rule['translate_attrs'][$node->name])){
+                            $type = $rule['translate_attrs'][$node->name];
+                            if ($type == 'text') {
+                                $this->_to_translate_text[] = $node->value;
+                            } elseif ($type == 'url') {
+                                $this->_to_translate_url[] = $node->value;
+                            }
+
+                        }
+                    }
+
+                });
+
+//                $this->takeTextsFromNode($tag);
+
+            }
+        }
+
+        /*
+         * Translate texts with method
+         * */
+        $this->_text_translations = $this->getTextTranslations($this->_to_translate_text);
+
+
+        /*
+         * Translate urls with method
+         * */
+        $this->_url_translations = $this->getUrlTranslations($this->_to_translate_url);
+
+        /*
+         * Replace html node values to
+         * Translated values
+         * */
+        foreach ($html_list as $html) {
+
+            foreach ($languages as $language) {
+
+                $dom = $this->getHtmlDom($html);
+
+                $xpath = new DOMXpath($dom);
+
+                $tags = $xpath->query($this->to_translate_xpath_query_expression);
+
+                /** @var DOMElement $tag */
+                foreach ($tags as $tag) {
+
+                    $this->fetchFields($tag, function (&$node, &$rule) use ($language) {
+                        /** @var DOMElement $trueNode */
+                        /** @var DOMElement $node */
+
+                        if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value']) && $rule['translate_value']) {
+                            $node->nodeValue = $this->_text_translations[$node->nodeValue][$language];
+                        }
+
+                        if ($node->nodeType == XML_ATTRIBUTE_NODE && isset($rule['translate_attrs'])) {
+
+                            /** @var \DOMAttr $node */
+                            if(isset($rule['translate_attrs'][$node->name])){
+                                $type = $rule['translate_attrs'][$node->name];
+                                if ($type == 'text') {
+                                    $node->value = $this->_text_translations[$node->value][$language];
+                                } elseif ($type == 'url') {
+
+                                    if($this->_url_translations[$node->value][$language]!=null){
+                                        $node->value = htmlspecialchars($this->_url_translations[$node->value][$language]);
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+
+//                    $this->setTranslatesOnNode($tag, $language);
+                }
+
+
+                $result[$html][$language] = $this->getDomHtmlString($dom);
+            }
+        }
+
+
+        return $result;
+
+    }
+
+    /**
+     * @param DOMDocument $dom
+     *
+     * @return string|string[]|null
+     */
+    private function getDomHtmlString($dom)
+    {
+        return preg_replace('/(^\<root>|\<\/root>$)/', '', $dom->saveHTML());
+    }
+
+    /**
+     * @param $html
+     *
+     * @return DOMDocument
+     */
+    private function getHtmlDom($html)
+    {
+
+        if ( ! preg_match('/\<html.*?\>/i', $html)) {
+            $html = '<root>' . $html . '</root>';
+        }
+        $dom = new DomDocument();
+
+        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        return $dom;
+    }
+
+    /**
+     * @param array $strings
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    private function getTextTranslations(array $strings)
+    {
+
+        $translate = $this->context->text->translate($strings);
+
+        return $translate;
+    }
+
+    /**
+     * @param array $urls
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    private function getUrlTranslations(array $urls)
+    {
+
+        $translate = $this->context->url->translate($urls);
+
+        return $translate;
+    }
 }

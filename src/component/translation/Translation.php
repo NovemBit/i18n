@@ -371,16 +371,18 @@ abstract class Translation extends Component
      */
     public function validateAllAfterTranslate(array &$translates)
     {
-
         /*
          * Restore translation keys
          * Building result from origin values
          * */
         foreach ($this->_translate_original_texts as $before => $after) {
 
-            if ($before != $after && isset($translates[$after])) {
 
-                $translates[$before] = $translates[$after];
+            if (isset($translates[$after])) {
+
+                if($before != $after) {
+                    $translates[$before] = $translates[$after];
+                }
 
                 if ( ! $this->validateAfterTranslate($before, $after, $translates)) {
                     unset($translates[$before]);

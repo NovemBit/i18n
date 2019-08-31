@@ -3,19 +3,56 @@
 namespace NovemBit\i18n\component;
 
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\helpers\URL;
 
 class Languages extends Component
 {
 
+    /**
+     * Main content language
+     * */
     public $from_language = 'en';
 
+    /*
+     * Default language
+     * */
     public $default_language = 'en';
 
+    /**
+     * Accepted languages
+     * */
     public $accept_languages = ['fr', 'it', 'de'];
 
-    public $language_from_uri_pattern = '/^(?<language>\w{2})($|(?>(?>\/|\?).*))/';
+    /**
+     * Add language code on url path
+     *
+     * @example  https://novembit.com/fr/my/post/url
+     *
+     * */
+    public $language_on_path = true;
 
+    /**
+     * Language query variable key
+     *
+     * @example https://novembit.com/my/post/url?language=fr
+     *
+     * */
     public $language_query_key = 'language';
+
+    /**
+     * Pattern to exclude paths from url
+     *
+     * Example to exclude .php file paths
+     *  '.*\.php\/',
+     *
+     * To exclude wp-admin in wordpress
+     *  '^wp-admin(\/|$)'
+     * */
+    public $path_exclusion_patterns = [];
+
+
+    private static $script_url;
+
     /*
      * iso 639-1 languages list
      * */
@@ -222,22 +259,235 @@ class Languages extends Component
 
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentLanguage()
     {
+        $language = null;
 
-
-        $language = $this->getCurrentLanguageFromQuery();
-
-        if ($language != null) {
-            return $language;
+        if ($this->language_on_path == true) {
+            $language = $this->getCurrentLanguageFromUrlPath();
         }
 
-        return $this->default_language;
+        if ($language == null) {
+            $language = $this->getCurrentLanguageFromQuery();
+        }
 
+        if ($language == null) {
+            $language = $this->default_language;
+        }
 
+        return $language;
     }
 
-    private static $script_url;
+    /**
+     * @return string
+     */
+    private function getCurrentLanguageFromQuery()
+    {
+        if (isset($_GET[$this->language_query_key])) {
+
+            if ($this->validateLanguage($_GET[$this->language_query_key])) {
+                return $_GET[$this->language_query_key];
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * Get current language from @REQUEST_URI
+     *
+     * @return string|null
+     */
+    private function getCurrentLanguageFromUrlPath(){
+        if ( ! isset($_SERVER["REQUEST_URI"])) {
+            return null;
+        }
+        return $this->getLanguageFromUrl($_SERVER["REQUEST_URI"]);
+    }
+
+    /**
+     * Get current language from URL path
+     * f.e. https://novembit.com/fr/my/post/path
+     *
+     * {fr} is valid language
+     *
+     * Getting {fr} from URL then removing them from path
+     * After removing changing global REQUEST_URI
+     *
+     * @param $url
+     *
+     * @return string
+     */
+    private function getLanguageFromUrl($url)
+    {
+        $url = $this->removeScriptNameFromUrl($url);
+
+        $uri_parts = parse_url($url);
+
+        if ( ! isset($uri_parts['path'])) {
+            return null;
+        }
+
+        $path = explode('/', $uri_parts['path']);
+
+        if (isset($path[0]) && $this->validateLanguage($path[0])) {
+
+            $language = $path[0];
+
+            unset($path[0]);
+
+            $uri_parts['path'] = implode('/', $path);
+
+            $_SERVER["REQUEST_URI"] = URL::buildUrl($uri_parts);
+
+            return $language;
+
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $url
+     *
+     * @return mixed|string
+     */
+    public function removeScriptNameFromUrl($url)
+    {
+        $url = ltrim($url, '/ ');
+        $url = preg_replace("/^" . preg_quote($this->getScriptUrl(), '/') . "/", '', $url);
+        $url = ltrim($url, '/ ');
+
+
+        foreach ($this->path_exclusion_patterns as $pattern) {
+            $url = preg_replace("/$pattern/", '', $url);
+        }
+
+        $url = trim($url, '/ ');
+
+        return $url;
+    }
+
+    /**
+     * Adding language code to
+     * Already translated URL
+     *
+     * If @language_on_path is true then adding
+     * Language code to beginning of @URL path
+     *
+     * If @language_on_path is false or @URL contains
+     * Script name or directory path then adding only
+     * Query parameter of language
+     *
+     * @param $url
+     * @param $language
+     *
+     * @return bool|mixed|string
+     */
+    public function addLanguageToUrl($url, $language)
+    {
+
+        /**
+         * Make sure @language is valid
+         * */
+        if ( ! $this->validateLanguage($language)) {
+            return false;
+        }
+
+        /**
+         * Add language code to url path
+         * If @language_on_path is true
+         * */
+        if ($this->language_on_path == true && trim($url, '/') == $this->removeScriptNameFromUrl($url)) {
+
+            $url = $this->removeScriptNameFromUrl($url);
+
+            $parts = parse_url($url);
+
+            if ( ! isset($parts['path'])) {
+                $parts['path'] = '';
+            }
+
+            $path_parts = explode('/', $parts['path']);
+            $path_parts = array_filter($path_parts);
+
+            array_unshift($path_parts, $language);
+
+            $parts['path'] = '/' . implode('/', $path_parts);
+
+            $url = URL::buildUrl($parts);
+
+        }
+        /**
+         * Adding query @language variable
+         * */
+        else {
+            $url = URL::addQueryVars($url, $this->language_query_key, $language);
+        }
+
+        return $url;
+    }
+
+    /**
+     * Validate one language
+     * Check if language exists in @accepted_languages array
+     *
+     * @param $language
+     *
+     * @return bool
+     */
+    public function validateLanguage($language)
+    {
+        if (in_array($language, $this->accept_languages)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Validate list of Languages
+     * Check if each language code exists on
+     * Accepted languages list
+     *
+     * @param $languages
+     *
+     * @return bool
+     */
+    public function validateLanguages($languages)
+    {
+        foreach ($languages as $language) {
+            if ( ! $this->validateLanguage($language)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param bool $with_names
+     *
+     * @return array|null
+     */
+    public function getAcceptLanguages($with_names = false)
+    {
+
+        if ( ! $with_names) {
+            return $this->accept_languages;
+        }
+
+        $accept_languages = array_flip($this->accept_languages);
+
+        foreach ($accept_languages as $key => &$language) {
+            $language = $this->languages[$key];
+        }
+
+        return $accept_languages;
+    }
 
     /**
      * Get script url
@@ -273,89 +523,6 @@ class Languages extends Component
         self::$script_url = $str;
 
         return self::$script_url;
-    }
-
-    /**
-     * @return string
-     */
-    private function getCurrentLanguageFromQuery()
-    {
-
-
-        if (isset($_GET[$this->language_query_key])) {
-
-            if ($this->validateLanguage($_GET[$this->language_query_key]) || $_GET[$this->language_query_key] == $this->from_language) {
-                return $_GET[$this->language_query_key];
-            }
-
-        }
-
-        return null;
-    }
-
-    /**
-     * @param $url
-     *
-     * @return mixed|string
-     */
-    public function removeScriptNameFromUrl($url)
-    {
-        $url = ltrim($url, '/ ');
-        $url = preg_replace("/^" . preg_quote($this->getScriptUrl(), '/') . "/", '', $url);
-        $url = ltrim($url, '/ ');
-
-        return $url;
-    }
-
-    /**
-     * @param $language
-     *
-     * @return bool
-     */
-    public function validateLanguage($language)
-    {
-        if (in_array($language, $this->accept_languages)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @param $languages
-     *
-     * @return bool
-     */
-    public function validateLanguages($languages)
-    {
-        foreach ($languages as $language) {
-            if ( ! $this->validateLanguage($language)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param bool $with_names
-     *
-     * @return array|null
-     */
-    public function getAcceptLanguages($with_names = false)
-    {
-
-        if ( ! $with_names) {
-            return $this->accept_languages;
-        }
-
-        $accept_languages = array_flip($this->accept_languages);
-
-        foreach ($accept_languages as $key => &$language) {
-            $language = $this->languages[$key];
-        }
-
-        return $accept_languages;
     }
 
 }

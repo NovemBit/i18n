@@ -8,6 +8,7 @@ namespace NovemBit\i18n;
  * @property  component\Languages   languages
  * @property  component\Request     request
  * @property  component\DB          db
+ * @property  test\Test             test
  */
 class Module extends system\Component
 {

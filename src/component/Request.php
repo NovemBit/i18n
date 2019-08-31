@@ -82,6 +82,14 @@ class Request extends Component
         return $dest;
     }
 
+    private function prepare(){
+
+        $this->language           = $this->getCurrentLanguage();
+        $this->from_language      = $this->getDefaultLanguage();
+        $this->accepted_languages = $this->getAcceptLanguage();
+        $this->dest               = $this->getUrlDest();
+    }
+
     /**
      * Start request
      *
@@ -89,10 +97,7 @@ class Request extends Component
      */
     public function start()
     {
-        $this->language           = $this->getCurrentLanguage();
-        $this->from_language      = $this->getDefaultLanguage();
-        $this->accepted_languages = $this->getAcceptLanguage();
-        $this->dest               = $this->getUrlDest();
+        $this->prepare();
 
         /*var_dump([
             'url_dest'         => $this->getUrlDest(),
@@ -115,6 +120,7 @@ class Request extends Component
         }
 
         $this->source_url = $this->getSourceUrlFromTranslate($this->dest, $this->language);
+
 
         if ($this->dest != null && $this->source_url == null) {
             throw new \Exception("404 Not Found", 404);
