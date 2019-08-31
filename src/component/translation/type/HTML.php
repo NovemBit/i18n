@@ -2,8 +2,10 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use DOMAttr;
 use DOMDocument;
 use DOMElement;
+use DOMText;
 use DOMXPath;
 use Exception;
 use NovemBit\i18n\component\Translation;
@@ -20,7 +22,7 @@ class HTML extends Type
 //clean    public $to_translate_xpath_query_expression = './/*[not(child::*) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
 //    public $to_translate_xpath_query_expression = './/*[not(child::*[not(text()[normalize-space()])]) and (not(self::html) and not(self::body) and not(self::style) and not(self::script) and not(self::body)) and text()[normalize-space()]]';
 //    public $to_translate_xpath_query_expression = './/*[not(child::*)]';
-    public $to_translate_xpath_query_expression = './/text()[normalize-space()] | .//@*';
+    public $to_translate_xpath_query_expression = './/text()[normalize-space()] | .//@*[not(self::fetch_count)]';
 
     private $_to_translate_text = [];
     private $_to_translate_url = [];
@@ -37,7 +39,7 @@ class HTML extends Type
             ['tag' => ['input'], 'attr' => ['placeholder' => '*'], 'translate_attrs' => ['placeholder' => 'text']],
             ['tag' => 'a', 'translate_attrs' => ['href' => 'url'], 'translate_value' => true],
             [
-                'tag'             => ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5'],
+                'tag'             => ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'p'],
                 'translate_attrs' => ['title' => 'text', 'alt' => 'text'],
                 'translate_value' => true
             ],
@@ -100,10 +102,15 @@ class HTML extends Type
 
             $elementNode = $node;
 
-            if($node->nodeType != XML_ELEMENT_NODE){
+            if ($node->nodeType != XML_ELEMENT_NODE) {
                 $elementNode = $node->parentNode;
             }
 
+
+            $fetch_count = $elementNode->hasAttribute('fetch_count') ? (int)
+                                                                       + 1 : 1;
+
+            $elementNode->setAttribute('fetch_count', $fetch_count);
 
             if (isset($rule['tag']) && ! in_array($elementNode->tagName, $rule['tag'])) {
                 continue;
@@ -122,7 +129,9 @@ class HTML extends Type
                 }
             }
 
-            if ($node->nodeType == XML_TEXT_NODE && isset($rule['value']) && ! in_array($node->nodeValue, $rule['value'])) {
+            if ($node->nodeType == XML_TEXT_NODE && isset($rule['value'])
+                && ! in_array($node->nodeValue, $rule['value'])
+            ) {
                 continue;
             }
 
@@ -160,24 +169,26 @@ class HTML extends Type
             $xpath = new DOMXpath($dom);
 
             $tags = $xpath->query($this->to_translate_xpath_query_expression);
-            
+
             $hashes = [];
 
             /** @var DOMElement $tag */
             foreach ($tags as $tag) {
 
 
-                $this->fetchFields($tag, function (&$node, &$rule) use($hashes) {
-                    /** @var DOMElement $trueNode */
+                $this->fetchFields($tag, function (&$node, &$rule) use ($hashes) {
                     /** @var DOMElement $node */
 
-                    if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value']) && $rule['translate_value']) {
-                         $this->_to_translate_text[] = $node->nodeValue;
+                    if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value'])
+                        && $rule['translate_value']
+                    ) {
+                        /** @var DOMText $node */
+                        $this->_to_translate_text[] = $node->data;
                     }
 
                     if ($node->nodeType == XML_ATTRIBUTE_NODE && isset($rule['translate_attrs'])) {
-                        /** @var \DOMAttr $node */
-                        if(isset($rule['translate_attrs'][$node->name])){
+                        /** @var DOMAttr $node */
+                        if (isset($rule['translate_attrs'][$node->name])) {
                             $type = $rule['translate_attrs'][$node->name];
                             if ($type == 'text') {
                                 $this->_to_translate_text[] = $node->value;
@@ -194,6 +205,7 @@ class HTML extends Type
 
             }
         }
+
 
         /*
          * Translate texts with method
@@ -227,21 +239,28 @@ class HTML extends Type
                         /** @var DOMElement $trueNode */
                         /** @var DOMElement $node */
 
-                        if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value']) && $rule['translate_value']) {
-                            $node->nodeValue = $this->_text_translations[$node->nodeValue][$language];
+                        if ($node->nodeType == XML_TEXT_NODE && isset($rule['translate_value'])
+                            && $rule['translate_value']
+                        ) {
+                            /** @var DOMText $node */
+                            if ($this->_text_translations[$node->nodeValue][$language] != null) {
+                                $node->data = $this->_text_translations[$node->nodeValue][$language];
+                            }
                         }
 
                         if ($node->nodeType == XML_ATTRIBUTE_NODE && isset($rule['translate_attrs'])) {
 
-                            /** @var \DOMAttr $node */
-                            if(isset($rule['translate_attrs'][$node->name])){
+                            /** @var DOMAttr $node */
+                            if (isset($rule['translate_attrs'][$node->name])) {
                                 $type = $rule['translate_attrs'][$node->name];
                                 if ($type == 'text') {
-                                    $node->value = $this->_text_translations[$node->value][$language];
+                                    if ($this->_text_translations[$node->value][$language] != null) {
+                                        $node->value = $this->_text_translations[$node->value][$language];
+                                    }
                                 } elseif ($type == 'url') {
-
-                                    if($this->_url_translations[$node->value][$language]!=null){
-                                        $node->value = htmlspecialchars($this->_url_translations[$node->value][$language]);
+                                    if ($this->_url_translations[$node->value][$language] != null) {
+                                        $node->value
+                                            = htmlspecialchars($this->_url_translations[$node->value][$language]);
                                     }
                                 }
                             }
@@ -249,7 +268,6 @@ class HTML extends Type
 
                     });
 
-//                    $this->setTranslatesOnNode($tag, $language);
                 }
 
 
