@@ -14,6 +14,9 @@ $i18n_config['test'] = [
     ],
     'html'   => [
         'class' => \NovemBit\i18n\test\HTML::class
+    ],
+    'html_parser'   => [
+        'class' => \NovemBit\i18n\test\HTMLParser::class
     ]
 ];
 

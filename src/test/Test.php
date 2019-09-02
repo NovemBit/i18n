@@ -12,6 +12,7 @@ use NovemBit\i18n\system\Component;
  * @property  URL    url
  * @property  Language language
  * @property  HTML html
+ * @property  HTMLParser html_parser
  */
 class Test extends Component
 {
