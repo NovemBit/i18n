@@ -42,15 +42,38 @@ class HTML extends Type
             ],
 
             ['rule' => ['tags' => ['title']], 'text' => 'text'],
-            ['rule' => ['tags' => ['button']], 'text' => 'text'],
+            ['rule' => ['tags' => ['button']], 'attrs' => ['data-value' => 'text'], 'text' => 'text'],
             ['rule' => ['tags' => ['input'], 'attrs' => ['type' => ['submit']]], 'attrs' => ['value' => 'text']],
             ['rule' => ['tags' => ['a']], 'attrs' => ['href' => 'url'], 'text' => 'text'],
             [
-                'rule' => ['tags' => ['input']],
+                'rule' => ['tags' => ['input', 'textarea']],
                 'attrs' => ['placeholder' => 'text', 'value' => 'text']
             ],
             [
-                'rule' => ['tags' => ['div', 'label', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'p', 'time']],
+                'rule' => [
+                    'tags' => [
+                        'div',
+                        'strong',
+                        'italic',
+                        'i',
+                        'b',
+                        'label',
+                        'span',
+                        'h1',
+                        'h2',
+                        'h3',
+                        'h4',
+                        'h5',
+                        'h6',
+                        'li',
+                        'p',
+                        'time',
+                        'th',
+                        'td',
+                        'option',
+                        'nav'
+                    ]
+                ],
                 'attrs' => ['title' => 'text', 'alt' => 'text'],
                 'text' => 'text'
             ],
@@ -169,12 +192,16 @@ class HTML extends Type
                         if ($this->_text_translations[$node->data][$language] != null) {
                             if ($type == 'text') {
                                 if ($this->_text_translations[$node->data][$language] != null) {
-                                    $node->data = $this->_text_translations[$node->data][$language];
+                                    $node->data = htmlspecialchars($this->_text_translations[$node->data][$language]);
+                                } else {
+                                    $node->parentNode->setAttribute('i18n_missing_text_text_translation', 'true');
                                 }
                             } elseif ($type == 'url') {
                                 if ($this->_url_translations[$node->data][$language] != null) {
                                     $node->data
                                         = htmlspecialchars($this->_url_translations[$node->data][$language]);
+                                } else {
+                                    $node->parentNode->setAttribute('i18n_missing_text_url_translation', 'true');
                                 }
                             }
                         }
@@ -186,12 +213,16 @@ class HTML extends Type
                         /** @var DOMAttr $node */
                         if ($type == 'text') {
                             if ($this->_text_translations[$node->value][$language] != null) {
-                                $node->value = $this->_text_translations[$node->value][$language];
+                                $node->value = htmlspecialchars($this->_text_translations[$node->value][$language]);
+                            } else {
+                                $node->parentNode->setAttribute('i18n_missing_attribute_text_translation', $node->name);
                             }
                         } elseif ($type == 'url') {
                             if ($this->_url_translations[$node->value][$language] != null) {
                                 $node->value
                                     = htmlspecialchars($this->_url_translations[$node->value][$language]);
+                            } else {
+                                $node->parentNode->setAttribute('i18n_missing_attribute_url_translation', $node->name);
                             }
                         }
                     });

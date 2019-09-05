@@ -21,6 +21,8 @@ class Request extends Component
     public $source_url;
     public $url_translations;
 
+
+    private $type;
     public $types = [
         'text/html' => 'html',
         'application/json' => 'json'
@@ -52,9 +54,26 @@ class Request extends Component
         return null;
     }
 
-    private function getContentType()
+    private function getType()
     {
-        return explode(',', $_SERVER['HTTP_ACCEPT'])[0];
+        $content_type = 'text/html';
+
+        foreach (headers_list() as $header) {
+            if (preg_match('/^content-type:\s+(\w+\/\w+).*?$/i', $header, $matches)) {
+                $content_type = $matches[1];
+            }
+        }
+        return isset($this->types[$content_type]) ? $this->types[$content_type] : 'html';
+
+        /*if(isset($_SERVER['CONTENT_TYPE'])){
+            $type = $_SERVER['CONTENT_TYPE'];
+        } elseif(isset($_SERVER['HTTP_CONTENT_TYPE'])){
+            $type = $_SERVER['HTTP_CONTENT_TYPE'];
+        }
+        else{
+            $type = explode(',', $_SERVER['HTTP_ACCEPT'])[0];
+        }*/
+//        return $type;
     }
 
     /**
@@ -100,6 +119,7 @@ class Request extends Component
         $this->from_language = $this->getDefaultLanguage();
         $this->accepted_languages = $this->getAcceptLanguage();
         $this->dest = $this->getUrlDest();
+
     }
 
     /**
@@ -112,10 +132,10 @@ class Request extends Component
         $this->prepare();
 
         /*var_dump([
-            'url_dest'         => $this->getUrlDest(),
-            'default_language' => $this->getDefaultLanguage(),
-            'current_language' => $this->getCurrentLanguage(),
-            'accept_languages' => $this->getAcceptLanguage()
+            'url_dest' => $this->dest,
+            'from_language' => $this->from_language,
+            'current_language' => $this->language,
+            'accept_languages' => $this->accepted_languages
         ]);*/
 
         /*
@@ -130,6 +150,7 @@ class Request extends Component
 
             return;
         }
+
 
         $this->source_url = $this->getSourceUrlFromTranslate($this->dest, $this->language);
 
@@ -157,6 +178,8 @@ class Request extends Component
 
             $content = ob_get_contents();
 
+            ob_end_clean();
+
             $status = http_response_code();
 
             /*
@@ -170,26 +193,23 @@ class Request extends Component
                 return;
             }
 
-            ob_end_clean();
 
-            $type = isset($this->types[$this->getContentType()]) ? $this->types[$this->getContentType()] : null;
+            $this->type = $this->getType();
 
-            if ($type !== null) {
+
+            if ($this->type !== null) {
                 $content = $this
                     ->context
                     ->translation
                     ->setLanguages([$this->language])
-                    ->{$type}
+                    ->{$this->type}
                     ->translate([$content])[$content][$this->language];
 
-                if ($type == "html") {
-                    $content = preg_replace_callback('/(<head.*?>)(.*)(<\/head>)/s', function ($matches) {
-                        $script = '<script type="application/javascript" id="NovemBit-i18n">' . $this->getXHRManipulationJavaScript() . '</script>';
-                        $matches[2] = $script . $matches[2];
-                        return $matches[1] . $matches[2] . $matches[3];
-                    }, $content, 1);
-//                    var_dump(htmlspecialchars($content));die;
+                if ($this->type == "html") {
+                    $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getXHRManipulationJavaScript(), $content,
+                        1);
                 }
+
             }
 
             echo $content;
@@ -198,18 +218,20 @@ class Request extends Component
 
     }
 
+    /**
+     * @return string
+     */
     private function getXHRManipulationJavaScript()
     {
-        $language_query_key = $this->context->languages->language_query_key;
-        return <<<js
+        $script = <<<js
 (function() {
     /*
     * NovemBit i18n object
     * */
     window.novembit = {
-        'i18n':{
-            'current_language': "$this->language",
-            'language_query_key':"{$this->context->languages->language_query_key}"
+        i18n:{
+            current_language: "{$this->language}",
+            language_query_key:"{$this->context->languages->language_query_key}"
         }
     };
     
@@ -235,6 +257,11 @@ class Request extends Component
         };
     }
     
+    function addParameterToURL(url,key,value){
+        url += (url.split('?')[1] ? '&':'?') + key+'='+value;
+        return url;
+    }
+    
     let valid_hosts = [
     //    'test.com'
     ];
@@ -246,13 +273,17 @@ class Request extends Component
         let cur_parsed = parseURL(window.location.href);
         
         if(req_parsed.host === cur_parsed.host && valid_hosts.indexOf(req_parsed.host)){
-            arguments[1] += '&{$language_query_key}={$this->language}';
+           arguments[1] = addParameterToURL(
+               arguments[1],
+               window.novembit.i18n.language_query_key, 
+               window.novembit.i18n.current_language
+           );
         }
         
         original_xhr.apply(this, arguments);
     }
 })()
 js;
-
+        return '<script type="application/javascript" id="NovemBit-i18n">' . $script . '</script>';
     }
 }

@@ -57,7 +57,7 @@ class HTML
                 /** @var Rule $rule */
                 $rule = $translate_field['rule'];
 
-                if ( ! $rule->validate($node)) {
+                if (!$rule->validate($node)) {
                     continue;
                 }
 
@@ -111,10 +111,6 @@ class HTML
     {
         $html = $this->getHtml();
 
-        if ( ! preg_match('/\<html.*?\>/i', $html)) {
-            $html = '<root>' . $html . '</root>';
-        }
-
         $this->setDom(new DomDocument());
         @$this->getDom()->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -131,8 +127,8 @@ class HTML
     }
 
     /**
-     * @param Rule   $rule
-     * @param array  $attrs
+     * @param Rule $rule
+     * @param array $attrs
      * @param string $text
      */
     public function addTranslateField(Rule $rule, $text = 'text', $attrs = [])
@@ -151,8 +147,9 @@ class HTML
     /**
      * @return string|string[]|null
      */
-    public function save(){
-        return preg_replace('/(^\<root>|\<\/root>$)/', '', $this->getDom()->saveHTML());
+    public function save()
+    {
+        return $this->getDom()->saveHTML();
     }
 
     /**
