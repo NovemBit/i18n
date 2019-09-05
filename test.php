@@ -1,6 +1,6 @@
 <?php
 
-include "autoload.php";
+include __DIR__."/autoload.php";
 
 $i18n_config = include 'config.php';
 
@@ -17,6 +17,12 @@ $i18n_config['test'] = [
     ],
     'html_parser'   => [
         'class' => \NovemBit\i18n\test\HTMLParser::class
+    ],
+    'text'   => [
+        'class' => \NovemBit\i18n\test\Text::class
+    ],
+    'json'   => [
+        'class' => \NovemBit\i18n\test\JSON::class
     ]
 ];
 

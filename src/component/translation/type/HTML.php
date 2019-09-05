@@ -29,54 +29,32 @@ class HTML extends Type
     public $fields_to_translate_
         = [
             [
-                'rule' => [
-                    'tags' => ['title']
-                ],
-                'text' => 'text'
-            ],
-            [
-                'rule' => [
-                    'tags' => ['button']
-                ],
-                'text' => 'text'
-            ],
-            [
-                'rule' => [
-                    'tags' => ['input'],
-                    'attrs' => ['type' => ['submit']]
-                ],
-                'attrs' => ['value' => 'text']
-            ],
-            [
                 'rule' =>
                     [
-                        'tags' => ['input'],
-                        'attrs' => ['placeholder' => ['*']]
-                    ],
-                'attrs' => ['placeholder' => 'text']
+                        'tags' => ['header'],
+                        'attrs' => [
+                            'id' => ['masthead'],
+                            'class' => ['site-header']
+                        ]
+                    ]
+                ,
+                'attrs' => ['id' => 'text']
+            ],
+
+            ['rule' => ['tags' => ['title']], 'text' => 'text'],
+            ['rule' => ['tags' => ['button']], 'text' => 'text'],
+            ['rule' => ['tags' => ['input'], 'attrs' => ['type' => ['submit']]], 'attrs' => ['value' => 'text']],
+            ['rule' => ['tags' => ['a']], 'attrs' => ['href' => 'url'], 'text' => 'text'],
+            [
+                'rule' => ['tags' => ['input']],
+                'attrs' => ['placeholder' => 'text', 'value' => 'text']
             ],
             [
-                'rule' =>
-                    [
-                        'tags' => ['a']
-                    ],
-                'attrs' => ['href' => 'url'],
-                'text' => 'text'
-            ],
-            [
-                'rule' => [
-                    'tags' => ['div', 'label', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'p'],
-                ],
+                'rule' => ['tags' => ['div', 'label', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'p', 'time']],
                 'attrs' => ['title' => 'text', 'alt' => 'text'],
                 'text' => 'text'
             ],
-            [
-                'rule' => [
-                    'tags' => ['form'],
-                ],
-                'attrs' => ['action' => 'url'],
-                'text' => 'text'
-            ],
+            ['rule' => ['tags' => ['form']], 'attrs' => ['action' => 'url'], 'text' => 'text'],
         ];
 
 
@@ -92,7 +70,8 @@ class HTML extends Type
             $rule = new Rule(
                 $field['rule']['tags'] ?? null,
                 $field['rule']['attrs'] ?? null,
-                $field['rule']['texts'] ?? null);
+                $field['rule']['texts'] ?? null
+            );
             $this->getHtmlParser()->addTranslateField($rule, $text, $attrs);
         }
     }
@@ -161,12 +140,10 @@ class HTML extends Type
             );
         }
 
-
         /*
          * Translate texts with method
          * */
         $this->_text_translations = $this->getTextTranslations($this->_to_translate_text);
-
 
         /*
          * Translate urls with method

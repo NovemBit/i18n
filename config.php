@@ -4,7 +4,8 @@ return [
     'translation' => [
         'class'  => NovemBit\i18n\component\Translation::class,
         'method' => [
-            'class'      => NovemBit\i18n\component\translation\method\Dummy::class,
+            'class'      => NovemBit\i18n\component\translation\method\Google::class,
+            'api_key' => 'AIzaSyA3STDoHZLxiaXXgmmlLuQGdX6f9HhXglA',
             'exclusions' => ['barev', 'barev duxov', "hayer",'Hello'],
             'validation' => true,
             'save_translations' => true
@@ -13,7 +14,6 @@ return [
             'class' => NovemBit\i18n\component\translation\type\Text::class,
             'save_translations' => true,
 //                'exclusions' => [ "Hello"],
-            'validation' => false,
         ],
         'url'    => [
             'class' => NovemBit\i18n\component\translation\type\URL::class,
@@ -25,6 +25,10 @@ return [
         ],
         'html'   => [
             'class'             => NovemBit\i18n\component\translation\type\HTML::class,
+            'save_translations' => false
+        ],
+        'json'   => [
+            'class'             => NovemBit\i18n\component\translation\type\JSON::class,
             'save_translations' => false
         ]
     ],

@@ -23,6 +23,7 @@ class Dummy extends Method
      */
     protected function doTranslate(array $texts)
     {
+
         $languages = $this->context->getLanguages();
 
         $result = [];
@@ -36,6 +37,7 @@ class Dummy extends Method
         }
 
         return $result;
+
     }
 
 }

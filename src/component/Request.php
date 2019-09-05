@@ -21,6 +21,11 @@ class Request extends Component
     public $source_url;
     public $url_translations;
 
+    public $types = [
+        'text/html' => 'html',
+        'application/json' => 'json'
+    ];
+
     /**
      * @throws Exception
      */
@@ -45,6 +50,11 @@ class Request extends Component
         }
 
         return null;
+    }
+
+    private function getContentType()
+    {
+        return explode(',', $_SERVER['HTTP_ACCEPT'])[0];
     }
 
     /**
@@ -79,15 +89,17 @@ class Request extends Component
         $dest = trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars($dest, $this->context->languages->language_query_key);
 
+        $dest = urldecode($dest);
         return $dest;
     }
 
-    private function prepare(){
+    private function prepare()
+    {
 
-        $this->language           = $this->getCurrentLanguage();
-        $this->from_language      = $this->getDefaultLanguage();
+        $this->language = $this->getCurrentLanguage();
+        $this->from_language = $this->getDefaultLanguage();
         $this->accepted_languages = $this->getAcceptLanguage();
-        $this->dest               = $this->getUrlDest();
+        $this->dest = $this->getUrlDest();
     }
 
     /**
@@ -136,27 +148,111 @@ class Request extends Component
 
         ob_start();
 
+        /*
+         * Register Shutdown action to take buffer content
+         * And after determine content type do translation
+         *
+         * */
         register_shutdown_function(function () {
-
-            $status = http_response_code();
-
-            if ($status < 200 || $status >= 300) {
-                return;
-            }
 
             $content = ob_get_contents();
 
+            $status = http_response_code();
+
+            /*
+             * If response status is not success
+             * Then print $content and break function
+             * */
+            if ($status < 200 || $status >= 300) {
+
+                echo $content;
+
+                return;
+            }
+
             ob_end_clean();
 
-            $content
-                = $this->context->translation
-                ->setLanguages([$this->language])
-                ->html
-                ->translate([$content])[$content][$this->language];
+            $type = isset($this->types[$this->getContentType()]) ? $this->types[$this->getContentType()] : null;
+
+            if ($type !== null) {
+                $content = $this
+                    ->context
+                    ->translation
+                    ->setLanguages([$this->language])
+                    ->{$type}
+                    ->translate([$content])[$content][$this->language];
+
+                if ($type == "html") {
+                    $content = preg_replace_callback('/(<head.*?>)(.*)(<\/head>)/s', function ($matches) {
+                        $script = '<script type="application/javascript" id="NovemBit-i18n">' . $this->getXHRManipulationJavaScript() . '</script>';
+                        $matches[2] = $script . $matches[2];
+                        return $matches[1] . $matches[2] . $matches[3];
+                    }, $content, 1);
+//                    var_dump(htmlspecialchars($content));die;
+                }
+            }
 
             echo $content;
+
         });
 
     }
 
+    private function getXHRManipulationJavaScript()
+    {
+        $language_query_key = $this->context->languages->language_query_key;
+        return <<<js
+(function() {
+    /*
+    * NovemBit i18n object
+    * */
+    window.novembit = {
+        'i18n':{
+            'current_language': "$this->language",
+            'language_query_key':"{$this->context->languages->language_query_key}"
+        }
+    };
+    
+    function parseURL(url) {
+        let parser = document.createElement('a'),
+            searchObject = {},
+            queries, split, i;
+        parser.href = url;
+        queries = parser.search.replace(/^\?/, '').split('&');
+        for( i = 0; i < queries.length; i++ ) {
+            split = queries[i].split('=');
+            searchObject[split[0]] = split[1];
+        }
+        return {
+            protocol: parser.protocol,
+            host: parser.host,
+            hostname: parser.hostname,
+            port: parser.port,
+            pathname: parser.pathname,
+            search: parser.search,
+            searchObject: searchObject,
+            hash: parser.hash
+        };
+    }
+    
+    let valid_hosts = [
+    //    'test.com'
+    ];
+    
+    let original_xhr = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(){ 
+        
+        let req_parsed = parseURL(arguments[1]);
+        let cur_parsed = parseURL(window.location.href);
+        
+        if(req_parsed.host === cur_parsed.host && valid_hosts.indexOf(req_parsed.host)){
+            arguments[1] += '&{$language_query_key}={$this->language}';
+        }
+        
+        original_xhr.apply(this, arguments);
+    }
+})()
+js;
+
+    }
 }

@@ -13,6 +13,8 @@ use NovemBit\i18n\system\Component;
  * @property  Language language
  * @property  HTML html
  * @property  HTMLParser html_parser
+ * @property  Text text
+ * @property  JSON json
  */
 class Test extends Component
 {
@@ -29,7 +31,7 @@ class Test extends Component
         $class[] = 'row';
         $class = implode(' ', $class);
 
-        $log   = '<div class="' . $class . '">' . $log . '</div>';
+        $log   = '<div class="' . $class . '">' . htmlspecialchars($log ). '</div>';
 
         if ($return == true) {
             return $log;

@@ -6,6 +6,7 @@ namespace NovemBit\i18n\component;
 
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\JSON;
 use NovemBit\i18n\component\translation\type\Text;
 use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\system\exception\Exception;
@@ -17,6 +18,7 @@ use NovemBit\i18n\system\Component;
  * @property Text   $text
  * @property URL    $url
  * @property HTML   $html
+ * @property JSON   $json
  * @property Module $context
  */
 class Translation extends Component
@@ -24,10 +26,6 @@ class Translation extends Component
 
     private $languages;
 
-    function init()
-    {
-
-    }
 
     /**
      * @param array|string $languages
@@ -63,5 +61,8 @@ class Translation extends Component
         }
     }
 
-
+    public function getFromLanguage()
+    {
+        return $this->context->languages->from_language;
+    }
 }

@@ -1,15 +1,11 @@
 <?php
 
-
 namespace NovemBit\i18n\system\parsers\html;
 
-
 use DOMElement;
-use DOMNode;
 
 class Rule
 {
-
     private $tags;
 
     private $attrs;
@@ -36,8 +32,8 @@ class Rule
      */
     public function setTags(array $tags = null)
     {
-        if (is_array($tags)) {
-            $tags = array_unique($tags);
+        if ($tags != null) {
+            $tags = array_unique($tags, SORT_REGULAR);
         }
         $this->tags = $tags;
     }
@@ -47,7 +43,7 @@ class Rule
      */
     public function addTag($tag)
     {
-        if ( ! in_array($tag, $this->tags)) {
+        if (!in_array($tag, $this->tags)) {
             $this->tags[] = $tag;
         }
     }
@@ -65,10 +61,9 @@ class Rule
      */
     public function setAttrs(array $attrs = null)
     {
-        if (is_array($attrs)) {
-            $attrs = array_unique($attrs);
+        if ($attrs != null) {
+            $attrs = array_unique($attrs, SORT_REGULAR);
         }
-
         $this->attrs = $attrs;
     }
 
@@ -78,7 +73,7 @@ class Rule
      */
     public function addAttr($attr, $value)
     {
-        if ( ! in_array($attr, $this->tags)) {
+        if (!in_array($attr, $this->tags)) {
             $this->attrs[$attr] = $value;
         }
     }
@@ -104,7 +99,7 @@ class Rule
      */
     public function addText(string $text)
     {
-        if ( ! in_array($text, $this->texts)) {
+        if (!in_array($text, $this->texts)) {
             $this->texts[] = $text;
         }
     }
@@ -116,7 +111,7 @@ class Rule
      */
     private function validateTag($node)
     {
-        if ($this->getTags() && ! in_array($node->tagName, $this->getTags())) {
+        if ($this->getTags() && !in_array($node->tagName, $this->getTags())) {
             return false;
         }
 
@@ -132,10 +127,10 @@ class Rule
     {
         if ($this->getAttrs()) {
             foreach ($this->getAttrs() as $attribute => $values) {
-                if ( ! $node->hasAttribute($attribute)) {
+                if (!$node->hasAttribute($attribute)) {
                     return false;
                 } else {
-                    if ( ! in_array('*', $values) && ! in_array($node->getAttribute($attribute), $values)) {
+                    if (!in_array('*', $values) && !in_array($node->getAttribute($attribute), $values)) {
                         return false;
                     }
                 }
@@ -156,7 +151,7 @@ class Rule
             foreach ($node->childNodes as $child_node) {
                 if ($child_node->nodeType == XML_TEXT_NODE) {
                     /** @var \DOMText $child_node */
-                    if ( ! in_array($child_node->data, $this->getTexts())) {
+                    if (!in_array($child_node->data, $this->getTexts())) {
                         return false;
                     }
                 }
@@ -177,14 +172,14 @@ class Rule
         /*
          * Validate node tag
          * */
-        if ( ! $this->validateTag($node)) {
+        if (!$this->validateTag($node)) {
             return false;
         }
 
         /*
          * Validate node attributes
          * */
-        if ( ! $this->validateAttrs($node)) {
+        if (!$this->validateAttrs($node)) {
             return false;
         }
 
@@ -192,11 +187,27 @@ class Rule
          * Validate node text
          *
          */
-        if ( ! $this->validateTexts($node)) {
+        if (!$this->validateTexts($node)) {
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNegative(): bool
+    {
+        return $this->negative;
+    }
+
+    /**
+     * @param bool $negative
+     */
+    public function setNegative(bool $negative)
+    {
+        $this->negative = $negative;
     }
 
 
