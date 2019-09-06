@@ -33,7 +33,7 @@ return [
     ],
     'languages'   => [
         'class'            => NovemBit\i18n\component\Languages::class,
-        'accept_languages' => ['hy', 'fr', 'it', 'de', 'ru'],
+        'accept_languages' => ['ar','hy', 'fr', 'it', 'de', 'ru'],
         'path_exclusion_patterns' => [
             '.*\.php',
             '.*wp-admin',

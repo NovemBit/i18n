@@ -30,12 +30,14 @@ class Text extends Type
 	 */
 	public function doTranslate(array $texts){
 
+
 		$translations = $this->context->method->translate($texts);
 		foreach ($translations as $source => &$translation){
 		    foreach ($translation as $language => &$text){
 		        $text = htmlspecialchars_decode($text,ENT_QUOTES | ENT_HTML401 );
             }
         }
+
 		return $translations;
 	}
 

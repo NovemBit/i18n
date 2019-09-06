@@ -37,6 +37,7 @@ class Google extends Method
      */
     protected function doTranslate(array $texts)
     {
+
         $languages = $this->context->getLanguages();
 
         $result = [];
@@ -44,6 +45,7 @@ class Google extends Method
         foreach ($languages as $language) {
             $this->translateOneLanguage($texts, $language, $result);
         }
+
         return $result;
     }
 

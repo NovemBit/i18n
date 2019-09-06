@@ -153,7 +153,6 @@ class URL extends Type
 
                 foreach ($language_path_parts as &$part) {
 
-
                     /*
                      * If translation found
                      * */
@@ -163,7 +162,7 @@ class URL extends Type
                              var_dump('---');
                              var_dump($translations[$part]);
                          }*/
-                        $part = $translations[$part][$language];
+                        $part = isset($translations[$part][$language]) ? $translations[$part][$language] : $part;
                     }
                     /**
                      * If translator returns string that contains
@@ -272,6 +271,8 @@ class URL extends Type
 
     public function validateBeforeReTranslate(&$url)
     {
+        $url = trim($url,' ');
+
         $parts = parse_url($url);
 
         foreach ($this->url_validation_rules as $key => $rules) {
