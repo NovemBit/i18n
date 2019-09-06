@@ -10,7 +10,6 @@
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-pdo": "*",
-    "ext-http": "*",
     "novembit/active-data": "*",
     "google/cloud-translate": "*",
     "ext-json": "*"
