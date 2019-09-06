@@ -22,11 +22,13 @@ class Google extends Method
     /**
      * @throws Exception
      */
-    public function init(){
-        if ( !isset( $this->api_key ) ) {
+    public function init()
+    {
+        if (!isset($this->api_key)) {
             throw new Exception('Missing Google Cloud Translate API key.');
         }
     }
+
     /**
      * @param array $texts
      *
@@ -40,7 +42,7 @@ class Google extends Method
         $result = [];
 
         foreach ($languages as $language) {
-            $this->translateOneLanguage($texts,$language,$result);
+            $this->translateOneLanguage($texts, $language, $result);
         }
         return $result;
     }
@@ -52,7 +54,8 @@ class Google extends Method
      * @param $result
      * @return array|bool
      */
-    public function translateOneLanguage( array $texts , $to, &$result) {
+    public function translateOneLanguage(array $texts, $to, &$result)
+    {
         $source = $this->context->getFromLanguage();
 
         $request_data = array(
@@ -67,23 +70,24 @@ class Google extends Method
                 )
             );
         }*/
-        $gt_client = new  TranslateClient( $request_data );
+        $gt_client = new  TranslateClient($request_data);
 
-        try{
+        try {
             // todo: count the character
-            $chunks = array_chunk( $texts, 100 );
+            $chunks = array_chunk($texts, 100);
             $translations = array();
-            foreach( $chunks as $chunk ){
-                $translations = array_merge( $translations, $gt_client->translateBatch( $chunk ) );
+            foreach ($chunks as $chunk) {
+                $translations = array_merge($translations, $gt_client->translateBatch($chunk));
             }
-        }catch ( GoogleException $e ){
+        } catch (GoogleException $e) {
             return false;
         }
 
-        foreach ($translations as $key => $item){
-
-            $result[$item['input']][$to] = str_replace( array('<span translate="no">', '</span>'),'', $item['text'] );
-
+        foreach ($translations as $key => $item) {
+            $node = str_replace(array('<span translate="no">', '</span>'), '', $item['text']);
+            if (!empty($node)) {
+                $result[$item['input']][$to] = $node;
+            }
         }
         return true;
     }

@@ -56,193 +56,192 @@ class Languages extends Component
     /*
      * iso 639-1 languages list
      * */
-    private $languages
-        = [
-            'ab' => 'Abkhazian',
-            'aa' => 'Afar',
-            'af' => 'Afrikaans',
-            'ak' => 'Akan',
-            'sq' => 'Albanian',
-            'am' => 'Amharic',
-            'ar' => 'Arabic',
-            'an' => 'Aragonese',
-            'hy' => 'Armenian',
-            'as' => 'Assamese',
-            'av' => 'Avaric',
-            'ae' => 'Avestan',
-            'ay' => 'Aymara',
-            'az' => 'Azerbaijani',
-            'bm' => 'Bambara',
-            'ba' => 'Bashkir',
-            'eu' => 'Basque',
-            'be' => 'Belarusian',
-            'bn' => 'Bengali',
-            'bh' => 'Bihari languages',
-            'bi' => 'Bislama',
-            'bs' => 'Bosnian',
-            'br' => 'Breton',
-            'bg' => 'Bulgarian',
-            'my' => 'Burmese',
-            'ca' => 'Catalan, Valencian',
-            'km' => 'Central Khmer',
-            'ch' => 'Chamorro',
-            'ce' => 'Chechen',
-            'ny' => 'Chichewa, Chewa, Nyanja',
-            'zh' => 'Chinese',
-            'cu' => 'Church Slavonic, Old Bulgarian, Old Church Slavonic',
-            'cv' => 'Chuvash',
-            'kw' => 'Cornish',
-            'co' => 'Corsican',
-            'cr' => 'Cree',
-            'hr' => 'Croatian',
-            'cs' => 'Czech',
-            'da' => 'Danish',
-            'dv' => 'Divehi, Dhivehi, Maldivian',
-            'nl' => 'Dutch, Flemish',
-            'dz' => 'Dzongkha',
-            'en' => 'English',
-            'eo' => 'Esperanto',
-            'et' => 'Estonian',
-            'ee' => 'Ewe',
-            'fo' => 'Faroese',
-            'fj' => 'Fijian',
-            'fi' => 'Finnish',
-            'fr' => 'French',
-            'ff' => 'Fulah',
-            'gd' => 'Gaelic, Scottish Gaelic',
-            'gl' => 'Galician',
-            'lg' => 'Ganda',
-            'ka' => 'Georgian',
-            'de' => 'German',
-            'ki' => 'Gikuyu, Kikuyu',
-            'el' => 'Greek (Modern)',
-            'kl' => 'Greenlandic, Kalaallisut',
-            'gn' => 'Guarani',
-            'gu' => 'Gujarati',
-            'ht' => 'Haitian, Haitian Creole',
-            'ha' => 'Hausa',
-            'he' => 'Hebrew',
-            'hz' => 'Herero',
-            'hi' => 'Hindi',
-            'ho' => 'Hiri Motu',
-            'hu' => 'Hungarian',
-            'is' => 'Icelandic',
-            'io' => 'Ido',
-            'ig' => 'Igbo',
-            'id' => 'Indonesian',
-            'ia' => 'Interlingua (International Auxiliary Language Association)',
-            'ie' => 'Interlingue',
-            'iu' => 'Inuktitut',
-            'ik' => 'Inupiaq',
-            'ga' => 'Irish',
-            'it' => 'Italian',
-            'ja' => 'Japanese',
-            'jv' => 'Javanese',
-            'kn' => 'Kannada',
-            'kr' => 'Kanuri',
-            'ks' => 'Kashmiri',
-            'kk' => 'Kazakh',
-            'rw' => 'Kinyarwanda',
-            'kv' => 'Komi',
-            'kg' => 'Kongo',
-            'ko' => 'Korean',
-            'kj' => 'Kwanyama, Kuanyama',
-            'ku' => 'Kurdish',
-            'ky' => 'Kyrgyz',
-            'lo' => 'Lao',
-            'la' => 'Latin',
-            'lv' => 'Latvian',
-            'lb' => 'Letzeburgesch, Luxembourgish',
-            'li' => 'Limburgish, Limburgan, Limburger',
-            'ln' => 'Lingala',
-            'lt' => 'Lithuanian',
-            'lu' => 'Luba-Katanga',
-            'mk' => 'Macedonian',
-            'mg' => 'Malagasy',
-            'ms' => 'Malay',
-            'ml' => 'Malayalam',
-            'mt' => 'Maltese',
-            'gv' => 'Manx',
-            'mi' => 'Maori',
-            'mr' => 'Marathi',
-            'mh' => 'Marshallese',
-            'ro' => 'Moldovan, Moldavian, Romanian',
-            'mn' => 'Mongolian',
-            'na' => 'Nauru',
-            'nv' => 'Navajo, Navaho',
-            'nd' => 'Northern Ndebele',
-            'ng' => 'Ndonga',
-            'ne' => 'Nepali',
-            'se' => 'Northern Sami',
-            'no' => 'Norwegian',
-            'nb' => 'Norwegian Bokmål',
-            'nn' => 'Norwegian Nynorsk',
-            'ii' => 'Nuosu, Sichuan Yi',
-            'oc' => 'Occitan (post 1500)',
-            'oj' => 'Ojibwa',
-            'or' => 'Oriya',
-            'om' => 'Oromo',
-            'os' => 'Ossetian, Ossetic',
-            'pi' => 'Pali',
-            'pa' => 'Panjabi, Punjabi',
-            'ps' => 'Pashto, Pushto',
-            'fa' => 'Persian',
-            'pl' => 'Polish',
-            'pt' => 'Portuguese',
-            'qu' => 'Quechua',
-            'rm' => 'Romansh',
-            'rn' => 'Rundi',
-            'ru' => 'Russian',
-            'sm' => 'Samoan',
-            'sg' => 'Sango',
-            'sa' => 'Sanskrit',
-            'sc' => 'Sardinian',
-            'sr' => 'Serbian',
-            'sn' => 'Shona',
-            'sd' => 'Sindhi',
-            'si' => 'Sinhala, Sinhalese',
-            'sk' => 'Slovak',
-            'sl' => 'Slovenian',
-            'so' => 'Somali',
-            'st' => 'Sotho, Southern',
-            'nr' => 'South Ndebele',
-            'es' => 'Spanish, Castilian',
-            'su' => 'Sundanese',
-            'sw' => 'Swahili',
-            'ss' => 'Swati',
-            'sv' => 'Swedish',
-            'tl' => 'Tagalog',
-            'ty' => 'Tahitian',
-            'tg' => 'Tajik',
-            'ta' => 'Tamil',
-            'tt' => 'Tatar',
-            'te' => 'Telugu',
-            'th' => 'Thai',
-            'bo' => 'Tibetan',
-            'ti' => 'Tigrinya',
-            'to' => 'Tonga (Tonga Islands)',
-            'ts' => 'Tsonga',
-            'tn' => 'Tswana',
-            'tr' => 'Turkish',
-            'tk' => 'Turkmen',
-            'tw' => 'Twi',
-            'ug' => 'Uighur, Uyghur',
-            'uk' => 'Ukrainian',
-            'ur' => 'Urdu',
-            'uz' => 'Uzbek',
-            've' => 'Venda',
-            'vi' => 'Vietnamese',
-            'vo' => 'Volap_k',
-            'wa' => 'Walloon',
-            'cy' => 'Welsh',
-            'fy' => 'Western Frisian',
-            'wo' => 'Wolof',
-            'xh' => 'Xhosa',
-            'yi' => 'Yiddish',
-            'yo' => 'Yoruba',
-            'za' => 'Zhuang, Chuang',
-            'zu' => 'Zulu'
-        ];
+    private $languages = [
+        'ab' => 'Abkhazian',
+        'aa' => 'Afar',
+        'af' => 'Afrikaans',
+        'ak' => 'Akan',
+        'sq' => 'Albanian',
+        'am' => 'Amharic',
+        'ar' => 'Arabic',
+        'an' => 'Aragonese',
+        'hy' => 'Armenian',
+        'as' => 'Assamese',
+        'av' => 'Avaric',
+        'ae' => 'Avestan',
+        'ay' => 'Aymara',
+        'az' => 'Azerbaijani',
+        'bm' => 'Bambara',
+        'ba' => 'Bashkir',
+        'eu' => 'Basque',
+        'be' => 'Belarusian',
+        'bn' => 'Bengali',
+        'bh' => 'Bihari languages',
+        'bi' => 'Bislama',
+        'bs' => 'Bosnian',
+        'br' => 'Breton',
+        'bg' => 'Bulgarian',
+        'my' => 'Burmese',
+        'ca' => 'Catalan, Valencian',
+        'km' => 'Central Khmer',
+        'ch' => 'Chamorro',
+        'ce' => 'Chechen',
+        'ny' => 'Chichewa, Chewa, Nyanja',
+        'zh' => 'Chinese',
+        'cu' => 'Church Slavonic, Old Bulgarian, Old Church Slavonic',
+        'cv' => 'Chuvash',
+        'kw' => 'Cornish',
+        'co' => 'Corsican',
+        'cr' => 'Cree',
+        'hr' => 'Croatian',
+        'cs' => 'Czech',
+        'da' => 'Danish',
+        'dv' => 'Divehi, Dhivehi, Maldivian',
+        'nl' => 'Dutch, Flemish',
+        'dz' => 'Dzongkha',
+        'en' => 'English',
+        'eo' => 'Esperanto',
+        'et' => 'Estonian',
+        'ee' => 'Ewe',
+        'fo' => 'Faroese',
+        'fj' => 'Fijian',
+        'fi' => 'Finnish',
+        'fr' => 'French',
+        'ff' => 'Fulah',
+        'gd' => 'Gaelic, Scottish Gaelic',
+        'gl' => 'Galician',
+        'lg' => 'Ganda',
+        'ka' => 'Georgian',
+        'de' => 'German',
+        'ki' => 'Gikuyu, Kikuyu',
+        'el' => 'Greek (Modern)',
+        'kl' => 'Greenlandic, Kalaallisut',
+        'gn' => 'Guarani',
+        'gu' => 'Gujarati',
+        'ht' => 'Haitian, Haitian Creole',
+        'ha' => 'Hausa',
+        'he' => 'Hebrew',
+        'hz' => 'Herero',
+        'hi' => 'Hindi',
+        'ho' => 'Hiri Motu',
+        'hu' => 'Hungarian',
+        'is' => 'Icelandic',
+        'io' => 'Ido',
+        'ig' => 'Igbo',
+        'id' => 'Indonesian',
+        'ia' => 'Interlingua (International Auxiliary Language Association)',
+        'ie' => 'Interlingue',
+        'iu' => 'Inuktitut',
+        'ik' => 'Inupiaq',
+        'ga' => 'Irish',
+        'it' => 'Italian',
+        'ja' => 'Japanese',
+        'jv' => 'Javanese',
+        'kn' => 'Kannada',
+        'kr' => 'Kanuri',
+        'ks' => 'Kashmiri',
+        'kk' => 'Kazakh',
+        'rw' => 'Kinyarwanda',
+        'kv' => 'Komi',
+        'kg' => 'Kongo',
+        'ko' => 'Korean',
+        'kj' => 'Kwanyama, Kuanyama',
+        'ku' => 'Kurdish',
+        'ky' => 'Kyrgyz',
+        'lo' => 'Lao',
+        'la' => 'Latin',
+        'lv' => 'Latvian',
+        'lb' => 'Letzeburgesch, Luxembourgish',
+        'li' => 'Limburgish, Limburgan, Limburger',
+        'ln' => 'Lingala',
+        'lt' => 'Lithuanian',
+        'lu' => 'Luba-Katanga',
+        'mk' => 'Macedonian',
+        'mg' => 'Malagasy',
+        'ms' => 'Malay',
+        'ml' => 'Malayalam',
+        'mt' => 'Maltese',
+        'gv' => 'Manx',
+        'mi' => 'Maori',
+        'mr' => 'Marathi',
+        'mh' => 'Marshallese',
+        'ro' => 'Moldovan, Moldavian, Romanian',
+        'mn' => 'Mongolian',
+        'na' => 'Nauru',
+        'nv' => 'Navajo, Navaho',
+        'nd' => 'Northern Ndebele',
+        'ng' => 'Ndonga',
+        'ne' => 'Nepali',
+        'se' => 'Northern Sami',
+        'no' => 'Norwegian',
+        'nb' => 'Norwegian Bokmål',
+        'nn' => 'Norwegian Nynorsk',
+        'ii' => 'Nuosu, Sichuan Yi',
+        'oc' => 'Occitan (post 1500)',
+        'oj' => 'Ojibwa',
+        'or' => 'Oriya',
+        'om' => 'Oromo',
+        'os' => 'Ossetian, Ossetic',
+        'pi' => 'Pali',
+        'pa' => 'Panjabi, Punjabi',
+        'ps' => 'Pashto, Pushto',
+        'fa' => 'Persian',
+        'pl' => 'Polish',
+        'pt' => 'Portuguese',
+        'qu' => 'Quechua',
+        'rm' => 'Romansh',
+        'rn' => 'Rundi',
+        'ru' => 'Russian',
+        'sm' => 'Samoan',
+        'sg' => 'Sango',
+        'sa' => 'Sanskrit',
+        'sc' => 'Sardinian',
+        'sr' => 'Serbian',
+        'sn' => 'Shona',
+        'sd' => 'Sindhi',
+        'si' => 'Sinhala, Sinhalese',
+        'sk' => 'Slovak',
+        'sl' => 'Slovenian',
+        'so' => 'Somali',
+        'st' => 'Sotho, Southern',
+        'nr' => 'South Ndebele',
+        'es' => 'Spanish, Castilian',
+        'su' => 'Sundanese',
+        'sw' => 'Swahili',
+        'ss' => 'Swati',
+        'sv' => 'Swedish',
+        'tl' => 'Tagalog',
+        'ty' => 'Tahitian',
+        'tg' => 'Tajik',
+        'ta' => 'Tamil',
+        'tt' => 'Tatar',
+        'te' => 'Telugu',
+        'th' => 'Thai',
+        'bo' => 'Tibetan',
+        'ti' => 'Tigrinya',
+        'to' => 'Tonga (Tonga Islands)',
+        'ts' => 'Tsonga',
+        'tn' => 'Tswana',
+        'tr' => 'Turkish',
+        'tk' => 'Turkmen',
+        'tw' => 'Twi',
+        'ug' => 'Uighur, Uyghur',
+        'uk' => 'Ukrainian',
+        'ur' => 'Urdu',
+        'uz' => 'Uzbek',
+        've' => 'Venda',
+        'vi' => 'Vietnamese',
+        'vo' => 'Volap_k',
+        'wa' => 'Walloon',
+        'cy' => 'Welsh',
+        'fy' => 'Western Frisian',
+        'wo' => 'Wolof',
+        'xh' => 'Xhosa',
+        'yi' => 'Yiddish',
+        'yo' => 'Yoruba',
+        'za' => 'Zhuang, Chuang',
+        'zu' => 'Zulu'
+    ];
 
 
     function init()
@@ -260,52 +259,21 @@ class Languages extends Component
     }
 
     /**
-     * @return string
-     */
-    public function getCurrentLanguage()
-    {
-        $language = null;
-
-        if ($this->language_on_path == true) {
-            $language = $this->getCurrentLanguageFromUrlPath();
-        }
-
-        if ($language == null) {
-            $language = $this->getCurrentLanguageFromQuery();
-        }
-
-        if ($language == null) {
-            $language = $this->default_language;
-        }
-
-        return $language;
-    }
-
-    /**
-     * @return string
-     */
-    private function getCurrentLanguageFromQuery()
-    {
-        if (isset($_GET[$this->language_query_key])) {
-
-            if ($this->validateLanguage($_GET[$this->language_query_key])) {
-                return $_GET[$this->language_query_key];
-            }
-
-        }
-        return null;
-    }
-
-    /**
-     * Get current language from @REQUEST_URI
-     *
+     * @param $url
      * @return string|null
      */
-    private function getCurrentLanguageFromUrlPath(){
-        if ( ! isset($_SERVER["REQUEST_URI"])) {
-            return null;
+    private function getLanguageFromUrlQuery($url)
+    {
+        $parts = parse_url($url);
+
+        if (isset($parts['query'])) {
+            parse_str($parts['query'], $query);
+            if (isset($query[$this->language_query_key]) && $this->validateLanguage($query[$this->language_query_key])) {
+                return $query[$this->language_query_key];
+            }
         }
-        return $this->getLanguageFromUrl($_SERVER["REQUEST_URI"]);
+
+        return null;
     }
 
     /**
@@ -321,33 +289,42 @@ class Languages extends Component
      *
      * @return string
      */
-    private function getLanguageFromUrl($url)
+    public function getLanguageFromUrlPath($url)
     {
         $url = $this->removeScriptNameFromUrl($url);
 
         $uri_parts = parse_url($url);
 
-        if ( ! isset($uri_parts['path'])) {
+        if (!isset($uri_parts['path'])) {
             return null;
         }
 
-        $path = explode('/', $uri_parts['path']);
+        $path = explode('/', trim($uri_parts['path'], '/'));
 
         if (isset($path[0]) && $this->validateLanguage($path[0])) {
 
             $language = $path[0];
-
-            unset($path[0]);
-
-            $uri_parts['path'] = implode('/', $path);
-
-            $_SERVER["REQUEST_URI"] = URL::buildUrl($uri_parts);
 
             return $language;
 
         }
 
         return null;
+    }
+
+    /**
+     * @param $url
+     * @return string|null
+     */
+    public function getLanguageFromUrl($url)
+    {
+        $language = $this->getLanguageFromUrlQuery($url);
+
+        if ($language == null && $this->language_on_path) {
+            $language = $this->getLanguageFromUrlPath($url);
+        }
+
+        return $language;
     }
 
     /**
@@ -360,7 +337,6 @@ class Languages extends Component
         $url = ltrim($url, '/ ');
         $url = preg_replace("/^" . preg_quote($this->getScriptUrl(), '/') . "/", '', $url);
         $url = ltrim($url, '/ ');
-
 
         foreach ($this->path_exclusion_patterns as $pattern) {
             $url = preg_replace("/$pattern/", '', $url);
@@ -393,7 +369,7 @@ class Languages extends Component
         /**
          * Make sure @language is valid
          * */
-        if ( ! $this->validateLanguage($language)) {
+        if (!$this->validateLanguage($language)) {
             return false;
         }
 
@@ -407,7 +383,7 @@ class Languages extends Component
 
             $parts = parse_url($url);
 
-            if ( ! isset($parts['path'])) {
+            if (!isset($parts['path'])) {
                 $parts['path'] = '';
             }
 
@@ -420,8 +396,7 @@ class Languages extends Component
 
             $url = URL::buildUrl($parts);
 
-        }
-        /**
+        } /**
          * Adding query @language variable
          * */
         else {
@@ -460,7 +435,7 @@ class Languages extends Component
     public function validateLanguages($languages)
     {
         foreach ($languages as $language) {
-            if ( ! $this->validateLanguage($language)) {
+            if (!$this->validateLanguage($language)) {
                 return false;
             }
         }
@@ -476,7 +451,7 @@ class Languages extends Component
     public function getAcceptLanguages($with_names = false)
     {
 
-        if ( ! $with_names) {
+        if (!$with_names) {
             return $this->accept_languages;
         }
 
@@ -502,7 +477,7 @@ class Languages extends Component
             return self::$script_url;
         }
 
-        if ( ! isset($_SERVER['REQUEST_URI']) || ! isset($_SERVER['SCRIPT_NAME'])) {
+        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
             return null;
         }
 

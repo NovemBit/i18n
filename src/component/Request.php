@@ -2,7 +2,6 @@
 
 namespace NovemBit\i18n\component;
 
-
 use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
@@ -13,28 +12,16 @@ use NovemBit\i18n\system\helpers\URL;
  */
 class Request extends Component
 {
+    private $translation;
+    private $language;
+    private $destination;
+    private $source_url;
+    private $url_translations;
 
-    public $language;
-    public $dest;
-    public $from_language;
-    public $accepted_languages;
-    public $source_url;
-    public $url_translations;
-
-
-    private $type;
     public $types = [
         'text/html' => 'html',
         'application/json' => 'json'
     ];
-
-    /**
-     * @throws Exception
-     */
-    function init()
-    {
-
-    }
 
     /**
      * @param $translate
@@ -54,72 +41,123 @@ class Request extends Component
         return null;
     }
 
+    /**
+     * @return mixed|string
+     */
     private function getType()
     {
         $content_type = 'text/html';
-
         foreach (headers_list() as $header) {
             if (preg_match('/^content-type:\s+(\w+\/\w+).*?$/i', $header, $matches)) {
                 $content_type = $matches[1];
             }
         }
         return isset($this->types[$content_type]) ? $this->types[$content_type] : 'html';
-
-        /*if(isset($_SERVER['CONTENT_TYPE'])){
-            $type = $_SERVER['CONTENT_TYPE'];
-        } elseif(isset($_SERVER['HTTP_CONTENT_TYPE'])){
-            $type = $_SERVER['HTTP_CONTENT_TYPE'];
-        }
-        else{
-            $type = explode(',', $_SERVER['HTTP_ACCEPT'])[0];
-        }*/
-//        return $type;
     }
 
-    /**
-     * @return string
-     */
-    private function getCurrentLanguage()
-    {
-        return $this->context->languages->getCurrentLanguage();
-    }
-
-    /**
-     * @return string
-     */
-    private function getDefaultLanguage()
-    {
-        return $this->context->languages->from_language;
-    }
-
-    /**
-     * @return array|null
-     */
-    private function getAcceptLanguage()
-    {
-        return $this->context->languages->getAcceptLanguages();
-    }
-
-    /**
-     * @return mixed
-     */
-    private function getUrlDest()
+    private function prepareDestination()
     {
         $dest = trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars($dest, $this->context->languages->language_query_key);
-
         $dest = urldecode($dest);
-        return $dest;
+        $this->setDestination($dest);
+        return true;
     }
 
-    private function prepare()
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    private function prepareSourceUrl()
     {
 
-        $this->language = $this->getCurrentLanguage();
-        $this->from_language = $this->getDefaultLanguage();
-        $this->accepted_languages = $this->getAcceptLanguage();
-        $this->dest = $this->getUrlDest();
+        /*
+         * If current language is default language
+         * Then translate current url for all languages
+         * */
+        if ($this->getLanguage() == $this->context->languages->from_language) {
+            $this->setUrlTranslations(
+                $this->context->translation
+                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->url->translate([$this->getDestination()])
+            );
+            return false;
+        }
 
+        $this->setTranslation(
+            $this
+                ->context
+                ->translation
+                ->setLanguages([$this->getLanguage()])
+        );
+
+        $this->setSourceUrl($this->getSourceUrlFromTranslate(
+            $this->getDestination(),
+            $this->getLanguage())
+        );
+
+        $_SERVER['REQUEST_URI'] = '/' . $this->source_url;
+
+        if ($this->getDestination() != null && $this->getSourceUrl() == null) {
+            throw new \Exception("404 Not Found", 404);
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws \NovemBit\i18n\system\exception\Exception
+     * @throws Exception
+     */
+    private function prepare()
+    {
+        return $this->prepareLanguage() && $this->prepareDestination() && $this->prepareSourceUrl();
+    }
+
+    /**
+     * @throws \NovemBit\i18n\system\exception\Exception
+     * @throws Exception
+     */
+    private function prepareLanguage()
+    {
+        /*
+         * Check if tried to access from cli
+         * */
+        if (!isset($_SERVER['REQUEST_URI'])) {
+            throw new \NovemBit\i18n\system\exception\Exception('Access without http request was denied.');
+        }
+
+        /**
+         * Taking language from current @REQUEST_URI
+         * */
+        $language = $this->context->languages->getLanguageFromUrl($_SERVER['REQUEST_URI']);
+
+        /**
+         * If language does not exists in @URL
+         * */
+        if ($language == null) {
+            $language = $this->context->languages->from_language;
+        }
+
+        /*
+         * Setting current instance language
+         * */
+        $this->setLanguage($language);
+
+        /*
+         * Remove Language from URI
+         * */
+        $parts = parse_url(trim($_SERVER['REQUEST_URI'], '/'));
+        if (isset($parts['path'])) {
+            $path = explode('/', $parts['path']);
+            if ($this->context->languages->validateLanguage($path[0])) {
+                unset($path[0]);
+            }
+            $parts['path'] = implode('/', $path);
+            $_SERVER["REQUEST_URI"] = URL::buildUrl($parts);
+        }
+
+        return true;
     }
 
     /**
@@ -129,50 +167,26 @@ class Request extends Component
      */
     public function start()
     {
-        $this->prepare();
-
-        /*var_dump([
-            'url_dest' => $this->dest,
-            'from_language' => $this->from_language,
-            'current_language' => $this->language,
-            'accept_languages' => $this->accepted_languages
-        ]);*/
-
-        /*
-         * If current language is default language
-         * Then translate current url for all languages
-         * */
-        if ($this->language == $this->from_language) {
-            $this->url_translations
-                = $this->context->translation
-                ->setLanguages($this->accepted_languages)
-                ->url->translate([$this->dest]);
-
+        if (!$this->prepare()) {
             return;
         }
 
-
-        $this->source_url = $this->getSourceUrlFromTranslate($this->dest, $this->language);
-
-
-        if ($this->dest != null && $this->source_url == null) {
-            throw new \Exception("404 Not Found", 404);
-        }
-
         /*var_dump([
-            'source_url'         => $this->source_url
+            'url_dest' => $this->getDestination(),
+            'from_language' => $this->context->languages->from_language,
+            'language' => $this->getLanguage(),
+            'source_url'=>$this->getSourceUrl()
         ]);*/
+
         /*
          * Manipulating REQUEST_URI
          * */
-        $_SERVER['REQUEST_URI'] = '/' . $this->source_url;
 
         ob_start();
 
-        /*
+        /**
          * Register Shutdown action to take buffer content
          * And after determine content type do translation
-         *
          * */
         register_shutdown_function(function () {
 
@@ -183,37 +197,31 @@ class Request extends Component
             $status = http_response_code();
 
             /*
-             * If response status is not success
-             * Then print $content and break function
+             * If response status is success
              * */
-            if ($status < 200 || $status >= 300) {
+            if (in_array($status, range(200, 299))) {
 
-                echo $content;
+                $type = $this->getType();
 
-                return;
-            }
+                if ($type !== null) {
 
+                    /*
+                     * Translate content
+                     * */
+                    $content = $this
+                        ->getTranslation()
+                        ->{$type}
+                        ->translate([$content])[$content][$this->getLanguage()];
 
-            $this->type = $this->getType();
+                    if ($type == "html") {
+                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getXHRManipulationJavaScript(), $content,
+                            1);
+                    }
 
-
-            if ($this->type !== null) {
-                $content = $this
-                    ->context
-                    ->translation
-                    ->setLanguages([$this->language])
-                    ->{$this->type}
-                    ->translate([$content])[$content][$this->language];
-
-                if ($this->type == "html") {
-                    $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getXHRManipulationJavaScript(), $content,
-                        1);
                 }
-
             }
 
             echo $content;
-
         });
 
     }
@@ -230,7 +238,7 @@ class Request extends Component
     * */
     window.novembit = {
         i18n:{
-            current_language: "{$this->language}",
+            current_language: "{$this->getLanguage()}",
             language_query_key:"{$this->context->languages->language_query_key}"
         }
     };
@@ -285,5 +293,85 @@ class Request extends Component
 })()
 js;
         return '<script type="application/javascript" id="NovemBit-i18n">' . $script . '</script>';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+
+    /**
+     * @param mixed $destination
+     */
+    private function setDestination($destination)
+    {
+        $this->destination = $destination;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSourceUrl()
+    {
+        return $this->source_url;
+    }
+
+    /**
+     * @param mixed $source_url
+     */
+    private function setSourceUrl($source_url)
+    {
+        $this->source_url = $source_url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlTranslations()
+    {
+        return $this->url_translations;
+    }
+
+    /**
+     * @param mixed $url_translations
+     */
+    private function setUrlTranslations($url_translations)
+    {
+        $this->url_translations = $url_translations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    private function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @return Translation
+     */
+    public function getTranslation()
+    {
+        return $this->translation;
+    }
+
+    /**
+     * @param Translation $translation
+     */
+    private function setTranslation(Translation $translation)
+    {
+        $this->translation = $translation;
     }
 }

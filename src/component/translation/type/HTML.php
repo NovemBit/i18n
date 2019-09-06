@@ -47,7 +47,7 @@ class HTML extends Type
             ['rule' => ['tags' => ['a']], 'attrs' => ['href' => 'url'], 'text' => 'text'],
             [
                 'rule' => ['tags' => ['input', 'textarea']],
-                'attrs' => ['placeholder' => 'text', 'value' => 'text']
+                'attrs' => ['placeholder' => 'text']
             ],
             [
                 'rule' => [
@@ -71,7 +71,8 @@ class HTML extends Type
                         'th',
                         'td',
                         'option',
-                        'nav'
+                        'nav',
+                        'img'
                     ]
                 ],
                 'attrs' => ['title' => 'text', 'alt' => 'text'],

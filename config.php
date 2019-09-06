@@ -1,6 +1,5 @@
 <?php
 return [
-
     'translation' => [
         'class'  => NovemBit\i18n\component\Translation::class,
         'method' => [
