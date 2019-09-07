@@ -390,9 +390,13 @@ class Languages extends Component
             $path_parts = explode('/', $parts['path']);
             $path_parts = array_filter($path_parts);
 
-            array_unshift($path_parts, $language);
-
-            $parts['path'] = '/' . implode('/', $path_parts);
+            if (
+                (!empty($path_parts) || !empty($parts['query']))
+                || (empty($path_parts) && !isset ($parts['fragment']))
+            ) {
+                array_unshift($path_parts, $language);
+                $parts['path'] = '/' . implode('/', $path_parts);
+            }
 
             $url = URL::buildUrl($parts);
 
