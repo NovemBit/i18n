@@ -17,8 +17,6 @@ class URL extends Type
 
     public $path_lowercase = true;
 
-    public $alias_domains = [];
-
     public $validation = true;
 
     /**
@@ -259,11 +257,12 @@ class URL extends Type
          * */
         $string = trim($string, $this->path_separator);
 
-        if ($this->path_lowercase !== false) {
+        if ($this->path_lowercase) {
+
             /**
              * String to lowercase
              * */
-            $string = strtolower($string);
+            $string = mb_strtolower($string);
         }
 
         return $string;

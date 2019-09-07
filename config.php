@@ -24,7 +24,7 @@ return [
         ],
         'html'   => [
             'class'             => NovemBit\i18n\component\translation\type\HTML::class,
-            'save_translations' => false
+            'save_translations' => false,
         ],
         'json'   => [
             'class'             => NovemBit\i18n\component\translation\type\JSON::class,
@@ -36,6 +36,7 @@ return [
         'accept_languages' => ['ar','hy', 'fr', 'it', 'de', 'ru'],
         'path_exclusion_patterns' => [
             '.*\.php',
+            '.*\.jpg',
             '.*wp-admin',
         ],
     ],
