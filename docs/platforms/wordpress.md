@@ -1,4 +1,16 @@
-<?php
+# wp-config.php file configuration
+```php
+include_once 'i18n/autoload.php';
+
+$i18n_config = include 'i18n/config.php';
+
+$i18n = new NovemBit\i18n\Module($i18n_config);
+
+$i18n->request->start();
+```
+
+# MU plugin setup
+```php
 add_filter('redirect_canonical', function () {
     return false;
 }, 10, 2);
@@ -19,3 +31,4 @@ function i18n_redirect_fix($url)
 
 add_filter('wp_redirect', 'i18n_redirect_fix');
 add_filter('wp_safe_redirect', 'i18n_redirect_fix');
+```
