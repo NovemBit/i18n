@@ -72,7 +72,7 @@ class URL
         $user     = ($parts['user'] ?? '');
         $pass     = isset($parts['pass']) ? (':' . $parts['pass']) : '';
         $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = ($parts['path'] ?? '');
+        $path     = isset($parts['path']) && !empty($parts['path']) ? '/'.ltrim($parts['path'],'/')  : '';
         $query    = isset($parts['query']) && ! empty($parts['query']) ? ('?' . $parts['query']) : '';
         $fragment = isset($parts['fragment']) ? ('#' . $parts['fragment']) : '';
 

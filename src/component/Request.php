@@ -57,7 +57,7 @@ class Request extends Component
 
     private function prepareDestination()
     {
-        $dest = trim($_SERVER['REQUEST_URI'], '/');
+        $dest = '/'.trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars($dest, $this->context->languages->language_query_key);
         $dest = urldecode($dest);
         $this->setDestination($dest);
@@ -79,7 +79,7 @@ class Request extends Component
             $this->setUrlTranslations(
                 $this->context->translation
                     ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->url->translate([$this->getDestination()])
+                    ->url->translate([$this->getDestination()])[$this->getDestination()]
             );
             return false;
         }
@@ -96,7 +96,13 @@ class Request extends Component
             $this->getLanguage())
         );
 
-        $_SERVER['REQUEST_URI'] = '/' . $this->source_url;
+        $this->setUrlTranslations(
+            $this->context->translation
+                ->setLanguages($this->context->languages->getAcceptLanguages())
+                ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
+        );
+
+        $_SERVER['REQUEST_URI'] = $this->source_url;
 
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
             throw new \Exception("404 Not Found", 404);
@@ -214,7 +220,7 @@ class Request extends Component
                         ->translate([$content])[$content][$this->getLanguage()];
 
                     if ($type == "html") {
-                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getXHRManipulationJavaScript(), $content,
+                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(), $content,
                             1);
                     }
 
@@ -229,7 +235,24 @@ class Request extends Component
     /**
      * @return string
      */
-    private function getXHRManipulationJavaScript()
+    private function getHeadAdditionalTags(){
+        $tags = '';
+        $tags.=$this->getXHRManipulationJavaScriptTag();
+        $tags.=$this->getAlternateLinkTags();
+        return $tags;
+    }
+
+    private function getAlternateLinkTags(){
+        $tags = '';
+        foreach($this->getUrlTranslations() as $language => $translate){
+            $tags.= sprintf("<link rel=\"alternate\" hreflang=\"%s\" href=\"%s\">", $language, $translate);
+        }
+        return $tags;
+    }
+    /**
+     * @return string
+     */
+    private function getXHRManipulationJavaScriptTag()
     {
         $script = <<<js
 (function() {
