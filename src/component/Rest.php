@@ -63,8 +63,8 @@ class Rest extends Component
     }
 
     private function validateAPI(){
-        if(isset($_GET['key']) && in_array($_GET['key'],$this->api_keys)){
-            $this->api_key = $_GET['key'];
+        if(isset($_GET['api_key']) && in_array($_GET['api_key'],$this->api_keys)){
+            $this->api_key = $_GET['api_key'];
         }
     }
 

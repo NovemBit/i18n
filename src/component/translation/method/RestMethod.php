@@ -20,6 +20,7 @@ class RestMethod extends Method
     public $remote_path = 'i18n/rest/v1';
 
     public $api_key;
+
     /**
      * @param array $texts
      *
@@ -32,25 +33,27 @@ class RestMethod extends Method
 
         /* API URL */
         $url = URL::buildUrl([
-            'schema'=>$this->ssl ? "https" : "http",
-            'host'=>$this->remote_host,
-            'path'=>$this->remote_path,
-            'query'=>'api_key='.$this->api_key
+            'scheme' => $this->ssl ? "https" : "http",
+            'host' => $this->remote_host,
+            'path' => $this->remote_path . "/translate",
+            'query' => 'api_key=' . $this->api_key
         ]);
 
-        var_dump($url);die;
 
         /* Init cURL resource */
         $ch = curl_init($url);
 
         /* Array Parameter Data */
-        $data = ['languages'=>$this->context->getLanguages(), 'email'=>'itsolutionstuff@gmail.com'];
+        $data = http_build_query(['languages' => $this->context->getLanguages(), 'texts' => $texts]);
 
+//        var_dump($data);
         /* pass encoded JSON string to the POST fields */
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
         /* set the content type json */
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
 
         /* set return type json */
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -60,6 +63,8 @@ class RestMethod extends Method
 
         /* close cURL resource */
         curl_close($ch);
+
+        $result = json_decode($result,true);
 
         return $result;
 
