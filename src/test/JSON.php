@@ -15,7 +15,7 @@ class JSON extends Component
 
     private $nodes
         = [
-            '{ "name":"John", "age":30, "car":null, "demoHtml":"<p>hello<span> Dear</span></p>" }',
+            '{ "name":"https://wp.me/checkout/order-received/186/?key=wc_order_UBqCvQGimFJIo", "age":30, "car":null, "demoHtml":"<p>hello<span> Dear</span></p>" }',
             '{ "name":"John", "age":30, "cars": { "car1":"Ford", "car2":"BMW", "car3":"Fiat" } }'
         ];
 

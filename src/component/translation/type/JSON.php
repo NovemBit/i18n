@@ -33,6 +33,8 @@ class JSON extends Type
             array_walk_recursive($object, function (&$item, $key) use(&$to_translate){
                 if(self::isHTML($item)){
                     $to_translate['html'][] = $item;
+                } elseif(self::isURL($item)){
+                    $to_translate['url'][] = $item;
                 }
             });
         }
@@ -48,6 +50,8 @@ class JSON extends Type
                 array_walk_recursive($object, function (&$item, $key) use($translations,$language) {
                     if(self::isHTML($item)){
                         $item = isset($translations['html'][$item][$language]) ? $translations['html'][$item][$language] :$item;
+                    } elseif(self::isURL($item)){
+                        $item = isset($translations['url'][$item][$language]) ? $translations['url'][$item][$language] :$item;
                     }
                 });
                 $result[$json][$language] =json_encode($object);
@@ -73,5 +77,9 @@ class JSON extends Type
 
     private static function isHTML($string){
         return $string != strip_tags($string);
+    }
+
+    private static function isURL($string){
+        return filter_var($string, FILTER_VALIDATE_URL);
     }
 }

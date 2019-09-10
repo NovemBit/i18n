@@ -3,6 +3,7 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use DOMAttr;
+use DOMElement;
 use DOMText;
 use Exception;
 use NovemBit\i18n\component\Translation;
@@ -13,10 +14,7 @@ use NovemBit\i18n\system\parsers\html\Rule;
  */
 class HTML extends Type
 {
-
     public $type = 3;
-
-    public $to_translate_xpath_query_expression = './/*[ @* or text()]';
 
     private $_to_translate_text = [];
     private $_to_translate_url = [];
@@ -26,76 +24,24 @@ class HTML extends Type
 
     private $html_parser;
 
-    public $fields_to_translate_
-        = [
-            [
-                'rule' =>
-                    [
-                        'tags' => ['header'],
-                        'attrs' => [
-                            'id' => ['masthead'],
-                            'class' => ['site-header']
-                        ]
-                    ]
-                ,
-                'attrs' => ['id' => 'text']
-            ],
-
-            ['rule' => ['tags' => ['title']], 'text' => 'text'],
-            ['rule' => ['tags' => ['button']], 'attrs' => ['data-value' => 'text'], 'text' => 'text'],
-            ['rule' => ['tags' => ['input'], 'attrs' => ['type' => ['submit']]], 'attrs' => ['value' => 'text']],
-            ['rule' => ['tags' => ['a']], 'attrs' => ['href' => 'url'], 'text' => 'text'],
-            [
-                'rule' => ['tags' => ['input', 'textarea']],
-                'attrs' => ['placeholder' => 'text']
-            ],
-            [
-                'rule' => [
-                    'tags' => [
-                        'div',
-                        'strong',
-                        'italic',
-                        'i',
-                        'b',
-                        'label',
-                        'span',
-                        'h1',
-                        'h2',
-                        'h3',
-                        'h4',
-                        'h5',
-                        'h6',
-                        'li',
-                        'p',
-                        'time',
-                        'th',
-                        'td',
-                        'option',
-                        'nav',
-                        'img'
-                    ]
-                ],
-                'attrs' => ['title' => 'text', 'alt' => 'text'],
-                'text' => 'text'
-            ],
-            ['rule' => ['tags' => ['form']], 'attrs' => ['action' => 'url'], 'text' => 'text'],
-        ];
-
+    public $fields_to_translate = [];
 
     public function init()
     {
 
         $this->setHtmlParser(new \NovemBit\i18n\system\parsers\HTML());
 
-        foreach ($this->fields_to_translate_ as $field) {
+        foreach ($this->fields_to_translate as $field) {
             $text = isset($field['text']) ? $field['text'] : 'text';
             $attrs = isset($field['attrs']) ? $field['attrs'] : [];
 
             $rule = new Rule(
                 $field['rule']['tags'] ?? null,
                 $field['rule']['attrs'] ?? null,
-                $field['rule']['texts'] ?? null
+                $field['rule']['texts'] ?? null,
+                $field['rule']['mode'] ?? 'in'
             );
+
             $this->getHtmlParser()->addTranslateField($rule, $text, $attrs);
         }
     }
@@ -189,24 +135,28 @@ class HTML extends Type
                          * */
                     function (&$node, $type) use ($language) {
                         /** @var DOMText $node */
-
                         if ($this->_text_translations[$node->data][$language] != null) {
                             if ($type == 'text') {
                                 if ($this->_text_translations[$node->data][$language] != null) {
                                     $node->data = htmlspecialchars($this->_text_translations[$node->data][$language]);
                                 } else {
-                                    $node->parentNode->setAttribute('i18n_missing_text_text_translation', 'true');
+                                    /** @var DOMElement $parent */
+                                    $parent = $node->parentNode;
+                                    $parent->setAttribute('i18n_missing_text_text_translation', 'true');
                                 }
                             } elseif ($type == 'url') {
                                 if ($this->_url_translations[$node->data][$language] != null) {
                                     $node->data
                                         = htmlspecialchars($this->_url_translations[$node->data][$language]);
                                 } else {
-                                    $node->parentNode->setAttribute('i18n_missing_text_url_translation', 'true');
+                                    /** @var DOMElement $parent */
+                                    $parent = $node->parentNode;
+                                    $parent->setAttribute('i18n_missing_text_url_translation', 'true');
                                 }
                             }
                         }
                     },
+
                     /*
                      * Callback for Attribute nodes
                      * */
@@ -216,14 +166,18 @@ class HTML extends Type
                             if ($this->_text_translations[$node->value][$language] != null) {
                                 $node->value = htmlspecialchars($this->_text_translations[$node->value][$language]);
                             } else {
-                                $node->parentNode->setAttribute('i18n_missing_attribute_text_translation', $node->name);
+                                /** @var DOMElement $parent */
+                                $parent = $node->parentNode;
+                                $parent->setAttribute('i18n_missing_attribute_text_translation', $node->name);
                             }
                         } elseif ($type == 'url') {
                             if ($this->_url_translations[$node->value][$language] != null) {
                                 $node->value
                                     = htmlspecialchars($this->_url_translations[$node->value][$language]);
                             } else {
-                                $node->parentNode->setAttribute('i18n_missing_attribute_url_translation', $node->name);
+                                /** @var DOMElement $parent */
+                                $parent = $node->parentNode;
+                                $parent->setAttribute('i18n_missing_attribute_url_translation', $node->name);
                             }
                         }
                     });

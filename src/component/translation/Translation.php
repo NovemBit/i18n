@@ -400,7 +400,7 @@ abstract class Translation extends Component
             }
         }
 
-        unset($this->_translate_original_texts);
+        $this->_translate_original_texts = [];
     }
 
     /**
