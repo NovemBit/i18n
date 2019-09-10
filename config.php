@@ -83,6 +83,10 @@ return [
     'request' => [
         'class' => NovemBit\i18n\component\Request::class,
     ],
+     'rest' => [
+        'class' => NovemBit\i18n\component\Rest::class,
+    ],
+
     'db' => [
         'class' => NovemBit\i18n\system\components\DB::class,
         'pdo' => 'sqlite:' . __DIR__ . '/runtime/db/BLi18n.db',
