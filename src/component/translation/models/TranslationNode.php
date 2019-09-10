@@ -4,6 +4,7 @@ namespace NovemBit\i18n\component\translation\models;
 
 
 use NovemBit\ActiveData;
+use NovemBit\i18n\Module;
 use PDO;
 
 /**
@@ -22,12 +23,11 @@ class TranslationNode extends ActiveData {
     public static $table_name = "bli18n_translations";
 
     public static function pdo() {
-		global $i18n;
-		$i18n->db
+        Module::instance()->db
 			->pdo()
 			->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-		return $i18n->db->pdo();
+		return Module::instance()->db->pdo();
 	}
 
     /**

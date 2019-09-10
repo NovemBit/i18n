@@ -12,7 +12,8 @@
     "ext-pdo": "*",
     "novembit/active-data": "*",
     "google/cloud-translate": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
   },

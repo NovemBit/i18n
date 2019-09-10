@@ -30,3 +30,9 @@ try {
 } catch ( Exception $e ) {
 	throw new Exception( 'Cannot include i18n php file.' );
 }
+
+$i18n_config = include 'config.php';
+
+NovemBit\i18n\Module::instance($i18n_config);
+
+NovemBit\i18n\Module::instance()->start();

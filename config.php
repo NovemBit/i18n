@@ -3,8 +3,14 @@ return [
     'translation' => [
         'class' => NovemBit\i18n\component\Translation::class,
         'method' => [
-            'class' => NovemBit\i18n\component\translation\method\Google::class,
+            /*'class' => NovemBit\i18n\component\translation\method\Google::class,
             'api_key' => 'AIzaSyA3STDoHZLxiaXXgmmlLuQGdX6f9HhXglA',
+            'exclusions' => ['barev', 'barev duxov', "hayer", 'Hello'],
+            'validation' => true,
+            'save_translations' => true,*/
+
+            'class' => NovemBit\i18n\component\translation\method\RestMethod::class,
+            'api_key' => 'test_key_123',
             'exclusions' => ['barev', 'barev duxov', "hayer", 'Hello'],
             'validation' => true,
             'save_translations' => true
@@ -82,6 +88,12 @@ return [
     ],
     'request' => [
         'class' => NovemBit\i18n\component\Request::class,
+    ],
+    'rest' => [
+        'class' => NovemBit\i18n\component\Rest::class,
+        'api_keys'=>[
+            'demo_key_123'
+        ]
     ],
     'db' => [
         'class' => NovemBit\i18n\system\components\DB::class,
