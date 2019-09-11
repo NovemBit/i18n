@@ -113,8 +113,10 @@ class HTML extends Type
                  * Callback for Text nodes
                  * */
                     function (&$node, $type) use ($language) {
-                        /** @var DOMText $node */
-                        /** @var DOMElement $parent */
+                        /**
+                         * @var DOMText $node
+                         * @var DOMElement $parent
+                         */
                         $parent = $node->parentNode;
                         $parent->setAttribute('_i18n', 'true');
                         $node->data = htmlspecialchars($this->translations[$type][$node->data][$language] ?? $node->data);
@@ -123,8 +125,10 @@ class HTML extends Type
                      * Callback for Attribute nodes
                      * */
                     function (&$node, $type) use ($language) {
-                        /** @var DOMAttr $node */
-                        /** @var DOMElement $parent */
+                        /**
+                         * @var DOMAttr $node
+                         * @var DOMElement $parent
+                         */
                         $parent = $node->parentNode;
                         $parent->setAttribute('_i18n', 'true');
                         $node->value = htmlspecialchars($this->translations[$type][$node->value][$language] ?? $node->value);
@@ -135,33 +139,5 @@ class HTML extends Type
         }
 
         return $result;
-    }
-
-    /**
-     * @param array $strings
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    private function getTextTranslations(array $strings)
-    {
-
-        $translate = $this->context->text->translate($strings);
-
-        return $translate;
-    }
-
-    /**
-     * @param array $urls
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    private function getUrlTranslations(array $urls)
-    {
-
-        $translate = $this->context->url->translate($urls);
-
-        return $translate;
     }
 }
