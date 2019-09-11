@@ -71,25 +71,27 @@ class Request extends Component
     private function prepareSourceUrl()
     {
 
-        /*
-         * If current language is default language
-         * Then translate current url for all languages
-         * */
-        if ($this->getLanguage() == $this->context->languages->from_language) {
-            $this->setUrlTranslations(
-                $this->context->translation
-                    ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->url->translate([$this->getDestination()])[$this->getDestination()]
-            );
-            return false;
-        }
-
         $this->setTranslation(
             $this
                 ->context
                 ->translation
                 ->setLanguages([$this->getLanguage()])
         );
+
+        /*
+         * If current language is default language
+         * Then translate current url for all languages
+         * */
+        if ($this->getLanguage() == $this->context->languages->from_language) {
+            $this->setUrlTranslations(
+                $this->getTranslation()
+                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->url->translate([$this->getDestination()])[$this->getDestination()]
+            );
+            return false;
+        }
+
+
 
         $this->setSourceUrl($this->getSourceUrlFromTranslate(
             $this->getDestination(),
@@ -215,7 +217,7 @@ class Request extends Component
                      * Translate content
                      * */
                     $content = $this
-                        ->getTranslation()
+                        ->getTranslation()->setLanguages($this->getLanguage())
                         ->{$type}
                         ->translate([$content])[$content][$this->getLanguage()];
 

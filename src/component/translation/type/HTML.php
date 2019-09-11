@@ -15,14 +15,9 @@ use NovemBit\i18n\system\parsers\html\Rule;
 class HTML extends Type
 {
     public $type = 3;
-
-    private $_to_translate_text = [];
-    private $_to_translate_url = [];
-
-    private $_text_translations = [];
-    private $_url_translations = [];
-
     private $html_parser;
+    private $to_translate = [];
+    private $translations = [];
 
     public $fields_to_translate = [];
 
@@ -73,10 +68,7 @@ class HTML extends Type
         $languages = $this->context->getLanguages();
         $result = [];
 
-        $this->_to_translate_text = [];
-        $this->_to_translate_url = [];
-        $this->_text_translations = [];
-        $this->_url_translations = [];
+        $this->translations = [];
 
         /*
          * Finding translatable node values and attributes
@@ -90,35 +82,21 @@ class HTML extends Type
                      * */
                 function (&$node, $type) {
                     /** @var DOMText $node */
-                    if ($type == 'text') {
-                        $this->_to_translate_text[] = $node->data;
-                    } elseif ($type == 'url') {
-                        $this->_to_translate_url[] = $node->data;
-                    }
+                    $this->to_translate[$type][] = $node->data;
                 },
                 /*
                  * Callback for Attribute nodes
                  * */
                 function (&$node, $type) {
                     /** @var DOMAttr $node */
-                    if ($type == 'text') {
-                        $this->_to_translate_text[] = $node->value;
-                    } elseif ($type == 'url') {
-                        $this->_to_translate_url[] = $node->value;
-                    }
+                    $this->to_translate[$type][] = $node->value;
                 }
             );
         }
 
-        /*
-         * Translate texts with method
-         * */
-        $this->_text_translations = $this->getTextTranslations($this->_to_translate_text);
-
-        /*
-         * Translate urls with method
-         * */
-        $this->_url_translations = $this->getUrlTranslations($this->_to_translate_url);
+        foreach ($this->to_translate as $type => $texts) {
+            $this->translations[$type] = $this->getTextTranslations($texts);
+        }
 
         /*
          * Replace html node values to
@@ -130,66 +108,33 @@ class HTML extends Type
 
                 $this->getHtmlParser()->load($html);
 
-                $this->getHtmlParser()->fetch(/*
-                         * Callback for Text nodes
-                         * */
+                $this->getHtmlParser()->fetch(
+                /*
+                 * Callback for Text nodes
+                 * */
                     function (&$node, $type) use ($language) {
                         /** @var DOMText $node */
-                        if ($this->_text_translations[$node->data][$language] != null) {
-                            if ($type == 'text') {
-                                if ($this->_text_translations[$node->data][$language] != null) {
-                                    $node->data = htmlspecialchars($this->_text_translations[$node->data][$language]);
-                                } else {
-                                    /** @var DOMElement $parent */
-                                    $parent = $node->parentNode;
-                                    $parent->setAttribute('i18n_missing_text_text_translation', 'true');
-                                }
-                            } elseif ($type == 'url') {
-                                if ($this->_url_translations[$node->data][$language] != null) {
-                                    $node->data
-                                        = htmlspecialchars($this->_url_translations[$node->data][$language]);
-                                } else {
-                                    /** @var DOMElement $parent */
-                                    $parent = $node->parentNode;
-                                    $parent->setAttribute('i18n_missing_text_url_translation', 'true');
-                                }
-                            }
-                        }
+                        /** @var DOMElement $parent */
+                        $parent = $node->parentNode;
+                        $parent->setAttribute('_i18n', 'true');
+                        $node->data = htmlspecialchars($this->translations[$type][$node->data][$language] ?? $node->data);
                     },
-
                     /*
                      * Callback for Attribute nodes
                      * */
                     function (&$node, $type) use ($language) {
                         /** @var DOMAttr $node */
-                        if ($type == 'text') {
-                            if ($this->_text_translations[$node->value][$language] != null) {
-                                $node->value = htmlspecialchars($this->_text_translations[$node->value][$language]);
-                            } else {
-                                /** @var DOMElement $parent */
-                                $parent = $node->parentNode;
-                                $parent->setAttribute('i18n_missing_attribute_text_translation', $node->name);
-                            }
-                        } elseif ($type == 'url') {
-                            if ($this->_url_translations[$node->value][$language] != null) {
-                                $node->value
-                                    = htmlspecialchars($this->_url_translations[$node->value][$language]);
-                            } else {
-                                /** @var DOMElement $parent */
-                                $parent = $node->parentNode;
-                                $parent->setAttribute('i18n_missing_attribute_url_translation', $node->name);
-                            }
-                        }
+                        /** @var DOMElement $parent */
+                        $parent = $node->parentNode;
+                        $parent->setAttribute('_i18n', 'true');
+                        $node->value = htmlspecialchars($this->translations[$type][$node->value][$language] ?? $node->value);
                     });
-
 
                 $result[$html][$language] = $this->getHtmlParser()->save();
             }
         }
 
-
         return $result;
-
     }
 
     /**
