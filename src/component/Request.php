@@ -55,9 +55,12 @@ class Request extends Component
         return isset($this->types[$content_type]) ? $this->types[$content_type] : 'html';
     }
 
+    /**
+     * @return bool
+     */
     private function prepareDestination()
     {
-        $dest = '/'.trim($_SERVER['REQUEST_URI'], '/');
+        $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars($dest, $this->context->languages->language_query_key);
         $dest = urldecode($dest);
         $this->setDestination($dest);
@@ -71,12 +74,7 @@ class Request extends Component
     private function prepareSourceUrl()
     {
 
-        $this->setTranslation(
-            $this
-                ->context
-                ->translation
-                ->setLanguages([$this->getLanguage()])
-        );
+        $this->setTranslation($this->context->translation);
 
         /*
          * If current language is default language
@@ -91,19 +89,26 @@ class Request extends Component
             return false;
         }
 
-
-
+        /*
+         * Set source origin URL
+         * */
         $this->setSourceUrl($this->getSourceUrlFromTranslate(
             $this->getDestination(),
             $this->getLanguage())
         );
 
+        /*
+         * Set current url all translations
+         * */
         $this->setUrlTranslations(
-            $this->context->translation
+            $this->getTranslation()
                 ->setLanguages($this->context->languages->getAcceptLanguages())
                 ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
         );
 
+        /**
+         * Setting source url as @REQUEST_URI
+         * */
         $_SERVER['REQUEST_URI'] = $this->source_url;
 
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
@@ -186,10 +191,6 @@ class Request extends Component
             'source_url'=>$this->getSourceUrl()
         ]);*/
 
-        /*
-         * Manipulating REQUEST_URI
-         * */
-
         ob_start();
 
         /**
@@ -222,7 +223,8 @@ class Request extends Component
                         ->translate([$content])[$content][$this->getLanguage()];
 
                     if ($type == "html") {
-                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(), $content,
+                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
+                            $content,
                             1);
                     }
 
@@ -237,20 +239,23 @@ class Request extends Component
     /**
      * @return string
      */
-    private function getHeadAdditionalTags(){
+    private function getHeadAdditionalTags()
+    {
         $tags = '';
-        $tags.=$this->getXHRManipulationJavaScriptTag();
-        $tags.=$this->getAlternateLinkTags();
+        $tags .= $this->getXHRManipulationJavaScriptTag();
+        $tags .= $this->getAlternateLinkTags();
         return $tags;
     }
 
-    private function getAlternateLinkTags(){
+    private function getAlternateLinkTags()
+    {
         $tags = '';
-        foreach($this->getUrlTranslations() as $language => $translate){
-            $tags.= sprintf("<link rel=\"alternate\" hreflang=\"%s\" href=\"%s\">", $language, $translate);
+        foreach ($this->getUrlTranslations() as $language => $translate) {
+            $tags .= sprintf("<link rel=\"alternate\" hreflang=\"%s\" href=\"%s\">", $language, $translate);
         }
         return $tags;
     }
+
     /**
      * @return string
      */
