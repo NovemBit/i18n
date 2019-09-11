@@ -95,7 +95,7 @@ class HTML extends Type
         }
 
         foreach ($this->to_translate as $type => $texts) {
-            $this->translations[$type] = $this->getTextTranslations($texts);
+            $this->translations[$type] = $this->context->{$type}->translate($texts);
         }
 
         /*

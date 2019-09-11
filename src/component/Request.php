@@ -112,7 +112,7 @@ class Request extends Component
         $_SERVER['REQUEST_URI'] = $this->source_url;
 
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
-            throw new \Exception("404 Not Found", 404);
+            throw new Exception("404 Not Found", 404);
         }
 
         return true;
@@ -251,7 +251,7 @@ class Request extends Component
     {
         $tags = '';
         foreach ($this->getUrlTranslations() as $language => $translate) {
-            $tags .= sprintf("<link rel=\"alternate\" hreflang=\"%s\" href=\"%s\">", $language, $translate);
+            $tags .= '<link rel="alternate" hreflang="' . $language . '" href="' . $translate . '">';
         }
         return $tags;
     }
@@ -272,7 +272,6 @@ class Request extends Component
             language_query_key:"{$this->context->languages->language_query_key}"
         }
     };
-    
     function parseURL(url) {
         let parser = document.createElement('a'),
             searchObject = {},
@@ -294,22 +293,17 @@ class Request extends Component
             hash: parser.hash
         };
     }
-    
     function addParameterToURL(url,key,value){
         url += (url.split('?')[1] ? '&':'?') + key+'='+value;
         return url;
     }
-    
     let valid_hosts = [
     //    'test.com'
     ];
-    
     let original_xhr = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function(){ 
-        
+    XMLHttpRequest.prototype.open = function(){
         let req_parsed = parseURL(arguments[1]);
         let cur_parsed = parseURL(window.location.href);
-        
         if(req_parsed.host === cur_parsed.host && valid_hosts.indexOf(req_parsed.host)){
            arguments[1] = addParameterToURL(
                arguments[1],
@@ -317,7 +311,6 @@ class Request extends Component
                window.novembit.i18n.current_language
            );
         }
-        
         original_xhr.apply(this, arguments);
     }
 })()
