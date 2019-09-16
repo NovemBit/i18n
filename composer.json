@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "NovemBit\\i18n\\": ""
+      "NovemBit\\i18n\\": "src/"
     }
   },
   "repositories": [
