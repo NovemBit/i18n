@@ -140,6 +140,9 @@ class Request extends Component
             throw new \NovemBit\i18n\system\exception\Exception('Access without http request was denied.');
         }
 
+
+        $_SERVER["ORIG_REQUEST_URI"] = $_SERVER["REQUEST_URI"];
+
         /**
          * Taking language from current @REQUEST_URI
          * */
@@ -173,6 +176,39 @@ class Request extends Component
         return true;
     }
 
+    public function translateBuffer($content){
+
+
+        $status = http_response_code();
+
+        /*
+         * If response status is success
+         * */
+        if (in_array($status, range(200, 299))) {
+
+            $type = $this->getType();
+
+            if ($type !== null) {
+
+                /*
+                 * Translate content
+                 * */
+                $content = $this
+                    ->getTranslation()->setLanguages($this->getLanguage())
+                    ->{$type}
+                    ->translate([$content])[$content][$this->getLanguage()];
+
+                if ($type == "html") {
+                    $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
+                        $content,
+                        1);
+                }
+
+            }
+        }
+
+        return $content;
+    }
     /**
      * Start request
      *
@@ -188,52 +224,11 @@ class Request extends Component
             'url_dest' => $this->getDestination(),
             'from_language' => $this->context->languages->from_language,
             'language' => $this->getLanguage(),
-            'source_url'=>$this->getSourceUrl()
+            'source_url'=>$this->getSourceUrl(),
+            'orig_request_uri'=>$_SERVER["ORIG_REQUEST_URI"]
         ]);*/
 
-        ob_start();
-
-        /**
-         * Register Shutdown action to take buffer content
-         * And after determine content type do translation
-         * */
-        register_shutdown_function(function () {
-
-            $content = ob_get_contents();
-
-            ob_end_clean();
-
-            $status = http_response_code();
-
-            /*
-             * If response status is success
-             * */
-            if (in_array($status, range(200, 299))) {
-
-                $type = $this->getType();
-
-                if ($type !== null) {
-
-                    /*
-                     * Translate content
-                     * */
-                    $content = $this
-                        ->getTranslation()->setLanguages($this->getLanguage())
-                        ->{$type}
-                        ->translate([$content])[$content][$this->getLanguage()];
-
-                    if ($type == "html") {
-                        $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
-                            $content,
-                            1);
-                    }
-
-                }
-            }
-
-            echo $content;
-        });
-
+        ob_start([$this, 'translateBuffer']);
     }
 
     /**
