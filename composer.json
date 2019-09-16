@@ -1,9 +1,12 @@
 {
   "name": "novembit/i18n",
   "description": "Standalone i18n.",
-  "keywords": ["i18n","i10n"],
+  "keywords": [
+    "i18n",
+    "i10n"
+  ],
   "type": "project",
-  "license": "GPL2",
+  "license": "GPL-3.0-or-later",
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0",
@@ -24,10 +27,8 @@
     }
   },
   "scripts": {
-
   },
   "extra": {
-
   },
   "repositories": [
     {
