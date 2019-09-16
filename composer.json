@@ -7,7 +7,7 @@
   ],
   "type": "project",
   "license": "GPL-3.0-or-later",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=7.0",
     "ext-dom": "*",
