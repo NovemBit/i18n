@@ -156,7 +156,8 @@ class Request extends Component
                 unset($path[0]);
             }
             $parts['path'] = implode('/', $path);
-            $_SERVER["REQUEST_URI"] = URL::buildUrl($parts);
+            $new_url = URL::buildUrl($parts);
+            $_SERVER["REQUEST_URI"] = empty($new_url) ? '/' : $new_url;
         }
 
         return true;

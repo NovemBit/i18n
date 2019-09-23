@@ -25,6 +25,8 @@ class HTML
 
     private $query = './/*[ @* or text()]';
 
+    private $preserved_data = [];
+
     /**
      * HTML constructor.
      *
@@ -39,6 +41,36 @@ class HTML
         $this->initDom();
 
         return $this;
+    }
+
+    private function preserveTag(&$html, $tag)
+    {
+        preg_match_all('/<' . $tag . '\b[^>]*>[\s\S]*?<\/' . $tag . '>/is', $html, $this->preserved_data[$tag]);
+
+        if (!empty($this->preserved_data[$tag][0])) {
+            $this->preserved_data[$tag] = $this->preserved_data[$tag][0];
+        } else {
+            $this->preserved_data[$tag] = [];
+        }
+
+        $html = str_replace($this->preserved_data[$tag], '<script></script>', $html);
+    }
+
+    private function restorePreservedTag(&$html, $tag)
+    {
+        $first = 0;
+        $search = "<$tag></$tag>";
+        $tags = $this->preserved_data[$tag] ?? [];
+        for ($i = 0; $i < count($tags); $i++) {
+            $replace = $tags[$i];
+            $first = strpos($html, $search, ($first == 0 ? 0 : $first + strlen($tags[$i - 1])));
+            if ($first === false) {
+                continue;
+            }
+            $before = substr($html, 0, $first);
+            $after = substr($html, $first + strlen($search));
+            $html = $before . $replace . $after;
+        }
     }
 
     /**
@@ -111,6 +143,8 @@ class HTML
     {
         $html = $this->getHtml();
 
+        $this->preserveTag($html, 'script');
+
         $this->setDom(new DomDocument());
         @$this->getDom()->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -149,7 +183,9 @@ class HTML
      */
     public function save()
     {
-        return $this->getDom()->saveHTML();
+        $html = $this->getDom()->saveHTML();
+        $this->restorePreservedTag($html, 'script');
+        return $html;
     }
 
     /**
