@@ -4,6 +4,7 @@ namespace NovemBit\i18n\component\translation\type;
 
 use Exception;
 use NovemBit\i18n\component\Translation;
+use NovemBit\i18n\system\helpers\DataType;
 
 /**
  * @property  Translation context
@@ -31,10 +32,9 @@ class JSON extends Type
         foreach ($jsons as $json){
             $object = $this->objects[$json];
             array_walk_recursive($object, function (&$item, $key) use(&$to_translate){
-                if(self::isHTML($item)){
-                    $to_translate['html'][] = $item;
-                } elseif(self::isURL($item)){
-                    $to_translate['url'][] = $item;
+                $type = DataType::getType($item);
+                if($type){
+                    $to_translate[$type][] = $item;
                 }
             });
         }
@@ -43,15 +43,13 @@ class JSON extends Type
             $translations[$type] = $this->context->{$type}->translate($values);
         }
 
-
         foreach ($jsons as &$json){
             foreach($languages as $language){
                 $object = $this->objects[$json];
                 array_walk_recursive($object, function (&$item, $key) use($translations,$language) {
-                    if(self::isHTML($item)){
-                        $item = isset($translations['html'][$item][$language]) ? $translations['html'][$item][$language] :$item;
-                    } elseif(self::isURL($item)){
-                        $item = isset($translations['url'][$item][$language]) ? $translations['url'][$item][$language] :$item;
+                    $type = DataType::getType($item);
+                    if($type){
+                        $item = isset($translations[$type][$item][$language]) ? $translations[$type][$item][$language] :$item;
                     }
                 });
                 $result[$json][$language] =json_encode($object);
@@ -73,13 +71,5 @@ class JSON extends Type
     {
         $this->objects[$json] = json_decode($json,true);
         return (json_last_error() == JSON_ERROR_NONE);
-    }
-
-    private static function isHTML($string){
-        return $string != strip_tags($string);
-    }
-
-    private static function isURL($string){
-        return filter_var($string, FILTER_VALIDATE_URL);
     }
 }

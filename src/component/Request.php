@@ -5,6 +5,7 @@ namespace NovemBit\i18n\component;
 use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\URL;
 
 /**
@@ -42,20 +43,6 @@ class Request extends Component
     }
 
     /**
-     * @return mixed|string
-     */
-    private function getType()
-    {
-        $content_type = 'text/html';
-        foreach (headers_list() as $header) {
-            if (preg_match('/^content-type:\s+(\w+\/\w+).*?$/i', $header, $matches)) {
-                $content_type = $matches[1];
-            }
-        }
-        return isset($this->types[$content_type]) ? $this->types[$content_type] : 'html';
-    }
-
-    /**
      * @return bool
      */
     private function prepareDestination()
@@ -73,7 +60,6 @@ class Request extends Component
      */
     private function prepareSourceUrl()
     {
-
         $this->setTranslation($this->context->translation);
 
         /*
@@ -176,8 +162,13 @@ class Request extends Component
         return true;
     }
 
-    public function translateBuffer($content){
-
+    /**
+     * @param $content
+     * @return string|string[]|null
+     * @throws Exception
+     */
+    public function translateBuffer($content)
+    {
 
         $status = http_response_code();
 
@@ -186,9 +177,10 @@ class Request extends Component
          * */
         if (in_array($status, range(200, 299))) {
 
-            $type = $this->getType();
+            $type = DataType::getType($content);
 
-            if ($type !== null) {
+//            return var_export($type);
+            if ($type !== 0) {
 
                 /*
                  * Translate content
@@ -209,6 +201,7 @@ class Request extends Component
 
         return $content;
     }
+
     /**
      * Start request
      *

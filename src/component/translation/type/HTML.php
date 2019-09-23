@@ -119,6 +119,7 @@ class HTML extends Type
                          */
                         $parent = $node->parentNode;
                         $parent->setAttribute('_i18n', 'true');
+                        $parent->setAttribute('_i18n_origin_text', $node->data);
                         $node->data = htmlspecialchars($this->translations[$type][$node->data][$language] ?? $node->data);
                     },
                     /*
@@ -131,6 +132,7 @@ class HTML extends Type
                          */
                         $parent = $node->parentNode;
                         $parent->setAttribute('_i18n', 'true');
+                        $parent->setAttribute('_i18n_origin_attr_'.$node->name, $node->value);
                         $node->value = htmlspecialchars($this->translations[$type][$node->value][$language] ?? $node->value);
                     });
 
