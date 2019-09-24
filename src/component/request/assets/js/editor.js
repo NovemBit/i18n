@@ -12,9 +12,10 @@
         active_node_class: window.novembit.i18n.prefix + '-active',
         last_node_index: 0,
         initNodeInspector: function (selector, node) {
+            let editor = this;
             let inspector = selector.querySelector('.' + window.novembit.i18n.prefix + '-inspector');
             if (typeof inspector === 'undefined' || inspector === null) {
-                let data = this.getNodeData(node);
+                let data = editor.getNodeData(node);
                 inspector = document.createElement('div');
                 inspector.classList.add(window.novembit.i18n.prefix + '-inspector');
                 inspector.classList.add(window.novembit.i18n.prefix + '-inspector-visible');
@@ -30,15 +31,29 @@
                 inspector.appendChild(title);
                 inspector.appendChild(description);
 
+                let form = document.createElement('form');
+                form.method = 'post';
+
+                for (let i = 0; i < data.text.length; i++) {
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = data.text[i][1];
+                    form.appendChild(input);
+                }
+                inspector.appendChild(form);
                 selector.appendChild(inspector);
+
             } else {
                 inspector.classList.add(window.novembit.i18n.prefix + '-inspector-visible');
             }
 
-
             return inspector;
         },
         openNodeInspector: function (selector, node) {
+            let opened_inspectors = selector.parentElement.getElementsByClassName(window.novembit.i18n.prefix + '-inspector-opened');
+            for (let i = 0; i < opened_inspectors.length; i++) {
+                this.closeInspector(opened_inspectors[i]);
+            }
             let inspector = this.initNodeInspector(selector, node);
             inspector.classList.add(window.novembit.i18n.prefix + '-inspector-opened');
         },
@@ -48,10 +63,18 @@
         unMarkNode: function (node) {
             node.classList.remove(this.active_node_class);
         },
-        hideNodeInspector: function (selector, node) {
-            selector.getElementsByClassName(window.novembit.i18n.prefix + '-inspector')[0]
-                .classList.remove(window.novembit.i18n.prefix + '-inspector-visible');
+        hideInspector(inspector) {
+            inspector.classList.remove(window.novembit.i18n.prefix + '-inspector-visible');
         },
+        closeInspector(inspector) {
+            inspector.classList.remove(window.novembit.i18n.prefix + '-inspector-opened');
+            inspector.classList.remove(window.novembit.i18n.prefix + '-inspector-visible');
+        },
+        hideNodeInspector: function (selector, node) {
+            let inspector = selector.getElementsByClassName(window.novembit.i18n.prefix + '-inspector')[0];
+            this.hideInspector(inspector);
+        },
+
         getNodeOffset: function (node) {
             let top = 0, left = 0;
             do {
@@ -117,7 +140,6 @@
                     };
                     selector.onclick = function () {
                         editor.openNodeInspector(selector, node);
-                        console.log(data);
                     };
                     /*
                     * On mouse hovered on selector
@@ -125,13 +147,11 @@
                     selector.onmouseover = function () {
                         editor.markNode(node);
                         editor.initNodeInspector(selector, node);
-                        console.log(data);
                     };
                     /*
                     * Mouse leave selector
                     * */
                     selector.onmouseout = function () {
-                        console.log('mouseout');
                         editor.unMarkNode(node);
                         editor.hideNodeInspector(selector, node);
                     };
