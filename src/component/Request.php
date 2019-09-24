@@ -19,10 +19,10 @@ class Request extends Component
     private $source_url;
     private $url_translations;
 
-    public $types = [
-        'text/html' => 'html',
-        'application/json' => 'json'
-    ];
+    public $request_var_prefix = 'i18n';
+    public $editor_query_key = "editor";
+
+    public $editor;
 
     /**
      * @param $translate
@@ -110,6 +110,11 @@ class Request extends Component
      */
     private function prepare()
     {
+
+        if (isset($_GET[$this->request_var_prefix.'-'.$this->editor_query_key])) {
+            $this->editor = true;
+        }
+
         return $this->prepareLanguage() && $this->prepareDestination() && $this->prepareSourceUrl();
     }
 
@@ -231,7 +236,15 @@ class Request extends Component
     private function getHeadAdditionalTags()
     {
         $tags = '';
+
+        $tags .= $this->getMainJavaScriptTag();
+
         $tags .= $this->getXHRManipulationJavaScriptTag();
+
+        if ($this->editor) {
+            $tags .= $this->getEditorJavaScriptTag();
+        }
+
         $tags .= $this->getAlternateLinkTags();
         return $tags;
     }
@@ -245,6 +258,42 @@ class Request extends Component
         return $tags;
     }
 
+    private function getMainJavaScriptTag()
+    {
+        $config = json_encode(
+            [
+                'i18n' => [
+                    'current_language' => $this->getLanguage(),
+                    'language_query_key' => $this->context->languages->language_query_key,
+                    'editor_query_key' => $this->editor_query_key,
+                    'prefix'=>$this->context->prefix,
+                ]
+            ]);
+        $script = <<<js
+(function() {
+    /*
+    * NovemBit i18n object
+    * */
+    window.novembit={$config}
+})()
+js;
+        return '<script type="application/javascript" id="NovemBit-i18n-main">' . $script . '</script>';
+    }
+
+    /**
+     * @return string
+     */
+    private function getEditorJavaScriptTag()
+    {
+        $script = file_get_contents(__DIR__ . '/request/assets/js/editor.js');
+        $css = file_get_contents(__DIR__ . '/request/assets/css/editor.css');
+
+        return implode('', [
+            '<script type="application/javascript" id="NovemBit-i18n-editor">' . $script . '</script>',
+            '<style type="text/css">' . $css . '</style>'
+        ]);
+    }
+
     /**
      * @return string
      */
@@ -252,15 +301,7 @@ class Request extends Component
     {
         $script = <<<js
 (function() {
-    /*
-    * NovemBit i18n object
-    * */
-    window.novembit = {
-        i18n:{
-            current_language: "{$this->getLanguage()}",
-            language_query_key:"{$this->context->languages->language_query_key}"
-        }
-    };
+
     function parseURL(url) {
         let parser = document.createElement('a'),
             searchObject = {},
@@ -304,7 +345,7 @@ class Request extends Component
     }
 })()
 js;
-        return '<script type="application/javascript" id="NovemBit-i18n">' . $script . '</script>';
+        return '<script type="application/javascript" id="NovemBit-i18n-xhr-manipulation">' . $script . '</script>';
     }
 
     /**

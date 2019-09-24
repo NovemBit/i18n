@@ -15,6 +15,9 @@ use NovemBit\i18n\system\parsers\html\Rule;
 class HTML extends Type
 {
     public $type = 3;
+
+    public $data_attribute_tag = "i18n";
+
     private $html_parser;
     private $to_translate = [];
     private $translations = [];
@@ -117,10 +120,23 @@ class HTML extends Type
                          * @var DOMText $node
                          * @var DOMElement $parent
                          */
+                        $translate = false;
+                        if (isset($this->translations[$type][$node->data][$language])) {
+                            $translate = htmlspecialchars($this->translations[$type][$node->data][$language]);
+                        }
+
                         $parent = $node->parentNode;
-                        $parent->setAttribute('_i18n', 'true');
-                        $parent->setAttribute('_i18n_origin_text', $node->data);
-                        $node->data = htmlspecialchars($this->translations[$type][$node->data][$language] ?? $node->data);
+
+                        if ($parent->hasAttribute($this->context->context->prefix . '-text')) {
+                            $text = json_decode($parent->getAttribute($this->context->context->prefix . '-text'), true);
+                        } else {
+                            $text = [];
+                        }
+                        if($translate!==false) {
+                            $text[] = [$node->data, $translate];
+                            $parent->setAttribute($this->context->context->prefix . '-text', json_encode($text));
+                        }
+                        $node->data = $translate ?? $node->data;
                     },
                     /*
                      * Callback for Attribute nodes
@@ -130,10 +146,23 @@ class HTML extends Type
                          * @var DOMAttr $node
                          * @var DOMElement $parent
                          */
+
+                        $translate = false;
+                        if (isset($this->translations[$type][$node->value][$language])) {
+                            $translate = htmlspecialchars($this->translations[$type][$node->value][$language]);
+                        }
+
                         $parent = $node->parentNode;
-                        $parent->setAttribute('_i18n', 'true');
-                        $parent->setAttribute('_i18n_origin_attr_'.$node->name, $node->value);
-                        $node->value = htmlspecialchars($this->translations[$type][$node->value][$language] ?? $node->value);
+                        if ($parent->hasAttribute($this->context->context->prefix . '-attr')) {
+                            $attr = json_decode($parent->getAttribute($this->context->context->prefix . '-attr'), true);
+                        } else {
+                            $attr = [];
+                        }
+                        if($translate!==false) {
+                            $attr[$node->name] = [$node->value, $translate];
+                            $parent->setAttribute($this->context->context->prefix . '-attr', json_encode($attr));
+                        }
+                        $node->value = $translate ?? $node->value;
                     });
 
                 $result[$html][$language] = $this->getHtmlParser()->save();

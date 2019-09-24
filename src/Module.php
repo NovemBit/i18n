@@ -14,6 +14,9 @@ namespace NovemBit\i18n;
 class Module extends system\Component
 {
     private static $instance;
+
+    public $prefix = 'i18n';
+
     /**
      *
      * @throws \Exception
