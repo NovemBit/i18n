@@ -13,16 +13,59 @@ use NovemBit\i18n\system\helpers\URL;
  */
 class Request extends Component
 {
+    /*
+     * Translation component
+     * */
     private $translation;
-    private $language;
-    private $destination;
-    private $source_url;
-    private $url_translations;
 
-    public $request_var_prefix = 'i18n';
+
+    private $language;
+    private $referer_language;
+
+    private $destination;
+    private $referer;
+
+    private $source_url;
+    private $referer_source_url;
+
+    private $url_translations;
+    private $referer_translations;
+
     public $editor_query_key = "editor";
 
     public $editor;
+
+    /**
+     * @return mixed
+     */
+    public function getRefererSourceUrl()
+    {
+        return $this->referer_source_url;
+    }
+
+    /**
+     * @param mixed $referer_source_url
+     */
+    public function setRefererSourceUrl($referer_source_url)
+    {
+        $this->referer_source_url = $referer_source_url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefererTranslations()
+    {
+        return $this->referer_translations;
+    }
+
+    /**
+     * @param mixed $referer_translations
+     */
+    public function setRefererTranslations($referer_translations)
+    {
+        $this->referer_translations = $referer_translations;
+    }
 
     /**
      * @param $translate
@@ -55,13 +98,92 @@ class Request extends Component
     }
 
     /**
+     * @return mixed
+     */
+    public function getReferer()
+    {
+        return $this->referer;
+    }
+
+    /**
+     * @param mixed $referer
+     */
+    public function setReferer($referer)
+    {
+        $this->referer = $referer;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    private function prepareReferer()
+    {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $this->prepareRefererLanguage();
+
+            $referer = '/' . trim($_SERVER['HTTP_REFERER'], '/');
+            $referer = URL::removeQueryVars($referer, $this->context->languages->language_query_key);
+            $referer = urldecode($referer);
+            $this->setReferer($referer);
+
+            $this->prepareRefererSourceUrl();
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    private function prepareRefererSourceUrl()
+    {
+        /*
+         * If current language is default language
+         * Then translate current url for all languages
+         * */
+        if ($this->getLanguage() == $this->context->languages->from_language) {
+            $this->setRefererTranslations(
+                $this->getTranslation()
+                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->url->translate([$this->getReferer()])[$this->getReferer()]
+            );
+            return false;
+        }
+
+        /*
+         * Set source origin URL
+         * */
+        $this->setRefererSourceUrl($this->getSourceUrlFromTranslate(
+            $this->getReferer(),
+            $this->getRefererLanguage())
+        );
+
+        /*
+         * Set current url all translations
+         * */
+        $this->setRefererTranslations(
+            $this->getTranslation()
+                ->setLanguages($this->context->languages->getAcceptLanguages())
+                ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
+        );
+
+        /**
+         * Setting source url as @REQUEST_URI
+         * */
+        $_SERVER['HTTP_REFERER'] = $this->getRefererSourceUrl();
+
+
+        return true;
+    }
+
+    /**
      * @return bool
      * @throws Exception
      */
     private function prepareSourceUrl()
     {
-        $this->setTranslation($this->context->translation);
-
         /*
          * If current language is default language
          * Then translate current url for all languages
@@ -95,7 +217,7 @@ class Request extends Component
         /**
          * Setting source url as @REQUEST_URI
          * */
-        $_SERVER['REQUEST_URI'] = $this->source_url;
+        $_SERVER['REQUEST_URI'] = $this->getSourceUrl();
 
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
             throw new Exception("404 Not Found", 404);
@@ -110,12 +232,63 @@ class Request extends Component
      */
     private function prepare()
     {
+        $this->setTranslation($this->context->translation);
 
-        if (isset($_GET[$this->request_var_prefix.'-'.$this->editor_query_key])) {
+        if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])) {
             $this->editor = true;
         }
 
-        return $this->prepareLanguage() && $this->prepareDestination() && $this->prepareSourceUrl();
+        return $this->prepareLanguage() && $this->prepareDestination() && $this->prepareSourceUrl()
+            && $this->prepareReferer();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefererLanguage()
+    {
+        return $this->referer_language;
+    }
+
+    /**
+     * @param mixed $referer_language
+     */
+    public function setRefererLanguage($referer_language)
+    {
+        $this->referer_language = $referer_language;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function prepareRefererLanguage()
+    {
+
+        $_SERVER["ORIG_HTTP_REFERER"] = $_SERVER["HTTP_REFERER"];
+
+        /**
+         * Taking language from current @REQUEST_URI
+         * */
+        $language = $this->context->languages->getLanguageFromUrl($_SERVER["HTTP_REFERER"]);
+
+        /**
+         * If language does not exists in @URL
+         * */
+        if ($language == null) {
+            $language = $this->context->languages->from_language;
+        }
+
+        /*
+         * Setting current instance language
+         * */
+        $this->setRefererLanguage($language);
+
+        /*
+         * Remove Language from URI
+         * */
+        $this->removeLanguageFromURI($_SERVER['HTTP_REFERER']);
+
+        return true;
     }
 
     /**
@@ -154,18 +327,27 @@ class Request extends Component
         /*
          * Remove Language from URI
          * */
-        $parts = parse_url(trim($_SERVER['REQUEST_URI'], '/'));
+        $this->removeLanguageFromURI($_SERVER['REQUEST_URI']);
+
+        return true;
+    }
+
+    /**
+     * @param $uri
+     */
+    private function removeLanguageFromURI(&$uri)
+    {
+        $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
-            $path = explode('/', $parts['path']);
+            $path = explode('/', ltrim($parts['path'], '/'));
+
             if ($this->context->languages->validateLanguage($path[0])) {
                 unset($path[0]);
             }
             $parts['path'] = implode('/', $path);
             $new_url = URL::buildUrl($parts);
-            $_SERVER["REQUEST_URI"] = empty($new_url) ? '/' : $new_url;
+            $uri = empty($new_url) ? '/' : $new_url;
         }
-
-        return true;
     }
 
     /**
@@ -266,7 +448,7 @@ class Request extends Component
                     'current_language' => $this->getLanguage(),
                     'language_query_key' => $this->context->languages->language_query_key,
                     'editor_query_key' => $this->editor_query_key,
-                    'prefix'=>$this->context->prefix,
+                    'prefix' => $this->context->prefix,
                 ]
             ]);
         $script = <<<js
