@@ -63,6 +63,6 @@ class Translation extends Component
 
     public function getFromLanguage()
     {
-        return $this->context->languages->from_language;
+        return $this->context->languages->getFromLanguage();
     }
 }

@@ -143,7 +143,7 @@ class Request extends Component
          * If current language is default language
          * Then translate current url for all languages
          * */
-        if ($this->getLanguage() == $this->context->languages->from_language) {
+        if ($this->getLanguage() == $this->context->languages->getFromLanguage()) {
             $this->setRefererTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
@@ -188,7 +188,7 @@ class Request extends Component
          * If current language is default language
          * Then translate current url for all languages
          * */
-        if ($this->getLanguage() == $this->context->languages->from_language) {
+        if ($this->getLanguage() == $this->context->languages->getFromLanguage()) {
             $this->setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
@@ -275,7 +275,7 @@ class Request extends Component
          * If language does not exists in @URL
          * */
         if ($language == null) {
-            $language = $this->context->languages->from_language;
+            $language = $this->context->languages->getDefaultLanguage();
         }
 
         /*
@@ -316,8 +316,10 @@ class Request extends Component
          * If language does not exists in @URL
          * */
         if ($language == null) {
-            $language = $this->context->languages->from_language;
+            $language = $this->context->languages->getDefaultLanguage();
         }
+
+
 
         /*
          * Setting current instance language
@@ -357,7 +359,6 @@ class Request extends Component
      */
     public function translateBuffer($content)
     {
-
         $status = http_response_code();
 
         /*
@@ -367,7 +368,6 @@ class Request extends Component
 
             $type = DataType::getType($content);
 
-//            return var_export($type);
             if ($type !== 0) {
 
                 /*
@@ -400,7 +400,6 @@ class Request extends Component
         if (!$this->prepare()) {
             return;
         }
-
         /*var_dump([
             'url_dest' => $this->getDestination(),
             'from_language' => $this->context->languages->from_language,

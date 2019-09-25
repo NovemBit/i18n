@@ -250,7 +250,7 @@ class Languages extends Component
         /*
          * Remove default language from accept languages list if exists
          * */
-        if (($key = array_search($this->from_language,
+        if (($key = array_search($this->getFromLanguage(),
                 $this->accept_languages)) !== false
         ) {
             unset($this->accept_languages[$key]);
@@ -371,6 +371,10 @@ class Languages extends Component
          * */
         if (!$this->validateLanguage($language)) {
             return false;
+        }
+
+        if($language = $this->getDefaultLanguage()){
+            return $url;
         }
 
         /**
@@ -503,5 +507,22 @@ class Languages extends Component
 
         return self::$script_url;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFromLanguage()
+    {
+        return $this->from_language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultLanguage(): string
+    {
+        return $this->default_language;
+    }
+
 
 }

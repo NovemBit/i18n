@@ -109,7 +109,7 @@ abstract class Translation extends Component
             $saved_translations_models = models\TranslationNode::findTranslations(
                 $this->type,
                 $texts,
-                $this->context->context->languages->from_language,
+                $this->context->getFromLanguage(),
                 $languages
             );
 
@@ -154,7 +154,7 @@ abstract class Translation extends Component
              * */
             if ($this->save_translations) {
                 models\TranslationNode::saveTranslations(
-                    $this->context->context->languages->from_language,
+                    $this->context->getFromLanguage(),
                     $this->type,
                     $new_translations
                 );
@@ -191,7 +191,7 @@ abstract class Translation extends Component
 
         $result = [];
 
-        $default_language = $this->context->context->languages->from_language;
+        $from_language = $this->context->getFromLanguage();
 
         $this->beforeReTranslate($texts);
 
@@ -201,7 +201,7 @@ abstract class Translation extends Component
             $model = models\TranslationNode::findTranslations(
                 $this->type,
                 [$text],
-                $default_language,
+                $from_language,
                 [$language],
                 false
             );
