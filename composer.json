@@ -29,6 +29,10 @@
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:NovemBit/active-data.git"
     }
   ]
 }
