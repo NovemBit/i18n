@@ -14,9 +14,8 @@
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-curl": "*",
-    "novembit/active-data": "*",
-    "google/cloud-translate": "*",
-    "propel/propel": "~2.0@dev"
+    "novembit/active-data": "dev-master",
+    "google/cloud-translate": "*"
   },
   "require-dev": {
   },
