@@ -3,6 +3,7 @@
 
 namespace NovemBit\i18n;
 
+
 /**
  * @property  component\Translation translation
  * @property  component\Languages languages

@@ -12,10 +12,11 @@
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-curl": "*",
     "novembit/active-data": "*",
     "google/cloud-translate": "*",
-    "ext-json": "*",
-    "ext-curl": "*"
+    "propel/propel": "~2.0@dev"
   },
   "require-dev": {
   },

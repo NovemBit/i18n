@@ -59,6 +59,49 @@ abstract class Translation extends Component
         }
     }
 
+
+    /**
+     * @param $translations
+     * @param $texts
+     * @throws Exception
+     */
+    private function fetchSavedTranslations(&$translations, &$texts)
+    {
+        $languages = $this->context->getLanguages();
+        /*
+        * Find translations from DB with ActiveData
+        * */
+        $saved_translations_models = models\TranslationNode::findTranslations(
+            $this->type,
+            $texts,
+            $this->context->getFromLanguage(),
+            $languages
+        );
+
+        foreach ($saved_translations_models as $saved_translation) {
+
+            /*
+             * Adding saved translations on array
+             * */
+            $translations[$saved_translation['source']][$saved_translation['to_language']]
+                = $saved_translation['translate'];
+
+            /*
+             * Unset texts that already saved in cache
+             * */
+
+            if (count($translations[$saved_translation['source']]) == count($languages)
+            ) {
+                unset(
+                    $texts[array_search(
+                        $saved_translation['source'],
+                        $texts
+                    )]
+                );
+            }
+        }
+    }
+
     /**
      * Method that must be used public for each time
      * To make translations,
@@ -79,7 +122,6 @@ abstract class Translation extends Component
          * Remove duplicate texts
          * */
         $texts = array_unique($texts);
-
 
         /*
          * Event before translation
@@ -103,48 +145,14 @@ abstract class Translation extends Component
          * */
         if ($this->use_saved_translations) {
 
-            /*
-             * Find translations from DB with ActiveData
-             * */
-            $saved_translations_models = models\TranslationNode::findTranslations(
-                $this->type,
-                $texts,
-                $this->context->getFromLanguage(),
-                $languages
-            );
-
-
-            foreach ($saved_translations_models as $saved_translation) {
-
-                /*
-                 * Adding saved translations on array
-                 * */
-                $translations[$saved_translation['source']][$saved_translation['to_language']]
-                    = $saved_translation['translate'];
-
-                /*
-                 * Unset texts that already saved in cache
-                 * */
-
-                if (count($translations[$saved_translation['source']])
-                    == count($languages)
-                ) {
-                    unset(
-                        $texts[array_search(
-                            $saved_translation['source'],
-                            $texts
-                        )]
-                    );
-                }
-            }
+            $this->fetchSavedTranslations($translations, $texts);
         }
-
 
         /*
          * If $texts array not empty then
          * Make new translates
          * */
-        if ( ! empty($texts)) {
+        if (!empty($texts)) {
 
             $new_translations = $this->doTranslate($texts);
 
@@ -206,7 +214,7 @@ abstract class Translation extends Component
                 false
             );
 
-            if ( ! isset($model[0]['source'])) {
+            if (!isset($model[0]['source'])) {
                 continue;
             }
 
@@ -250,7 +258,7 @@ abstract class Translation extends Component
 
         foreach ($texts as $key => & $text) {
             $original = $text;
-            if ( ! $this->validateBeforeReTranslate($text)) {
+            if (!$this->validateBeforeReTranslate($text)) {
                 unset($texts[$key]);
             } else {
 //                $this->doExclusion($text);
@@ -279,7 +287,7 @@ abstract class Translation extends Component
 
                 $result[$before] = $result[$after];
 
-                if ( ! $this->validateAfterReTranslate($before, $after, $result)) {
+                if (!$this->validateAfterReTranslate($before, $after, $result)) {
                     unset($result[$before]);
                 }
 
@@ -354,7 +362,7 @@ abstract class Translation extends Component
 
         foreach ($texts as $key => & $text) {
             $original = $text;
-            if ( ! $this->validateBeforeTranslate($text)) {
+            if (!$this->validateBeforeTranslate($text)) {
                 unset($texts[$key]);
             } else {
                 $this->doExclusion($text);
@@ -380,11 +388,11 @@ abstract class Translation extends Component
 
             if (isset($translates[$after])) {
 
-                if($before != $after) {
+                if ($before != $after) {
                     $translates[$before] = $translates[$after];
                 }
 
-                if ( ! $this->validateAfterTranslate($before, $after, $translates)) {
+                if (!$this->validateAfterTranslate($before, $after, $translates)) {
                     unset($translates[$before]);
                 }
 
