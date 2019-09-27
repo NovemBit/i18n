@@ -31,7 +31,7 @@ class DB extends Component
             'password' => 'top',
             'charset' => 'utf8mb4',
             'tablePrefix' => 'i18n_',
-            'enableQueryCache' => true,
+//            'enableQueryCache' => true,
 //            'enableSchemaCache' => true,
 //            'schemaCacheDuration' => 3000,
 //            'schemaCache' => 'cache',

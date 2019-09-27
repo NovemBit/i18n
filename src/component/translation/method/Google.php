@@ -43,6 +43,13 @@ class Google extends Method
         $result = [];
 
         foreach ($languages as $language) {
+            if($this->context->getFromLanguage() == $language){
+                foreach ($texts as $text){
+                    $result[$text][$language] = $text;
+                    continue;
+                }
+            }
+
             $this->translateOneLanguage($texts, $language, $result);
         }
 

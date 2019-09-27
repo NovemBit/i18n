@@ -69,6 +69,7 @@ class HTML extends Type
     public function doTranslate(array $html_list)
     {
         $languages = $this->context->getLanguages();
+
         $result = [];
 
         $this->translations = [];

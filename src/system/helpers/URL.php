@@ -76,9 +76,9 @@ class URL
      */
     public static function buildUrl($parts)
     {
-        return self::http_build_url($parts);
+//        return self::http_build_url($parts);
 
-       /* $scheme = isset($parts['scheme']) ? ($parts['scheme'] . '://') : '';
+        $scheme = isset($parts['scheme']) ? ($parts['scheme'] . '://') : '';
         $host = ($parts['host'] ?? '');
         $port = isset($parts['port']) ? (':' . $parts['port']) : '';
         $user = ($parts['user'] ?? '');
@@ -88,7 +88,7 @@ class URL
         $query = isset($parts['query']) && !empty($parts['query']) ? ('?' . $parts['query']) : '';
         $fragment = isset($parts['fragment']) ? ('#' . $parts['fragment']) : '';
 
-        return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);*/
+        return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
     }
 
     public static function http_build_url($url, $parts = array(), $flags = self::HTTP_URL_REPLACE, &$new_url = false)

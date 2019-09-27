@@ -250,11 +250,11 @@ class Languages extends Component
         /*
          * Remove default language from accept languages list if exists
          * */
-        if (($key = array_search($this->getFromLanguage(),
+       /* if (($key = array_search($this->getFromLanguage(),
                 $this->accept_languages)) !== false
         ) {
             unset($this->accept_languages[$key]);
-        }
+        }*/
 
     }
 

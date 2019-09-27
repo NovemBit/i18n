@@ -40,11 +40,11 @@ class Translation extends ActiveRecord
                 'targetAttribute' => ['from_language', 'to_language', 'type', 'source', 'level']
             ],
 
-            [
+/*            [
                 ['from_language', 'to_language'],
                 'unique',
                 'targetAttribute' => ['from_language', 'to_language']
-            ],
+            ],*/
 
             [['type', 'created_at', 'updated_at'], 'integer'],
         ];
@@ -100,10 +100,6 @@ class Translation extends ActiveRecord
 
         foreach ($translations as $source => $haystack) {
             foreach ($haystack as $to_language => $translate) {
-
-                if ($from_language == $to_language) {
-                    continue;
-                }
 
                 $model = new self();
                 $model->from_language = $from_language;

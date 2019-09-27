@@ -122,7 +122,7 @@ class Request extends Component
         if (isset($_SERVER['HTTP_REFERER'])) {
             $this->prepareRefererLanguage();
 
-            $referer = '/' . trim($_SERVER['HTTP_REFERER'], '/');
+            $referer = trim($_SERVER['HTTP_REFERER'], '/');
             $referer = URL::removeQueryVars($referer, $this->context->languages->language_query_key);
             $referer = urldecode($referer);
             $this->setReferer($referer);
@@ -149,31 +149,31 @@ class Request extends Component
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getReferer()])[$this->getReferer()]
             );
-            return false;
+
+            $this->setRefererSourceUrl($this->getReferer());
+        } else {
+            /*
+            * Set source origin URL
+            * */
+            $this->setRefererSourceUrl($this->getSourceUrlFromTranslate(
+                $this->getReferer(),
+                $this->getRefererLanguage())
+            );
+
+            /*
+             * Set current url all translations
+             * */
+            $this->setRefererTranslations(
+                $this->getTranslation()
+                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
+            );
         }
-
-        /*
-         * Set source origin URL
-         * */
-        $this->setRefererSourceUrl($this->getSourceUrlFromTranslate(
-            $this->getReferer(),
-            $this->getRefererLanguage())
-        );
-
-        /*
-         * Set current url all translations
-         * */
-        $this->setRefererTranslations(
-            $this->getTranslation()
-                ->setLanguages($this->context->languages->getAcceptLanguages())
-                ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
-        );
 
         /**
          * Setting source url as @REQUEST_URI
          * */
         $_SERVER['HTTP_REFERER'] = $this->getRefererSourceUrl();
-
 
         return true;
     }
@@ -198,27 +198,32 @@ class Request extends Component
                     ->url->translate([$this->getDestination()])[$this->getDestination()]
             );
 
-            if ($this->getDestination() != '/') {
-                return false;
-            }
+            /*
+             * Set source origin URL
+             * */
+            $this->setSourceUrl($this->getDestination());
+//            if ($this->getDestination() != '/') {
+//                return false;
+//            }
+        } else {
+            /*
+        * Set source origin URL
+        * */
+            $this->setSourceUrl($this->getSourceUrlFromTranslate(
+                $this->getDestination(),
+                $this->getLanguage())
+            );
+
+            /*
+             * Set current url all translations
+             * */
+            $this->setUrlTranslations(
+                $this->getTranslation()
+                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
+            );
         }
 
-        /*
-         * Set source origin URL
-         * */
-        $this->setSourceUrl($this->getSourceUrlFromTranslate(
-            $this->getDestination(),
-            $this->getLanguage())
-        );
-
-        /*
-         * Set current url all translations
-         * */
-        $this->setUrlTranslations(
-            $this->getTranslation()
-                ->setLanguages($this->context->languages->getAcceptLanguages())
-                ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
-        );
 
         /**
          * Setting source url as @REQUEST_URI

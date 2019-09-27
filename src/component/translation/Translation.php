@@ -59,7 +59,6 @@ abstract class Translation extends Component
         }
     }
 
-
     /**
      * @param $translations
      * @param $texts
@@ -73,7 +72,7 @@ abstract class Translation extends Component
         /*
         * Find translations from DB with ActiveData
         * */
-        $models =\NovemBit\i18n\models\Translation::get(
+        $models = \NovemBit\i18n\models\Translation::get(
             $this->type,
             $texts,
             $this->context->getFromLanguage(),
@@ -85,14 +84,12 @@ abstract class Translation extends Component
             /*
              * Adding saved translations on array
              * */
-            $translations[$model['source']][$model['to_language']]
-                = $model['translate'];
+            $translations[$model['source']][$model['to_language']] = $model['translate'];
 
             /*
              * Unset texts that already saved in cache
              * */
-
-            if (count($translations[$model['source']]) == count($languages)  ) {
+            if (count($translations[$model['source']]) == count($languages)) {
                 unset(
                     $texts[array_search(
                         $model['source'],
