@@ -373,7 +373,7 @@ class Languages extends Component
             return false;
         }
 
-        if($language = $this->getDefaultLanguage()){
+        if($language == $this->getDefaultLanguage()){
             return $url;
         }
 

@@ -40,6 +40,12 @@ class Translation extends ActiveRecord
                 'targetAttribute' => ['from_language', 'to_language', 'type', 'source', 'level']
             ],
 
+            [
+                ['from_language', 'to_language'],
+                'unique',
+                'targetAttribute' => ['from_language', 'to_language']
+            ],
+
             [['type', 'created_at', 'updated_at'], 'integer'],
         ];
     }
@@ -71,13 +77,8 @@ class Translation extends ActiveRecord
         return [];
     }
 
-    public static function get(
-        $type,
-        $texts,
-        $from_language,
-        $to_languages,
-        $reverse = false
-    ) {
+    public static function get($type, $texts, $from_language, $to_languages, $reverse = false)
+    {
 
         $texts = array_values($texts);
         $to_languages = array_values($to_languages);
@@ -99,6 +100,11 @@ class Translation extends ActiveRecord
 
         foreach ($translations as $source => $haystack) {
             foreach ($haystack as $to_language => $translate) {
+
+                if ($from_language == $to_language) {
+                    continue;
+                }
+
                 $model = new self();
                 $model->from_language = $from_language;
                 $model->type = $type;
@@ -108,13 +114,9 @@ class Translation extends ActiveRecord
                 $model->level = 0;
                 $model->created_at = time();
 
-                if ($model->validate() && $model->save()) {
-
-                } else {
-//                    var_dump($model->getErrors());
-//                    die;
+                if ($model->validate()) {
+                    $model->save();
                 }
-
             }
         }
 
