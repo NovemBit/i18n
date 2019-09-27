@@ -14,6 +14,7 @@
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-curl": "*",
+    "yiisoft/yii2": "~2.0.14",
     "novembit/active-data": "dev-master",
     "google/cloud-translate": "*"
   },
