@@ -35,6 +35,8 @@ abstract class Component
             $this->config = $config;
         }
 
+        $this->commonInit();
+
         foreach ($this->config as $key => $value) {
             if (is_array($value) && isset($value['class'])) {
                 $sub_class = $value['class'];

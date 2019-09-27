@@ -67,34 +67,35 @@ abstract class Translation extends Component
      */
     private function fetchSavedTranslations(&$translations, &$texts)
     {
+
         $languages = $this->context->getLanguages();
+
         /*
         * Find translations from DB with ActiveData
         * */
-        $saved_translations_models = models\TranslationNode::findTranslations(
+        $models =\NovemBit\i18n\models\Translation::get(
             $this->type,
             $texts,
             $this->context->getFromLanguage(),
             $languages
         );
 
-        foreach ($saved_translations_models as $saved_translation) {
+        foreach ($models as $model) {
 
             /*
              * Adding saved translations on array
              * */
-            $translations[$saved_translation['source']][$saved_translation['to_language']]
-                = $saved_translation['translate'];
+            $translations[$model['source']][$model['to_language']]
+                = $model['translate'];
 
             /*
              * Unset texts that already saved in cache
              * */
 
-            if (count($translations[$saved_translation['source']]) == count($languages)
-            ) {
+            if (count($translations[$model['source']]) == count($languages)  ) {
                 unset(
                     $texts[array_search(
-                        $saved_translation['source'],
+                        $model['source'],
                         $texts
                     )]
                 );
@@ -129,11 +130,6 @@ abstract class Translation extends Component
         $this->beforeTranslate($texts);
 
         /*
-         * Getting languages from context
-         * */
-        $languages = $this->context->getLanguages();
-
-        /*
          * Result
          * */
         $translations = [];
@@ -143,9 +139,10 @@ abstract class Translation extends Component
          * Then take try to take translations from DB
          * And unset existing translations from $texts array
          * */
-        if ($this->use_saved_translations) {
+        if ($this->save_translations) {
 
             $this->fetchSavedTranslations($translations, $texts);
+
         }
 
         /*
@@ -156,12 +153,13 @@ abstract class Translation extends Component
 
             $new_translations = $this->doTranslate($texts);
 
+
             /*
              * If save_translations is true
              * Then save new translations on DB
              * */
             if ($this->save_translations) {
-                models\TranslationNode::saveTranslations(
+                \NovemBit\i18n\models\Translation::saveTranslations(
                     $this->context->getFromLanguage(),
                     $this->type,
                     $new_translations
@@ -206,12 +204,12 @@ abstract class Translation extends Component
         foreach ($texts as $text) {
 
 
-            $model = models\TranslationNode::findTranslations(
+            $model = \NovemBit\i18n\models\Translation::get(
                 $this->type,
                 [$text],
                 $from_language,
                 [$language],
-                false
+                true
             );
 
             if (!isset($model[0]['source'])) {

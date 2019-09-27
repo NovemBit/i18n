@@ -197,6 +197,7 @@ class Request extends Component
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getDestination()])[$this->getDestination()]
             );
+
             if($this->getDestination()!='/') {
                 return false;
             }
@@ -405,6 +406,7 @@ class Request extends Component
         if (!$this->prepare()) {
             return;
         }
+
         /*var_dump([
             'url_dest' => $this->getDestination(),
             'from_language' => $this->context->languages->from_language,

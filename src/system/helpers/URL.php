@@ -18,14 +18,14 @@ class URL
     {
 
         $url_data = parse_url($url);
-        if ( ! isset($url_data["query"])) {
+        if (!isset($url_data["query"])) {
             $url_data["query"] = "";
         }
 
         $params = array();
         parse_str($url_data['query'], $params);
         $params[$paramName] = $paramValue;
-        $url_data['query']  = http_build_query($params);
+        $url_data['query'] = http_build_query($params);
 
         return self::buildUrl($url_data);
     }
@@ -40,7 +40,7 @@ class URL
     {
 
         $url_data = parse_url($url);
-        if ( ! isset($url_data["query"])) {
+        if (!isset($url_data["query"])) {
             $url_data["query"] = "";
         }
 
@@ -56,27 +56,30 @@ class URL
         return self::buildUrl($url_data);
     }
 
-    /*
-     * Un parse URL
-     * */
     /**
+     * Un parse URL
+     *
      * @param $parts
      *
      * @return string
      */
     public static function buildUrl($parts)
     {
-        $scheme   = isset($parts['scheme']) ? ($parts['scheme'] . '://') : '';
-        $host     = ($parts['host'] ?? '');
-        $port     = isset($parts['port']) ? (':' . $parts['port']) : '';
-        $user     = ($parts['user'] ?? '');
-        $pass     = isset($parts['pass']) ? (':' . $parts['pass']) : '';
-        $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = isset($parts['path']) && !empty($parts['path']) ? '/'.ltrim($parts['path'],'/')  : '';
-        $query    = isset($parts['query']) && ! empty($parts['query']) ? ('?' . $parts['query']) : '';
-        $fragment = isset($parts['fragment']) ? ('#' . $parts['fragment']) : '';
+        if(function_exists('http_build_url')){
+            return http_build_url($parts);
+        } else {
+            $scheme = isset($parts['scheme']) ? ($parts['scheme'] . '://') : '';
+            $host = ($parts['host'] ?? '');
+            $port = isset($parts['port']) ? (':' . $parts['port']) : '';
+            $user = ($parts['user'] ?? '');
+            $pass = isset($parts['pass']) ? (':' . $parts['pass']) : '';
+            $pass = ($user || $pass) ? "$pass@" : '';
+            $path = isset($parts['path']) && !empty($parts['path']) ? '/' . ltrim($parts['path'], '/') : '';
+            $query = isset($parts['query']) && !empty($parts['query']) ? ('?' . $parts['query']) : '';
+            $fragment = isset($parts['fragment']) ? ('#' . $parts['fragment']) : '';
 
-        return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
+            return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
+        }
     }
 
 }
