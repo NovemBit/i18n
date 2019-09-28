@@ -40,11 +40,11 @@ class Translation extends ActiveRecord
                 'targetAttribute' => ['from_language', 'to_language', 'type', 'source', 'level']
             ],
 
-/*            [
+            [
                 ['from_language', 'to_language'],
                 'unique',
                 'targetAttribute' => ['from_language', 'to_language']
-            ],*/
+            ],
 
             [['type', 'created_at', 'updated_at'], 'integer'],
         ];
@@ -80,8 +80,20 @@ class Translation extends ActiveRecord
     public static function get($type, $texts, $from_language, $to_languages, $reverse = false)
     {
 
+        $result = [];
         $texts = array_values($texts);
         $to_languages = array_values($to_languages);
+
+        if (($key = array_search($from_language, $to_languages)) !== false) {
+            unset($to_languages[$key]);
+            foreach ($texts as $text) {
+                $result[] = [
+                    'source' => $text,
+                    'to_language' => $from_language,
+                    'translate' => $text,
+                ];
+            }
+        }
 
         $query = self::find();
         $query
@@ -90,7 +102,7 @@ class Translation extends ActiveRecord
             ->andWhere(['in', 'to_language', $to_languages])
             ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts]);
 
-        $result = $query->asArray()->all();
+        $result = array_merge($result, $query->asArray()->all());
 
         return $result;
     }
@@ -100,6 +112,10 @@ class Translation extends ActiveRecord
 
         foreach ($translations as $source => $haystack) {
             foreach ($haystack as $to_language => $translate) {
+
+                if ($from_language == $to_language) {
+                    continue;
+                }
 
                 $model = new self();
                 $model->from_language = $from_language;

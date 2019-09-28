@@ -13,18 +13,30 @@ use NovemBit\i18n\system\helpers\URL;
  */
 class Request extends Component
 {
+    public $default_host_language;
+
     /*
      * Translation component
      * */
     private $translation;
 
-
+    /*
+     * Languages of URL
+     * */
     private $language;
     private $referer_language;
 
+    /**
+     * Originals
+     * Destination is @REQUEST_URI
+     * Referer is @HTTP_REFERER
+     * */
     private $destination;
     private $referer;
 
+    /**
+     * Source urls
+     * */
     private $source_url;
     private $referer_source_url;
 
@@ -243,6 +255,13 @@ class Request extends Component
      */
     private function prepare()
     {
+        if(isset($this->default_host_language[$_SERVER['HTTP_HOST']])){
+            $default_language = $this->default_host_language[$_SERVER['HTTP_HOST']];
+            if($this->context->languages->validateLanguage($default_language)){
+                $this->context->languages->default_language = $default_language;
+            }
+        }
+
         $this->setTranslation($this->context->translation);
 
         if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])) {
@@ -456,9 +475,17 @@ class Request extends Component
             [
                 'i18n' => [
                     'current_language' => $this->getLanguage(),
+                    'accept_languages'=>$this->context->languages->getAcceptLanguages(),
                     'language_query_key' => $this->context->languages->language_query_key,
                     'editor_query_key' => $this->editor_query_key,
                     'prefix' => $this->context->prefix,
+                    'orig_uri' => $this->getDestination(),
+                    'uri' => $this->getSourceUrl(),
+                    'orig_referer' => $this->getReferer(),
+                    'referer' => $this->getRefererSourceUrl(),
+                    'url_translations'=>$this->getUrlTranslations(),
+                    'referer_translations'=>$this->getRefererTranslations(),
+
                 ]
             ]);
         $script = "(function() {window.novembit={$config}})()";
