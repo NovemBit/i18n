@@ -1,47 +1,55 @@
 <?php
-
+/**
+ * Request component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Composer
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 namespace NovemBit\i18n\component;
 
-use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
-use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\URL;
+use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\exception\Exception;
 
 /**
  * @property Module $context
  */
 class Request extends Component
 {
-    public $default_host_language;
-
     /*
      * Translation component
      * */
-    private $translation;
+    private $_translation;
 
     /*
      * Languages of URL
      * */
-    private $language;
-    private $referer_language;
+    private $_language;
+    private $_referer_language;
 
     /**
      * Originals
      * Destination is @REQUEST_URI
      * Referer is @HTTP_REFERER
      * */
-    private $destination;
-    private $referer;
+    private $_destination;
+    private $_referer;
 
     /**
      * Source urls
      * */
-    private $source_url;
-    private $referer_source_url;
+    private $_source_url;
+    private $_referer_source_url;
 
-    private $url_translations;
-    private $referer_translations;
+    private $_url_translations;
+    private $_referer_translations;
 
     public $editor_query_key = "editor";
 
@@ -52,15 +60,15 @@ class Request extends Component
      */
     public function getRefererSourceUrl()
     {
-        return $this->referer_source_url;
+        return $this->_referer_source_url;
     }
 
     /**
-     * @param mixed $referer_source_url
+     * @param mixed $_referer_source_url
      */
-    public function setRefererSourceUrl($referer_source_url)
+    public function setRefererSourceUrl($_referer_source_url)
     {
-        $this->referer_source_url = $referer_source_url;
+        $this->_referer_source_url = $_referer_source_url;
     }
 
     /**
@@ -68,15 +76,15 @@ class Request extends Component
      */
     public function getRefererTranslations()
     {
-        return $this->referer_translations;
+        return $this->_referer_translations;
     }
 
     /**
-     * @param mixed $referer_translations
+     * @param mixed $_referer_translations
      */
-    public function setRefererTranslations($referer_translations)
+    public function setRefererTranslations($_referer_translations)
     {
-        $this->referer_translations = $referer_translations;
+        $this->_referer_translations = $_referer_translations;
     }
 
     /**
@@ -89,7 +97,8 @@ class Request extends Component
     private function getSourceUrlFromTranslate($translate, $to_language)
     {
 
-        $re_translate = $this->context->translation->setLanguages($to_language)->url->reTranslate([$translate]);
+        $re_translate = $this->context->translation
+            ->setLanguages($to_language)->url->reTranslate([$translate]);
         if (isset($re_translate[$translate])) {
             return $re_translate[$translate];
         }
@@ -103,9 +112,12 @@ class Request extends Component
     private function prepareDestination()
     {
         $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
-        $dest = URL::removeQueryVars($dest, $this->context->languages->language_query_key);
+        $dest = URL::removeQueryVars(
+            $dest,
+            $this->context->languages->language_query_key
+        );
         $dest = urldecode($dest);
-        $this->setDestination($dest);
+        $this->_setDestination($dest);
         return true;
     }
 
@@ -114,32 +126,35 @@ class Request extends Component
      */
     public function getReferer()
     {
-        return $this->referer;
+        return $this->_referer;
     }
 
     /**
-     * @param mixed $referer
+     * @param mixed $_referer
      */
-    public function setReferer($referer)
+    public function setReferer($_referer)
     {
-        $this->referer = $referer;
+        $this->_referer = $_referer;
     }
 
     /**
      * @return bool
      * @throws Exception
      */
-    private function prepareReferer()
+    private function _prepareReferer()
     {
         if (isset($_SERVER['HTTP_REFERER'])) {
-            $this->prepareRefererLanguage();
+            $this->_prepareRefererLanguage();
 
             $referer = trim($_SERVER['HTTP_REFERER'], '/');
-            $referer = URL::removeQueryVars($referer, $this->context->languages->language_query_key);
+            $referer = URL::removeQueryVars(
+                $referer,
+                $this->context->languages->language_query_key
+            );
             $referer = urldecode($referer);
             $this->setReferer($referer);
 
-            $this->prepareRefererSourceUrl();
+            $this->_prepareRefererSourceUrl();
         }
 
         return true;
@@ -149,7 +164,7 @@ class Request extends Component
      * @return bool
      * @throws Exception
      */
-    private function prepareRefererSourceUrl()
+    private function _prepareRefererSourceUrl()
     {
         /*
          * If current language is default language
@@ -167,9 +182,11 @@ class Request extends Component
             /*
             * Set source origin URL
             * */
-            $this->setRefererSourceUrl($this->getSourceUrlFromTranslate(
-                $this->getReferer(),
-                $this->getRefererLanguage())
+            $this->setRefererSourceUrl(
+                $this->getSourceUrlFromTranslate(
+                    $this->getReferer(),
+                    $this->getRefererLanguage()
+                )
             );
 
             /*
@@ -194,7 +211,7 @@ class Request extends Component
      * @return bool
      * @throws Exception
      */
-    private function prepareSourceUrl()
+    private function _prepareSourceUrl()
     {
         /*
          * If current language is from_language
@@ -207,23 +224,23 @@ class Request extends Component
             $this->setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->url->translate([$this->getDestination()])[$this->getDestination()]
+                    ->url->translate([$this->getDestination()])
+                [$this->getDestination()]
             );
 
             /*
              * Set source origin URL
              * */
             $this->setSourceUrl($this->getDestination());
-//            if ($this->getDestination() != '/') {
-//                return false;
-//            }
         } else {
             /*
-        * Set source origin URL
-        * */
-            $this->setSourceUrl($this->getSourceUrlFromTranslate(
-                $this->getDestination(),
-                $this->getLanguage())
+            * Set source origin URL
+            * */
+            $this->setSourceUrl(
+                $this->getSourceUrlFromTranslate(
+                    $this->getDestination(),
+                    $this->getLanguage()
+                )
             );
 
             /*
@@ -235,7 +252,6 @@ class Request extends Component
                     ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
             );
         }
-
 
         /**
          * Setting source url as @REQUEST_URI
@@ -250,26 +266,22 @@ class Request extends Component
     }
 
     /**
-     * @throws \NovemBit\i18n\system\exception\Exception
+     * @throws Exception
      * @throws Exception
      */
-    private function prepare()
+    private function _prepare()
     {
-        if(isset($this->default_host_language[$_SERVER['HTTP_HOST']])){
-            $default_language = $this->default_host_language[$_SERVER['HTTP_HOST']];
-            if($this->context->languages->validateLanguage($default_language)){
-                $this->context->languages->default_language = $default_language;
-            }
-        }
 
-        $this->setTranslation($this->context->translation);
+        $this->_setTranslation($this->context->translation);
 
         if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])) {
             $this->editor = true;
         }
 
-        return $this->prepareLanguage() && $this->prepareDestination() && $this->prepareSourceUrl()
-            && $this->prepareReferer();
+        return $this->_prepareLanguage()
+            && $this->prepareDestination()
+            && $this->_prepareSourceUrl()
+            && $this->_prepareReferer();
     }
 
     /**
@@ -277,21 +289,21 @@ class Request extends Component
      */
     public function getRefererLanguage()
     {
-        return $this->referer_language;
+        return $this->_referer_language;
     }
 
     /**
-     * @param mixed $referer_language
+     * @param mixed $_referer_language
      */
-    public function setRefererLanguage($referer_language)
+    public function setRefererLanguage($_referer_language)
     {
-        $this->referer_language = $referer_language;
+        $this->_referer_language = $_referer_language;
     }
 
     /**
      * @throws Exception
      */
-    private function prepareRefererLanguage()
+    private function _prepareRefererLanguage()
     {
 
         $_SERVER["ORIG_HTTP_REFERER"] = $_SERVER["HTTP_REFERER"];
@@ -299,7 +311,8 @@ class Request extends Component
         /**
          * Taking language from current @REQUEST_URI
          * */
-        $language = $this->context->languages->getLanguageFromUrl($_SERVER["HTTP_REFERER"]);
+        $language = $this->context->languages
+            ->getLanguageFromUrl($_SERVER["HTTP_REFERER"]);
 
         /**
          * If language does not exists in @URL
@@ -316,22 +329,22 @@ class Request extends Component
         /*
          * Remove Language from URI
          * */
-        $this->removeLanguageFromURI($_SERVER['HTTP_REFERER']);
+        $this->_removeLanguageFromURI($_SERVER['HTTP_REFERER']);
 
         return true;
     }
 
     /**
-     * @throws \NovemBit\i18n\system\exception\Exception
+     * @throws Exception
      * @throws Exception
      */
-    private function prepareLanguage()
+    private function _prepareLanguage()
     {
         /*
          * Check if tried to access from cli
          * */
         if (!isset($_SERVER['REQUEST_URI'])) {
-            throw new \NovemBit\i18n\system\exception\Exception('Access without http request was denied.');
+            throw new Exception('Access without http request was denied.');
         }
 
 
@@ -340,7 +353,8 @@ class Request extends Component
         /**
          * Taking language from current @REQUEST_URI
          * */
-        $language = $this->context->languages->getLanguageFromUrl($_SERVER['REQUEST_URI']);
+        $language = $this->context->languages
+            ->getLanguageFromUrl($_SERVER['REQUEST_URI']);
 
         /**
          * If language does not exists in @URL
@@ -348,7 +362,6 @@ class Request extends Component
         if ($language == null) {
             $language = $this->context->languages->getDefaultLanguage();
         }
-
 
         /*
          * Setting current instance language
@@ -358,7 +371,7 @@ class Request extends Component
         /*
          * Remove Language from URI
          * */
-        $this->removeLanguageFromURI($_SERVER['REQUEST_URI']);
+        $this->_removeLanguageFromURI($_SERVER['REQUEST_URI']);
 
         return true;
     }
@@ -366,7 +379,7 @@ class Request extends Component
     /**
      * @param $uri
      */
-    private function removeLanguageFromURI(&$uri)
+    private function _removeLanguageFromURI(&$uri)
     {
         $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
@@ -382,7 +395,7 @@ class Request extends Component
     }
 
     /**
-     * @param $content
+     * @param  $content
      * @return string|string[]|null
      * @throws Exception
      */
@@ -408,9 +421,12 @@ class Request extends Component
                     ->translate([$content])[$content][$this->getLanguage()];
 
                 if ($type == "html") {
-                    $content = preg_replace('/(<head.*?>)/is', '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
+                    $content = preg_replace(
+                        '/(<head.*?>)/is',
+                        '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
                         $content,
-                        1);
+                        1
+                    );
                 }
 
             }
@@ -426,7 +442,7 @@ class Request extends Component
      */
     public function start()
     {
-        if (!$this->prepare()) {
+        if (!$this->_prepare()) {
             return;
         }
 
@@ -448,12 +464,12 @@ class Request extends Component
     {
         $tags = '';
 
-        $tags .= $this->getMainJavaScriptTag();
+        $tags .= $this->_getMainJavaScriptTag();
 
-        $tags .= $this->getXHRManipulationJavaScriptTag();
+        $tags .= $this->_getXHRManipulationJavaScriptTag();
 
         if ($this->editor) {
-            $tags .= $this->getEditorJavaScriptTag();
+            $tags .= $this->_getEditorJavaScriptTag();
         }
 
         $tags .= $this->getAlternateLinkTags();
@@ -464,55 +480,76 @@ class Request extends Component
     {
         $tags = '';
         foreach ($this->getUrlTranslations() as $language => $translate) {
-            $tags .= '<link rel="alternate" hreflang="' . $language . '" href="' . $translate . '">';
+            $tags .= sprintf(
+                "<link rel=\"alternate\" hreflang=\"%d\" href=\"%s\">",
+                $language,
+                $translate
+            );
         }
         return $tags;
     }
 
-    private function getMainJavaScriptTag()
+    /**
+     * @return string
+     */
+    private function _getMainJavaScriptTag()
     {
         $config = json_encode(
             [
                 'i18n' => [
                     'current_language' => $this->getLanguage(),
-                    'accept_languages'=>$this->context->languages->getAcceptLanguages(),
-                    'language_query_key' => $this->context->languages->language_query_key,
+                    'accept_languages' => $this->context->languages
+                        ->getAcceptLanguages(),
+                    'language_query_key' => $this->context->languages
+                        ->language_query_key,
                     'editor_query_key' => $this->editor_query_key,
                     'prefix' => $this->context->prefix,
                     'orig_uri' => $this->getDestination(),
                     'uri' => $this->getSourceUrl(),
                     'orig_referer' => $this->getReferer(),
                     'referer' => $this->getRefererSourceUrl(),
-                    'url_translations'=>$this->getUrlTranslations(),
-                    'referer_translations'=>$this->getRefererTranslations(),
+                    'url_translations' => $this->getUrlTranslations(),
+                    'referer_translations' => $this->getRefererTranslations(),
 
                 ]
-            ]);
+            ]
+        );
         $script = "(function() {window.novembit={$config}})()";
-        return '<script type="application/javascript" id="NovemBit-i18n-main">' . $script . '</script>';
+        return sprintf(
+            "<script type=\"application/javascript\">%s</script>",
+            $script
+        );
     }
 
     /**
      * @return string
      */
-    private function getEditorJavaScriptTag()
+    private function _getEditorJavaScriptTag()
     {
         $script = file_get_contents(__DIR__ . '/request/assets/js/editor.js');
         $css = file_get_contents(__DIR__ . '/request/assets/css/editor.css');
 
-        return implode('', [
-            '<script type="application/javascript" id="NovemBit-i18n-editor">' . $script . '</script>',
-            '<style type="text/css">' . $css . '</style>'
-        ]);
+        return implode(
+            '', [
+                sprintf(
+                    "<script type=\"application/javascript\">%s</script>",
+                    $script
+                ),
+                '<style type="text/css">' . $css . '</style>'
+            ]
+        );
     }
 
     /**
      * @return string
      */
-    private function getXHRManipulationJavaScriptTag()
+    private function _getXHRManipulationJavaScriptTag()
     {
         $script = file_get_contents(__DIR__ . '/request/assets/js/xhr.js.js');
-        return '<script type="application/javascript" id="NovemBit-i18n-xhr-manipulation">' . $script . '</script>';
+        return sprintf(
+            "<script type=\"application/javascript\">%s</script>",
+            $script
+        );
     }
 
     /**
@@ -520,15 +557,15 @@ class Request extends Component
      */
     public function getDestination()
     {
-        return $this->destination;
+        return $this->_destination;
     }
 
     /**
      * @param mixed $destination
      */
-    private function setDestination($destination)
+    private function _setDestination($destination)
     {
-        $this->destination = $destination;
+        $this->_destination = $destination;
     }
 
     /**
@@ -536,7 +573,7 @@ class Request extends Component
      */
     public function getSourceUrl()
     {
-        return $this->source_url;
+        return $this->_source_url;
     }
 
     /**
@@ -544,7 +581,7 @@ class Request extends Component
      */
     private function setSourceUrl($source_url)
     {
-        $this->source_url = $source_url;
+        $this->_source_url = $source_url;
     }
 
     /**
@@ -552,7 +589,7 @@ class Request extends Component
      */
     public function getUrlTranslations()
     {
-        return $this->url_translations;
+        return $this->_url_translations;
     }
 
     /**
@@ -560,7 +597,7 @@ class Request extends Component
      */
     private function setUrlTranslations($url_translations)
     {
-        $this->url_translations = $url_translations;
+        $this->_url_translations = $url_translations;
     }
 
     /**
@@ -568,7 +605,7 @@ class Request extends Component
      */
     public function getLanguage()
     {
-        return $this->language;
+        return $this->_language;
     }
 
     /**
@@ -576,7 +613,7 @@ class Request extends Component
      */
     private function setLanguage($language)
     {
-        $this->language = $language;
+        $this->_language = $language;
     }
 
     /**
@@ -584,14 +621,14 @@ class Request extends Component
      */
     public function getTranslation()
     {
-        return $this->translation;
+        return $this->_translation;
     }
 
     /**
      * @param Translation $translation
      */
-    private function setTranslation(Translation $translation)
+    private function _setTranslation(Translation $translation)
     {
-        $this->translation = $translation;
+        $this->_translation = $translation;
     }
 }

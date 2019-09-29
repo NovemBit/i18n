@@ -133,7 +133,7 @@ class HTML extends Type
                         } else {
                             $text = [];
                         }
-                        if($translate!==false) {
+                        if ($translate !== false) {
                             $text[] = [$node->data, $translate];
                             $parent->setAttribute($this->context->context->prefix . '-text', json_encode($text));
                         }
@@ -159,7 +159,7 @@ class HTML extends Type
                         } else {
                             $attr = [];
                         }
-                        if($translate!==false) {
+                        if ($translate !== false) {
                             $attr[$node->name] = [$node->value, $translate];
                             $parent->setAttribute($this->context->context->prefix . '-attr', json_encode($attr));
                         }

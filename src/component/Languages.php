@@ -1,10 +1,28 @@
 <?php
+/**
+ * Languages component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Composer
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\component;
 
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\URL;
 
+/**
+ * Setting default languages
+ *  from language - main website content language
+ *  default language - default language for request
+ *  accept languages - languages list for translations
+ * */
 class Languages extends Component
 {
 
@@ -16,7 +34,7 @@ class Languages extends Component
     /*
      * Default language
      * */
-    public $default_language = 'en';
+    public $default_language;
 
     /**
      * Accepted languages
@@ -26,16 +44,21 @@ class Languages extends Component
     /**
      * Add language code on url path
      *
-     * @example  https://novembit.com/fr/my/post/url
-     *
+     * @example https://novembit.com/fr/my/post/url
      * */
     public $language_on_path = true;
+
+    /**
+     * If @default_domain parameter is array and contain
+     * Host names with specific language
+     * Then take language from domain name
+     * */
+    public $language_on_domain = true;
 
     /**
      * Language query variable key
      *
      * @example https://novembit.com/my/post/url?language=fr
-     *
      * */
     public $language_query_key = 'language';
 
@@ -51,12 +74,12 @@ class Languages extends Component
     public $path_exclusion_patterns = [];
 
 
-    private static $script_url;
+    private static $_script_url;
 
     /*
      * iso 639-1 languages list
      * */
-    private $languages = [
+    private $_languages = [
         'ab' => 'Abkhazian',
         'aa' => 'Afar',
         'af' => 'Afrikaans',
@@ -244,31 +267,32 @@ class Languages extends Component
     ];
 
 
-    function init()
+    /**
+     * Init function for component
+     *
+     * @return void
+     */
+    public function init()
     {
-
-        /*
-         * Remove default language from accept languages list if exists
-         * */
-       /* if (($key = array_search($this->getFromLanguage(),
-                $this->accept_languages)) !== false
-        ) {
-            unset($this->accept_languages[$key]);
-        }*/
 
     }
 
     /**
-     * @param $url
+     * Getting language code from url query string
+     *
+     * @param string $url simple url
+     *
      * @return string|null
      */
-    private function getLanguageFromUrlQuery($url)
+    private function _getLanguageFromUrlQuery($url)
     {
         $parts = parse_url($url);
 
         if (isset($parts['query'])) {
             parse_str($parts['query'], $query);
-            if (isset($query[$this->language_query_key]) && $this->validateLanguage($query[$this->language_query_key])) {
+            if (isset($query[$this->language_query_key])
+                && $this->validateLanguage($query[$this->language_query_key])
+            ) {
                 return $query[$this->language_query_key];
             }
         }
@@ -285,7 +309,7 @@ class Languages extends Component
      * Getting {fr} from URL then removing them from path
      * After removing changing global REQUEST_URI
      *
-     * @param $url
+     * @param string $url Simple url
      *
      * @return string
      */
@@ -313,12 +337,15 @@ class Languages extends Component
     }
 
     /**
-     * @param $url
+     * Get language code from url
+     *
+     * @param string $url Simple URL
+     *
      * @return string|null
      */
     public function getLanguageFromUrl($url)
     {
-        $language = $this->getLanguageFromUrlQuery($url);
+        $language = $this->_getLanguageFromUrlQuery($url);
 
         if ($language == null && $this->language_on_path) {
             $language = $this->getLanguageFromUrlPath($url);
@@ -328,14 +355,20 @@ class Languages extends Component
     }
 
     /**
-     * @param $url
+     * Remove executable file from url path
+     *
+     * @param string $url Simple url
      *
      * @return mixed|string
      */
     public function removeScriptNameFromUrl($url)
     {
         $url = ltrim($url, '/ ');
-        $url = preg_replace("/^" . preg_quote($this->getScriptUrl(), '/') . "/", '', $url);
+        $url = preg_replace(
+            "/^" . preg_quote($this->getScriptUrl(), '/') . "/",
+            '',
+            $url
+        );
         $url = ltrim($url, '/ ');
 
         foreach ($this->path_exclusion_patterns as $pattern) {
@@ -358,10 +391,11 @@ class Languages extends Component
      * Script name or directory path then adding only
      * Query parameter of language
      *
-     * @param $url
-     * @param $language
+     * @param string $url      Simple url
+     * @param string $language language code
      *
      * @return bool|mixed|string
+     * @throws Exception
      */
     public function addLanguageToUrl($url, $language)
     {
@@ -373,15 +407,27 @@ class Languages extends Component
             return false;
         }
 
-        if($language == $this->getDefaultLanguage()){
-            return $url;
+        /* if ($language == $this->getDefaultLanguage()) {
+             return $url;
+         }*/
+
+        if ($this->language_on_domain
+            && isset($this->default_language[$_SERVER['HTTP_HOST']])
+        ) {
+            $parts = parse_url($url);
+            if (isset($parts['host'])) {
+                $parts['host'] = $_SERVER['HTTP_HOST'];
+                $url = URL::buildUrl($parts);
+            }
         }
 
         /**
          * Add language code to url path
          * If @language_on_path is true
          * */
-        if ($this->language_on_path == true && trim($url, '/') == $this->removeScriptNameFromUrl($url)) {
+        if ($this->language_on_path == true
+            && trim($url, '/') == $this->removeScriptNameFromUrl($url)
+        ) {
 
             $url = $this->removeScriptNameFromUrl($url);
 
@@ -394,9 +440,8 @@ class Languages extends Component
             $path_parts = explode('/', $parts['path']);
             $path_parts = array_filter($path_parts);
 
-            if (
-                (!empty($path_parts) || !empty($parts['query']))
-                || (empty($path_parts) && !isset ($parts['fragment']))
+            if ((!empty($path_parts) || !empty($parts['query']))
+                || (empty($path_parts) && !isset($parts['fragment']))
             ) {
                 array_unshift($path_parts, $language);
                 $parts['path'] = '/' . implode('/', $path_parts);
@@ -404,10 +449,10 @@ class Languages extends Component
 
             $url = URL::buildUrl($parts);
 
-        } /**
-         * Adding query @language variable
-         * */
-        else {
+        } else {
+            /**
+             * Adding query @language variable
+             * */
             $url = URL::addQueryVars($url, $this->language_query_key, $language);
         }
 
@@ -418,7 +463,7 @@ class Languages extends Component
      * Validate one language
      * Check if language exists in @accepted_languages array
      *
-     * @param $language
+     * @param string $language language code
      *
      * @return bool
      */
@@ -436,7 +481,7 @@ class Languages extends Component
      * Check if each language code exists on
      * Accepted languages list
      *
-     * @param $languages
+     * @param string[] $languages language codes
      *
      * @return bool
      */
@@ -452,7 +497,9 @@ class Languages extends Component
     }
 
     /**
-     * @param bool $with_names
+     * Get accepted languages array
+     *
+     * @param bool $with_names return languages with assoc keys and names
      *
      * @return array|null
      */
@@ -466,7 +513,7 @@ class Languages extends Component
         $accept_languages = array_flip($this->accept_languages);
 
         foreach ($accept_languages as $key => &$language) {
-            $language = $this->languages[$key];
+            $language = $this->_languages[$key];
         }
 
         return $accept_languages;
@@ -481,8 +528,8 @@ class Languages extends Component
     public static function getScriptUrl()
     {
 
-        if (isset(self::$script_url)) {
-            return self::$script_url;
+        if (isset(self::$_script_url)) {
+            return self::$_script_url;
         }
 
         if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
@@ -503,25 +550,54 @@ class Languages extends Component
 
         $str = trim($str, '/');
 
-        self::$script_url = $str;
+        self::$_script_url = $str;
 
-        return self::$script_url;
+        return self::$_script_url;
     }
 
     /**
+     * Get main from languages
+     *
      * @return mixed
+     * @throws Exception
      */
     public function getFromLanguage()
     {
-        return $this->from_language;
+        if ($this->validateLanguage($this->from_language)) {
+            return $this->from_language;
+        } else {
+            throw new Exception('Unknown from language parameter.');
+        }
     }
 
     /**
+     * Get default language
+     *
      * @return string
+     * @throws Exception
      */
     public function getDefaultLanguage(): string
     {
-        return $this->default_language;
+
+        if ($this->language_on_domain
+            && isset($this->default_language[$_SERVER['HTTP_HOST']])
+        ) {
+            $language = $this->default_language[$_SERVER['HTTP_HOST']];
+        } elseif (isset($this->default_language['default'])) {
+            $language = $this->default_language['default'];
+        } elseif (isset($this->default_language)
+            && is_string($this->default_language)
+        ) {
+            $language = $this->default_language;
+        } else {
+            return $this->getFromLanguage();
+        }
+
+        if ($this->validateLanguage($language)) {
+            return $language;
+        } else {
+            throw new Exception('Unknown default language parameter.');
+        }
     }
 
 

@@ -1,14 +1,25 @@
 <?php
-
-
+/**
+ * Translation component main abstract
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Composer
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 namespace NovemBit\i18n\component\translation;
 
 
-use Exception;
+use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\Component;
 
 /**
- * @property  \NovemBit\i18n\component\Translation context
+ * Main translation method component
+ *
+ * @property \NovemBit\i18n\component\Translation context
  */
 abstract class Translation extends Component
 {
@@ -60,8 +71,8 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $translations
-     * @param $texts
+     * @param  $translations
+     * @param  $texts
      * @throws Exception
      */
     private function fetchSavedTranslations(&$translations, &$texts)
@@ -256,7 +267,7 @@ abstract class Translation extends Component
             if (!$this->validateBeforeReTranslate($text)) {
                 unset($texts[$key]);
             } else {
-//                $this->doExclusion($text);
+                //                $this->doExclusion($text);
                 $this->_re_translate_original_texts[$original] = $text;
             }
         }
@@ -360,11 +371,11 @@ abstract class Translation extends Component
             if (!$this->validateBeforeTranslate($text)) {
                 unset($texts[$key]);
             } else {
-                $this->doExclusion($text);
+                $this->_doExclusion($text);
                 $this->_translate_original_texts[$original] = $text;
             }
         }
-//        $texts = array_filter($texts);
+        //        $texts = array_filter($texts);
         $texts = array_unique($texts);
 
     }
@@ -411,25 +422,28 @@ abstract class Translation extends Component
      */
     private function initExclusions()
     {
-        usort($this->exclusions, function ($a, $b) {
-            if (strpos($a, $b) !== false) {
-                return false;
-            } else {
-                return true;
+        usort(
+            $this->exclusions, function ($a, $b) {
+                if (strpos($a, $b) !== false) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
-        });
+        );
     }
 
     /**
-     * @param        $text
-     *
+     * @param $text
      */
-    private function doExclusion(&$text)
+    private function _doExclusion(&$text)
     {
         $text = preg_replace(
-            array_map(function ($exclusion) {
-                return '/(?<=\s|^)(' . preg_quote($exclusion) . ')(?=\s|$)/i';
-            }, $this->exclusions),
+            array_map(
+                function ($exclusion) {
+                    return '/(?<=\s|^)(' . preg_quote($exclusion) . ')(?=\s|$)/i';
+                }, $this->exclusions
+            ),
             $this->exclusion_pattern,
             $text
         );
