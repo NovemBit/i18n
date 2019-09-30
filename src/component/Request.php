@@ -10,6 +10,7 @@
  * @version  GIT: @1.0.1@
  * @link     https://github.com/NovemBit/i18n
  */
+
 namespace NovemBit\i18n\component;
 
 use NovemBit\i18n\Module;
@@ -19,8 +20,19 @@ use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\exception\Exception;
 
 /**
+ * Main Request class
+ *  It make easy to make requests flexible
+ *  Determine type of received request
+ *  Then provide translation for current type of content
+ *
+ * @category Class
+ * @package  Languages
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
  * @property Module $context
- */
+ * */
 class Request extends Component
 {
     /*
@@ -56,7 +68,9 @@ class Request extends Component
     public $editor;
 
     /**
-     * @return mixed
+     * Get request referer source url
+     *
+     * @return string
      */
     public function getRefererSourceUrl()
     {
@@ -64,7 +78,11 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $_referer_source_url
+     * Set request referer source url
+     *
+     * @param string $_referer_source_url Referer source url
+     *
+     * @return void
      */
     public function setRefererSourceUrl($_referer_source_url)
     {
@@ -72,7 +90,9 @@ class Request extends Component
     }
 
     /**
-     * @return mixed
+     * Get Referer translations
+     *
+     * @return array
      */
     public function getRefererTranslations()
     {
@@ -80,7 +100,11 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $_referer_translations
+     * Set Referer translations
+     *
+     * @param array $_referer_translations Referer translations
+     *
+     * @return void
      */
     public function setRefererTranslations($_referer_translations)
     {
@@ -88,13 +112,16 @@ class Request extends Component
     }
 
     /**
-     * @param $translate
-     * @param $to_language
+     * Get Source Url from translate
+     * Using ReTranslate method of Translation
+     *
+     * @param string $translate   Translated url
+     * @param string $to_language Language of translated string
      *
      * @return null
      * @throws Exception
      */
-    private function getSourceUrlFromTranslate($translate, $to_language)
+    private function _getSourceUrlFromTranslate($translate, $to_language)
     {
 
         $re_translate = $this->context->translation
@@ -107,9 +134,11 @@ class Request extends Component
     }
 
     /**
+     * Prepare Destination to finding source
+     *
      * @return bool
      */
-    private function prepareDestination()
+    private function _prepareDestination()
     {
         $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars(
@@ -122,7 +151,9 @@ class Request extends Component
     }
 
     /**
-     * @return mixed
+     * Get request referer
+     *
+     * @return string
      */
     public function getReferer()
     {
@@ -130,7 +161,11 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $_referer
+     * Set request referer
+     *
+     * @param string $_referer Referer url
+     *
+     * @return void
      */
     public function setReferer($_referer)
     {
@@ -138,6 +173,9 @@ class Request extends Component
     }
 
     /**
+     * Prepare Referer
+     * To create response document
+     *
      * @return bool
      * @throws Exception
      */
@@ -161,6 +199,9 @@ class Request extends Component
     }
 
     /**
+     * Prepare Referer source url
+     * To create response document
+     *
      * @return bool
      * @throws Exception
      */
@@ -183,7 +224,7 @@ class Request extends Component
             * Set source origin URL
             * */
             $this->setRefererSourceUrl(
-                $this->getSourceUrlFromTranslate(
+                $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
                     $this->getRefererLanguage()
                 )
@@ -208,6 +249,9 @@ class Request extends Component
     }
 
     /**
+     * Prepare Source url
+     * To create response document
+     *
      * @return bool
      * @throws Exception
      */
@@ -221,7 +265,7 @@ class Request extends Component
         if ($this->getLanguage() == $this->context->languages->getFromLanguage()
             || $this->getDestination() == '/'
         ) {
-            $this->setUrlTranslations(
+            $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getDestination()])
@@ -231,13 +275,13 @@ class Request extends Component
             /*
              * Set source origin URL
              * */
-            $this->setSourceUrl($this->getDestination());
+            $this->_setSourceUrl($this->getDestination());
         } else {
             /*
             * Set source origin URL
             * */
-            $this->setSourceUrl(
-                $this->getSourceUrlFromTranslate(
+            $this->_setSourceUrl(
+                $this->_getSourceUrlFromTranslate(
                     $this->getDestination(),
                     $this->getLanguage()
                 )
@@ -246,7 +290,7 @@ class Request extends Component
             /*
              * Set current url all translations
              * */
-            $this->setUrlTranslations(
+            $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
@@ -266,7 +310,12 @@ class Request extends Component
     }
 
     /**
+     * Prepare
+     * To create response document
+     *
+     * @return boolean
      * @throws Exception
+     *
      * @throws Exception
      */
     private function _prepare()
@@ -279,13 +328,15 @@ class Request extends Component
         }
 
         return $this->_prepareLanguage()
-            && $this->prepareDestination()
+            && $this->_prepareDestination()
             && $this->_prepareSourceUrl()
             && $this->_prepareReferer();
     }
 
     /**
-     * @return mixed
+     * Get Referer language
+     *
+     * @return string
      */
     public function getRefererLanguage()
     {
@@ -293,7 +344,11 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $_referer_language
+     * Set Referer Language
+     *
+     * @param mixed $_referer_language Referer language
+     *
+     * @return void
      */
     public function setRefererLanguage($_referer_language)
     {
@@ -301,6 +356,9 @@ class Request extends Component
     }
 
     /**
+     * Prepare Referer language
+     *
+     * @return boolean
      * @throws Exception
      */
     private function _prepareRefererLanguage()
@@ -335,7 +393,11 @@ class Request extends Component
     }
 
     /**
+     * Prepare language
+     *
+     * @return boolean
      * @throws Exception
+     *
      * @throws Exception
      */
     private function _prepareLanguage()
@@ -366,7 +428,7 @@ class Request extends Component
         /*
          * Setting current instance language
          * */
-        $this->setLanguage($language);
+        $this->_setLanguage($language);
 
         /*
          * Remove Language from URI
@@ -377,7 +439,11 @@ class Request extends Component
     }
 
     /**
-     * @param $uri
+     * Remove language from uri string
+     *
+     * @param string $uri Referenced variable of URI string
+     *
+     * @return void
      */
     private function _removeLanguageFromURI(&$uri)
     {
@@ -395,8 +461,11 @@ class Request extends Component
     }
 
     /**
-     * @param  $content
-     * @return string|string[]|null
+     * Translate buffer of request content
+     *
+     * @param string $content content of request buffer
+     *
+     * @return string
      * @throws Exception
      */
     public function translateBuffer($content)
@@ -423,7 +492,7 @@ class Request extends Component
                 if ($type == "html") {
                     $content = preg_replace(
                         '/(<head.*?>)/is',
-                        '$1' . PHP_EOL . $this->getHeadAdditionalTags(),
+                        '$1' . PHP_EOL . $this->_getHeadAdditionalTags(),
                         $content,
                         1
                     );
@@ -436,8 +505,9 @@ class Request extends Component
     }
 
     /**
-     * Start request
+     * Start request translation
      *
+     * @return void
      * @throws Exception
      */
     public function start()
@@ -458,9 +528,11 @@ class Request extends Component
     }
 
     /**
+     * Get in <head> additional tags
+     *
      * @return string
      */
-    private function getHeadAdditionalTags()
+    private function _getHeadAdditionalTags()
     {
         $tags = '';
 
@@ -472,24 +544,30 @@ class Request extends Component
             $tags .= $this->_getEditorJavaScriptTag();
         }
 
-        $tags .= $this->getAlternateLinkTags();
+        $tags .= $this->_getAlternateLinkTags();
         return $tags;
     }
 
-    private function getAlternateLinkTags()
+    /**
+     * Get <link rel="alternate"...> tags
+     * To add on HTML document <head>
+     *
+     * @return string
+     */
+    private function _getAlternateLinkTags()
     {
         $tags = '';
         foreach ($this->getUrlTranslations() as $language => $translate) {
-            $tags .= sprintf(
-                "<link rel=\"alternate\" hreflang=\"%d\" href=\"%s\">",
-                $language,
-                $translate
-            );
+            $tags .= "<link rel=\"alternate\"";
+            $tags .= " hreflang=\"{$language}\" href=\"{$translate}\">";
         }
         return $tags;
     }
 
     /**
+     * Get main JS object <script> tag
+     * To add on HTML document <head>
+     *
      * @return string
      */
     private function _getMainJavaScriptTag()
@@ -515,13 +593,13 @@ class Request extends Component
             ]
         );
         $script = "(function() {window.novembit={$config}})()";
-        return sprintf(
-            "<script type=\"application/javascript\">%s</script>",
-            $script
-        );
+        return "<script type=\"application/javascript\">{$script}</script>";
     }
 
     /**
+     * Get Editor JS <script> tag
+     * To add on HTML document <head>
+     *
      * @return string
      */
     private function _getEditorJavaScriptTag()
@@ -531,29 +609,28 @@ class Request extends Component
 
         return implode(
             '', [
-                sprintf(
-                    "<script type=\"application/javascript\">%s</script>",
-                    $script
-                ),
+                "<script type=\"application/javascript\">{$script}</script>",
                 '<style type="text/css">' . $css . '</style>'
             ]
         );
     }
 
     /**
+     * Get XHR(ajax) Manipulation javascript <script> tag
+     * To add on HTML document <head>
+     *
      * @return string
      */
     private function _getXHRManipulationJavaScriptTag()
     {
         $script = file_get_contents(__DIR__ . '/request/assets/js/xhr.js.js');
-        return sprintf(
-            "<script type=\"application/javascript\">%s</script>",
-            $script
-        );
+        return "<script type=\"application/javascript\">{$script}</script>";
     }
 
     /**
-     * @return mixed
+     * Get Request Destination
+     *
+     * @return string
      */
     public function getDestination()
     {
@@ -561,7 +638,11 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $destination
+     * Set Request Destination
+     *
+     * @param string $destination Destination uri
+     *
+     * @return void
      */
     private function _setDestination($destination)
     {
@@ -569,7 +650,9 @@ class Request extends Component
     }
 
     /**
-     * @return mixed
+     * Get Source Url
+     *
+     * @return string
      */
     public function getSourceUrl()
     {
@@ -577,15 +660,21 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $source_url
+     * Set Source Url
+     *
+     * @param string $source_url Source Url
+     *
+     * @return void
      */
-    private function setSourceUrl($source_url)
+    private function _setSourceUrl($source_url)
     {
         $this->_source_url = $source_url;
     }
 
     /**
-     * @return mixed
+     * Get Url translations list
+     *
+     * @return array
      */
     public function getUrlTranslations()
     {
@@ -593,15 +682,21 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $url_translations
+     * Set Url Translations list
+     *
+     * @param array $url_translations Url Translations list
+     *
+     * @return void
      */
-    private function setUrlTranslations($url_translations)
+    private function _setUrlTranslations($url_translations)
     {
         $this->_url_translations = $url_translations;
     }
 
     /**
-     * @return mixed
+     * Get Request current Language
+     *
+     * @return string
      */
     public function getLanguage()
     {
@@ -609,14 +704,20 @@ class Request extends Component
     }
 
     /**
-     * @param mixed $language
+     * Set Request current language
+     *
+     * @param string $language Language
+     *
+     * @return void
      */
-    private function setLanguage($language)
+    private function _setLanguage($language)
     {
         $this->_language = $language;
     }
 
     /**
+     * Get Translation Component
+     *
      * @return Translation
      */
     public function getTranslation()
@@ -625,7 +726,11 @@ class Request extends Component
     }
 
     /**
-     * @param Translation $translation
+     * Set Translation component
+     *
+     * @param Translation $translation Translation component
+     *
+     * @return void
      */
     private function _setTranslation(Translation $translation)
     {

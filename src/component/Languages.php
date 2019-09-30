@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component;
 
+use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\URL;
@@ -28,6 +29,8 @@ use NovemBit\i18n\system\helpers\URL;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Module $context
  * */
 class Languages extends Component
 {
