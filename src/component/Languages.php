@@ -390,6 +390,7 @@ class Languages extends Component
      * @param string $language language code
      *
      * @return bool|mixed|string
+     * @throws Exception
      */
     public function addLanguageToUrl($url, $language)
     {
@@ -401,28 +402,27 @@ class Languages extends Component
             return false;
         }
 
-        /* if ($language == $this->getDefaultLanguage()) {
-             return $url;
-         }*/
-
+        /**
+         * If language_on_domain is enabled and current host exists on
+         * "default_language" array and if current language
+         * equal $language then change domain name to current host
+         * */
         if ($this->language_on_domain
             && isset($this->default_language[$_SERVER['HTTP_HOST']])
+            && $this->getDefaultLanguage() == $language
         ) {
             $parts = parse_url($url);
             if (isset($parts['host'])) {
                 $parts['host'] = $_SERVER['HTTP_HOST'];
                 $url = URL::buildUrl($parts);
             }
-        }
-
-        /**
-         * Add language code to url path
-         * If @language_on_path is true
-         * */
-        if ($this->language_on_path == true
+        } elseif ($this->language_on_path == true
             && trim($url, '/') == $this->removeScriptNameFromUrl($url)
         ) {
-
+            /**
+             * Add language code to url path
+             * If @language_on_path is true
+             * */
             $url = $this->removeScriptNameFromUrl($url);
 
             $parts = parse_url($url);
@@ -593,6 +593,4 @@ class Languages extends Component
             throw new Exception('Unknown default language parameter.');
         }
     }
-
-
 }

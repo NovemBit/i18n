@@ -4,7 +4,7 @@
  * php version 7.2.10
  *
  * @category Component
- * @package  Composer
+ * @package  Module
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -19,10 +19,18 @@ use NovemBit\i18n\component\translation\type\JSON;
 use NovemBit\i18n\component\translation\type\Text;
 use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\system\exception\Exception;
-use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\Module;
 
 /**
+ * Translation component
+ *
+ * @category Class
+ * @package  Translation
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
  * @property Method method
  * @property Text   $text
  * @property URL    $url
@@ -33,23 +41,25 @@ use NovemBit\i18n\system\Component;
 class Translation extends Component
 {
 
-    private $languages;
+    private $_languages;
 
 
     /**
-     * @param array|string $languages
+     * Set languages for translation
+     *
+     * @param array|string $_languages list of languages
      *
      * @return Translation
      * @throws Exception
      */
-    public function setLanguages($languages)
+    public function setLanguages($_languages)
     {
-        if (is_string($languages)) {
-            $languages = [$languages];
+        if (is_string($_languages)) {
+            $_languages = [$_languages];
         }
 
-        if ($this->context->languages->validateLanguages($languages)) {
-            $this->languages = $languages;
+        if ($this->context->languages->validateLanguages($_languages)) {
+            $this->_languages = $_languages;
 
             return $this;
         } else {
@@ -58,18 +68,26 @@ class Translation extends Component
     }
 
     /**
+     * Get current language
+     *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getLanguages()
     {
-        if (isset($this->languages)) {
-            return $this->languages;
+        if (isset($this->_languages)) {
+            return $this->_languages;
         } else {
             throw new Exception('Languages not set.');
         }
     }
 
+    /**
+     * Get from language from Languages component
+     *
+     * @return mixed
+     * @throws Exception
+     */
     public function getFromLanguage()
     {
         return $this->context->languages->getFromLanguage();

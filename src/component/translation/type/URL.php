@@ -86,6 +86,7 @@ class URL extends Type
      * @param array  $translates list of translated urls
      *
      * @return bool
+     * @throws \NovemBit\i18n\system\exception\Exception
      */
     public function validateAfterTranslate($before, $after, &$translates)
     {

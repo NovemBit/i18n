@@ -1,6 +1,6 @@
 <?php
 /**
- * Languages component
+ * Translation component
  * php version 7.2.10
  *
  * @category Component
@@ -17,7 +17,7 @@ use Exception;
 use NovemBit\i18n\component\Translation;
 
 /**
- * Translation type component
+ * Text type for Translation component
  *
  * @category Class
  * @package  Text

@@ -1,4 +1,15 @@
 <?php
+/**
+ * Translation component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Translation
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\component\translation\type;
 
@@ -9,21 +20,36 @@ use Exception;
 use NovemBit\i18n\component\Translation;
 use NovemBit\i18n\system\parsers\html\Rule;
 
+
 /**
- * @property  Translation context
+ * HTML type for translation component
+ *
+ * @category Class
+ * @package  HTML
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Translation context
  */
 class HTML extends Type
 {
+    /*
+     * Type id of HTML method
+     * */
     public $type = 3;
-
-    public $data_attribute_tag = "i18n";
-
-    private $html_parser;
-    private $to_translate = [];
-    private $translations = [];
 
     public $fields_to_translate = [];
 
+    private $_html_parser;
+    private $_to_translate = [];
+    private $_translations = [];
+
+    /**
+     * Init method for Component
+     *
+     * @return void
+     */
     public function init()
     {
 
@@ -45,23 +71,31 @@ class HTML extends Type
     }
 
     /**
+     * Get Html parser
+     *
      * @return \NovemBit\i18n\system\parsers\HTML
      */
     public function getHtmlParser()
     {
-        return $this->html_parser;
+        return $this->_html_parser;
     }
 
     /**
-     * @param \NovemBit\i18n\system\parsers\HTML $html_parser
+     * Set Html Parser
+     *
+     * @param \NovemBit\i18n\system\parsers\HTML $_html_parser Html parser
+     *
+     * @return void
      */
-    public function setHtmlParser(\NovemBit\i18n\system\parsers\HTML $html_parser)
+    public function setHtmlParser(\NovemBit\i18n\system\parsers\HTML $_html_parser)
     {
-        $this->html_parser = $html_parser;
+        $this->_html_parser = $_html_parser;
     }
 
     /**
-     * @param array $html_list
+     * Doing translate method
+     *
+     * @param array $html_list list of translatable HTML strings
      *
      * @return mixed
      * @throws Exception
@@ -72,7 +106,7 @@ class HTML extends Type
 
         $result = [];
 
-        $this->translations = [];
+        $this->_translations = [];
 
         /*
          * Finding translatable node values and attributes
@@ -81,25 +115,28 @@ class HTML extends Type
 
             $this->getHtmlParser()->load($html);
 
-            $this->getHtmlParser()->fetch(/*
+            $this->getHtmlParser()->fetch(
+                function (&$node, $type) {
+                    /**
                      * Callback for Text nodes
-                     * */
-                function (&$node, $type) {
-                    /** @var DOMText $node */
-                    $this->to_translate[$type][] = $node->data;
+                     *
+                     * @var DOMText $node Text node
+                     */
+                    $this->_to_translate[$type][] = $node->data;
                 },
-                /*
-                 * Callback for Attribute nodes
-                 * */
                 function (&$node, $type) {
-                    /** @var DOMAttr $node */
-                    $this->to_translate[$type][] = $node->value;
+                    /**
+                     * Callback for Attribute nodes
+                     *
+                     * @var DOMAttr $node
+                     */
+                    $this->_to_translate[$type][] = $node->value;
                 }
             );
         }
 
-        foreach ($this->to_translate as $type => $texts) {
-            $this->translations[$type] = $this->context->{$type}->translate($texts);
+        foreach ($this->_to_translate as $type => $texts) {
+            $this->_translations[$type] = $this->context->{$type}->translate($texts);
         }
 
         /*
@@ -113,29 +150,47 @@ class HTML extends Type
                 $this->getHtmlParser()->load($html);
 
                 $this->getHtmlParser()->fetch(
-                /*
-                 * Callback for Text nodes
-                 * */
                     function (&$node, $type) use ($language) {
                         /**
+                         * Callback for Text node
+                         *
                          * @var DOMText $node
                          * @var DOMElement $parent
                          */
                         $translate = false;
-                        if (isset($this->translations[$type][$node->data][$language])) {
-                            $translate = htmlspecialchars($this->translations[$type][$node->data][$language]);
+
+                        $exists = isset(
+                            $this->_translations[$type][$node->data][$language]
+                        );
+
+                        if ($exists) {
+                            $translate = htmlspecialchars(
+                                $this->_translations[$type][$node->data][$language]
+                            );
                         }
 
                         $parent = $node->parentNode;
 
-                        if ($parent->hasAttribute($this->context->context->prefix . '-text')) {
-                            $text = json_decode($parent->getAttribute($this->context->context->prefix . '-text'), true);
+                        if ($parent->hasAttribute(
+                            $this->context->context->prefix . '-text'
+                        )
+                        ) {
+                            $text = json_decode(
+                                $parent->getAttribute(
+                                    $this->context->context->prefix . '-text'
+                                ),
+                                true
+                            );
                         } else {
                             $text = [];
                         }
+
                         if ($translate !== false) {
                             $text[] = [$node->data, $translate];
-                            $parent->setAttribute($this->context->context->prefix . '-text', json_encode($text));
+                            $parent->setAttribute(
+                                $this->context->context->prefix . '-text',
+                                json_encode($text)
+                            );
                         }
                         $node->data = $translate ?? $node->data;
                     },
@@ -144,27 +199,47 @@ class HTML extends Type
                      * */
                     function (&$node, $type) use ($language) {
                         /**
+                         * Callback for Text node
+                         *
                          * @var DOMAttr $node
                          * @var DOMElement $parent
                          */
 
                         $translate = false;
-                        if (isset($this->translations[$type][$node->value][$language])) {
-                            $translate = htmlspecialchars($this->translations[$type][$node->value][$language]);
+
+                        $exists = isset(
+                            $this->_translations[$type][$node->value][$language]
+                        );
+                        if ($exists) {
+                            $translate = htmlspecialchars(
+                                $this->_translations[$type][$node->value][$language]
+                            );
                         }
 
                         $parent = $node->parentNode;
-                        if ($parent->hasAttribute($this->context->context->prefix . '-attr')) {
-                            $attr = json_decode($parent->getAttribute($this->context->context->prefix . '-attr'), true);
+                        if ($parent->hasAttribute(
+                            $this->context->context->prefix . '-attr'
+                        )
+                        ) {
+                            $attr = json_decode(
+                                $parent->getAttribute(
+                                    $this->context->context->prefix . '-attr'
+                                ),
+                                true
+                            );
                         } else {
                             $attr = [];
                         }
                         if ($translate !== false) {
                             $attr[$node->name] = [$node->value, $translate];
-                            $parent->setAttribute($this->context->context->prefix . '-attr', json_encode($attr));
+                            $parent->setAttribute(
+                                $this->context->context->prefix . '-attr',
+                                json_encode($attr)
+                            );
                         }
                         $node->value = $translate ?? $node->value;
-                    });
+                    }
+                );
 
                 $result[$html][$language] = $this->getHtmlParser()->save();
             }

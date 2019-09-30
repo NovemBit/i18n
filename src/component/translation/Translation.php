@@ -10,6 +10,7 @@
  * @version  GIT: @1.0.1@
  * @link     https://github.com/NovemBit/i18n
  */
+
 namespace NovemBit\i18n\component\translation;
 
 
@@ -17,7 +18,13 @@ use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\Component;
 
 /**
- * Main translation method component
+ * Translation abstract method
+ *
+ * @category Class
+ * @package  HTML
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
  *
  * @property \NovemBit\i18n\component\Translation context
  */
@@ -40,16 +47,21 @@ abstract class Translation extends Component
     private $_re_translate_original_texts = [];
 
     /**
-     * Init
+     * Init method of component
+     *
+     * @return void
      */
     public function init()
     {
-        $this->initExclusions();
-
+        $this->_initExclusions();
     }
 
     /**
-     * @param array $texts
+     * Before translate method
+     *
+     * @param array $texts Texts array
+     *
+     * @return void
      */
     public function beforeTranslate(array &$texts)
     {
@@ -61,7 +73,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param array $translations
+     * After translate method
+     *
+     * @param array $translations Translations array
+     *
+     * @return void
      */
     public function afterTranslate(array &$translations)
     {
@@ -71,11 +87,16 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param  $translations
-     * @param  $texts
+     * Fetching saved translates from DB
+     * Using \NovemBit\i18n\models\Translation model
+     *
+     * @param array $translations Referenced variable of translations
+     * @param array $texts        Referenced variable of initial texts
+     *
+     * @return void
      * @throws Exception
      */
-    private function fetchSavedTranslations(&$translations, &$texts)
+    private function _fetchSavedTranslations(&$translations, &$texts)
     {
 
         $languages = $this->context->getLanguages();
@@ -95,7 +116,8 @@ abstract class Translation extends Component
             /*
              * Adding saved translations on array
              * */
-            $translations[$model['source']][$model['to_language']] = $model['translate'];
+            $translations[$model['source']][$model['to_language']]
+                = $model['translate'];
 
             /*
              * Unset texts that already saved in cache
@@ -117,7 +139,7 @@ abstract class Translation extends Component
      * Its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts
+     * @param array $texts Texts array to translate
      *
      * @return array
      * @throws Exception
@@ -149,7 +171,7 @@ abstract class Translation extends Component
          * */
         if ($this->save_translations) {
 
-            $this->fetchSavedTranslations($translations, $texts);
+            $this->_fetchSavedTranslations($translations, $texts);
 
         }
 
@@ -189,7 +211,10 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param array $texts
+     * Re Translate already translated texts, find sources of
+     * Bunch text strings
+     *
+     * @param array $texts Array of texts
      *
      * @return array
      * @throws Exception
@@ -236,7 +261,11 @@ abstract class Translation extends Component
 
 
     /**
-     * @param $texts
+     * Before Translate method
+     *
+     * @param array $texts Array of texts
+     *
+     * @return void
      */
     public function beforeReTranslate(&$texts)
     {
@@ -246,8 +275,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $texts
-     * @param $result
+     * After ReTranslate method
+     *
+     * @param array $result Referenced array of results
+     *
+     * @return void
      */
     public function afterReTranslate(&$result)
     {
@@ -257,7 +289,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $texts
+     * Validate all before ReTranslate method
+     *
+     * @param array $texts Array of texts
+     *
+     * @return void
      */
     public function validateAllBeforeReTranslate(&$texts)
     {
@@ -267,17 +303,18 @@ abstract class Translation extends Component
             if (!$this->validateBeforeReTranslate($text)) {
                 unset($texts[$key]);
             } else {
-                //                $this->doExclusion($text);
                 $this->_re_translate_original_texts[$original] = $text;
             }
         }
-        //$texts = array_filter($texts);
         $texts = array_unique($texts);
     }
 
     /**
-     * @param $texts
-     * @param $result
+     * Validate all after ReTranslate
+     *
+     * @param array $result Referenced variable array of results
+     *
+     * @return void
      */
     public function validateAllAfterReTranslate(&$result)
     {
@@ -314,7 +351,9 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $text
+     * Validate before ReTranslate
+     *
+     * @param string $text Text to validate
      *
      * @return bool
      */
@@ -324,10 +363,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $before
-     * @param $after
+     * Validate after ReTranslate
      *
-     * @param $result
+     * @param string $before Initial value of string
+     * @param string $after  final value of string
+     * @param array  $result Referenced variable array of results
      *
      * @return bool
      */
@@ -338,7 +378,9 @@ abstract class Translation extends Component
 
 
     /**
-     * @param $text
+     * Validate before translate
+     *
+     * @param string $text Referenced text variable
      *
      * @return bool
      */
@@ -348,10 +390,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $before
-     * @param $after
+     * Validate after translate
      *
-     * @param $translates
+     * @param string $before     initial value of string
+     * @param string $after      final value of string
+     * @param array  $translates Referenced variable of already translated values
      *
      * @return bool
      */
@@ -361,7 +404,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param array $texts
+     * Validate all before translate
+     *
+     * @param array $texts Array of texts to translate
+     *
+     * @return void
      */
     public function validateAllBeforeTranslate(array &$texts)
     {
@@ -375,13 +422,15 @@ abstract class Translation extends Component
                 $this->_translate_original_texts[$original] = $text;
             }
         }
-        //        $texts = array_filter($texts);
         $texts = array_unique($texts);
-
     }
 
     /**
-     * @param array $translates
+     * Validate all after translate
+     *
+     * @param array $translates Array of translations
+     *
+     * @return void
      */
     public function validateAllAfterTranslate(array &$translates)
     {
@@ -418,9 +467,12 @@ abstract class Translation extends Component
     }
 
     /**
+     * Initialization of exclusions array
      * Sort exclusions by priority
+     *
+     * @return void
      */
-    private function initExclusions()
+    private function _initExclusions()
     {
         usort(
             $this->exclusions, function ($a, $b) {
@@ -434,7 +486,11 @@ abstract class Translation extends Component
     }
 
     /**
-     * @param $text
+     * Doing exclusion from text
+     *
+     * @param string $text Text to make exclusion from there
+     *
+     * @return void
      */
     private function _doExclusion(&$text)
     {
@@ -453,7 +509,7 @@ abstract class Translation extends Component
      * Abstract method that must be extended from
      * Child methods to translate texts
      *
-     * @param array $texts
+     * @param array $texts Texts array to translate
      *
      * @return array
      */
