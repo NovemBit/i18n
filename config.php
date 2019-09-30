@@ -88,7 +88,7 @@ return [
     ],
 
     'db' => [
-        'class' => NovemBit\i18n\system\components\DB::class,
+        'class' => NovemBit\i18n\system\component\DB::class,
         'pdo' => 'sqlite:' . __DIR__ . '/runtime/db/BLi18n.db',
         /*'pdo'      => 'mysql:host=localhost;dbname=swanson',
         'username' => "root",

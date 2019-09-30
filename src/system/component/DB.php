@@ -1,6 +1,6 @@
 <?php
 
-namespace NovemBit\i18n\system\components;
+namespace NovemBit\i18n\system\component;
 
 use NovemBit\i18n\system\Component;
 use yii\db\Connection;

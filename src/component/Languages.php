@@ -4,7 +4,7 @@
  * php version 7.2.10
  *
  * @category Component
- * @package  Composer
+ * @package  Module
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -22,6 +22,12 @@ use NovemBit\i18n\system\helpers\URL;
  *  from language - main website content language
  *  default language - default language for request
  *  accept languages - languages list for translations
+ *
+ * @category Class
+ * @package  Languages
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
  * */
 class Languages extends Component
 {
@@ -266,17 +272,6 @@ class Languages extends Component
         'zu' => 'Zulu'
     ];
 
-
-    /**
-     * Init function for component
-     *
-     * @return void
-     */
-    public function init()
-    {
-
-    }
-
     /**
      * Getting language code from url query string
      *
@@ -395,7 +390,6 @@ class Languages extends Component
      * @param string $language language code
      *
      * @return bool|mixed|string
-     * @throws Exception
      */
     public function addLanguageToUrl($url, $language)
     {

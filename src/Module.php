@@ -18,28 +18,32 @@ use Exception;
 /**
  * Module class
  *
+ * @category Class
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
  * @property component\Translation translation
  * @property component\Languages languages
  * @property component\Request request
- * @property component\DB db
+ * @property system\component\DB db
  * @property component\Rest rest
  */
 class Module extends system\Component
 {
-    private static $instance;
+    private static $_instance;
 
     public $prefix = 'i18n';
 
     /**
-     * Init for component
+     * CommonInit method
      *
-     * @throws Exception
+     * Load Yii framework container to use some libraries that not
+     * Allowed to use standalone
+     *
+     * @return void
      */
-    public function init()
-    {
-
-    }
-
     public function commonInit()
     {
         defined('YII_DEBUG') or define('YII_DEBUG', true);
@@ -54,6 +58,8 @@ class Module extends system\Component
      * Start request translation
      *
      * @throws Exception
+     *
+     * @return void
      */
     public function start()
     {
@@ -64,17 +70,18 @@ class Module extends system\Component
     /**
      * Creating module main instance
      *
-     * @param null $config
+     * @param null|array $config Main configuration array
+     *
      * @return Module
      */
     public static function instance($config = null)
     {
 
-        if (!isset(self::$instance) && ($config != null)) {
-            self::$instance = new self($config);
+        if (!isset(self::$_instance) && ($config != null)) {
+            self::$_instance = new self($config);
         }
 
-        return self::$instance;
+        return self::$_instance;
     }
 
 }
