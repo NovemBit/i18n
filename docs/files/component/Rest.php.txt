@@ -33,16 +33,47 @@ use NovemBit\i18n\system\Component;
 class Rest extends Component
 {
 
+    /**
+     * Api keys list
+     *
+     * @var string[]
+     * */
     public $api_keys = [];
 
+    /**
+     * Default endpoint of rest api
+     *
+     * @var string
+     * */
     public $endpoint = "i18n/rest/v1";
 
+    /**
+     * Action prefix
+     *
+     * @var string
+     * */
     public $actionPrefix = 'action';
 
+    /**
+     * Default action
+     *
+     * @var string
+     * */
     public $defaultAction = 'index';
+
+    /**
+     * Restring action
+     *
+     * @var string
+     * */
     public $restrictAction = 'restrict';
 
 
+    /**
+     * Current api key
+     *
+     * @var string
+     * */
     private $_api_key;
 
     /**
