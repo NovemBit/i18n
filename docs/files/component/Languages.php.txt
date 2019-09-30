@@ -45,14 +45,14 @@ class Languages extends Component
     /**
      * Default language
      *
-     * @var {
-     *  host: language
-     * }[]
+     * @var array[string][string]
      * */
     public $default_language;
 
     /**
      * Accepted languages
+     *
+     * @var string[]
      * */
     public $accept_languages = ['fr', 'it', 'de'];
 
