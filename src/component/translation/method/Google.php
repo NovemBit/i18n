@@ -1,17 +1,34 @@
 <?php
-
+/**
+ * Translation component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Translation
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\component\translation\method;
 
-/*
- * Dummy method of translation
- * That returns {lang}-{text} as translation
- * */
-
-use Exception;
 use Google\Cloud\Core\Exception\GoogleException;
 use Google\Cloud\Translate\TranslateClient;
+use NovemBit\i18n\system\exception\Exception;
+use NovemBit\i18n\component\Translation;
 
+/**
+ * Google Translate method of translation
+ *
+ * @category Class
+ * @package  Method
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Translation context
+ */
 class Google extends Method
 {
 
@@ -20,6 +37,9 @@ class Google extends Method
     public $exclusion_pattern = '<span translate="no">$0</span>';
 
     /**
+     * Init Method of component
+     *
+     * @return void
      * @throws Exception
      */
     public function init()
@@ -30,7 +50,9 @@ class Google extends Method
     }
 
     /**
-     * @param array $texts
+     * Doing translate method
+     *
+     * @param array $texts Array of texts to translate
      *
      * @return array
      * @throws Exception
@@ -43,14 +65,14 @@ class Google extends Method
         $result = [];
 
         foreach ($languages as $language) {
-            if($this->context->getFromLanguage() == $language){
-                foreach ($texts as $text){
+            if ($this->context->getFromLanguage() == $language) {
+                foreach ($texts as $text) {
                     $result[$text][$language] = $text;
                     continue;
                 }
             }
 
-            $this->translateOneLanguage($texts, $language, $result);
+            $this->_translateOneLanguage($texts, $language, $result);
         }
 
         return $result;
@@ -58,12 +80,16 @@ class Google extends Method
 
 
     /**
-     * @param array $texts
-     * @param $to
-     * @param $result
+     * Translate texts to only one language
+     *
+     * @param array  $texts  Array of translatable texts
+     * @param string $to     Language code
+     * @param array  $result Referenced variable of results
+     *
      * @return array|bool
+     * @throws Exception
      */
-    public function translateOneLanguage(array $texts, $to, &$result)
+    private function _translateOneLanguage(array $texts, $to, &$result)
     {
         $source = $this->context->getFromLanguage();
 
@@ -86,14 +112,22 @@ class Google extends Method
             $chunks = array_chunk($texts, 100);
             $translations = array();
             foreach ($chunks as $chunk) {
-                $translations = array_merge($translations, $gt_client->translateBatch($chunk));
+                $translations = array_merge(
+                    $translations,
+                    $gt_client->translateBatch($chunk)
+                );
             }
         } catch (GoogleException $e) {
             return false;
         }
 
         foreach ($translations as $key => $item) {
-            $node = str_replace(array('<span translate="no">', '</span>'), '', $item['text']);
+            $node = str_replace(
+                array('<span translate="no">', '</span>'),
+                '',
+                $item['text']
+            );
+
             if (!empty($node)) {
                 $result[$item['input']][$to] = $node;
             }
