@@ -39,6 +39,7 @@ class DB extends Component
     private $_connection;
 
     /**
+     * {@inheritdoc}
      * Init method of component.
      * Setting default connection of DB
      *

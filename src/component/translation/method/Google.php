@@ -37,7 +37,7 @@ class Google extends Method
     public $exclusion_pattern = '<span translate="no">$0</span>';
 
     /**
-     * Init Method of component
+     * {@inheritdoc}
      *
      * @return void
      * @throws Exception

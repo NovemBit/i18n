@@ -29,6 +29,8 @@ use Exception;
  * @property component\Request request
  * @property system\component\DB db
  * @property component\Rest rest
+ * @property Module _instance Main instance of Module
+ * @property string $prefix Global prefix for any public actions
  */
 class Module extends system\Component
 {
@@ -37,7 +39,7 @@ class Module extends system\Component
     public $prefix = 'i18n';
 
     /**
-     * CommonInit method
+     * {@inheritdoc}
      *
      * Load Yii framework container to use some libraries that not
      * Allowed to use standalone

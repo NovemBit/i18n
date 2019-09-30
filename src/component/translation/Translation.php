@@ -26,6 +26,13 @@ use NovemBit\i18n\system\Component;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
+ * @property int type Type id. Using as column value to save on DB
+ * @property bool save_translations If true then all translations saving on DB
+ * @property bool validation If true then methods before and after validation runes
+ * @property array exclusions Array of string exclusions
+ * @property string exclusion_pattern Regexp replacement pattern of exclusion
+ * @property array _translate_original_texts keep originals to use for validation
+ * @property array _re_translate_original_texts keep originals to use for validation
  * @property \NovemBit\i18n\component\Translation context
  */
 abstract class Translation extends Component
@@ -33,8 +40,6 @@ abstract class Translation extends Component
     public $type = 0;
 
     public $save_translations = true;
-
-    public $use_saved_translations = true;
 
     public $validation = false;
 
@@ -47,7 +52,7 @@ abstract class Translation extends Component
     private $_re_translate_original_texts = [];
 
     /**
-     * Init method of component
+     * {@inheritdoc}
      *
      * @return void
      */

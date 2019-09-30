@@ -30,7 +30,16 @@ use NovemBit\i18n\system\helpers\URL;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property Module $context
+ * @property string from_language Main content language
+ * @property string|string[] default_language Default language(s)
+ * @property string[] Accepted translation languages
+ * @property bool language_on_path Keep language on URL path
+ * @property bool language_on_domain Determine language from domain name
+ * @property string language_query_key Query param key of language code
+ * @property string[] path_exclusion_patterns Exclusion patterns for paths
+ * @property string _script_url Current script url
+ * @property {code: languageName}[] $_languages Languages List
+ * @property Module context
  * */
 class Languages extends Component
 {
@@ -40,7 +49,7 @@ class Languages extends Component
      * */
     public $from_language = 'en';
 
-    /*
+    /**
      * Default language
      * */
     public $default_language;
@@ -82,11 +91,13 @@ class Languages extends Component
      * */
     public $path_exclusion_patterns = [];
 
-
+    /**
+     * Current script path in url
+     * */
     private static $_script_url;
 
-    /*
-     * iso 639-1 languages list
+    /**
+     * ISO 639-1 languages list
      * */
     private $_languages = [
         'ab' => 'Abkhazian',

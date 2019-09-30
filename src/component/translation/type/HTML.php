@@ -46,7 +46,7 @@ class HTML extends Type
     private $_translations = [];
 
     /**
-     * Init method for Component
+     * {@inheritdoc}
      *
      * @return void
      */

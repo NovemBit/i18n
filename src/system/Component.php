@@ -1,18 +1,36 @@
 <?php
+/**
+ * Translation component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\system;
 
-/*  BLi18n
- *
+/**
  * Main system component class
  * That helps to build very flexible and beautiful
  * Structure of application
  * Like very popular frameworks
  *
  * Its simple but provides very useful functionality
+ * Module class
+ *
+ * @category Class
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property array $config Constructor configuration array
+ * @property Component $context Context (parent) component of current component
  * */
-
-
 abstract class Component
 {
 
@@ -23,9 +41,8 @@ abstract class Component
     /**
      * Component constructor.
      *
-     * @param array $config
-     * @param null $context
-     *
+     * @param array          $config  Configuration array
+     * @param null|Component $context Context (parent) Component
      */
     public function __construct($config = [], & $context = null)
     {
@@ -50,7 +67,7 @@ abstract class Component
 
         $this->init();
 
-        if ($this->_is_cli()) {
+        if ($this->_isCli()) {
 
             global $argv, $argc;
 
@@ -66,22 +83,20 @@ abstract class Component
 
 
     /**
+     * Common init method running before
+     * Initialization of child components
      *
+     * @return void
      */
     public function commonInit()
     {
-
     }
 
     /**
-     */
-    public function run()
-    {
-    }
-
-    /*
      * Component init method
-     * Using as constructor
+     * Running after child component initialization
+     *
+     * @return void
      * */
     public function init()
     {
@@ -91,8 +106,10 @@ abstract class Component
      * Action that will run
      * Only on cli script
      *
-     * @param $argv
-     * @param $argc
+     * @param array $argv Array of cli arguments
+     * @param int   $argc Count of cli arguments
+     *
+     * @return void
      */
     public function cli($argv, $argc)
     {
@@ -100,21 +117,24 @@ abstract class Component
 
 
     /**
-     * Init only for CLI
+     * Init method only for CLI
      *
-     * @param $argv
-     * @param $argc
+     * @param array $argv Array of cli arguments
+     * @param int   $argc Count of cli arguments
+     *
+     * @return void
      */
     public function cliInit($argv, $argc)
     {
-
     }
 
 
     /**
+     * Check if script running on CLI
+     *
      * @return bool
      */
-    private function _is_cli()
+    private function _isCli()
     {
         return php_sapi_name() === 'cli';
     }
