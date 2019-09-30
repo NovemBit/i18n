@@ -29,13 +29,25 @@ use Exception;
  * @property component\Request request
  * @property system\component\DB db
  * @property component\Rest rest
- * @property Module _instance Main instance of Module
- * @property string $prefix Global prefix for any public actions
  */
 class Module extends system\Component
 {
+
+    /**
+     * Main instance of Module
+     *
+     * @var Module
+     * */
     private static $_instance;
 
+    /**
+     * Prefix for any public action
+     * For example in translated HTML document attributes
+     * JS global variables
+     * e.t.c.
+     *
+     * @var string
+     * */
     public $prefix = 'i18n';
 
     /**
