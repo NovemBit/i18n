@@ -4,7 +4,7 @@
  * php version 7.2.10
  *
  * @category Component
- * @package  Composer
+ * @package  Module
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -15,7 +15,15 @@ namespace NovemBit\i18n\models;
 
 use yii\behaviors\TimestampBehavior;
 
+
 /**
+ * ActiveRecord class. Child of Yii ActiveRecord library
+ *
+ * @category Model
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
  *
  * @property int $id
  * @property string $from_language
@@ -30,6 +38,11 @@ use yii\behaviors\TimestampBehavior;
 class Translation extends ActiveRecord
 {
 
+    /**
+     * Table name in DB
+     *
+     * @return string
+     */
     public static function tableName()
     {
         return "{{%translations}}";
@@ -37,16 +50,24 @@ class Translation extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
+     * @return array
      */
     public function rules()
     {
         return [
-//            [['from_language', 'to_language'], 'required'],
+            /*[['from_language', 'to_language'], 'required'],*/
 
             [
                 ['from_language', 'to_language', 'type', 'source', 'level'],
                 'unique',
-                'targetAttribute' => ['from_language', 'to_language', 'type', 'source', 'level']
+                'targetAttribute' => [
+                    'from_language',
+                    'to_language',
+                    'type',
+                    'source',
+                    'level'
+                ]
             ],
 
             [
@@ -59,11 +80,18 @@ class Translation extends ActiveRecord
         ];
     }
 
+    /**
+     * Yii component behaviours
+     *  Using timestamp behaviour to set created and updated at
+     *  Column values.
+     *
+     * @return array
+     */
     public function behaviors()
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => time(),
@@ -75,19 +103,41 @@ class Translation extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'name_id',
                 ],
                 'value' => function ($event) {
-                    return FlyName::find()->orderBy(new Expression('rand()'))->one()->id;
+                    return FlyName::find()
+                        ->orderBy(new Expression('rand()'))->one()->id;
                 },
             ],*/
         ];
     }
 
+    /**
+     * Attribute values
+     *
+     * @return array
+     */
     public function attributeLabels()
     {
         return [];
     }
 
-    public static function get($type, $texts, $from_language, $to_languages, $reverse = false)
-    {
+    /**
+     * Main method to get translations from DB
+     *
+     * @param int $type Type of translated string
+     * @param array $texts Texts array to translate
+     * @param string $from_language From language
+     * @param array $to_languages To languages list
+     * @param bool $reverse Use translate column as source (ReTranslate)
+     *
+     * @return array
+     */
+    public static function get(
+        $type,
+        $texts,
+        $from_language,
+        $to_languages,
+        $reverse = false
+    ) {
 
         $result = [];
         $texts = array_values($texts);
@@ -106,7 +156,8 @@ class Translation extends ActiveRecord
 
         $query = self::find();
         $query
-            ->select(['source', 'to_language', 'translate'])->where(['type' => $type])
+            ->select(['source', 'to_language', 'translate'])
+            ->where(['type' => $type])
             ->andWhere(['from_language' => $from_language])
             ->andWhere(['in', 'to_language', $to_languages])
             ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts]);
@@ -116,6 +167,15 @@ class Translation extends ActiveRecord
         return $result;
     }
 
+    /**
+     * Main method to save translations in DB
+     *
+     * @param string $from_language From language
+     * @param int $type Type of translations
+     * @param array $translations Translations of texts
+     *
+     * @return void
+     */
     public static function saveTranslations($from_language, $type, $translations)
     {
 

@@ -1,65 +1,76 @@
 <?php
+/**
+ * Translation component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\system\component;
 
+use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use yii\db\Connection;
 
+
+/**
+ * DB component
+ *
+ * @category Class
+ * @package  DB
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Module $context
+ * @property Connection $_connection Yii2 DB connection
+ * @property array $connection Array of configuration for Yii2 DB connection
+ */
 class DB extends Component
 {
 
-    public $pdo;
-    public $username;
-    public $password;
-    public $config;
+    public $connection;
 
-    private $_pdo;
-
-    private $connection;
+    private $_connection;
 
     /**
+     * Init method of component.
+     * Setting default connection of DB
      *
+     * @return void
      */
     public function init()
     {
-
-
-        $this->_pdo = new \PDO($this->pdo, $this->username, $this->password, $this->config);
-        $this->setConnection(new Connection([
-            'dsn' => 'mysql:host=localhost;dbname=activerecord',
-            'username' => 'top',
-            'password' => 'top',
-            'charset' => 'utf8mb4',
-            'tablePrefix' => 'i18n_',
-//            'enableQueryCache' => true,
-//            'enableSchemaCache' => true,
-//            'schemaCacheDuration' => 3000,
-//            'schemaCache' => 'cache',
-        ]));
+        $this->setConnection(
+            new Connection($this->connection)
+        );
     }
 
     /**
-     * @return \PDO
-     */
-    public function pdo()
-    {
-        return $this->_pdo;
-    }
-
-    /**
+     * Get connection of DB
+     *
      * @return Connection
      */
     public function getConnection(): Connection
     {
-        return $this->connection;
+        return $this->_connection;
     }
 
     /**
-     * @param Connection $connection
+     * Set connection of DB
+     *
+     * @param Connection $_connection Yii2 db connection
+     *
+     * @return void
      */
-    public function setConnection(Connection $connection)
+    public function setConnection(Connection $_connection)
     {
-        $this->connection = $connection;
+        $this->_connection = $_connection;
     }
 
 }

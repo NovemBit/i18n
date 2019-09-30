@@ -10,6 +10,7 @@
  * @version  GIT: @1.0.1@
  * @link     https://github.com/NovemBit/i18n
  */
+
 namespace NovemBit\i18n\component;
 
 
@@ -32,10 +33,10 @@ use NovemBit\i18n\Module;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Method method
- * @property Text   $text
- * @property URL    $url
- * @property HTML   $html
- * @property JSON   $json
+ * @property Text $text
+ * @property URL $url
+ * @property HTML $html
+ * @property JSON $json
  * @property Module $context
  */
 class Translation extends Component

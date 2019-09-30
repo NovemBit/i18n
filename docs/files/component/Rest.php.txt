@@ -1,4 +1,15 @@
 <?php
+/**
+ * Translation component
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\component;
 
@@ -7,9 +18,18 @@ use ErrorException;
 use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
+
 /**
- * @property Module context
- * */
+ * Rest component
+ *
+ * @category Class
+ * @package  Rest
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Module $context
+ */
 class Rest extends Component
 {
 
@@ -23,9 +43,12 @@ class Rest extends Component
     public $restrictAction = 'restrict';
 
 
-    private $api_key;
+    private $_api_key;
+
     /**
+     * Start rest request
      *
+     * @return void
      */
     public function start()
     {
@@ -42,13 +65,13 @@ class Rest extends Component
 
             $actionMethod = $this->actionPrefix;
 
-            $this->validateAPI();
+            $this->_validateAPI();
 
-            if (!isset($this->api_key)) {
+            if (!isset($this->_api_key)) {
                 $actionMethod .= $this->restrictAction;
-            }elseif (empty($actionMethodParts))
+            } elseif (empty($actionMethodParts)) {
                 $actionMethod .= $this->defaultAction;
-            else {
+            } else {
                 foreach ($actionMethodParts as $key => $actionMethodPart) {
                     $actionMethod .= ucfirst($actionMethodPart);
                 }
@@ -62,37 +85,57 @@ class Rest extends Component
 
     }
 
-    private function validateAPI(){
-        if(isset($_GET['api_key']) && in_array($_GET['api_key'],$this->api_keys)){
-            $this->api_key = $_GET['api_key'];
+    /**
+     * Validation of api key
+     *
+     * @return void
+     */
+    private function _validateAPI()
+    {
+        if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys)) {
+            $this->_api_key = $_GET['api_key'];
         }
     }
 
     /**
+     * Translate Action method
+     *
      * @return array|int
      * @throws Exception
      */
     public function actionTranslate()
     {
 
-        if(isset($_POST['texts']) && isset($_POST['languages'])){
+        if (isset($_POST['texts']) && isset($_POST['languages'])) {
 
-            $translation = $this->context->translation->setLanguages($_POST['languages'])->method->translate($_POST['texts']);
+            $translation = $this->context->translation
+                ->setLanguages($_POST['languages'])
+                ->method->translate($_POST['texts']);
             return $translation;
         }
 
         return 0;
     }
 
+    /**
+     * Index Action method
+     *
+     * @return array
+     */
     public function actionIndex()
     {
-        return ['api_key'=>$this->api_key];
+        return ['api_key' => $this->_api_key];
     }
 
+    /**
+     * Restrict Action method
+     *
+     * @return array
+     */
     public function actionRestrict()
     {
         http_response_code(403);
-        return ['messages'=>'You don\'t have access to this endpoint.'];
+        return ['messages' => 'You don\'t have access to this endpoint.'];
     }
 
 }
