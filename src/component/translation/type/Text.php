@@ -29,10 +29,24 @@ use NovemBit\i18n\component\Translation;
  */
 class Text extends Type
 {
+
+    /**
+     * Type using as DB type column value
+     *
+     * @var int
+     * */
     public $type = 1;
 
+    /**
+     * {@inheritdoc}
+     * */
     public $validation = true;
 
+    /**
+     * Dont translate regexp patterns
+     *
+     * @var string[]
+     * */
     public $dont_translate_patterns = [
 
         /*
