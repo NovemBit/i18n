@@ -45,7 +45,9 @@ class Languages extends Component
     /**
      * Default language
      *
-     * @var string|{host: language}[]
+     * @var {
+     *  host: language
+     * }[]
      * */
     public $default_language;
 
