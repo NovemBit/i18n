@@ -1,36 +1,6 @@
 <?xml version="1.0"?>
 <checkstyle version="1.3.0">
-  <file name="component\Rest.php"/>
-  <file name="models\ActiveRecord.php"/>
-  <file name="component\translation\type\Text.php"/>
-  <file name="component\translation\method\Google.php"/>
-  <file name="component\translation\method\Method.php"/>
-  <file name="component\Translation.php">
-    <error line="45" severity="error" message="No summary for property $_languages" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
-  <file name="system\Component.php">
-    <error line="37" severity="error" message="No summary for property $config" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="39" severity="error" message="No summary for property $context" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
-  <file name="component\translation\method\Dummy.php">
-    <error line="33" severity="error" message="No summary for property $exclusion_pattern" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
-  <file name="component\translation\type\HTML.php">
-    <error line="40" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="42" severity="error" message="No summary for property $fields_to_translate" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="44" severity="error" message="No summary for property $_html_parser" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="45" severity="error" message="No summary for property $_to_translate" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="46" severity="error" message="No summary for property $_translations" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
-  <file name="Module.php"/>
   <file name="component\Languages.php"/>
-  <file name="system\helpers\URL.php"/>
-  <file name="component\translation\type\JSON.php">
-    <error line="33" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="35" severity="error" message="No summary for property $validation" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="37" severity="error" message="No summary for property $_objects" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
-  <file name="component\translation\Translation.php"/>
   <file name="component\Request.php">
     <error line="41" severity="error" message="No summary for property $_translation" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="46" severity="error" message="No summary for property $_language" source="phpDocumentor.file.PPC:ERR-50007"/>
@@ -42,21 +12,51 @@
     <error line="66" severity="error" message="No summary for property $editor_query_key" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="68" severity="error" message="No summary for property $editor" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
+  <file name="component\Rest.php"/>
+  <file name="component\translation\method\Dummy.php">
+    <error line="33" severity="error" message="No summary for property $exclusion_pattern" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\method\Google.php"/>
+  <file name="component\translation\method\Method.php"/>
+  <file name="component\translation\method\RestMethod.php"/>
+  <file name="component\translation\Translation.php"/>
+  <file name="component\translation\type\HTML.php">
+    <error line="40" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="42" severity="error" message="No summary for property $fields_to_translate" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="44" severity="error" message="No summary for property $_html_parser" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="45" severity="error" message="No summary for property $_to_translate" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="46" severity="error" message="No summary for property $_translations" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\type\JSON.php">
+    <error line="33" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="35" severity="error" message="No summary for property $validation" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="37" severity="error" message="No summary for property $_objects" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\type\Text.php"/>
   <file name="component\translation\type\Type.php"/>
-  <file name="system\exception\Exception.php"/>
-  <file name="system\parsers\HTML.php"/>
   <file name="component\translation\type\URL.php">
     <error line="34" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="36" severity="error" message="No summary for property $path_separator" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="38" severity="error" message="No summary for property $path_lowercase" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="40" severity="error" message="No summary for property $validation" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
+  <file name="component\Translation.php">
+    <error line="45" severity="error" message="No summary for property $_languages" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="models\ActiveRecord.php"/>
   <file name="models\Translation.php"/>
-  <file name="component\translation\method\RestMethod.php"/>
-  <file name="system\helpers\DataType.php"/>
-  <file name="system\parsers\html\Rule.php"/>
+  <file name="Module.php"/>
   <file name="system\component\DB.php">
     <error line="37" severity="error" message="No summary for property $connection" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="39" severity="error" message="No summary for property $_connection" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
+  <file name="system\Component.php">
+    <error line="37" severity="error" message="No summary for property $config" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="39" severity="error" message="No summary for property $context" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="system\exception\Exception.php"/>
+  <file name="system\helpers\DataType.php"/>
+  <file name="system\helpers\URL.php"/>
+  <file name="system\parsers\html\Rule.php"/>
+  <file name="system\parsers\HTML.php"/>
 </checkstyle>
