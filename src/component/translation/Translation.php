@@ -26,29 +26,57 @@ use NovemBit\i18n\system\Component;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property int type Type id. Using as column value to save on DB
- * @property bool save_translations If true then all translations saving on DB
- * @property bool validation If true then methods before and after validation runes
- * @property array exclusions Array of string exclusions
- * @property string exclusion_pattern Regexp replacement pattern of exclusion
- * @property array _translate_original_texts keep originals to use for validation
- * @property array _re_translate_original_texts keep originals to use for validation
  * @property \NovemBit\i18n\component\Translation context
  */
 abstract class Translation extends Component
 {
+    /**
+     * Type id. Using as column value to save on DB
+     *
+     * @var int
+     * */
     public $type = 0;
 
+    /**
+     * If true then all translations saving on DB
+     *
+     * @var bool
+     * */
     public $save_translations = true;
 
+    /**
+     * If true then methods before and after validation runes
+     *
+     * @var bool
+     * */
     public $validation = false;
 
+    /**
+     * Exclusions Array of string exclusions
+     *
+     * @var array
+     * */
     public $exclusions = [];
 
+    /**
+     * Exclusion regex replacement pattern
+     *
+     * @var string
+     * */
     public $exclusion_pattern = '<span translate="no">$0</span>';
 
+    /**
+     * Keep originals to use for validation
+     *
+     * @var array
+     * */
     private $_translate_original_texts = [];
 
+    /**
+     * Keep originals to use for validation
+     *
+     * @var array
+     * */
     private $_re_translate_original_texts = [];
 
     /**

@@ -32,8 +32,16 @@ use NovemBit\i18n\component\Translation;
 class Google extends Method
 {
 
+    /**
+     * Google console api key for GT
+     *
+     * @var string
+     * */
     public $api_key;
 
+    /**
+     * {@inheritdoc}
+     * */
     public $exclusion_pattern = '<span translate="no">$0</span>';
 
     /**
