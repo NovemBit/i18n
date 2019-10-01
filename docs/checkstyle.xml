@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<checkstyle version="1.3.0">
+  <file name="component\Languages.php"/>
+  <file name="component\Request.php"/>
+  <file name="component\Rest.php"/>
+  <file name="component\translation\method\Dummy.php"/>
+  <file name="component\translation\method\Google.php"/>
+  <file name="component\translation\method\Method.php"/>
+  <file name="component\translation\method\RestMethod.php"/>
+  <file name="component\translation\Translation.php"/>
+  <file name="component\translation\type\HTML.php"/>
+  <file name="component\translation\type\JSON.php"/>
+  <file name="component\translation\type\Text.php"/>
+  <file name="component\translation\type\Type.php"/>
+  <file name="component\translation\type\URL.php"/>
+  <file name="component\Translation.php"/>
+  <file name="models\ActiveRecord.php"/>
+  <file name="models\Translation.php"/>
+  <file name="Module.php"/>
+  <file name="system\component\DB.php"/>
+  <file name="system\Component.php"/>
+  <file name="system\exception\Exception.php"/>
+  <file name="system\helpers\DataType.php"/>
+  <file name="system\helpers\URL.php"/>
+  <file name="system\parsers\html\Rule.php"/>
+  <file name="system\parsers\HTML.php"/>
+</checkstyle>
