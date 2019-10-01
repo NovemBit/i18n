@@ -52,9 +52,9 @@ abstract class Method extends Translation
     /**
      * Validate text after translate
      *
-     * @param string $before Initial text
-     * @param string $after Final text
-     * @param array $translates Referenced variable of translations
+     * @param string $before     Initial text
+     * @param string $after      Final text
+     * @param array  $translates Referenced variable of translations
      *
      * @return bool
      */
