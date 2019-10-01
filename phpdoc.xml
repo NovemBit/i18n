@@ -2,7 +2,7 @@
 <phpdoc>
     <title>NovemBit i18n - Internationalization library</title>
     <parser>
-        <target>docs</target>
+        <target>runtime/tmp/docs</target>
         <default-package-name>NovemBit\i18n</default-package-name>
     </parser>
     <transformer>
@@ -10,7 +10,11 @@
     </transformer>
     <transformations>
         <template name="markdown-public"/>
+<!--
         <template name="clean"/>
+-->
+        <template name="checkstyle"/>
+        <template name="responsive-twig"/>
     </transformations>
     <files>
         <directory>src</directory>

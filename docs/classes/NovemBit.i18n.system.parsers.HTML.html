@@ -3,1293 +3,959 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>NovemBit i18n - Internationalization library</title>
+    <title>    NovemBit i18n - Internationalization library &raquo; \NovemBit\i18n\system\parsers\HTML
+</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
-    function loadExternalCodeSnippets() {
-        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
-            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-            var language = 'php';
-
-            var code = document.createElement('code');
-            code.className = 'language-' + language;
-
-            pre.textContent = '';
-
-            code.textContent = 'Loading…';
-
-            pre.appendChild(code);
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', src, true);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-
-                    if (xhr.status < 400 && xhr.responseText) {
-                        code.textContent = xhr.responseText;
-
-                        Prism.highlightElement(code);
-                    }
-                    else if (xhr.status >= 400) {
-                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                    }
-                    else {
-                        code.textContent = '✖ Error: File does not exist or is empty';
-                    }
-                }
-            };
-
-            xhr.send(null);
-        });
-    }
-
-    $(document).ready(function(){
-        loadExternalCodeSnippets();
-    });
-    $('#source-view').on('shown', function () {
-        loadExternalCodeSnippets();
-    })
-</script>
-
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">NovemBit i18n - Internationalization library</a>
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">NovemBit i18n - Internationalization library</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown">
-                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
-                            API Documentation <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                                                        <li><a href="../namespaces/NovemBit.html">\NovemBit</a></li>
-                                                    </ul>
-                    </li>
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-678806577"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-678806577" class="accordion-body collapse in">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1148127774"></a>
-                                <a href="../namespaces/NovemBit.html" style="margin-left: 30px; padding-left: 0">NovemBit</a>
-            </div>
-            <div id="namespace-1148127774" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1286750901"></a>
-                                <a href="../namespaces/NovemBit.i18n.html" style="margin-left: 30px; padding-left: 0">i18n</a>
-            </div>
-            <div id="namespace-1286750901" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1326005262"></a>
-                                <a href="../namespaces/NovemBit.i18n.component.html" style="margin-left: 30px; padding-left: 0">component</a>
-            </div>
-            <div id="namespace-1326005262" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1084482127"></a>
-                                <a href="../namespaces/NovemBit.i18n.component.translation.html" style="margin-left: 30px; padding-left: 0">translation</a>
-            </div>
-            <div id="namespace-1084482127" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1532673946"></a>
-                                <a href="../namespaces/NovemBit.i18n.component.translation.method.html" style="margin-left: 30px; padding-left: 0">method</a>
-            </div>
-            <div id="namespace-1532673946" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.method.Dummy.html">Dummy</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.method.Google.html">Google</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.method.Method.html">Method</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.method.RestMethod.html">RestMethod</a></li>
-                                            </ul>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/NovemBit.html">NovemBit</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1538452353"></a>
-                                <a href="../namespaces/NovemBit.i18n.component.translation.type.html" style="margin-left: 30px; padding-left: 0">type</a>
-            </div>
-            <div id="namespace-1538452353" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.type.HTML.html">HTML</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.type.JSON.html">JSON</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.type.Text.html">Text</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.type.Type.html">Type</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.type.URL.html">URL</a></li>
-                                            </ul>
-                </div>
-            </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
         </div>
     </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.translation.Translation.html">Translation</a></li>
-                                            </ul>
-                </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
             </div>
-        </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
     </div>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.Languages.html">Languages</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.Request.html">Request</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.Rest.html">Rest</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.component.Translation.html">Translation</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                            <li class="method public">
+        <a href="#method_addTranslateField" title="addTranslateField :: Adding translate fields">
+            <span class="description">Adding translate fields</span><pre>addTranslateField</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2057358892"></a>
-                                <a href="../namespaces/NovemBit.i18n.models.html" style="margin-left: 30px; padding-left: 0">models</a>
-            </div>
-            <div id="namespace-2057358892" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_fetch" title="fetch :: Fetch current DOM document XPATH">
+            <span class="description">Fetch current DOM document XPATH</span><pre>fetch</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.models.ActiveRecord.html">ActiveRecord</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.models.Translation.html">Translation</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_getDom" title="getDom :: Get Dom (DomDocument)">
+            <span class="description">Get Dom (DomDocument)</span><pre>getDom</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1864929649"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.html" style="margin-left: 30px; padding-left: 0">system</a>
-            </div>
-            <div id="namespace-1864929649" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_getHtml" title="getHtml :: Get HTML string">
+            <span class="description">Get HTML string</span><pre>getHtml</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1112634387"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.component.html" style="margin-left: 30px; padding-left: 0">component</a>
-            </div>
-            <div id="namespace-1112634387" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_getQuery" title="getQuery :: Get Xpath query">
+            <span class="description">Get Xpath query</span><pre>getQuery</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.component.DB.html">DB</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_getTranslateFields" title="getTranslateFields :: Getting translate fields set">
+            <span class="description">Getting translate fields set</span><pre>getTranslateFields</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-127330633"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.exception.html" style="margin-left: 30px; padding-left: 0">exception</a>
-            </div>
-            <div id="namespace-127330633" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_load" title="load :: HTML constructor.">
+            <span class="description">HTML constructor.</span><pre>load</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.exception.Exception.html">Exception</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_save" title="save :: Save DomDocument final result as HTML">
+            <span class="description">Save DomDocument final result as HTML</span><pre>save</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-361017382"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.helpers.html" style="margin-left: 30px; padding-left: 0">helpers</a>
-            </div>
-            <div id="namespace-361017382" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_setDom" title="setDom :: Set Dom (DomDocument)">
+            <span class="description">Set Dom (DomDocument)</span><pre>setDom</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.helpers.DataType.html">DataType</a></li>
-                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.helpers.URL.html">URL</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_setHtml" title="setHtml :: Set HTML string">
+            <span class="description">Set HTML string</span><pre>setHtml</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1527579349"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.parsers.html" style="margin-left: 30px; padding-left: 0">parsers</a>
-            </div>
-            <div id="namespace-1527579349" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_setQuery" title="setQuery :: Set Xpath query">
+            <span class="description">Set Xpath query</span><pre>setQuery</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1651334351"></a>
-                                <a href="../namespaces/NovemBit.i18n.system.parsers.html.html" style="margin-left: 30px; padding-left: 0">html</a>
-            </div>
-            <div id="namespace-1651334351" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                            <li class="method private">
+                            <a href="#method__getXpath" title="_getXpath :: Get Xpath instance">
+                                <span class="description">Get Xpath instance</span><pre>_getXpath</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method__initDom" title="_initDom :: Initialization DomDocument and Xpath
+Preserving tag that must be restored on save">
+                                <span class="description">Initialization DomDocument and Xpath
+Preserving tag that must be restored on save</span><pre>_initDom</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method__preserveTag" title="_preserveTag :: Preserve tags
+Actually using it for preserve script tags that
+Impossible to parser with DOM parser">
+                                <span class="description">Preserve tags
+Actually using it for preserve script tags that
+Impossible to parser with DOM parser</span><pre>_preserveTag</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method__restorePreservedTag" title="_restorePreservedTag :: Restoring preserved tags on HTML">
+                                <span class="description">Restoring preserved tags on HTML</span><pre>_restorePreservedTag</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method__setXpath" title="_setXpath :: Set Xpath instance">
+                                <span class="description">Set Xpath instance</span><pre>_setXpath</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.parsers.html.Rule.html">Rule</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.parsers.HTML.html">HTML</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.system.Component.html">Component</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/NovemBit.i18n.Module.html">Module</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
         </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <nav>
-                                                <a href="../namespaces/NovemBit.i18n.system.parsers.html">\NovemBit\i18n\system\parsers</a> <i class="icon-level-up"></i>
-                                            </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-                    <h1><small>\NovemBit\i18n\system\parsers</small>HTML</h1>
-                    <p><em>HTML parser with callback function
-Using PHP Dom parser</em></p>
-                    
-                    
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_load" class="">load()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_fetch" class="">fetch()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_getDom" class="">getDom()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_setDom" class="">setDom()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_getTranslateFields" class="">getTranslateFields()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_addTranslateField" class="">addTranslateField()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_getHtml" class="">getHtml()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_save" class="">save()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_setHtml" class="">setHtml()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_getQuery" class="">getQuery()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method_setQuery" class="">setQuery()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No protected properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method__preserveTag" class="">_preserveTag()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method__restorePreservedTag" class="">_restorePreservedTag()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method__initDom" class="">_initDom()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method__getXpath" class="">_getXpath()</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#method__setXpath" class="">_setXpath()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__html" class="">$_html</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__translate_fields" class="">$_translate_fields</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__dom" class="">$_dom</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__xpath" class="">$_xpath</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__query" class="">$_query</a><br />
-                                                                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html#property__preserved_data" class="">$_preserved_data</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                        
-                    
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/system.parsers.HTML.html"><div class="path-wrapper">system\parsers\HTML.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Module</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\NovemBit\i18n\system\parsers\HTML</div>
-                            </dd>
-
+        <div class="span8">
+            <div class="element class">
+                <h1>HTML</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">HTML parser with callback function
+Using PHP Dom parser</p>
+                <div class="details">
+                    <div class="long_description">
                         
-                        
-                        
-                                                                            <dt>See also</dt>
-                                                                                        <dd><a href="https://github.com/NovemBit/i18n"><span class="namespace-wrapper">https://github.com/NovemBit/i18n</span></a></dd>
-                                                    
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr>
-                            <th>
-                                category
-                            </th>
-                            <td>
-                                                                    <p>Class</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                author
-                            </th>
-                            <td>
-                                                                    <p>Aaron Yordanyan <a href="mailto:aaron.yor@gmail.com">aaron.yor@gmail.com</a></p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                license
-                            </th>
-                            <td>
-                                                                    <p><a href="https://www.gnu.org/licenses/gpl-3.0.txt">https://www.gnu.org/licenses/gpl-3.0.txt</a> GNU/GPLv3</p>
-                                                            </td>
-                        </tr>
-                                        </table>
-                </aside>
-            </div>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        category
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Class</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Module</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Aaron Yordanyan <a href="mailto:aaron.yor@gmail.com">aaron.yor@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        license
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p><a href="https://www.gnu.org/licenses/gpl-3.0.txt">https://www.gnu.org/licenses/gpl-3.0.txt</a> GNU/GPLv3</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p><a href="https://github.com/NovemBit/i18n">https://github.com/NovemBit/i18n</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
 
-                        
-                                    <a id="properties" name="properties"></a>
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Properties</h2>
-                </div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__html" name="property__html" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_html</h3>
-                <pre class="signature">$_html : string</pre>
-                <p><em>Html string content</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__translate_fields" name="property__translate_fields" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_translate_fields</h3>
-                <pre class="signature">$_translate_fields : array</pre>
-                <p><em>Translate fields set</em></p>
-                
-
-                                <h4>Type</h4>
-                array
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__dom" name="property__dom" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_dom</h3>
-                <pre class="signature">$_dom : \NovemBit\i18n\system\parsers\DomDocument</pre>
-                <p><em>Main DomDocument</em></p>
-                
-
-                                <h4>Type</h4>
-                \NovemBit\i18n\system\parsers\DomDocument
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__xpath" name="property__xpath" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_xpath</h3>
-                <pre class="signature">$_xpath : \DOMXPath</pre>
-                <p><em>Main xpath of dom</em></p>
-                
-
-                                <h4>Type</h4>
-                \DOMXPath
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__query" name="property__query" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_query</h3>
-                <pre class="signature">$_query : string</pre>
-                <p><em>Main query for Xpath</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__preserved_data" name="property__preserved_data" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_preserved_data</h3>
-                <pre class="signature">$_preserved_data : array</pre>
-                <p><em>Keeping preserved data</em></p>
-                
-
-                                <h4>Type</h4>
-                array
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                                            <dt>See also</dt>
-                                                                <dd><a href=""><span class="namespace-wrapper">\NovemBit\i18n\system\parsers\_preserveTag</span></a></dd>
-                                            <dd><a href=""><span class="namespace-wrapper">\NovemBit\i18n\system\parsers\_restorePreservedTag</span></a></dd>
-                                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method__getXpath"></a>
+                        <div class="element clickable method private  method__getXpath" data-toggle="collapse" data-target=".method__getXpath .collapse">
+                            <h2>Get Xpath instance</h2>
+                            <pre>_getXpath() : \NovemBit\i18n\system\parsers\DOMXpath</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
 
                             
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_load" name="method_load" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">load()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">load(string  <span class="argument">$html</span>) : \NovemBit\i18n\system\parsers\HTML</pre>
-                <p><em>HTML constructor.</em></p>
-                
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$html </td>
-                                <td><p>initial HTML content</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/NovemBit.i18n.system.parsers.HTML.html">\NovemBit\i18n\system\parsers\HTML</a>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\NovemBit\i18n\system\parsers\DOMXpath</code><p></p>
+                                                                    </div>
+                            </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_fetch" name="method_fetch" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">fetch()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">fetch(callable  <span class="argument">$text_callback</span>, callable  <span class="argument">$attr_callback</span>) : void</pre>
-                <p><em>Fetch current DOM document XPATH</em></p>
-                
+                        </div>
+                                            <a id="method__initDom"></a>
+                        <div class="element clickable method private  method__initDom" data-toggle="collapse" data-target=".method__initDom .collapse">
+                            <h2>Initialization DomDocument and Xpath
+Preserving tag that must be restored on save</h2>
+                            <pre>_initDom() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>callable</td>
-                                <td>$text_callback </td>
-                                <td><p>Callback function for Text Nodes</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>callable</td>
-                                <td>$attr_callback </td>
-                                <td><p>Callback function for Attr Nodes</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getDom" name="method_getDom" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getDom()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getDom() : \NovemBit\i18n\system\parsers\DomDocument</pre>
-                <p><em>Get Dom (DomDocument)</em></p>
-                
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
-                
-                
-                                    <h4>Returns</h4>
-                    \NovemBit\i18n\system\parsers\DomDocument
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+                                    
+                                                                    </div>
+                            </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setDom" name="method_setDom" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setDom()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setDom(\NovemBit\i18n\system\parsers\DomDocument  <span class="argument">$_dom</span>) : void</pre>
-                <p><em>Set Dom (DomDocument)</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\NovemBit\i18n\system\parsers\DomDocument</td>
-                                <td>$_dom </td>
-                                <td><p>Dom Document instance</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getTranslateFields" name="method_getTranslateFields" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getTranslateFields()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getTranslateFields() : array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;</pre>
-                <p><em>Getting translate fields set</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,<a href="../classes/NovemBit.i18n.system.parsers.html.Rule.html">\NovemBit\i18n\system\parsers\html\Rule</a>&gt;
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_addTranslateField" name="method_addTranslateField" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">addTranslateField()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">addTranslateField(\NovemBit\i18n\system\parsers\html\Rule  <span class="argument">$rule</span>, string  <span class="argument">$text = &#039;text&#039;</span>, array  <span class="argument">$attrs = array()</span>) : void</pre>
-                <p><em>Adding translate fields</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td><a href="../classes/NovemBit.i18n.system.parsers.html.Rule.html">\NovemBit\i18n\system\parsers\html\Rule</a></td>
-                                <td>$rule </td>
-                                <td><p>Rule object</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$text </td>
-                                <td><p>Text node type to translate</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>array</td>
-                                <td>$attrs </td>
-                                <td><p>List of attributes that must be translated</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getHtml" name="method_getHtml" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getHtml()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getHtml() : mixed</pre>
-                <p><em>Get HTML string</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_save" name="method_save" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">save()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">save() : string|array&lt;mixed,string&gt;|null</pre>
-                <p><em>Save DomDocument final result as HTML</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string|array&lt;mixed,string&gt;|null
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setHtml" name="method_setHtml" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setHtml()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setHtml(string  <span class="argument">$_html</span>) : void</pre>
-                <p><em>Set HTML string</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$_html </td>
-                                <td><p>Initial HTML content</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getQuery" name="method_getQuery" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getQuery()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getQuery() : string</pre>
-                <p><em>Get Xpath query</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setQuery" name="method_setQuery" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setQuery()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setQuery(string  <span class="argument">$_query</span>) : void</pre>
-                <p><em>Set Xpath query</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$_query </td>
-                                <td><p>Query String</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__preserveTag" name="method__preserveTag" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_preserveTag()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_preserveTag(string  <span class="argument">$html</span>, string  <span class="argument">$tag</span>) : void</pre>
-                <p><em>Preserve tags
+                        </div>
+                                            <a id="method__preserveTag"></a>
+                        <div class="element clickable method private  method__preserveTag" data-toggle="collapse" data-target=".method__preserveTag .collapse">
+                            <h2>Preserve tags
 Actually using it for preserve script tags that
-Impossible to parser with DOM parser</em></p>
-                
+Impossible to parser with DOM parser</h2>
+                            <pre>_preserveTag(string &$html, string $tag) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$html </td>
-                                <td><p>Referenced HTML content</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$tag </td>
-                                <td><p>Tag that must be preserved</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                                            <dt>See also</dt>
-                                                                <dd><a href=""><span class="namespace-wrapper">\NovemBit\i18n\system\parsers\_preserveTag</span></a></dd>
-                                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__restorePreservedTag" name="method__restorePreservedTag" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_restorePreservedTag()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_restorePreservedTag(string  <span class="argument">$html</span>, string  <span class="argument">$tag</span>) : void</pre>
-                <p><em>Restoring preserved tags on HTML</em></p>
-                
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \NovemBit\i18n\system\parsers\_preserveTag
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$html </td>
-                                <td><p>Referenced HTML content</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$tag </td>
-                                <td><p>Tag That should be restored</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                                            <dt>See also</dt>
-                                                                <dd><a href=""><span class="namespace-wrapper">\NovemBit\i18n\system\parsers\_preserveTag</span></a></dd>
-                                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__initDom" name="method__initDom" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_initDom()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_initDom() : void</pre>
-                <p><em>Initialization DomDocument and Xpath
-Preserving tag that must be restored on save</em></p>
-                
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__getXpath" name="method__getXpath" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_getXpath()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_getXpath() : \NovemBit\i18n\system\parsers\DOMXpath</pre>
-                <p><em>Get Xpath instance</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \NovemBit\i18n\system\parsers\DOMXpath
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__setXpath" name="method__setXpath" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_setXpath()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_setXpath(\DOMXPath  <span class="argument">$xpath</span>) : void</pre>
-                <p><em>Set Xpath instance</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\DOMXPath</td>
-                                <td>$xpath </td>
-                                <td><p>Xpath instance of DomDocument</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    </div>
-    </section>
-
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">HTML.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/system\parsers\HTML.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
-
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                            <li><a href="../namespaces/NovemBit.html">\NovemBit</a></li>
-                                                                    </ul>
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$html</h4>
+                                                <code>string</code><p><p>Referenced HTML content</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tag</h4>
+                                                <code>string</code><p><p>Tag that must be preserved</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
                             </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
+
+                        </div>
+                                            <a id="method__restorePreservedTag"></a>
+                        <div class="element clickable method private  method__restorePreservedTag" data-toggle="collapse" data-target=".method__restorePreservedTag .collapse">
+                            <h2>Restoring preserved tags on HTML</h2>
+                            <pre>_restorePreservedTag(string &$html, string $tag) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \NovemBit\i18n\system\parsers\_preserveTag
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$html</h4>
+                                                <code>string</code><p><p>Referenced HTML content</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tag</h4>
+                                                <code>string</code><p><p>Tag That should be restored</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
                             </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
+
+                        </div>
+                                            <a id="method__setXpath"></a>
+                        <div class="element clickable method private  method__setXpath" data-toggle="collapse" data-target=".method__setXpath .collapse">
+                            <h2>Set Xpath instance</h2>
+                            <pre>_setXpath(\DOMXPath $xpath) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$xpath</h4>
+                                                <code>\DOMXPath</code><p><p>Xpath instance of DomDocument</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
                             </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 1st, 2019 at 11:51.
-                </section>
-            </section>
-        </section>
+
+                        </div>
+                                            <a id="method_addTranslateField"></a>
+                        <div class="element clickable method public  method_addTranslateField" data-toggle="collapse" data-target=".method_addTranslateField .collapse">
+                            <h2>Adding translate fields</h2>
+                            <pre>addTranslateField(\NovemBit\i18n\system\parsers\html\Rule $rule, string $text = &#039;text&#039;, array $attrs = array()) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$rule</h4>
+                                                <code><a href="../classes/NovemBit.i18n.system.parsers.html.Rule.html">\NovemBit\i18n\system\parsers\html\Rule</a></code><p><p>Rule object</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$text</h4>
+                                                <code>string</code><p><p>Text node type to translate</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$attrs</h4>
+                                                <code>array</code><p><p>List of attributes that must be translated</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fetch"></a>
+                        <div class="element clickable method public  method_fetch" data-toggle="collapse" data-target=".method_fetch .collapse">
+                            <h2>Fetch current DOM document XPATH</h2>
+                            <pre>fetch(callable $text_callback, callable $attr_callback) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$text_callback</h4>
+                                                <code>callable</code><p><p>Callback function for Text Nodes</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$attr_callback</h4>
+                                                <code>callable</code><p><p>Callback function for Attr Nodes</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDom"></a>
+                        <div class="element clickable method public  method_getDom" data-toggle="collapse" data-target=".method_getDom .collapse">
+                            <h2>Get Dom (DomDocument)</h2>
+                            <pre>getDom() : \NovemBit\i18n\system\parsers\DomDocument</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\NovemBit\i18n\system\parsers\DomDocument</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHtml"></a>
+                        <div class="element clickable method public  method_getHtml" data-toggle="collapse" data-target=".method_getHtml .collapse">
+                            <h2>Get HTML string</h2>
+                            <pre>getHtml() : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getQuery"></a>
+                        <div class="element clickable method public  method_getQuery" data-toggle="collapse" data-target=".method_getQuery .collapse">
+                            <h2>Get Xpath query</h2>
+                            <pre>getQuery() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTranslateFields"></a>
+                        <div class="element clickable method public  method_getTranslateFields" data-toggle="collapse" data-target=".method_getTranslateFields .collapse">
+                            <h2>Getting translate fields set</h2>
+                            <pre>getTranslateFields() : array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/NovemBit.i18n.system.parsers.html.Rule.html">\NovemBit\i18n\system\parsers\html\Rule</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_load"></a>
+                        <div class="element clickable method public  method_load" data-toggle="collapse" data-target=".method_load .collapse">
+                            <h2>HTML constructor.</h2>
+                            <pre>load(string $html) : \NovemBit\i18n\system\parsers\HTML</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$html</h4>
+                                                <code>string</code><p><p>initial HTML content</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/NovemBit.i18n.system.parsers.HTML.html">\NovemBit\i18n\system\parsers\HTML</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_save"></a>
+                        <div class="element clickable method public  method_save" data-toggle="collapse" data-target=".method_save .collapse">
+                            <h2>Save DomDocument final result as HTML</h2>
+                            <pre>save() : string|array&lt;mixed,string&gt;|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|array&lt;mixed,string&gt;|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDom"></a>
+                        <div class="element clickable method public  method_setDom" data-toggle="collapse" data-target=".method_setDom .collapse">
+                            <h2>Set Dom (DomDocument)</h2>
+                            <pre>setDom(\NovemBit\i18n\system\parsers\DomDocument $_dom) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$_dom</h4>
+                                                <code>\NovemBit\i18n\system\parsers\DomDocument</code><p><p>Dom Document instance</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setHtml"></a>
+                        <div class="element clickable method public  method_setHtml" data-toggle="collapse" data-target=".method_setHtml .collapse">
+                            <h2>Set HTML string</h2>
+                            <pre>setHtml(string $_html) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$_html</h4>
+                                                <code>string</code><p><p>Initial HTML content</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setQuery"></a>
+                        <div class="element clickable method public  method_setQuery" data-toggle="collapse" data-target=".method_setQuery .collapse">
+                            <h2>Set Xpath query</h2>
+                            <pre>setQuery(string $_query) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$_query</h4>
+                                                <code>string</code><p><p>Query String</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property__html"> </a>
+                            <div class="element clickable property  private property__html" data-toggle="collapse" data-target=".property__html .collapse">
+                                <h2>Html string content</h2>
+                                <pre>_html : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__translate_fields"> </a>
+                            <div class="element clickable property  private property__translate_fields" data-toggle="collapse" data-target=".property__translate_fields .collapse">
+                                <h2>Translate fields set</h2>
+                                <pre>_translate_fields : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__dom"> </a>
+                            <div class="element clickable property  private property__dom" data-toggle="collapse" data-target=".property__dom .collapse">
+                                <h2>Main DomDocument</h2>
+                                <pre>_dom : \NovemBit\i18n\system\parsers\DomDocument</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\NovemBit\i18n\system\parsers\DomDocument</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__xpath"> </a>
+                            <div class="element clickable property  private property__xpath" data-toggle="collapse" data-target=".property__xpath .collapse">
+                                <h2>Main xpath of dom</h2>
+                                <pre>_xpath : \DOMXPath</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\DOMXPath</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__query"> </a>
+                            <div class="element clickable property  private property__query" data-toggle="collapse" data-target=".property__query .collapse">
+                                <h2>Main query for Xpath</h2>
+                                <pre>_query : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__preserved_data"> </a>
+                            <div class="element clickable property  private property__preserved_data" data-toggle="collapse" data-target=".property__preserved_data .collapse">
+                                <h2>Keeping preserved data</h2>
+                                <pre>_preserved_data : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        see
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\NovemBit\i18n\system\parsers\HTML"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/NovemBit.i18n.system.parsers.html">parsers</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/NovemBit.i18n.system.parsers.HTML.html">HTML</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Tue, 01 Oct 2019 12:03:35 +0000.<br/>
     </footer>
-</div>
-
-</body>
+    </body>
 </html>
