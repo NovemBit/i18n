@@ -1,7 +1,27 @@
 <?php
+/**
+ * Data type helper class
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\system\helpers;
 
+/**
+ * Helper class for determine content types
+ *
+ * @category Class
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ */
 class DataType
 {
 
@@ -11,7 +31,10 @@ class DataType
     const UNDEFINED = 0;
 
     /**
-     * @param $string
+     * Check if string is HTML
+     *
+     * @param string $string HTML string
+     *
      * @return bool
      */
     public static function isHTML($string)
@@ -20,7 +43,10 @@ class DataType
     }
 
     /**
-     * @param $string
+     * Check if string is URL
+     *
+     * @param string $string URL string
+     *
      * @return mixed
      */
     public static function isURL($string)
@@ -29,7 +55,10 @@ class DataType
     }
 
     /**
-     * @param $string
+     * Check if string is JSON
+     *
+     * @param string $string JSON string
+     *
      * @return bool
      */
     public static function isJSON($string)
@@ -39,8 +68,12 @@ class DataType
     }
 
     /**
-     * @param $string
-     * @param string $default
+     * Get type of string
+     *  URL, JSON, HTML
+     *
+     * @param string $string String content
+     * @param int $default Default type returning when type is unknown
+     *
      * @return int|string
      */
     public static function getType($string, $default = self::UNDEFINED)

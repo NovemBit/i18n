@@ -1,50 +1,96 @@
 <?php
+/**
+ * HTML parser
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\system\parsers\html;
 
 use DOMElement;
 use DOMText;
 
+/**
+ * HTML parser with callback function
+ * Using PHP Dom parser
+ *
+ * @category Class
+ * @package  HTML
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ */
 class Rule
 {
-    /*
+    /**
      * Check if tagName|attribute|text
      * exists in array
      * */
     const IN = 'in';
 
-    /*
-     * tagName|attribute|text regex validation
+    /**
+     * Check tagName|attribute|text regex validation
      * */
     const REGEX = 'regex';
 
-    /*
+    /**
      * Check equality for tagName|attribute|text
      * */
     const EQ = 'EQ';
 
-    /*
+    /**
      * Check tagName|attribute|text contains
      * */
     const CONTAINS = 'contains';
 
-    private $tags;
+    /**
+     * HTML tags
+     *
+     * @var array
+     * */
+    private $_tags;
 
-    private $attrs;
+    /**
+     * Html attr nodes
+     *
+     * @var array
+     * */
+    private $_attrs;
 
-    private $texts;
+    /**
+     * Html Text nodes
+     *
+     * @var array
+     * */
+    private $_texts;
 
-    private $mode;
+    /**
+     * Mode of rule join
+     *
+     * @var string
+     * */
+    private $_mode;
 
     /**
      * Rule constructor.
-     * @param array|null $tags
-     * @param array|null $attrs
-     * @param array|null $texts
-     * @param string $mode
+     *
+     * @param array|null $tags  Tags array
+     * @param array|null $attrs Attributes array
+     * @param array|null $texts Texts array
+     * @param string     $mode  Mode of join
      */
-    public function __construct(array $tags = null, array $attrs = null, array $texts = null, $mode = self::IN)
-    {
+    public function __construct(
+        array $tags = null,
+        array $attrs = null,
+        array $texts = null,
+        $mode = self::IN
+    ) {
         $this->setTags($tags);
         $this->setAttrs($attrs);
         $this->setTexts($texts);
@@ -52,59 +98,79 @@ class Rule
     }
 
     /**
+     * Get Tags
+     *
      * @return mixed
      */
     public function getTags()
     {
-        return $this->tags;
+        return $this->_tags;
     }
 
     /**
-     * @param array $tags
+     * Set Tags
+     *
+     * @param array $_tags Tags array
+     *
+     * @return void
      */
-    public function setTags($tags = null)
+    public function setTags($_tags = null)
     {
-        $this->tags = $tags;
+        $this->_tags = $_tags;
     }
 
     /**
-     * @return mixed
+     * Get attributes
+     *
+     * @return array
      */
     public function getAttrs()
     {
-        return $this->attrs;
+        return $this->_attrs;
     }
 
     /**
-     * @param array $attrs
+     * Set attributes
+     *
+     * @param array $_attrs Attributes array
+     *
+     * @return void
      */
-    public function setAttrs($attrs = null)
+    public function setAttrs($_attrs = null)
     {
-        $this->attrs = $attrs;
+        $this->_attrs = $_attrs;
     }
 
     /**
+     * Get Texts
+     *
      * @return mixed
      */
     public function getTexts()
     {
-        return $this->texts;
+        return $this->_texts;
     }
 
     /**
-     * @param mixed $texts
+     * Set texts
+     *
+     * @param mixed $_texts Texts array
+     *
+     * @return void
      */
-    public function setTexts($texts = null)
+    public function setTexts($_texts = null)
     {
-        $this->texts = $texts;
+        $this->_texts = $_texts;
     }
 
     /**
-     * @param DOMElement $node
+     * Validate Tag
+     *
+     * @param DOMElement $node Element Node
      *
      * @return bool
      */
-    private function validateTag($node)
+    private function _validateTag($node)
     {
         if (!$this->getTags()) {
             return true;
@@ -139,11 +205,13 @@ class Rule
     }
 
     /**
-     * @param DOMElement $node
+     * Validate Attr Node
+     *
+     * @param DOMElement $node Attr tag
      *
      * @return bool
      */
-    private function validateAttrs($node)
+    private function _validateAttrs($node)
     {
         if (!$this->getAttrs()) {
             return true;
@@ -165,11 +233,19 @@ class Rule
                         return false;
                     }
                 } elseif ($this->getMode() == self::IN) {
-                    if (!in_array('*', $values) && !in_array($node->getAttribute($attribute), $values)) {
+                    if (!in_array('*', $values)
+                        && !in_array(
+                            $node->getAttribute($attribute), $values
+                        )
+                    ) {
                         return false;
                     }
                 } elseif ($this->getMode() == self::CONTAINS) {
-                    if (!(strpos($values, $node->getAttribute($attribute)) !== false)) {
+                    if (!(strpos(
+                        $values,
+                        $node->getAttribute($attribute)
+                    ) !== false)
+                    ) {
                         return false;
                     }
                 } elseif ($this->getMode() == self::EQ) {
@@ -185,11 +261,13 @@ class Rule
     }
 
     /**
-     * @param DOMElement $node
+     * Validate TextNodes of Node
+     *
+     * @param DOMElement $node Node element
      *
      * @return bool
      */
-    private function validateTexts($node)
+    private function _validateTexts($node)
     {
         if (!$this->getTexts()) {
             return true;
@@ -197,7 +275,11 @@ class Rule
         foreach ($node->childNodes as $child_node) {
             if ($child_node->nodeType == XML_TEXT_NODE) {
 
-                /** @var DOMText $child_node */
+                /**
+                 * Check mode of join
+                 *
+                 * @var DOMText $child_node
+                 */
                 if ($this->getMode() == self::REGEX) {
                     $regex_status = false;
                     foreach ($this->getTexts() as $pattern) {
@@ -230,7 +312,9 @@ class Rule
     }
 
     /**
-     * @param DOMElement $node
+     * Main Validate Method
+     *
+     * @param DOMElement $node Node to validate
      *
      * @return bool
      */
@@ -240,22 +324,21 @@ class Rule
         /*
          * Validate node tag
          * */
-        if (!$this->validateTag($node)) {
+        if (!$this->_validateTag($node)) {
             return false;
         }
 
         /*
          * Validate node attributes
          * */
-        if (!$this->validateAttrs($node)) {
+        if (!$this->_validateAttrs($node)) {
             return false;
         }
 
         /**
          * Validate node text
-         *
          */
-        if (!$this->validateTexts($node)) {
+        if (!$this->_validateTexts($node)) {
             return false;
         }
 
@@ -263,19 +346,25 @@ class Rule
     }
 
     /**
+     * Get mode of join
+     *
      * @return mixed
      */
     public function getMode()
     {
-        return $this->mode;
+        return $this->_mode;
     }
 
     /**
-     * @param mixed $mode
+     * Setting join mode
+     *
+     * @param mixed $_mode Join Mode
+     *
+     * @return void
      */
-    public function setMode($mode)
+    public function setMode($_mode)
     {
-        $this->mode = $mode;
+        $this->_mode = $_mode;
     }
 
 }

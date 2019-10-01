@@ -1,15 +1,37 @@
 <?php
+/**
+ * Helper Class for working with URLs
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 
 namespace NovemBit\i18n\system\helpers;
 
+/**
+ * Helper class for some actions with URLs
+ *
+ * @category Class
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ */
 class URL
 {
 
     /**
-     * @param $url
-     * @param $paramName
-     * @param $paramValue
+     * Adding query parameters to URL
+     *
+     * @param string $url Initial url
+     * @param string $paramName Parameter name (key)
+     * @param string $paramValue Value of parameter
      *
      * @return string
      */
@@ -30,8 +52,10 @@ class URL
     }
 
     /**
-     * @param $url
-     * @param $paramName
+     * Remove Query parameter from URL
+     *
+     * @param string $url Initial url
+     * @param string $paramName Parameter name (key)
      *
      * @return string
      */
@@ -56,9 +80,10 @@ class URL
     }
 
     /**
-     * Un parse URL
+     * Build url from parts
+     * Same as reversed parse_url
      *
-     * @param $parts
+     * @param array $parts Parts of url
      *
      * @return string
      */
@@ -71,10 +96,27 @@ class URL
         $user = ($parts['user'] ?? '');
         $pass = isset($parts['pass']) ? (':' . $parts['pass']) : '';
         $pass = ($user || $pass) ? "$pass@" : '';
-        $path = isset($parts['path']) && !empty($parts['path']) ? '/' . ltrim($parts['path'], '/') : '';
-        $query = isset($parts['query']) && !empty($parts['query']) ? ('?' . $parts['query']) : '';
+
+        $path = (isset($parts['path']) &&
+            !empty($parts['path'])) ? ('/' . ltrim($parts['path'], '/')) : '';
+
+        $query = (isset($parts['query'])
+            && !empty($parts['query'])) ? ('?' . $parts['query']) : '';
+
         $fragment = isset($parts['fragment']) ? ('#' . $parts['fragment']) : '';
 
-        return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
+        return implode(
+            '',
+            [
+                $scheme,
+                $user,
+                $pass,
+                $host,
+                $port,
+                $path,
+                $query,
+                $fragment
+            ]
+        );
     }
 }

@@ -3,11 +3,24 @@ return [
     'translation' => [
         'class' => NovemBit\i18n\component\Translation::class,
         'method' => [
-            'class' => NovemBit\i18n\component\translation\method\Google::class,
-            'api_key' => '',
+            /*'class' => NovemBit\i18n\component\translation\method\RestMethod::class,
+            'remote_host'=>'i18n.adcleandns.com',
+            'api_key' => 'demo_key_123',
             'exclusions' => ['barev', 'barev duxov', "hayer", 'Hello'],
             'validation' => true,
-            'save_translations' => true
+            'save_translations' => true*/
+
+            'class' => NovemBit\i18n\component\translation\method\Google::class,
+            'api_key' => 'AIzaSyA3STDoHZLxiaXXgmmlLuQGdX6f9HhXglA',
+            'exclusions' => ['barev', 'barev duxov', "hayer", 'Hello'],
+            'validation' => true,
+            'save_translations' => true,
+
+
+            /*'class' => NovemBit\i18n\component\translation\method\Dummy::class,
+            'exclusions' => ['barev', 'barev duxov', "hayer", 'Hello'],
+            'validation' => true,
+            'save_translations' => true*/
         ],
         'text' => [
             'class' => NovemBit\i18n\component\translation\type\Text::class,
@@ -18,7 +31,7 @@ return [
             'class' => NovemBit\i18n\component\translation\type\URL::class,
             'url_validation_rules' => [
                 'host' => [
-                    '^$|^swanson\.co\.uk$|^wp\.me$',
+                    '^$|^swanson\.co\.uk$|^swanson\.fr$',
                 ]
             ]
         ],
@@ -27,8 +40,15 @@ return [
             'fields_to_translate' => [
                 ['rule' => ['tags' => ['title']], 'text' => 'text'],
                 ['rule' => ['tags' => ['button']], 'attrs' => ['data-value' => 'text'], 'text' => 'text'],
-                ['rule' => ['tags' => ['input'], 'attrs' => ['type' => ['submit']]], 'attrs' => ['value' => 'text']],
-                ['rule' => ['tags' => ['a']], 'attrs' => ['href' => 'url'], 'text' => 'text'],
+                [
+                    'rule' => ['tags' => ['input'], 'attrs' => ['type' => ['submit']]],
+                    'attrs' => ['value' => 'text']
+                ],
+                [
+                    'rule' => ['tags' => ['a']],
+                    'attrs' => ['href' => 'url', 'data-tooltip' => 'text'],
+                    'text' => 'text'
+                ],
                 [
                     'rule' => ['tags' => ['input', 'textarea']],
                     'attrs' => ['placeholder' => 'text']
@@ -59,7 +79,7 @@ return [
                             'img'
                         ],
                     ],
-                    'attrs' => ['title' => 'text', 'alt' => 'text'],
+                    'attrs' => ['title' => 'text', 'alt' => 'text', 'data-tooltip' => 'text'],
                     'text' => 'text'
                 ],
                 ['rule' => ['tags' => ['form']], 'attrs' => ['action' => 'url'], 'text' => 'text'],
@@ -73,7 +93,16 @@ return [
     ],
     'languages' => [
         'class' => NovemBit\i18n\component\Languages::class,
-        'accept_languages' => ['ar', 'hy', 'fr', 'it', 'de', 'ru'],
+        'accept_languages' => ['ar', 'hy', 'fr', 'it', 'de', 'ru', 'en'],
+        'from_language' => 'en',
+        'default_language' => [
+            'swanson.fr' => 'fr',
+            'swanson.am' => 'hy',
+            'swanson.it' => 'it',
+            'swanson.ru' => 'ru',
+            'swanson.co.uk' => 'hy',
+            'default' => 'en'
+        ],
         'path_exclusion_patterns' => [
             '.*\.php',
             '.*\.jpg',
@@ -83,14 +112,24 @@ return [
     'request' => [
         'class' => NovemBit\i18n\component\Request::class,
     ],
+    'rest' => [
+        'class' => NovemBit\i18n\component\Rest::class,
+        'api_keys' => [
+            'demo_key_123'
+        ]
+    ],
     'db' => [
         'class' => NovemBit\i18n\system\component\DB::class,
-        'pdo' => 'sqlite:' . __DIR__ . '/runtime/db/BLi18n.db',
-        /*'pdo'      => 'mysql:host=localhost;dbname=xxxxx',
-        'username' => "xxxxxx",
-        'password' => "xxxxxx",
-        'config'   => [
-            \PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false
-        ]*/
+        'connection' => [
+            'dsn' => 'mysql:host=localhost;dbname=activerecord',
+            'username' => 'top',
+            'password' => 'top',
+            'charset' => 'utf8mb4',
+            'tablePrefix' => 'i18n_',
+            /*'enableQueryCache' => true,
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3000,
+            'schemaCache' => 'cache',*/
+        ],
     ]
 ];

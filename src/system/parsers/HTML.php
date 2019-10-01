@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * HTML parser
+ * php version 7.2.10
+ *
+ * @category Component
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @version  GIT: @1.0.1@
+ * @link     https://github.com/NovemBit/i18n
+ */
 
 namespace NovemBit\i18n\system\parsers;
 
@@ -10,27 +20,70 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use DOMXPath;
-use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\parsers\html\Rule;
 
+/**
+ * HTML parser with callback function
+ * Using PHP Dom parser
+ *
+ * @category Class
+ * @package  Module
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ */
 class HTML
 {
-    private $html;
 
-    private $translate_fields = [];
+    /**
+     * Html string content
+     *
+     * @var string
+     * */
+    private $_html;
 
-    private $dom;
+    /**
+     * Translate fields set
+     *
+     * @var array
+     * */
+    private $_translate_fields = [];
 
-    private $xpath;
 
-    private $query = './/*[ @* or text()]';
+    /**
+     * Main DomDocument
+     *
+     * @var DomDocument
+     * */
+    private $_dom;
 
-    private $preserved_data = [];
+    /**
+     * Main xpath of dom
+     *
+     * @var DOMXPath
+     * */
+    private $_xpath;
+
+    /**
+     * Main query for Xpath
+     *
+     * @var string
+     * */
+    private $_query = './/*[ @* or text()]';
+
+    /**
+     * Keeping preserved data
+     *
+     * @var array
+     * @see _preserveTag
+     * @see _restorePreservedTag
+     * */
+    private $_preserved_data = [];
 
     /**
      * HTML constructor.
      *
-     * @param $html
+     * @param string $html initial HTML content
      *
      * @return HTML
      */
@@ -38,32 +91,65 @@ class HTML
     {
         $this->setHtml($html);
 
-        $this->initDom();
+        $this->_initDom();
 
         return $this;
     }
 
-    private function preserveTag(&$html, $tag)
+    /**
+     * Preserve tags
+     * Actually using it for preserve script tags that
+     * Impossible to parser with DOM parser
+     *
+     * @param string $html Referenced HTML content
+     * @param string $tag  Tag that must be preserved
+     *
+     * @return void
+     * @see    _preserveTag
+     */
+    private function _preserveTag(&$html, $tag)
     {
-        preg_match_all('/<' . $tag . '\b[^>]*>[\s\S]*?<\/' . $tag . '>/is', $html, $this->preserved_data[$tag]);
+        preg_match_all(
+            '/<' . $tag . '\b[^>]*>[\s\S]*?<\/' . $tag . '>/is',
+            $html,
+            $this->_preserved_data[$tag]
+        );
 
-        if (!empty($this->preserved_data[$tag][0])) {
-            $this->preserved_data[$tag] = $this->preserved_data[$tag][0];
+        if (!empty($this->_preserved_data[$tag][0])) {
+            $this->_preserved_data[$tag] = $this->_preserved_data[$tag][0];
         } else {
-            $this->preserved_data[$tag] = [];
+            $this->_preserved_data[$tag] = [];
         }
 
-        $html = str_replace($this->preserved_data[$tag], '<script></script>', $html);
+        $html = str_replace(
+            $this->_preserved_data[$tag],
+            '<script></script>',
+            $html
+        );
     }
 
-    private function restorePreservedTag(&$html, $tag)
+    /**
+     * Restoring preserved tags on HTML
+     *
+     * @param string $html Referenced HTML content
+     * @param string $tag  Tag That should be restored
+     *
+     * @return void
+     * @see    _preserveTag
+     */
+    private function _restorePreservedTag(&$html, $tag)
     {
         $first = 0;
         $search = "<$tag></$tag>";
-        $tags = $this->preserved_data[$tag] ?? [];
+        $tags = $this->_preserved_data[$tag] ?? [];
         for ($i = 0; $i < count($tags); $i++) {
             $replace = $tags[$i];
-            $first = strpos($html, $search, ($first == 0 ? 0 : $first + strlen($tags[$i - 1])));
+            $first = strpos(
+                $html,
+                $search,
+                ($first == 0 ? 0 : $first + strlen($tags[$i - 1]))
+            );
+
             if ($first === false) {
                 continue;
             }
@@ -74,19 +160,31 @@ class HTML
     }
 
     /**
-     * @param $text_callback
-     * @param $attr_callback
+     * Fetch current DOM document XPATH
+     *
+     * @param callable $text_callback Callback function for Text Nodes
+     * @param callable $attr_callback Callback function for Attr Nodes
+     *
+     * @return void
      */
     public function fetch(callable $text_callback, callable $attr_callback)
     {
-        $nodes = $this->getXpath()->query($this->getQuery());
+        $nodes = $this->_getXpath()->query($this->getQuery());
 
-        /** @var DOMElement $node */
+        /**
+         * Fetching nodes to get each node in DomDocument
+         *
+         * @var DOMElement $node
+         */
         foreach ($nodes as $node) {
             foreach ($this->getTranslateFields() as $translate_field) {
 
-
-                /** @var Rule $rule */
+                /**
+                 * Getting Rule for current set of field
+                 * Then validating node with this rule
+                 *
+                 * @var Rule $rule
+                 */
                 $rule = $translate_field['rule'];
 
                 if (!$rule->validate($node)) {
@@ -95,22 +193,43 @@ class HTML
 
 
                 if ($translate_field['text']) {
-                    /** @var DOMNode $child_node */
+                    /**
+                     * Fetching child nodes to find Text nodes
+                     *
+                     * @var DOMNode $child_node
+                     */
                     foreach ($node->childNodes as $child_node) {
                         if ($child_node->nodeType == XML_TEXT_NODE) {
-                            /** @var DOMText $child_node */
+                            /**
+                             * Checking if TextNode data length
+                             * without whitespace in not null
+                             * Then running callback function for text nodes
+                             *
+                             * @var DOMText $child_node
+                             */
                             if (strlen(trim($child_node->data)) == 0) {
                                 continue;
                             }
-                            call_user_func_array($text_callback, [&$child_node, $translate_field['text']]);
+                            call_user_func_array(
+                                $text_callback,
+                                [&$child_node, $translate_field['text']]
+                            );
                         }
                     }
                 }
 
+                /**
+                 * Fetching current set attrs and checking
+                 * If node has attribute with this keys
+                 * */
                 foreach ($translate_field['attrs'] as $attr => $type) {
                     if ($node->hasAttribute($attr)) {
                         $attr_node = $node->getAttributeNode($attr);
-                        /** @var DOMAttr $node */
+                        /**
+                         * Running callback function for attr nodes
+                         *
+                         * @var DOMAttr $node
+                         */
                         call_user_func_array($attr_callback, [&$attr_node, $type]);
                     }
                 }
@@ -121,110 +240,153 @@ class HTML
     }
 
     /**
-     * @return mixed
+     * Get Dom (DomDocument)
+     *
+     * @return DomDocument
      */
     public function getDom()
     {
-        return $this->dom;
+        return $this->_dom;
     }
 
     /**
-     * @param DomDocument $dom
-     */
-    public function setDom(DomDocument $dom)
-    {
-        $this->dom = $dom;
-    }
-
-    /**
+     * Set Dom (DomDocument)
+     *
+     * @param DomDocument $_dom Dom Document instance
+     *
      * @return void
      */
-    private function initDom()
+    public function setDom(DomDocument $_dom)
+    {
+        $this->_dom = $_dom;
+    }
+
+    /**
+     * Initialization DomDocument and Xpath
+     * Preserving tag that must be restored on save
+     *
+     * @return void
+     */
+    private function _initDom()
     {
         $html = $this->getHtml();
 
-        $this->preserveTag($html, 'script');
+        $this->_preserveTag($html, 'script');
 
         $this->setDom(new DomDocument());
-        @$this->getDom()->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        $this->setXpath(new DOMXpath($this->dom));
+        @$this->getDom()->loadHTML(
+            $html,
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+
+        $this->_setXpath(new DOMXpath($this->_dom));
 
     }
 
     /**
+     * Getting translate fields set
+     *
      * @return Rule[]
      */
     public function getTranslateFields()
     {
-        return $this->translate_fields;
+        return $this->_translate_fields;
     }
 
     /**
-     * @param Rule $rule
-     * @param array $attrs
-     * @param string $text
+     * Adding translate fields
+     *
+     * @param Rule   $rule  Rule object
+     * @param string $text  Text node type to translate
+     * @param array  $attrs List of attributes that must be translated
+     *
+     * @return void
      */
     public function addTranslateField(Rule $rule, $text = 'text', $attrs = [])
     {
-        $this->translate_fields[] = ['rule' => $rule, 'text' => $text, 'attrs' => $attrs];
+        $this->_translate_fields[] = [
+            'rule' => $rule,
+            'text' => $text,
+            'attrs' => $attrs
+        ];
     }
 
     /**
+     * Get HTML string
+     *
      * @return mixed
      */
     public function getHtml()
     {
-        return $this->html;
+        return $this->_html;
     }
 
     /**
+     * Save DomDocument final result as HTML
+     *
      * @return string|string[]|null
      */
     public function save()
     {
         $html = $this->getDom()->saveHTML();
-        $this->restorePreservedTag($html, 'script');
+        $this->_restorePreservedTag($html, 'script');
         return $html;
     }
 
     /**
-     * @param mixed $html
+     * Set HTML string
+     *
+     * @param string $_html Initial HTML content
+     *
+     * @return void
      */
-    public function setHtml($html)
+    public function setHtml($_html)
     {
-        $this->html = $html;
+        $this->_html = $_html;
     }
 
     /**
+     * Get Xpath query
+     *
      * @return string
      */
     public function getQuery(): string
     {
-        return $this->query;
+        return $this->_query;
     }
 
     /**
-     * @param string $query
+     * Set Xpath query
+     *
+     * @param string $_query Query String
+     *
+     * @return void
      */
-    public function setQuery(string $query)
+    public function setQuery(string $_query)
     {
-        $this->query = $query;
+        $this->_query = $_query;
     }
 
     /**
+     * Get Xpath instance
+     *
      * @return DOMXpath
      */
-    private function getXpath()
+    private function _getXpath()
     {
-        return $this->xpath;
+        return $this->_xpath;
     }
 
     /**
-     * @param DOMXPath $xpath
+     * Set Xpath instance
+     *
+     * @param DOMXPath $xpath Xpath instance of DomDocument
+     *
+     * @return void
      */
-    private function setXpath(DOMXpath $xpath)
+    private function _setXpath(DOMXpath $xpath)
     {
-        $this->xpath = $xpath;
+        $this->_xpath = $xpath;
     }
 }

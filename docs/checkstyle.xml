@@ -29,12 +29,7 @@
   </file>
   <file name="Module.php"/>
   <file name="component\Languages.php"/>
-  <file name="system\helpers\URL.php">
-    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
-    <error line="6" severity="error" message="No summary for class \NovemBit\i18n\system\helpers\URL" source="phpDocumentor.file.PPC:ERR-50005"/>
-    <error line="16" severity="error" message="No summary for method addQueryVars()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="38" severity="error" message="No summary for method removeQueryVars()" source="phpDocumentor.file.PPC:ERR-50008"/>
-  </file>
+  <file name="system\helpers\URL.php"/>
   <file name="component\translation\type\JSON.php">
     <error line="33" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="35" severity="error" message="No summary for property $validation" source="phpDocumentor.file.PPC:ERR-50007"/>
@@ -62,39 +57,7 @@
   </file>
   <file name="component\translation\type\Type.php"/>
   <file name="system\exception\Exception.php"/>
-  <file name="system\parsers\HTML.php">
-    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
-    <error line="16" severity="error" message="No summary for class \NovemBit\i18n\system\parsers\HTML" source="phpDocumentor.file.PPC:ERR-50005"/>
-    <error line="46" severity="error" message="Argument $html is missing from the Docblock of preserveTag" source="phpDocumentor.file.PPC:ERR-50015"/>
-    <error line="46" severity="error" message="Argument $tag is missing from the Docblock of preserveTag" source="phpDocumentor.file.PPC:ERR-50015"/>
-    <error line="46" severity="error" message="No summary for method preserveTag()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="59" severity="error" message="Argument $html is missing from the Docblock of restorePreservedTag" source="phpDocumentor.file.PPC:ERR-50015"/>
-    <error line="59" severity="error" message="Argument $tag is missing from the Docblock of restorePreservedTag" source="phpDocumentor.file.PPC:ERR-50015"/>
-    <error line="59" severity="error" message="No summary for method restorePreservedTag()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="80" severity="error" message="No summary for method fetch()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="126" severity="error" message="No summary for method getDom()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="134" severity="error" message="No summary for method setDom()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="142" severity="error" message="No summary for method initDom()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="158" severity="error" message="No summary for method getTranslateFields()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="168" severity="error" message="Name of argument $text does not match with the DocBlock's name $attrs in addTranslateField()" source="phpDocumentor.file.PPC:ERR-50014"/>
-    <error line="168" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $text in addTranslateField()" source="phpDocumentor.file.PPC:ERR-50016"/>
-    <error line="168" severity="error" message="Name of argument $attrs does not match with the DocBlock's name $text in addTranslateField()" source="phpDocumentor.file.PPC:ERR-50014"/>
-    <error line="168" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $attrs in addTranslateField()" source="phpDocumentor.file.PPC:ERR-50016"/>
-    <error line="168" severity="error" message="No summary for method addTranslateField()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="176" severity="error" message="No summary for method getHtml()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="184" severity="error" message="No summary for method save()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="194" severity="error" message="No summary for method setHtml()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="202" severity="error" message="No summary for method getQuery()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="210" severity="error" message="No summary for method setQuery()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="218" severity="error" message="No summary for method getXpath()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="226" severity="error" message="No summary for method setXpath()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="18" severity="error" message="No summary for property $html" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="20" severity="error" message="No summary for property $translate_fields" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="22" severity="error" message="No summary for property $dom" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="24" severity="error" message="No summary for property $xpath" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="26" severity="error" message="No summary for property $query" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="28" severity="error" message="No summary for property $preserved_data" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
+  <file name="system\parsers\HTML.php"/>
   <file name="component\translation\type\URL.php">
     <error line="34" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="36" severity="error" message="No summary for property $path_separator" source="phpDocumentor.file.PPC:ERR-50007"/>
@@ -108,34 +71,8 @@
     <error line="39" severity="error" message="No summary for property $remote_path" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="41" severity="error" message="No summary for property $api_key" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
-  <file name="system\helpers\DataType.php">
-    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
-    <error line="5" severity="error" message="No summary for class \NovemBit\i18n\system\helpers\DataType" source="phpDocumentor.file.PPC:ERR-50005"/>
-    <error line="17" severity="error" message="No summary for method isHTML()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="26" severity="error" message="No summary for method isURL()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="35" severity="error" message="No summary for method isJSON()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="46" severity="error" message="No summary for method getType()" source="phpDocumentor.file.PPC:ERR-50008"/>
-  </file>
-  <file name="system\parsers\html\Rule.php">
-    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
-    <error line="8" severity="error" message="No summary for class \NovemBit\i18n\system\parsers\html\Rule" source="phpDocumentor.file.PPC:ERR-50005"/>
-    <error line="57" severity="error" message="No summary for method getTags()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="65" severity="error" message="No summary for method setTags()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="73" severity="error" message="No summary for method getAttrs()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="81" severity="error" message="No summary for method setAttrs()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="89" severity="error" message="No summary for method getTexts()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="97" severity="error" message="No summary for method setTexts()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="107" severity="error" message="No summary for method validateTag()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="146" severity="error" message="No summary for method validateAttrs()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="192" severity="error" message="No summary for method validateTexts()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="237" severity="error" message="No summary for method validate()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="268" severity="error" message="No summary for method getMode()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="276" severity="error" message="No summary for method setMode()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="31" severity="error" message="No summary for property $tags" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="33" severity="error" message="No summary for property $attrs" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="35" severity="error" message="No summary for property $texts" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="37" severity="error" message="No summary for property $mode" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
+  <file name="system\helpers\DataType.php"/>
+  <file name="system\parsers\html\Rule.php"/>
   <file name="system\component\DB.php">
     <error line="37" severity="error" message="No summary for property $connection" source="phpDocumentor.file.PPC:ERR-50007"/>
     <error line="39" severity="error" message="No summary for property $_connection" source="phpDocumentor.file.PPC:ERR-50007"/>
