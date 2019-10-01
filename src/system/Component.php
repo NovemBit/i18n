@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category NovemBit\i18n\system\component
- * @package  NovemBit\i18n\system\component
+ * @category System
+ * @package  System
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -22,8 +22,8 @@ namespace NovemBit\i18n\system;
  * Its simple but provides very useful functionality
  * Module class
  *
- * @category NovemBit\i18n\system\component
- * @package  NovemBit\i18n\system\component
+ * @category System
+ * @package  System
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

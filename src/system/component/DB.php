@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category Component
- * @package  Module
+ * @category System\Components
+ * @package  System\Components
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -21,8 +21,8 @@ use yii\db\Connection;
 /**
  * DB component
  *
- * @category Class
- * @package  DB
+ * @category System\Components
+ * @package  System\Components
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

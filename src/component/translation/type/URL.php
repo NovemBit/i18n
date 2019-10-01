@@ -3,8 +3,8 @@
  * Url translation component
  * php version 7.2.10
  *
- * @category Component
- * @package  Type
+ * @category Component\Translation\Type
+ * @package  Component\Translation\Type
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -20,8 +20,8 @@ use NovemBit\i18n\component\Translation;
  * Url translation component
  * Translate urls paths and build fully working url
  *
- * @category Class
- * @package  URL
+ * @category Component\Translation\Type
+ * @package  Component\Translation\Type
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

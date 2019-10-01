@@ -4,7 +4,7 @@
  * php version 7.2.10
  *
  * @category Component
- * @package  Module
+ * @package  Component
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -22,8 +22,8 @@ use NovemBit\i18n\system\Component;
 /**
  * Rest component
  *
- * @category Class
- * @package  Rest
+ * @category Component
+ * @package  Component
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

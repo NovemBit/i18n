@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category Component
- * @package  Module
+ * @category Models
+ * @package  Models
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -20,8 +20,8 @@ use yii\db\Connection;
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
  *
- * @category Class
- * @package  Module
+ * @category Models
+ * @package  Models
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

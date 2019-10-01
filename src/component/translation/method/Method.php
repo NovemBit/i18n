@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category Component
- * @package  Translation
+ * @category Component\Translation\Method
+ * @package  Component\Translation\Method
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -21,8 +21,8 @@ use NovemBit\i18n\component\translation\Translation;
  * Main Translation method abstract
  * Any method of translation must extends this class
  *
- * @category Class
- * @package  Translate
+ * @category Component\Translation\Method
+ * @package  Component\Translation\Method
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

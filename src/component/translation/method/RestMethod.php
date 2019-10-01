@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category Component
- * @package  Translation
+ * @category Component\Translation\Method
+ * @package  Component\Translation\Method
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -23,8 +23,8 @@ use NovemBit\i18n\system\helpers\URL;
 /**
  * Rest Translate method of translation
  *
- * @category Class
- * @package  Method
+ * @category Component\Translation\Method
+ * @package  Component\Translation\Method
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

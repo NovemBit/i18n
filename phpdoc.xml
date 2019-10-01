@@ -10,11 +10,9 @@
     </transformer>
     <transformations>
         <template name="markdown-public"/>
-<!--
-        <template name="clean"/>
--->
+<!--        <template name="clean"/>-->
         <template name="checkstyle"/>
-        <template name="responsive-twig"/>
+        <template name="responsive"/>
     </transformations>
     <files>
         <directory>src</directory>

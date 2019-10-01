@@ -3,8 +3,8 @@
  * Translation type component main abstract
  * php version 7.2.10
  *
- * @category Component
- * @package  Translation
+ * @category Component\Translation\Type
+ * @package  Component\Translation\Type
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -18,8 +18,8 @@ use NovemBit\i18n\component\translation\Translation;
 /**
  * Type abstract class for translation component
  *
- * @category Class
- * @package  Type
+ * @category Component\Translation\Type
+ * @package  Component\Translation\Type
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

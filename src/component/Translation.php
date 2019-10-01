@@ -3,8 +3,8 @@
  * Translation component
  * php version 7.2.10
  *
- * @category NovemBit\i18n\component\Translation
- * @package  NovemBit\i18n\component\Translation
+ * @category Component
+ * @package  Component
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -26,8 +26,8 @@ use NovemBit\i18n\Module;
 /**
  * Translation component
  *
- * @category NovemBit\i18n\component\Translation
- * @package  NovemBit\i18n\component\Translation
+ * @category Component
+ * @package  Component
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
