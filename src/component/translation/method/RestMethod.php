@@ -16,6 +16,7 @@ namespace NovemBit\i18n\component\translation\method;
 
 
 use Exception;
+use NovemBit\i18n\component\Rest;
 use NovemBit\i18n\component\Translation;
 use NovemBit\i18n\system\helpers\URL;
 
@@ -32,12 +33,41 @@ use NovemBit\i18n\system\helpers\URL;
  */
 class RestMethod extends Method
 {
+    /**
+     * Version of REST API
+     *
+     * @var string
+     * */
+    public $api_version = "1";
+
+    /**
+     * Use SSL protocol
+     *
+     * @var bool
+     * */
     public $ssl = false;
 
+    /**
+     * Rest api remote host
+     *
+     * @var string
+     * */
     public $remote_host;
 
+    /**
+     * Remote path of API
+     *
+     * @var string
+     * @see Rest::$endpoint
+     * */
     public $remote_path = 'i18n/rest/v1';
 
+    /**
+     * Key of Remote REST api service
+     *
+     * @var string
+     * @see Rest::$api_keys
+     * */
     public $api_key;
 
     /**
@@ -51,7 +81,6 @@ class RestMethod extends Method
     protected function doTranslate(array $texts)
     {
 
-        /* API URL */
         $url = URL::buildUrl(
             [
                 'scheme' => $this->ssl ? "https" : "http",
@@ -60,11 +89,8 @@ class RestMethod extends Method
                 'query' => 'api_key=' . $this->api_key
             ]
         );
-
-        /* Init cURL resource */
         $ch = curl_init($url);
 
-        /* Array Parameter Data */
         $data = http_build_query(
             [
                 'languages' => $this->context->getLanguages(),
@@ -72,18 +98,12 @@ class RestMethod extends Method
             ]
         );
 
-        //        var_dump($data);
-        /* pass encoded JSON string to the POST fields */
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        /* set return type json */
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        /* execute request */
         $result = curl_exec($ch);
 
-        /* close cURL resource */
         curl_close($ch);
 
         $result = json_decode($result, true);

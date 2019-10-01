@@ -4,9 +4,7 @@
   <file name="models\ActiveRecord.php"/>
   <file name="component\translation\type\Text.php"/>
   <file name="component\translation\method\Google.php"/>
-  <file name="component\translation\method\Method.php">
-    <error line="34" severity="error" message="No summary for property $type" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
+  <file name="component\translation\method\Method.php"/>
   <file name="component\Translation.php">
     <error line="45" severity="error" message="No summary for property $_languages" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
@@ -54,12 +52,7 @@
     <error line="40" severity="error" message="No summary for property $validation" source="phpDocumentor.file.PPC:ERR-50007"/>
   </file>
   <file name="models\Translation.php"/>
-  <file name="component\translation\method\RestMethod.php">
-    <error line="35" severity="error" message="No summary for property $ssl" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="37" severity="error" message="No summary for property $remote_host" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="39" severity="error" message="No summary for property $remote_path" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="41" severity="error" message="No summary for property $api_key" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
+  <file name="component\translation\method\RestMethod.php"/>
   <file name="system\helpers\DataType.php"/>
   <file name="system\parsers\html\Rule.php"/>
   <file name="system\component\DB.php">

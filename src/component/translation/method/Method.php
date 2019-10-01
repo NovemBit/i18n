@@ -31,6 +31,11 @@ use NovemBit\i18n\component\translation\Translation;
  */
 abstract class Method extends Translation
 {
+
+    /**
+     * Determine default type of Method always 0
+     * {@inheritdoc}
+     * */
     public $type = 0;
 
     /**
