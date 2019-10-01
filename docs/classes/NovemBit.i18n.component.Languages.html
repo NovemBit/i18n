@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">33</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -82,12 +82,7 @@ Initialization of child components</span><pre>commonInit()</pre></a></li>
 <li class="method public "><a href="#method_getDefaultLanguage" title="getDefaultLanguage() :: Get default language"><span class="description">Get default language</span><pre>getDefaultLanguage()</pre></a></li>
 <li class="method public "><a href="#method_getFromLanguage" title="getFromLanguage() :: Get main from languages"><span class="description">Get main from languages</span><pre>getFromLanguage()</pre></a></li>
 <li class="method public "><a href="#method_getLanguageFromUrl" title="getLanguageFromUrl() :: Get language code from url"><span class="description">Get language code from url</span><pre>getLanguageFromUrl()</pre></a></li>
-<li class="method public "><a href="#method_getLanguageFromUrlPath" title="getLanguageFromUrlPath() :: Get current language from URL path
-f.e. https://novembit.com/fr/my/post/path"><span class="description">Get current language from URL path
-f.e. https://novembit.com/fr/my/post/path</span><pre>getLanguageFromUrlPath()</pre></a></li>
-<li class="method public "><a href="#method_getScriptUrl" title="getScriptUrl() :: Get script url
-F.e. /path/to/my/dir/index.php or /path/to/my/dir"><span class="description">Get script url
-F.e. /path/to/my/dir/index.php or /path/to/my/dir</span><pre>getScriptUrl()</pre></a></li>
+<li class="method public "><a href="#method_getLanguageQueryKey" title="getLanguageQueryKey() :: Get language query key"><span class="description">Get language query key</span><pre>getLanguageQueryKey()</pre></a></li>
 <li class="method public inherited"><a href="#method_init" title="init() :: Component init method
 Running after child component initialization"><span class="description">Component init method
 Running after child component initialization</span><pre>init()</pre></a></li>
@@ -104,7 +99,13 @@ Accepted languages list</span><pre>validateLanguages()</pre></a></li>
 </li>
 <li class="nav-header private">» Private
                     <ul>
+<li class="method private "><a href="#method__getLanguageFromUrlPath" title="_getLanguageFromUrlPath() :: Get current language from URL path
+f.e. https://novembit.com/fr/my/post/path"><span class="description">Get current language from URL path
+f.e. https://novembit.com/fr/my/post/path</span><pre>_getLanguageFromUrlPath()</pre></a></li>
 <li class="method private "><a href="#method__getLanguageFromUrlQuery" title="_getLanguageFromUrlQuery() :: Getting language code from url query string"><span class="description">Getting language code from url query string</span><pre>_getLanguageFromUrlQuery()</pre></a></li>
+<li class="method private "><a href="#method__getScriptUrl" title="_getScriptUrl() :: Get script url
+F.e. /path/to/my/dir/index.php or /path/to/my/dir"><span class="description">Get script url
+F.e. /path/to/my/dir/index.php or /path/to/my/dir</span><pre>_getScriptUrl()</pre></a></li>
 <li class="method private inherited"><a href="#method__isCli" title="_isCli() :: Check if script running on CLI"><span class="description">Check if script running on CLI</span><pre>_isCli()</pre></a></li>
 </ul>
 </li>
@@ -211,6 +212,10 @@ Language code to beginning of @URL path</p>
 <p>If @language_on_path is false or @URL contains
 Script name or directory path then adding only
 Query parameter of language</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::addLanguageToUrl()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$url</h4>
@@ -289,6 +294,10 @@ Initialization of child components</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::getDefaultLanguage()</td>
+</tr></table>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code>\NovemBit\i18n\system\exception\Exception</code></th>
@@ -304,6 +313,10 @@ Initialization of child components</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::getFromLanguage()</td>
+</tr></table>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code>\NovemBit\i18n\system\exception\Exception</code></th>
@@ -315,48 +328,36 @@ Initialization of child components</h2>
 </div>
 <a id="method_getLanguageFromUrl"></a><div class="element clickable method public method_getLanguageFromUrl " data-toggle="collapse" data-target=".method_getLanguageFromUrl .collapse" title="public">
 <h2>Get language code from url</h2>
-<pre>getLanguageFromUrl(string $url) : string | null</pre>
+<pre>getLanguageFromUrl(string|null $url) : string | null</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::getLanguageFromUrl()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$url</h4>
-<code>string</code><p>Simple URL</p></div>
+<code>string</code><code>null</code><p>Simple URL</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>string</code><code>null</code>
 </div>
 </div></div>
 </div>
-<a id="method_getLanguageFromUrlPath"></a><div class="element clickable method public method_getLanguageFromUrlPath " data-toggle="collapse" data-target=".method_getLanguageFromUrlPath .collapse" title="public">
-<h2>Get current language from URL path
-f.e. https://novembit.com/fr/my/post/path</h2>
-<pre>getLanguageFromUrlPath(string $url) : string</pre>
+<a id="method_getLanguageQueryKey"></a><div class="element clickable method public method_getLanguageQueryKey " data-toggle="collapse" data-target=".method_getLanguageQueryKey .collapse" title="public">
+<h2>Get language query key</h2>
+<pre>getLanguageQueryKey() : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>{fr} is valid language</p>
-<p>Getting {fr} from URL then removing them from path
-After removing changing global REQUEST_URI</p></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$url</h4>
-<code>string</code><p>Simple url</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_getScriptUrl"></a><div class="element clickable method public method_getScriptUrl " data-toggle="collapse" data-target=".method_getScriptUrl .collapse" title="public">
-<h2>Get script url
-F.e. /path/to/my/dir/index.php or /path/to/my/dir</h2>
-<pre>getScriptUrl() : mixed | string | null</pre>
-<div class="labels"><span class="label">Static</span></div>
-<div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::getLanguageQueryKey()</td>
+</tr></table>
 <h3>Returns</h3>
-<div class="subelement response">
-<code>mixed</code><code>string</code><code>null</code>
-</div>
+<div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
 <a id="method_init"></a><div class="element clickable method public method_init inherited" data-toggle="collapse" data-target=".method_init .collapse" title="public">
@@ -372,6 +373,10 @@ Running after child component initialization</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::removeScriptNameFromUrl()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$url</h4>
@@ -389,6 +394,10 @@ Check if language exists in @accepted_languages array</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::validateLanguage()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$language</h4>
@@ -405,12 +414,33 @@ Accepted languages list</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\interfaces\Languages::validateLanguages()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$languages</h4>
 <code>array&lt;mixed,string&gt;</code><p>language codes</p></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a id="method__getLanguageFromUrlPath"></a><div class="element clickable method private method__getLanguageFromUrlPath " data-toggle="collapse" data-target=".method__getLanguageFromUrlPath .collapse" title="private">
+<h2>Get current language from URL path
+f.e. https://novembit.com/fr/my/post/path</h2>
+<pre>_getLanguageFromUrlPath(string $url) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>{fr} is valid language</p>
+<p>Getting {fr} from URL then removing them from path
+After removing changing global REQUEST_URI</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$url</h4>
+<code>string</code><p>Simple url</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method__getLanguageFromUrlQuery"></a><div class="element clickable method private method__getLanguageFromUrlQuery " data-toggle="collapse" data-target=".method__getLanguageFromUrlQuery .collapse" title="private">
@@ -426,6 +456,19 @@ Accepted languages list</h2>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>string</code><code>null</code>
+</div>
+</div></div>
+</div>
+<a id="method__getScriptUrl"></a><div class="element clickable method private method__getScriptUrl " data-toggle="collapse" data-target=".method__getScriptUrl .collapse" title="private">
+<h2>Get script url
+F.e. /path/to/my/dir/index.php or /path/to/my/dir</h2>
+<pre>_getScriptUrl() : mixed | string | null</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code><code>string</code><code>null</code>
 </div>
 </div></div>
 </div>
@@ -609,7 +652,7 @@ Then take language from domain name</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-01T17:15:41+04:00.<br></footer></div>
+            generated on 2019-10-02T01:46:18+04:00.<br></footer></div>
 </div>
 </body>
 </html>

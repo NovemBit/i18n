@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">33</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -79,6 +79,9 @@ Only on cli script</span><pre>cli()</pre></a></li>
 <li class="method public inherited"><a href="#method_commonInit" title="commonInit() :: Common init method running before
 Initialization of child components"><span class="description">Common init method running before
 Initialization of child components</span><pre>commonInit()</pre></a></li>
+<li class="method public inherited"><a href="#method_doTranslate" title="doTranslate() :: Abstract method that must be extended from
+Child methods to translate texts"><span class="description">Abstract method that must be extended from
+Child methods to translate texts</span><pre>doTranslate()</pre></a></li>
 <li class="method public inherited"><a href="#method_init" title="init() :: Component init method
 Running after child component initialization"><span class="description">Component init method
 Running after child component initialization</span><pre>init()</pre></a></li>
@@ -101,11 +104,6 @@ Save already translated texts on DB with Active data</span><pre>translate()</pre
 <li class="method public inherited"><a href="#method_validateBeforeReTranslate" title="validateBeforeReTranslate() :: Validate before ReTranslate"><span class="description">Validate before ReTranslate</span><pre>validateBeforeReTranslate()</pre></a></li>
 <li class="method public inherited"><a href="#method_validateBeforeTranslate" title="validateBeforeTranslate() :: Validate before translate"><span class="description">Validate before translate</span><pre>validateBeforeTranslate()</pre></a></li>
 </ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul><li class="method protected inherited"><a href="#method_doTranslate" title="doTranslate() :: Abstract method that must be extended from
-Child methods to translate texts"><span class="description">Abstract method that must be extended from
-Child methods to translate texts</span><pre>doTranslate()</pre></a></li></ul>
 </li>
 <li class="nav-header private">» Private
                     <ul>
@@ -190,7 +188,7 @@ Module class</p></div>
 </tr>
 <tr>
 <th>inherited_from</th>
-<td>\NovemBit\i18n\component\translation\Translation</td>
+<td>\NovemBit\i18n\component\translation\Translator</td>
 </tr>
 </table>
 <h3>
@@ -296,6 +294,25 @@ Initialization of child components</h2>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="method_doTranslate"></a><div class="element clickable method public method_doTranslate inherited" data-toggle="collapse" data-target=".method_doTranslate .collapse" title="public">
+<h2>Abstract method that must be extended from
+Child methods to translate texts</h2>
+<pre>doTranslate(array $texts) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Translator::doTranslate()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$texts</h4>
+<code>array</code><p>Texts array to translate</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
 <a id="method_init"></a><div class="element clickable method public method_init inherited" data-toggle="collapse" data-target=".method_init .collapse" title="public">
 <h2>Component init method
 Running after child component initialization</h2>
@@ -332,6 +349,10 @@ Save already translated texts on DB with Active data</h2>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Translator::translate()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$texts</h4>
@@ -461,21 +482,6 @@ Save already translated texts on DB with Active data</h2>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
 </div>
-<a id="method_doTranslate"></a><div class="element clickable method protected method_doTranslate inherited" data-toggle="collapse" data-target=".method_doTranslate .collapse" title="protected">
-<h2>Abstract method that must be extended from
-Child methods to translate texts</h2>
-<pre>doTranslate(array $texts) : array</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$texts</h4>
-<code>array</code><p>Texts array to translate</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>array</code></div>
-</div></div>
-</div>
 <a id="method__doExclusion"></a><div class="element clickable method private method__doExclusion inherited" data-toggle="collapse" data-target=".method__doExclusion .collapse" title="private">
 <h2>Doing exclusion from text</h2>
 <pre>_doExclusion(string $text) : void</pre>
@@ -530,7 +536,7 @@ Sort exclusions by priority</h2>
 <i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
 <a id="property_"> </a><div class="element clickable property public property_" data-toggle="collapse" data-target=".property_ .collapse" title="public">
 <h2>context</h2>
-<pre> : \NovemBit\i18n\component\translation\Translation</pre>
+<pre> : \NovemBit\i18n\component\translation\Translator</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -647,7 +653,7 @@ Sort exclusions by priority</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-01T17:15:41+04:00.<br></footer></div>
+            generated on 2019-10-02T01:46:18+04:00.<br></footer></div>
 </div>
 </body>
 </html>

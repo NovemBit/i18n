@@ -33,6 +33,7 @@
     * [validateAfterReTranslate](#validateafterretranslate)
     * [validateAllBeforeTranslate](#validateallbeforetranslate)
     * [validateAllAfterTranslate](#validateallaftertranslate)
+    * [doTranslate](#dotranslate)
     * [__construct](#__construct-1)
     * [commonInit](#commoninit-1)
     * [cli](#cli-1)
@@ -55,23 +56,12 @@
     * [validateAfterReTranslate](#validateafterretranslate-1)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-1)
     * [validateAllAfterTranslate](#validateallaftertranslate-1)
+    * [doTranslate](#dotranslate-1)
     * [__construct](#__construct-2)
     * [commonInit](#commoninit-2)
     * [cli](#cli-2)
     * [cliInit](#cliinit-2)
 * [HTML](#html)
-    * [load](#load)
-    * [fetch](#fetch)
-    * [getDom](#getdom)
-    * [setDom](#setdom)
-    * [getTranslateFields](#gettranslatefields)
-    * [addTranslateField](#addtranslatefield)
-    * [getHtml](#gethtml)
-    * [save](#save)
-    * [setHtml](#sethtml)
-    * [getQuery](#getquery)
-    * [setQuery](#setquery)
-* [HTML](#html-1)
     * [init](#init-3)
     * [beforeTranslate](#beforetranslate-2)
     * [afterTranslate](#aftertranslate-2)
@@ -87,13 +77,25 @@
     * [validateAfterTranslate](#validateaftertranslate-2)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-2)
     * [validateAllAfterTranslate](#validateallaftertranslate-2)
-    * [doTranslate](#dotranslate)
+    * [doTranslate](#dotranslate-2)
     * [__construct](#__construct-3)
     * [commonInit](#commoninit-3)
     * [cli](#cli-3)
     * [cliInit](#cliinit-3)
     * [getHtmlParser](#gethtmlparser)
     * [setHtmlParser](#sethtmlparser)
+* [HTML](#html-1)
+    * [load](#load)
+    * [fetch](#fetch)
+    * [getDom](#getdom)
+    * [setDom](#setdom)
+    * [getTranslateFields](#gettranslatefields)
+    * [addTranslateField](#addtranslatefield)
+    * [getHtml](#gethtml)
+    * [save](#save)
+    * [setHtml](#sethtml)
+    * [getQuery](#getquery)
+    * [setQuery](#setquery)
 * [JSON](#json)
     * [init](#init-4)
     * [beforeTranslate](#beforetranslate-3)
@@ -110,7 +112,7 @@
     * [validateAfterTranslate](#validateaftertranslate-3)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-3)
     * [validateAllAfterTranslate](#validateallaftertranslate-3)
-    * [doTranslate](#dotranslate-1)
+    * [doTranslate](#dotranslate-3)
     * [__construct](#__construct-4)
     * [commonInit](#commoninit-4)
     * [cli](#cli-4)
@@ -121,16 +123,15 @@
     * [init](#init-5)
     * [cli](#cli-5)
     * [cliInit](#cliinit-5)
-    * [getLanguageFromUrlPath](#getlanguagefromurlpath)
     * [getLanguageFromUrl](#getlanguagefromurl)
     * [removeScriptNameFromUrl](#removescriptnamefromurl)
     * [addLanguageToUrl](#addlanguagetourl)
     * [validateLanguage](#validatelanguage)
     * [validateLanguages](#validatelanguages)
     * [getAcceptLanguages](#getacceptlanguages)
-    * [getScriptUrl](#getscripturl)
     * [getFromLanguage](#getfromlanguage)
     * [getDefaultLanguage](#getdefaultlanguage)
+    * [getLanguageQueryKey](#getlanguagequerykey)
 * [Module](#module)
     * [__construct](#__construct-6)
     * [commonInit](#commoninit-6)
@@ -186,6 +187,7 @@
     * [validateAfterReTranslate](#validateafterretranslate-4)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-4)
     * [validateAllAfterTranslate](#validateallaftertranslate-4)
+    * [doTranslate](#dotranslate-4)
     * [__construct](#__construct-9)
     * [commonInit](#commoninit-9)
     * [cli](#cli-9)
@@ -217,12 +219,20 @@
     * [validateAfterTranslate](#validateaftertranslate-5)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-5)
     * [validateAllAfterTranslate](#validateallaftertranslate-5)
-    * [doTranslate](#dotranslate-2)
+    * [doTranslate](#dotranslate-5)
     * [__construct](#__construct-11)
     * [commonInit](#commoninit-10)
     * [cli](#cli-10)
     * [cliInit](#cliinit-10)
 * [Translation](#translation)
+    * [getDb](#getdb-1)
+    * [tableName](#tablename)
+    * [rules](#rules)
+    * [behaviors](#behaviors)
+    * [attributeLabels](#attributelabels)
+    * [get](#get)
+    * [saveTranslations](#savetranslations)
+* [Translation](#translation-1)
     * [__construct](#__construct-12)
     * [commonInit](#commoninit-11)
     * [init](#init-11)
@@ -231,14 +241,11 @@
     * [setLanguages](#setlanguages)
     * [getLanguages](#getlanguages)
     * [getFromLanguage](#getfromlanguage-1)
-* [Translation](#translation-1)
-    * [getDb](#getdb-1)
-    * [tableName](#tablename)
-    * [rules](#rules)
-    * [behaviors](#behaviors)
-    * [attributeLabels](#attributelabels)
-    * [get](#get)
-    * [saveTranslations](#savetranslations)
+    * [getMethod](#getmethod)
+    * [getText](#gettext)
+    * [getUrl](#geturl)
+    * [getHtml](#gethtml-1)
+    * [getJson](#getjson)
 * [URL](#url)
     * [addQueryVars](#addqueryvars)
     * [removeQueryVars](#removequeryvars)
@@ -259,7 +266,7 @@
     * [validateAfterTranslate](#validateaftertranslate-6)
     * [validateAllBeforeTranslate](#validateallbeforetranslate-6)
     * [validateAllAfterTranslate](#validateallaftertranslate-6)
-    * [doTranslate](#dotranslate-3)
+    * [doTranslate](#dotranslate-6)
     * [__construct](#__construct-13)
     * [commonInit](#commoninit-12)
     * [cli](#cli-12)
@@ -899,6 +906,28 @@ Dummy::validateAllAfterTranslate( array &$translates ): void
 
 ---
 
+### doTranslate
+
+Doing translation method
+
+```php
+Dummy::doTranslate( array $texts ): array
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Array of texts to translate |
+
+
+
+
+---
+
 ### __construct
 
 Component constructor.
@@ -1361,6 +1390,28 @@ Google::validateAllAfterTranslate( array &$translates ): void
 
 ---
 
+### doTranslate
+
+Doing translate method
+
+```php
+Google::doTranslate( array $texts ): array
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Array of texts to translate |
+
+
+
+
+---
+
 ### __construct
 
 Component constructor.
@@ -1442,234 +1493,6 @@ Google::cliInit( array $argv, integer $argc ): void
 |-----------|------|-------------|
 | `$argv` | **array** | Array of cli arguments |
 | `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-## HTML
-
-HTML parser with callback function
-Using PHP Dom parser
-
-
-
-* Full name: \NovemBit\i18n\system\parsers\HTML
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### load
-
-HTML constructor.
-
-```php
-HTML::load( string $html ): \NovemBit\i18n\system\parsers\HTML
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$html` | **string** | initial HTML content |
-
-
-
-
----
-
-### fetch
-
-Fetch current DOM document XPATH
-
-```php
-HTML::fetch( callable $text_callback, callable $attr_callback ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text_callback` | **callable** | Callback function for Text Nodes |
-| `$attr_callback` | **callable** | Callback function for Attr Nodes |
-
-
-
-
----
-
-### getDom
-
-Get Dom (DomDocument)
-
-```php
-HTML::getDom(  ): \NovemBit\i18n\system\parsers\DomDocument
-```
-
-
-
-
-
-
-
----
-
-### setDom
-
-Set Dom (DomDocument)
-
-```php
-HTML::setDom( \NovemBit\i18n\system\parsers\DomDocument $_dom ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_dom` | **\NovemBit\i18n\system\parsers\DomDocument** | Dom Document instance |
-
-
-
-
----
-
-### getTranslateFields
-
-Getting translate fields set
-
-```php
-HTML::getTranslateFields(  ): array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;
-```
-
-
-
-
-
-
-
----
-
-### addTranslateField
-
-Adding translate fields
-
-```php
-HTML::addTranslateField( \NovemBit\i18n\system\parsers\html\Rule $rule, string $text = &#039;text&#039;, array $attrs = array() ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$rule` | **\NovemBit\i18n\system\parsers\html\Rule** | Rule object |
-| `$text` | **string** | Text node type to translate |
-| `$attrs` | **array** | List of attributes that must be translated |
-
-
-
-
----
-
-### getHtml
-
-Get HTML string
-
-```php
-HTML::getHtml(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### save
-
-Save DomDocument final result as HTML
-
-```php
-HTML::save(  ): string|array&lt;mixed,string&gt;|null
-```
-
-
-
-
-
-
-
----
-
-### setHtml
-
-Set HTML string
-
-```php
-HTML::setHtml( string $_html ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_html` | **string** | Initial HTML content |
-
-
-
-
----
-
-### getQuery
-
-Get Xpath query
-
-```php
-HTML::getQuery(  ): string
-```
-
-
-
-
-
-
-
----
-
-### setQuery
-
-Set Xpath query
-
-```php
-HTML::setQuery( string $_query ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_query` | **string** | Query String |
 
 
 
@@ -2169,6 +1992,234 @@ HTML::setHtmlParser( \NovemBit\i18n\system\parsers\HTML $_html_parser ): void
 
 ---
 
+## HTML
+
+HTML parser with callback function
+Using PHP Dom parser
+
+
+
+* Full name: \NovemBit\i18n\system\parsers\HTML
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### load
+
+HTML constructor.
+
+```php
+HTML::load( string $html ): \NovemBit\i18n\system\parsers\HTML
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$html` | **string** | initial HTML content |
+
+
+
+
+---
+
+### fetch
+
+Fetch current DOM document XPATH
+
+```php
+HTML::fetch( callable $text_callback, callable $attr_callback ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$text_callback` | **callable** | Callback function for Text Nodes |
+| `$attr_callback` | **callable** | Callback function for Attr Nodes |
+
+
+
+
+---
+
+### getDom
+
+Get Dom (DomDocument)
+
+```php
+HTML::getDom(  ): \NovemBit\i18n\system\parsers\DomDocument
+```
+
+
+
+
+
+
+
+---
+
+### setDom
+
+Set Dom (DomDocument)
+
+```php
+HTML::setDom( \NovemBit\i18n\system\parsers\DomDocument $_dom ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_dom` | **\NovemBit\i18n\system\parsers\DomDocument** | Dom Document instance |
+
+
+
+
+---
+
+### getTranslateFields
+
+Getting translate fields set
+
+```php
+HTML::getTranslateFields(  ): array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;
+```
+
+
+
+
+
+
+
+---
+
+### addTranslateField
+
+Adding translate fields
+
+```php
+HTML::addTranslateField( \NovemBit\i18n\system\parsers\html\Rule $rule, string $text = &#039;text&#039;, array $attrs = array() ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$rule` | **\NovemBit\i18n\system\parsers\html\Rule** | Rule object |
+| `$text` | **string** | Text node type to translate |
+| `$attrs` | **array** | List of attributes that must be translated |
+
+
+
+
+---
+
+### getHtml
+
+Get HTML string
+
+```php
+HTML::getHtml(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### save
+
+Save DomDocument final result as HTML
+
+```php
+HTML::save(  ): string|array&lt;mixed,string&gt;|null
+```
+
+
+
+
+
+
+
+---
+
+### setHtml
+
+Set HTML string
+
+```php
+HTML::setHtml( string $_html ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_html` | **string** | Initial HTML content |
+
+
+
+
+---
+
+### getQuery
+
+Get Xpath query
+
+```php
+HTML::getQuery(  ): string
+```
+
+
+
+
+
+
+
+---
+
+### setQuery
+
+Set Xpath query
+
+```php
+HTML::setQuery( string $_query ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_query` | **string** | Query String |
+
+
+
+
+---
+
 ## JSON
 
 JSON type for translation component
@@ -2637,6 +2688,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\Languages
 * Parent class: \NovemBit\i18n\system\Component
+* This class implements: \NovemBit\i18n\component\interfaces\Languages
 
 **See Also:**
 
@@ -2746,38 +2798,12 @@ Languages::cliInit( array $argv, integer $argc ): void
 
 ---
 
-### getLanguageFromUrlPath
-
-Get current language from URL path
-f.e. https://novembit.com/fr/my/post/path
-
-```php
-Languages::getLanguageFromUrlPath( string $url ): string
-```
-
-{fr} is valid language
-
-Getting {fr} from URL then removing them from path
-After removing changing global REQUEST_URI
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** | Simple url |
-
-
-
-
----
-
 ### getLanguageFromUrl
 
 Get language code from url
 
 ```php
-Languages::getLanguageFromUrl( string $url ): string|null
+Languages::getLanguageFromUrl( string|null $url ): string|null
 ```
 
 
@@ -2787,7 +2813,7 @@ Languages::getLanguageFromUrl( string $url ): string|null
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$url` | **string** | Simple URL |
+| `$url` | **string&#124;null** | Simple URL |
 
 
 
@@ -2914,23 +2940,6 @@ Languages::getAcceptLanguages( boolean $with_names = false ): array|null
 
 ---
 
-### getScriptUrl
-
-Get script url
-F.e. /path/to/my/dir/index.php or /path/to/my/dir
-
-```php
-Languages::getScriptUrl(  ): mixed|string|null
-```
-
-
-
-* This method is **static**.
-
-
-
----
-
 ### getFromLanguage
 
 Get main from languages
@@ -2953,6 +2962,22 @@ Get default language
 
 ```php
 Languages::getDefaultLanguage(  ): string
+```
+
+
+
+
+
+
+
+---
+
+### getLanguageQueryKey
+
+Get language query key
+
+```php
+Languages::getLanguageQueryKey(  ): mixed
 ```
 
 
@@ -3132,6 +3157,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\Request
 * Parent class: \NovemBit\i18n\system\Component
+* This class implements: \NovemBit\i18n\component\interfaces\Request
 
 **See Also:**
 
@@ -4040,6 +4066,28 @@ RestMethod::validateAllAfterTranslate( array &$translates ): void
 
 ---
 
+### doTranslate
+
+Doing translate method
+
+```php
+RestMethod::doTranslate( array $texts ): array
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Array of texts to translate |
+
+
+
+
+---
+
 ### __construct
 
 Component constructor.
@@ -4797,6 +4845,151 @@ Text::cliInit( array $argv, integer $argc ): void
 
 ## Translation
 
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\models\Translation
+* Parent class: \NovemBit\i18n\models\ActiveRecord
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### getDb
+
+Get DB of main module instance
+
+```php
+Translation::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### tableName
+
+Table name in DB
+
+```php
+Translation::tableName(  ): string
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### rules
+
+{@inheritdoc}
+
+```php
+Translation::rules(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### behaviors
+
+Yii component behaviours
+ Using timestamp behaviour to set created and updated at
+ Column values.
+
+```php
+Translation::behaviors(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+Translation::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+Translation::get( integer $type, array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$type` | **integer** | Type of translated string |
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+Translation::saveTranslations( string $from_language, integer $type, array $translations ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$type` | **integer** | Type of translations |
+| `$translations` | **array** | Translations of texts |
+
+
+
+
+---
+
+## Translation
+
 Translation component
 
 Its simple but provides very useful functionality
@@ -4804,6 +4997,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\Translation
 * Parent class: \NovemBit\i18n\system\Component
+* This class implements: \NovemBit\i18n\component\interfaces\Translation
 
 **See Also:**
 
@@ -4967,57 +5161,12 @@ Translation::getFromLanguage(  ): mixed
 
 ---
 
-## Translation
-
-ActiveRecord class. Child of Yii ActiveRecord library
+### getMethod
 
 
-
-* Full name: \NovemBit\i18n\models\Translation
-* Parent class: \NovemBit\i18n\models\ActiveRecord
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### getDb
-
-Get DB of main module instance
 
 ```php
-Translation::getDb(  ): \yii\db\Connection
-```
-
-
-
-* This method is **static**.
-
-
-
----
-
-### tableName
-
-Table name in DB
-
-```php
-Translation::tableName(  ): string
-```
-
-
-
-* This method is **static**.
-
-
-
----
-
-### rules
-
-{@inheritdoc}
-
-```php
-Translation::rules(  ): array
+Translation::getMethod(  ): mixed
 ```
 
 
@@ -5028,14 +5177,12 @@ Translation::rules(  ): array
 
 ---
 
-### behaviors
+### getText
 
-Yii component behaviours
- Using timestamp behaviour to set created and updated at
- Column values.
+
 
 ```php
-Translation::behaviors(  ): array
+Translation::getText(  ): mixed
 ```
 
 
@@ -5046,12 +5193,12 @@ Translation::behaviors(  ): array
 
 ---
 
-### attributeLabels
+### getUrl
 
-Attribute values
+
 
 ```php
-Translation::attributeLabels(  ): array
+Translation::getUrl(  ): mixed
 ```
 
 
@@ -5062,50 +5209,32 @@ Translation::attributeLabels(  ): array
 
 ---
 
-### get
+### getHtml
 
-Main method to get translations from DB
+
 
 ```php
-Translation::get( integer $type, array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+Translation::getHtml(  ): mixed
 ```
 
 
 
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$type` | **integer** | Type of translated string |
-| `$texts` | **array** | Texts array to translate |
-| `$from_language` | **string** | From language |
-| `$to_languages` | **array** | To languages list |
-| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
 
 
 
 
 ---
 
-### saveTranslations
+### getJson
 
-Main method to save translations in DB
+
 
 ```php
-Translation::saveTranslations( string $from_language, integer $type, array $translations ): void
+Translation::getJson(  ): mixed
 ```
 
 
 
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$from_language` | **string** | From language |
-| `$type` | **integer** | Type of translations |
-| `$translations` | **array** | Translations of texts |
 
 
 

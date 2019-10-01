@@ -5,7 +5,18 @@
   <file name="component\translation\type\Text.php"/>
   <file name="component\translation\method\Google.php"/>
   <file name="component\translation\method\Method.php"/>
-  <file name="component\Translation.php"/>
+  <file name="component\Translation.php">
+    <error line="110" severity="error" message="No summary for method getMethod()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="118" severity="error" message="No summary for method getText()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="126" severity="error" message="No summary for method getUrl()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="134" severity="error" message="No summary for method getHtml()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="142" severity="error" message="No summary for method getJson()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="45" severity="error" message="No summary for property $method" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="46" severity="error" message="No summary for property $text" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="47" severity="error" message="No summary for property $url" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="48" severity="error" message="No summary for property $html" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="49" severity="error" message="No summary for property $json" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
   <file name="system\Component.php"/>
   <file name="component\translation\method\Dummy.php"/>
   <file name="component\translation\type\HTML.php"/>
@@ -13,7 +24,6 @@
   <file name="component\Languages.php"/>
   <file name="system\helpers\URL.php"/>
   <file name="component\translation\type\JSON.php"/>
-  <file name="component\translation\Translation.php"/>
   <file name="component\Request.php"/>
   <file name="component\translation\type\Type.php"/>
   <file name="system\exception\Exception.php"/>
@@ -24,4 +34,48 @@
   <file name="system\helpers\DataType.php"/>
   <file name="system\parsers\html\Rule.php"/>
   <file name="system\component\DB.php"/>
+  <file name="component\interfaces\Languages.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\interfaces\Request.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\interfaces\Request" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\interfaces\Translation.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\interfaces\Translation" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\interfaces\Translator.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\interfaces\Translator" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="10" severity="error" message="Argument $texts is missing from the Docblock of translate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="10" severity="error" message="No summary for method translate()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="12" severity="error" message="Argument $texts is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="12" severity="error" message="No summary for method doTranslate()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\method\interfaces\Method.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\method\interfaces\Method" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\Translator.php"/>
+  <file name="component\translation\type\interfaces\HTML.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\HTML" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\type\interfaces\JSON.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\JSON" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\type\interfaces\Text.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\Text" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\type\interfaces\Type.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="9" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\Type" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\type\interfaces\URL.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\URL" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
 </checkstyle>
