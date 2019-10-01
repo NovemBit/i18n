@@ -31,18 +31,37 @@ use NovemBit\i18n\component\Translation;
 class URL extends Type
 {
 
+    /**
+     * {@inheritdoc}
+     * */
     public $type = 2;
 
+    /**
+     * Path separator
+     * Using as whitespace replacement
+     *
+     * @var string
+     * */
     public $path_separator = "-";
 
+    /**
+     * If true, then making all path elements lowercase
+     *
+     * @var bool
+     * */
     public $path_lowercase = true;
 
+    /**
+     * {@inheritdoc}
+     * */
     public $validation = true;
 
     /**
      * Validate url with parts
      * For each part you can write custom rules
      * If rule is not valid then excluding URL
+     *
+     * @var array
      * */
     public $url_validation_rules = [];
 

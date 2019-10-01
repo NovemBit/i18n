@@ -3,8 +3,8 @@
  * Main i18n module
  * php version 7.2.10
  *
- * @category Component
- * @package  Composer
+ * @category NovemBit\i18n
+ * @package  NovemBit\i18n
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @version  GIT: @1.0.1@
@@ -18,8 +18,8 @@ use Exception;
 /**
  * Module class
  *
- * @category Class
- * @package  Module
+ * @category NovemBit\i18n\Module
+ * @package  NovemBit\i18n\Module
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n

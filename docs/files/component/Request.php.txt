@@ -35,36 +35,82 @@ use NovemBit\i18n\system\exception\Exception;
  * */
 class Request extends Component
 {
-    /*
+    /**
      * Translation component
+     *
+     * @var \NovemBit\i18n\component\translation\Translation
      * */
     private $_translation;
 
-    /*
+    /**
      * Languages of URL
+     *
+     * @var string
      * */
     private $_language;
+
+    /**
+     * Language of Referer
+     *
+     * @var string
+     * */
     private $_referer_language;
 
     /**
-     * Originals
-     * Destination is @REQUEST_URI
-     * Referer is @HTTP_REFERER
+     * Original Destination (REQUEST_URI)
+     *
+     * @var string
      * */
     private $_destination;
+
+    /**
+     * Original Referer (HTTP_REFERER)
+     *
+     * @var string
+     * */
     private $_referer;
 
     /**
-     * Source urls
+     * Source url
+     *
+     * @var string
      * */
     private $_source_url;
+
+    /**
+     * Referer Source url
+     *
+     * @var string
+     * */
     private $_referer_source_url;
 
+    /**
+     * Translations of url
+     *
+     * @var array
+     * */
     private $_url_translations;
+
+    /**
+     * Translations of referer
+     *
+     * @var array
+     * */
     private $_referer_translations;
 
+    /**
+     * Editor query argument key
+     *
+     * @var string
+     * */
     public $editor_query_key = "editor";
 
+
+    /**
+     * Status of editor (enabled/disabled)
+     *
+     * @var bool
+     * */
     public $editor;
 
     /**

@@ -34,15 +34,37 @@ use NovemBit\i18n\system\parsers\html\Rule;
  */
 class HTML extends Type
 {
-    /*
-     * Type id of HTML method
+    /**
+     * {@inheritdoc}
      * */
     public $type = 3;
 
+    /**
+     * Fetched fields to translate
+     *
+     * @var array
+     * */
     public $fields_to_translate = [];
 
+    /**
+     * Html parser
+     *
+     * @var \NovemBit\i18n\system\parsers\HTML
+     * */
     private $_html_parser;
+
+    /**
+     * To translate
+     *
+     * @var array
+     * */
     private $_to_translate = [];
+
+    /**
+     * Translated contents
+     *
+     * @var array
+     * */
     private $_translations = [];
 
     /**

@@ -28,14 +28,22 @@ use yii\db\Connection;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Module $context
- * @property Connection $_connection Yii2 DB connection
- * @property array $connection Array of configuration for Yii2 DB connection
  */
 class DB extends Component
 {
 
+    /**
+     * Array of configuration for Yii2 DB connection
+     *
+     * @var array
+     * */
     public $connection;
 
+    /**
+     * Yii2 DB connection
+     *
+     * @var Connection
+     * */
     private $_connection;
 
     /**

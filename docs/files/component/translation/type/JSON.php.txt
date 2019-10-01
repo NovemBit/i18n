@@ -30,10 +30,21 @@ use NovemBit\i18n\system\helpers\DataType;
  */
 class JSON extends Type
 {
+    /**
+     * {@inheritdoc}
+     * */
     public $type = 4;
 
+    /**
+     * {@inheritdoc}
+     * */
     public $validation = true;
 
+    /**
+     * To translate objects
+     *
+     * @var array
+     * */
     private $_objects = [];
 
     /**
@@ -88,13 +99,6 @@ class JSON extends Type
 
         return $result;
 
-        /*$translations = $this->context->method->translate($texts);
-        foreach ($translations as $source => &$translation) {
-            foreach ($translation as $language => &$text) {
-                $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);
-            }
-        }*/
-        //return $translations;
     }
 
     /**

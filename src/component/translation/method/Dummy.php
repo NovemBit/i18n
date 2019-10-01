@@ -30,6 +30,9 @@ use NovemBit\i18n\component\Translation;
 class Dummy extends Method
 {
 
+    /**
+     * {@inheritdoc}
+     * */
     public $exclusion_pattern = '{e-$0-e}';
 
     /**
