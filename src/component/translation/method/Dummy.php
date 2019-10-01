@@ -43,7 +43,7 @@ class Dummy extends Method
      * @return array
      * @throws Exception
      */
-    protected function doTranslate(array $texts)
+    public function doTranslate(array $texts)
     {
 
         $languages = $this->context->getLanguages();

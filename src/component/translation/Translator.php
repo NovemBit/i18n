@@ -28,7 +28,7 @@ use NovemBit\i18n\system\Component;
  *
  * @property \NovemBit\i18n\component\Translation context
  */
-abstract class Translation extends Component
+abstract class Translator extends Component implements interfaces\Translator
 {
     /**
      * Type id. Using as column value to save on DB
@@ -546,7 +546,7 @@ abstract class Translation extends Component
      *
      * @return array
      */
-    protected function doTranslate(array $texts)
+    public function doTranslate(array $texts)
     {
         return [];
     }

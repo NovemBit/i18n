@@ -25,22 +25,46 @@
 
                 let description = document.createElement('div');
                 description.classList.add(window.novembit.i18n.prefix + '-inspector-description');
-                description.innerText = "Texts: " + data.text.length + " | Attributes: " + data.attr.length;
+                description.innerText = "Texts: " + data.text.length + " | Attributes: " + Object.keys(data.attr).length;
 
                 title.innerText = node.nodeName;
                 inspector.appendChild(title);
                 inspector.appendChild(description);
 
-                let form = document.createElement('form');
-                form.method = 'post';
-
+                let form_texts = document.createElement('form');
+                form_texts.method = 'post';
+                form_texts.classList.add(window.novembit.i18n.prefix+'-inspector-form');
+                form_texts.classList.add(window.novembit.i18n.prefix+'-inspector-form-texts');
                 for (let i = 0; i < data.text.length; i++) {
                     let input = document.createElement('input');
                     input.type = 'text';
                     input.value = data.text[i][1];
-                    form.appendChild(input);
+                    form_texts.appendChild(input);
                 }
-                inspector.appendChild(form);
+                inspector.appendChild(form_texts);
+
+                let form_attrs = document.createElement('form');
+                form_attrs.method = 'post';
+                form_attrs.classList.add(window.novembit.i18n.prefix+'-inspector-form');
+                form_attrs.classList.add(window.novembit.i18n.prefix+'-inspector-form-attrs');
+                for (let attr_key in data.attr) {
+
+                    if (!data.attr.hasOwnProperty(attr_key)) continue;
+
+                    let label = document.createElement('label');
+                    label.classList.add(window.novembit.i18n.prefix+"-inspector-form-label");
+                    label.innerText = attr_key;
+
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = data.attr[attr_key][1];
+                    label.appendChild(input);
+                    form_attrs.appendChild(label);
+                }
+                inspector.appendChild(form_attrs);
+
+
+
                 selector.appendChild(inspector);
 
             } else {
@@ -74,7 +98,6 @@
             let inspector = selector.getElementsByClassName(window.novembit.i18n.prefix + '-inspector')[0];
             this.hideInspector(inspector);
         },
-
         getNodeOffset: function (node) {
             let top = 0, left = 0;
             do {
@@ -166,6 +189,9 @@
                 selector.style.top = nodePos.top + "px";
                 selector.style.left = nodePos.left + "px";
             }
+        },
+        start: function () {
+
         }
     };
 

@@ -32,7 +32,7 @@ use NovemBit\i18n\system\helpers\URL;
  *
  * @property Module $context
  * */
-class Languages extends Component
+class Languages extends Component implements interfaces\Languages
 {
 
     /**
@@ -290,7 +290,7 @@ class Languages extends Component
      *
      * @return string|null
      */
-    private function _getLanguageFromUrlQuery($url)
+    private function _getLanguageFromUrlQuery(string $url)
     {
         $parts = parse_url($url);
 
@@ -319,7 +319,7 @@ class Languages extends Component
      *
      * @return string
      */
-    public function getLanguageFromUrlPath($url)
+    private function _getLanguageFromUrlPath(string $url)
     {
         $url = $this->removeScriptNameFromUrl($url);
 
@@ -345,16 +345,16 @@ class Languages extends Component
     /**
      * Get language code from url
      *
-     * @param string $url Simple URL
+     * @param string|null $url Simple URL
      *
      * @return string|null
      */
-    public function getLanguageFromUrl($url)
+    public function getLanguageFromUrl(string $url)
     {
         $language = $this->_getLanguageFromUrlQuery($url);
 
         if ($language == null && $this->language_on_path) {
-            $language = $this->getLanguageFromUrlPath($url);
+            $language = $this->_getLanguageFromUrlPath($url);
         }
 
         return $language;
@@ -367,11 +367,11 @@ class Languages extends Component
      *
      * @return mixed|string
      */
-    public function removeScriptNameFromUrl($url)
+    public function removeScriptNameFromUrl(string $url) :string
     {
         $url = ltrim($url, '/ ');
         $url = preg_replace(
-            "/^" . preg_quote($this->getScriptUrl(), '/') . "/",
+            "/^" . preg_quote($this->_getScriptUrl(), '/') . "/",
             '',
             $url
         );
@@ -403,7 +403,7 @@ class Languages extends Component
      * @return bool|mixed|string
      * @throws Exception
      */
-    public function addLanguageToUrl($url, $language)
+    public function addLanguageToUrl(string $url, string $language)
     {
 
         /**
@@ -472,7 +472,7 @@ class Languages extends Component
      *
      * @return bool
      */
-    public function validateLanguage($language)
+    public function validateLanguage(string $language) : bool
     {
         if (in_array($language, $this->accept_languages)) {
             return true;
@@ -490,7 +490,7 @@ class Languages extends Component
      *
      * @return bool
      */
-    public function validateLanguages($languages)
+    public function validateLanguages(array $languages) : bool
     {
         foreach ($languages as $language) {
             if (!$this->validateLanguage($language)) {
@@ -530,7 +530,7 @@ class Languages extends Component
      *
      * @return mixed|string|null
      */
-    public static function getScriptUrl()
+    private static function _getScriptUrl()
     {
 
         if (isset(self::$_script_url)) {
@@ -566,7 +566,7 @@ class Languages extends Component
      * @return mixed
      * @throws Exception
      */
-    public function getFromLanguage()
+    public function getFromLanguage() : string
     {
         if ($this->validateLanguage($this->from_language)) {
             return $this->from_language;
@@ -603,5 +603,15 @@ class Languages extends Component
         } else {
             throw new Exception('Unknown default language parameter.');
         }
+    }
+
+    /**
+     * Get language query key
+     *
+     * @return mixed
+     */
+    public function getLanguageQueryKey() : string
+    {
+        return $this->language_query_key;
     }
 }

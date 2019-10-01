@@ -39,8 +39,14 @@ use NovemBit\i18n\Module;
  * @property JSON $json
  * @property Module $context
  */
-class Translation extends Component
+class Translation extends Component implements interfaces\Translation
 {
+
+    public $method;
+    public $text;
+    public $url;
+    public $html;
+    public $json;
 
     /**
      * Languages of current instance
@@ -48,7 +54,6 @@ class Translation extends Component
      * @var array
      * */
     private $_languages;
-
 
     /**
      * Set languages for translation
@@ -97,5 +102,45 @@ class Translation extends Component
     public function getFromLanguage()
     {
         return $this->context->languages->getFromLanguage();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJson()
+    {
+        return $this->json;
     }
 }

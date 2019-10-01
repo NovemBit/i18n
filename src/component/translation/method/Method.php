@@ -14,7 +14,7 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\Translator;
 
 
 /**
@@ -29,7 +29,7 @@ use NovemBit\i18n\component\translation\Translation;
  *
  * @property \NovemBit\i18n\component\Translation context
  */
-abstract class Method extends Translation
+abstract class Method extends Translator implements interfaces\Method
 {
 
     /**

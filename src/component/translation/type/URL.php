@@ -413,7 +413,7 @@ class URL extends Type
 
         $result[$before] = \NovemBit\i18n\system\helpers\URL::removeQueryVars(
             $result[$before],
-            $this->context->context->languages->language_query_key
+            $this->context->context->languages->getLanguageQueryKey()
         );
 
         return parent::validateAfterReTranslate(

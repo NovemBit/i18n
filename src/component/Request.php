@@ -33,12 +33,12 @@ use NovemBit\i18n\system\exception\Exception;
  *
  * @property Module $context
  * */
-class Request extends Component
+class Request extends Component implements interfaces\Request
 {
     /**
      * Translation component
      *
-     * @var \NovemBit\i18n\component\translation\Translation
+     * @var Translation
      * */
     private $_translation;
 
@@ -104,7 +104,6 @@ class Request extends Component
      * @var string
      * */
     public $editor_query_key = "editor";
-
 
     /**
      * Status of editor (enabled/disabled)
@@ -189,7 +188,7 @@ class Request extends Component
         $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->languages->language_query_key
+            $this->context->languages->getLanguageQueryKey()
         );
         $dest = urldecode($dest);
         $this->_setDestination($dest);
@@ -233,7 +232,7 @@ class Request extends Component
             $referer = trim($_SERVER['HTTP_REFERER'], '/');
             $referer = URL::removeQueryVars(
                 $referer,
-                $this->context->languages->language_query_key
+                $this->context->languages->getLanguageQueryKey()
             );
             $referer = urldecode($referer);
             $this->setReferer($referer);
@@ -625,7 +624,7 @@ class Request extends Component
                     'accept_languages' => $this->context->languages
                         ->getAcceptLanguages(),
                     'language_query_key' => $this->context->languages
-                        ->language_query_key,
+                        ->getLanguageQueryKey(),
                     'editor_query_key' => $this->editor_query_key,
                     'prefix' => $this->context->prefix,
                     'orig_uri' => $this->getDestination(),
