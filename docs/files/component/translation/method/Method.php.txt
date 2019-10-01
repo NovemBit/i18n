@@ -34,7 +34,8 @@ abstract class Method extends Translation
 
     /**
      * Determine default type of Method always 0
-     * {@inheritdoc}
+     *
+     * @var int
      * */
     public $type = 0;
 

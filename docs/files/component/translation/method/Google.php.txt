@@ -31,7 +31,6 @@ use NovemBit\i18n\component\Translation;
  */
 class Google extends Method
 {
-
     /**
      * Google console api key for GT
      *
