@@ -24,11 +24,11 @@ use Exception;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property component\Translation translation
- * @property component\Languages languages
- * @property component\Request request
+ * @property Component\Translation\Translation translation
+ * @property Component\Languages\Languages languages
+ * @property Component\Request\Request request
  * @property system\component\DB db
- * @property component\Rest rest
+ * @property Component\Rest\Rest rest
  */
 class Module extends system\Component
 {

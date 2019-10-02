@@ -26,9 +26,9 @@ use NovemBit\i18n\system\Component;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property \NovemBit\i18n\component\Translation context
+ * @property Translation context
  */
-abstract class Translator extends Component implements interfaces\Translator
+abstract class Translator extends Component implements Interfaces\Translator
 {
     /**
      * Type id. Using as column value to save on DB

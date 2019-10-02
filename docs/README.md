@@ -62,6 +62,18 @@
     * [cli](#cli-2)
     * [cliInit](#cliinit-2)
 * [HTML](#html)
+    * [load](#load)
+    * [fetch](#fetch)
+    * [getDom](#getdom)
+    * [setDom](#setdom)
+    * [getTranslateFields](#gettranslatefields)
+    * [addTranslateField](#addtranslatefield)
+    * [getHtml](#gethtml)
+    * [save](#save)
+    * [setHtml](#sethtml)
+    * [getQuery](#getquery)
+    * [setQuery](#setquery)
+* [HTML](#html-1)
     * [init](#init-3)
     * [beforeTranslate](#beforetranslate-2)
     * [afterTranslate](#aftertranslate-2)
@@ -84,18 +96,6 @@
     * [cliInit](#cliinit-3)
     * [getHtmlParser](#gethtmlparser)
     * [setHtmlParser](#sethtmlparser)
-* [HTML](#html-1)
-    * [load](#load)
-    * [fetch](#fetch)
-    * [getDom](#getdom)
-    * [setDom](#setdom)
-    * [getTranslateFields](#gettranslatefields)
-    * [addTranslateField](#addtranslatefield)
-    * [getHtml](#gethtml)
-    * [save](#save)
-    * [setHtml](#sethtml)
-    * [getQuery](#getquery)
-    * [setQuery](#setquery)
 * [JSON](#json)
     * [init](#init-4)
     * [beforeTranslate](#beforetranslate-3)
@@ -225,14 +225,6 @@
     * [cli](#cli-10)
     * [cliInit](#cliinit-10)
 * [Translation](#translation)
-    * [getDb](#getdb-1)
-    * [tableName](#tablename)
-    * [rules](#rules)
-    * [behaviors](#behaviors)
-    * [attributeLabels](#attributelabels)
-    * [get](#get)
-    * [saveTranslations](#savetranslations)
-* [Translation](#translation-1)
     * [__construct](#__construct-12)
     * [commonInit](#commoninit-11)
     * [init](#init-11)
@@ -246,6 +238,14 @@
     * [getUrl](#geturl)
     * [getHtml](#gethtml-1)
     * [getJson](#getjson)
+* [Translation](#translation-1)
+    * [getDb](#getdb-1)
+    * [tableName](#tablename)
+    * [rules](#rules)
+    * [behaviors](#behaviors)
+    * [attributeLabels](#attributelabels)
+    * [get](#get)
+    * [saveTranslations](#savetranslations)
 * [URL](#url)
     * [addQueryVars](#addqueryvars)
     * [removeQueryVars](#removequeryvars)
@@ -566,8 +566,8 @@ Dummy method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\method\Dummy
-* Parent class: \NovemBit\i18n\component\translation\method\Method
+* Full name: \NovemBit\i18n\component\translation\Method\Dummy
+* Parent class: \NovemBit\i18n\component\translation\Method\Method
 
 **See Also:**
 
@@ -1051,8 +1051,8 @@ Google Translate method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\method\Google
-* Parent class: \NovemBit\i18n\component\translation\method\Method
+* Full name: \NovemBit\i18n\component\translation\Method\Google
+* Parent class: \NovemBit\i18n\component\translation\Method\Method
 
 **See Also:**
 
@@ -1501,13 +1501,241 @@ Google::cliInit( array $argv, integer $argc ): void
 
 ## HTML
 
+HTML parser with callback function
+Using PHP Dom parser
+
+
+
+* Full name: \NovemBit\i18n\system\parsers\HTML
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### load
+
+HTML constructor.
+
+```php
+HTML::load( string $html ): \NovemBit\i18n\system\parsers\HTML
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$html` | **string** | initial HTML content |
+
+
+
+
+---
+
+### fetch
+
+Fetch current DOM document XPATH
+
+```php
+HTML::fetch( callable $text_callback, callable $attr_callback ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$text_callback` | **callable** | Callback function for Text Nodes |
+| `$attr_callback` | **callable** | Callback function for Attr Nodes |
+
+
+
+
+---
+
+### getDom
+
+Get Dom (DomDocument)
+
+```php
+HTML::getDom(  ): \NovemBit\i18n\system\parsers\DomDocument
+```
+
+
+
+
+
+
+
+---
+
+### setDom
+
+Set Dom (DomDocument)
+
+```php
+HTML::setDom( \NovemBit\i18n\system\parsers\DomDocument $_dom ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_dom` | **\NovemBit\i18n\system\parsers\DomDocument** | Dom Document instance |
+
+
+
+
+---
+
+### getTranslateFields
+
+Getting translate fields set
+
+```php
+HTML::getTranslateFields(  ): array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;
+```
+
+
+
+
+
+
+
+---
+
+### addTranslateField
+
+Adding translate fields
+
+```php
+HTML::addTranslateField( \NovemBit\i18n\system\parsers\html\Rule $rule, string $text = &#039;text&#039;, array $attrs = array() ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$rule` | **\NovemBit\i18n\system\parsers\html\Rule** | Rule object |
+| `$text` | **string** | Text node type to translate |
+| `$attrs` | **array** | List of attributes that must be translated |
+
+
+
+
+---
+
+### getHtml
+
+Get HTML string
+
+```php
+HTML::getHtml(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### save
+
+Save DomDocument final result as HTML
+
+```php
+HTML::save(  ): string|array&lt;mixed,string&gt;|null
+```
+
+
+
+
+
+
+
+---
+
+### setHtml
+
+Set HTML string
+
+```php
+HTML::setHtml( string $_html ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_html` | **string** | Initial HTML content |
+
+
+
+
+---
+
+### getQuery
+
+Get Xpath query
+
+```php
+HTML::getQuery(  ): string
+```
+
+
+
+
+
+
+
+---
+
+### setQuery
+
+Set Xpath query
+
+```php
+HTML::setQuery( string $_query ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_query` | **string** | Query String |
+
+
+
+
+---
+
+## HTML
+
 HTML type for translation component
 
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\type\HTML
-* Parent class: \NovemBit\i18n\component\translation\type\Type
+* Full name: \NovemBit\i18n\component\translation\Type\HTML
+* Parent class: \NovemBit\i18n\component\translation\Type\Type
 
 **See Also:**
 
@@ -1992,234 +2220,6 @@ HTML::setHtmlParser( \NovemBit\i18n\system\parsers\HTML $_html_parser ): void
 
 ---
 
-## HTML
-
-HTML parser with callback function
-Using PHP Dom parser
-
-
-
-* Full name: \NovemBit\i18n\system\parsers\HTML
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### load
-
-HTML constructor.
-
-```php
-HTML::load( string $html ): \NovemBit\i18n\system\parsers\HTML
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$html` | **string** | initial HTML content |
-
-
-
-
----
-
-### fetch
-
-Fetch current DOM document XPATH
-
-```php
-HTML::fetch( callable $text_callback, callable $attr_callback ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text_callback` | **callable** | Callback function for Text Nodes |
-| `$attr_callback` | **callable** | Callback function for Attr Nodes |
-
-
-
-
----
-
-### getDom
-
-Get Dom (DomDocument)
-
-```php
-HTML::getDom(  ): \NovemBit\i18n\system\parsers\DomDocument
-```
-
-
-
-
-
-
-
----
-
-### setDom
-
-Set Dom (DomDocument)
-
-```php
-HTML::setDom( \NovemBit\i18n\system\parsers\DomDocument $_dom ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_dom` | **\NovemBit\i18n\system\parsers\DomDocument** | Dom Document instance |
-
-
-
-
----
-
-### getTranslateFields
-
-Getting translate fields set
-
-```php
-HTML::getTranslateFields(  ): array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;
-```
-
-
-
-
-
-
-
----
-
-### addTranslateField
-
-Adding translate fields
-
-```php
-HTML::addTranslateField( \NovemBit\i18n\system\parsers\html\Rule $rule, string $text = &#039;text&#039;, array $attrs = array() ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$rule` | **\NovemBit\i18n\system\parsers\html\Rule** | Rule object |
-| `$text` | **string** | Text node type to translate |
-| `$attrs` | **array** | List of attributes that must be translated |
-
-
-
-
----
-
-### getHtml
-
-Get HTML string
-
-```php
-HTML::getHtml(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### save
-
-Save DomDocument final result as HTML
-
-```php
-HTML::save(  ): string|array&lt;mixed,string&gt;|null
-```
-
-
-
-
-
-
-
----
-
-### setHtml
-
-Set HTML string
-
-```php
-HTML::setHtml( string $_html ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_html` | **string** | Initial HTML content |
-
-
-
-
----
-
-### getQuery
-
-Get Xpath query
-
-```php
-HTML::getQuery(  ): string
-```
-
-
-
-
-
-
-
----
-
-### setQuery
-
-Set Xpath query
-
-```php
-HTML::setQuery( string $_query ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_query` | **string** | Query String |
-
-
-
-
----
-
 ## JSON
 
 JSON type for translation component
@@ -2227,8 +2227,8 @@ JSON type for translation component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\type\JSON
-* Parent class: \NovemBit\i18n\component\translation\type\Type
+* Full name: \NovemBit\i18n\component\translation\Type\JSON
+* Parent class: \NovemBit\i18n\component\translation\Type\Type
 
 **See Also:**
 
@@ -2686,9 +2686,9 @@ Setting default languages
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\Languages
+* Full name: \NovemBit\i18n\component\languages\Languages
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\interfaces\Languages
+* This class implements: \NovemBit\i18n\component\languages\Interfaces\Languages
 
 **See Also:**
 
@@ -3155,9 +3155,9 @@ Main Request class
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\Request
+* Full name: \NovemBit\i18n\component\request\Request
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\interfaces\Request
+* This class implements: \NovemBit\i18n\component\request\Interfaces\Request
 
 **See Also:**
 
@@ -3526,7 +3526,7 @@ Request::getLanguage(  ): string
 Get Translation Component
 
 ```php
-Request::getTranslation(  ): \NovemBit\i18n\component\Translation
+Request::getTranslation(  ): \NovemBit\i18n\component\translation\Translation
 ```
 
 
@@ -3544,8 +3544,9 @@ Rest component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\Rest
+* Full name: \NovemBit\i18n\component\rest\Rest
 * Parent class: \NovemBit\i18n\system\Component
+* This class implements: \NovemBit\i18n\component\rest\Interfaces\Rest
 
 **See Also:**
 
@@ -3726,8 +3727,8 @@ Rest Translate method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\method\RestMethod
-* Parent class: \NovemBit\i18n\component\translation\method\Method
+* Full name: \NovemBit\i18n\component\translation\Method\RestMethod
+* Parent class: \NovemBit\i18n\component\translation\Method\Method
 
 **See Also:**
 
@@ -4394,8 +4395,8 @@ Text type for Translation component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\type\Text
-* Parent class: \NovemBit\i18n\component\translation\type\Type
+* Full name: \NovemBit\i18n\component\translation\Type\Text
+* Parent class: \NovemBit\i18n\component\translation\Type\Type
 
 **See Also:**
 
@@ -4845,12 +4846,266 @@ Text::cliInit( array $argv, integer $argc ): void
 
 ## Translation
 
+Translation component
+
+Its simple but provides very useful functionality
+Module class
+
+* Full name: \NovemBit\i18n\component\translation\Translation
+* Parent class: \NovemBit\i18n\system\Component
+* This class implements: \NovemBit\i18n\component\translation\Interfaces\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### __construct
+
+Component constructor.
+
+```php
+Translation::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$config` | **array** | Configuration array |
+| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
+
+
+
+
+---
+
+### commonInit
+
+Common init method running before
+Initialization of child components
+
+```php
+Translation::commonInit(  ): void
+```
+
+
+
+
+
+
+
+---
+
+### init
+
+Component init method
+Running after child component initialization
+
+```php
+Translation::init(  ): void
+```
+
+
+
+
+
+
+
+---
+
+### cli
+
+Action that will run
+Only on cli script
+
+```php
+Translation::cli( array $argv, integer $argc ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$argv` | **array** | Array of cli arguments |
+| `$argc` | **integer** | Count of cli arguments |
+
+
+
+
+---
+
+### cliInit
+
+Init method only for CLI
+
+```php
+Translation::cliInit( array $argv, integer $argc ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$argv` | **array** | Array of cli arguments |
+| `$argc` | **integer** | Count of cli arguments |
+
+
+
+
+---
+
+### setLanguages
+
+Set languages for translation
+
+```php
+Translation::setLanguages( array|string $_languages ): \NovemBit\i18n\component\translation\Translation
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$_languages` | **array&#124;string** | list of languages |
+
+
+
+
+---
+
+### getLanguages
+
+Get current language
+
+```php
+Translation::getLanguages(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getFromLanguage
+
+Get from language from Languages component
+
+```php
+Translation::getFromLanguage(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getMethod
+
+Get Method Translator
+
+```php
+Translation::getMethod(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getText
+
+Get Text
+
+```php
+Translation::getText(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getUrl
+
+Get URL
+
+```php
+Translation::getUrl(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getHtml
+
+Get HTML
+
+```php
+Translation::getHtml(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+### getJson
+
+Get JSON
+
+```php
+Translation::getJson(  ): mixed
+```
+
+
+
+
+
+
+
+---
+
+## Translation
+
 ActiveRecord class. Child of Yii ActiveRecord library
 
 
 
 * Full name: \NovemBit\i18n\models\Translation
 * Parent class: \NovemBit\i18n\models\ActiveRecord
+* This class implements: \NovemBit\i18n\models\interfaces\Translation
 
 **See Also:**
 
@@ -4988,259 +5243,6 @@ Translation::saveTranslations( string $from_language, integer $type, array $tran
 
 ---
 
-## Translation
-
-Translation component
-
-Its simple but provides very useful functionality
-Module class
-
-* Full name: \NovemBit\i18n\component\Translation
-* Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\interfaces\Translation
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### __construct
-
-Component constructor.
-
-```php
-Translation::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-Translation::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### init
-
-Component init method
-Running after child component initialization
-
-```php
-Translation::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-Translation::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-Translation::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### setLanguages
-
-Set languages for translation
-
-```php
-Translation::setLanguages( array|string $_languages ): \NovemBit\i18n\component\Translation
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_languages` | **array&#124;string** | list of languages |
-
-
-
-
----
-
-### getLanguages
-
-Get current language
-
-```php
-Translation::getLanguages(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getFromLanguage
-
-Get from language from Languages component
-
-```php
-Translation::getFromLanguage(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getMethod
-
-
-
-```php
-Translation::getMethod(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getText
-
-
-
-```php
-Translation::getText(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getUrl
-
-
-
-```php
-Translation::getUrl(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getHtml
-
-
-
-```php
-Translation::getHtml(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getJson
-
-
-
-```php
-Translation::getJson(  ): mixed
-```
-
-
-
-
-
-
-
----
-
 ## URL
 
 Helper class for some actions with URLs
@@ -5331,8 +5333,8 @@ Translate urls paths and build fully working url
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\type\URL
-* Parent class: \NovemBit\i18n\component\translation\type\Type
+* Full name: \NovemBit\i18n\component\translation\Type\URL
+* Parent class: \NovemBit\i18n\component\translation\Type\Type
 
 **See Also:**
 
@@ -5789,4 +5791,4 @@ URL::cliInit( array $argv, integer $argc ): void
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-01 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-02 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

@@ -35,7 +35,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $translate
  * @property int $level
  * */
-class Translation extends ActiveRecord
+class Translation extends ActiveRecord implements interfaces\Translation
 {
 
     /**
@@ -123,11 +123,11 @@ class Translation extends ActiveRecord
     /**
      * Main method to get translations from DB
      *
-     * @param int $type Type of translated string
-     * @param array $texts Texts array to translate
+     * @param int    $type          Type of translated string
+     * @param array  $texts         Texts array to translate
      * @param string $from_language From language
-     * @param array $to_languages To languages list
-     * @param bool $reverse Use translate column as source (ReTranslate)
+     * @param array  $to_languages  To languages list
+     * @param bool   $reverse       Use translate column as source (ReTranslate)
      *
      * @return array
      */
@@ -137,7 +137,7 @@ class Translation extends ActiveRecord
         $from_language,
         $to_languages,
         $reverse = false
-    ) {
+    ) : array {
 
         $result = [];
         $texts = array_values($texts);
@@ -171,8 +171,8 @@ class Translation extends ActiveRecord
      * Main method to save translations in DB
      *
      * @param string $from_language From language
-     * @param int $type Type of translations
-     * @param array $translations Translations of texts
+     * @param int    $type          Type of translations
+     * @param array  $translations  Translations of texts
      *
      * @return void
      */
