@@ -18,7 +18,6 @@ use NovemBit\i18n\component\translation\Method\Method;
 use NovemBit\i18n\component\translation\Type\HTML;
 use NovemBit\i18n\component\translation\Type\JSON;
 use NovemBit\i18n\component\translation\Type\Text;
-use NovemBit\i18n\component\translation\Type\Type;
 use NovemBit\i18n\component\translation\Type\URL;
 use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\Component;
@@ -33,20 +32,44 @@ use NovemBit\i18n\Module;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property Method method
- * @property Text $text
- * @property URL $url
- * @property HTML $html
- * @property JSON $json
  * @property Module $context
  */
 class Translation extends Component implements Interfaces\Translation
 {
 
+    /**
+     * Method Translator
+     *
+     * @var Method
+     * */
     public $method;
+
+    /**
+     * Text Translator
+     *
+     * @var Text
+     * */
     public $text;
+
+    /**
+     * Url Translator
+     *
+     * @var URL
+     * */
     public $url;
+
+    /**
+     * HTML Translator
+     *
+     * @var HTML
+     * */
     public $html;
+
+    /**
+     * JSON Translator
+     *
+     * @var JSON
+     * */
     public $json;
 
     /**
@@ -105,53 +128,5 @@ class Translation extends Component implements Interfaces\Translation
         return $this->context->languages->getFromLanguage();
     }
 
-    /**
-     * Get Method Translator
-     *
-     * @return mixed
-     */
-    public function getMethod() : Method
-    {
-        return $this->method;
-    }
 
-    /**
-     * Get Text
-     *
-     * @return mixed
-     */
-    public function getText() : Type
-    {
-        return $this->text;
-    }
-
-    /**
-     * Get URL
-     *
-     * @return mixed
-     */
-    public function getUrl()  : Type
-    {
-        return $this->url;
-    }
-
-    /**
-     * Get HTML
-     *
-     * @return mixed
-     */
-    public function getHtml() : Type
-    {
-        return $this->html;
-    }
-
-    /**
-     * Get JSON
-     *
-     * @return mixed
-     */
-    public function getJson() : Type
-    {
-        return $this->json;
-    }
 }
