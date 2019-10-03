@@ -551,6 +551,39 @@ class Request extends Component implements Interfaces\Request
     }
 
     /**
+     * Save Editor if request is POST and has parameter %prefix%-form
+     *
+     * @return bool
+     * @throws Exception
+     */
+    private function _editorSave() : bool
+    {
+
+        if ($this->editor == true
+            && isset($_POST[$this->context->prefix . '-form'])
+        ) {
+            $nodes = $_POST[$this->context->prefix . '-form'];
+
+            $result = [];
+
+            foreach ($nodes as $source => $translate) {
+                $result[$source][$this->getLanguage()] = $translate;
+            }
+
+            \NovemBit\i18n\models\Translation::saveTranslations(
+                $this->context->languages->getFromLanguage(),
+                1,
+                $result,
+                1
+            );
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Start request translation
      *
      * @return void
@@ -562,19 +595,16 @@ class Request extends Component implements Interfaces\Request
             return;
         }
 
-        /*var_dump([
-            'url_dest' => $this->getDestination(),
-            'from_language' => $this->context->languages->from_language,
-            'language' => $this->getLanguage(),
-            'source_url'=>$this->getSourceUrl(),
-            'orig_request_uri'=>$_SERVER["ORIG_REQUEST_URI"]
-        ]);*/
+        if ($this->_editorSave()) {
+            die;
+        }
 
         ob_start([$this, 'translateBuffer']);
     }
 
     /**
      * Get in <head> additional tags
+     * Scripts, Styles, Metas and Links
      *
      * @return string
      */
@@ -650,8 +680,8 @@ class Request extends Component implements Interfaces\Request
      */
     private function _getEditorJavaScriptTag()
     {
-        $script = file_get_contents(__DIR__ . '/request/assets/js/editor.js');
-        $css = file_get_contents(__DIR__ . '/request/assets/css/editor.css');
+        $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
+        $css = file_get_contents(__DIR__ . '/assets/css/editor.css');
 
         return implode(
             '', [

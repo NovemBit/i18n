@@ -70,12 +70,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 ]
             ],
 
-            [
-                ['from_language', 'to_language'],
-                'unique',
-                'targetAttribute' => ['from_language', 'to_language']
-            ],
-
             [['type', 'created_at', 'updated_at'], 'integer'],
         ];
     }
@@ -137,7 +131,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $from_language,
         $to_languages,
         $reverse = false
-    ) : array {
+    ): array {
 
         $result = [];
         $texts = array_values($texts);
@@ -160,7 +154,8 @@ class Translation extends ActiveRecord implements interfaces\Translation
             ->where(['type' => $type])
             ->andWhere(['from_language' => $from_language])
             ->andWhere(['in', 'to_language', $to_languages])
-            ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts]);
+            ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts])
+            ->orderBy(['level' => SORT_ASC]);
 
         $result = array_merge($result, $query->asArray()->all());
 
@@ -173,27 +168,43 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param string $from_language From language
      * @param int    $type          Type of translations
      * @param array  $translations  Translations of texts
+     * @param int    $level         Level of translation
      *
      * @return void
      */
-    public static function saveTranslations($from_language, $type, $translations)
-    {
+    public static function saveTranslations(
+        $from_language,
+        $type,
+        $translations,
+        $level = 0
+    ) {
 
         foreach ($translations as $source => $haystack) {
+
             foreach ($haystack as $to_language => $translate) {
 
                 if ($from_language == $to_language) {
                     continue;
                 }
 
-                $model = new self();
-                $model->from_language = $from_language;
-                $model->type = $type;
-                $model->to_language = $to_language;
-                $model->source = $source;
+                $model = self::find()
+                    ->where(['from_language' => $from_language])
+                    ->andWhere(['type' => $type])
+                    ->andWhere(['to_language' => $to_language])
+                    ->andWhere(['source' => $source])
+                    ->andWhere(['level' => $level])
+                    ->one();
+
+                if ($model == null) {
+                    $model = new self();
+                    $model->from_language = $from_language;
+                    $model->to_language = $to_language;
+                    $model->source = $source;
+                    $model->level = $level;
+                    $model->type = $type;
+                }
+
                 $model->translate = $translate;
-                $model->level = 0;
-                $model->created_at = time();
 
                 if ($model->validate()) {
                     $model->save();

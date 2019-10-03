@@ -1,59 +1,190 @@
-#i18n-editor-wrapper [n] {
-    background: #c90000;
-    opacity: 0.6;
-    width: 10px !important;
-    border: solid 1px;
-    height: 10px !important;
-    border-radius: 100% !important;
-    cursor: pointer;
-    font-size: 0;
-    line-height: 0;
-    z-index: 9999999;
-    word-break: unset;
-}
-#i18n-editor-wrapper [n]:hover {
-    background: #444;
-    z-index: 99999999;
-    opacity: 1;
-}
-#i18n-editor-wrapper .i18n-inspector.i18n-inspector-visible {
-    display: block;
-}
-#i18n-editor-wrapper .i18n-inspector {
-    display: none;
-    padding: 5px;
-    border-radius: 5px 0 0;
-    width: 300px;
-    line-height: 1;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    background: #000000ad;
-}
-#i18n-editor-wrapper .i18n-inspector .i18n-inspector-title {
-    color: #ededed;
-    font-size: 12px;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-}
-#i18n-editor-wrapper .i18n-inspector .i18n-inspector-description {
-    color: #fff;
-    font-size: 14px;
-    width: 100%;
-}
-#i18n-editor-wrapper .i18n-inspector.i18n-inspector-opened {
-    display: block;
-    width: 500px;
-    height: 500px;
-}
-
 .i18n-active {
     outline: solid 1px;
     outline-offset: 5px;
     color: #ba0000 !important;
     visibility: visible;
 }
+
 .i18n-active > * {
     opacity: 0.5;
+}
+
+#i18n-editor-wrapper * {
+    all: unset;
+}
+
+#i18n-editor-wrapper > div {
+    background: #c90000;
+    transition: all ease 0.3s;
+    opacity: 0.9;
+    width: 10px !important;
+    border: solid 1px #ddd;
+    height: 10px !important;
+    border-radius: 100% !important;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+    z-index: 1000000;
+    word-break: unset;
+    transition: 0.3s ease all;
+}
+
+#i18n-editor-wrapper > div.active {
+    z-index: 1000002;
+    opacity: 1;
+}
+
+#i18n-editor-wrapper > div.expanded {
+    z-index: 1000001;
+    opacity: 1;
+}
+
+#i18n-editor-wrapper > div.active.expanded > .inspector {
+    border-color: #a90000;
+    opacity: 1;
+}
+
+#i18n-editor-wrapper > div.active > .inspector {
+    border-color: #a90000;
+    display: block;
+}
+
+#i18n-editor-wrapper > div.expanded > .inspector {
+    display: block;
+}
+
+#i18n-editor-wrapper > div > .inspector {
+    transition: 0.5s cubic-bezier(0.43, 0.27, 0.21, 1.02) all;
+    display: none;
+}
+
+#i18n-editor-wrapper > div > .inspector {
+    cursor:default;
+    padding: 10px;
+    border-radius: 15px 0 0;
+    width: 300px;
+    height: 65px;
+    line-height: 1;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #ffffff;
+    opacity: 0.9;
+    box-shadow: 0px 0px 1px #707070;
+    border-left: solid 1px;
+    border-top: solid 1px;
+    border-color: #9a9a9a;
+}
+
+#i18n-editor-wrapper > div > .inspector > .title {
+    color: #ab0000;
+    font-size: 18px;
+    display: block;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+#i18n-editor-wrapper > div > .inspector > .description {
+    color: #fff;
+    background: #616161;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#i18n-editor-wrapper > div.expanded > .inspector {
+    display: block;
+    box-sizing: border-box;
+    width: 90%;
+    height: 90%;
+    min-height:300px;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms {
+    display: none;
+    height: calc( 100% - 60px );
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    overflow:auto;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form {
+    display: inline-block;
+    width:100%;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form.saved{
+    background: #d6e6d6;
+}
+
+#i18n-editor-wrapper > div.expanded > .inspector > .forms {
+    display: block;
+}
+
+#i18n-editor-wrapper > div.expanded > .inspector > .forms > form > .title {
+    display:block;
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 1em;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > .hint{
+    display:block;
+    font-size:12px;
+    color: #ff0000;
+    text-align:right;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > .original{
+    display:block;
+    font-size:12px;
+    text-align:left;
+    color:#004e00;
+    margin-top:10px;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form > label {
+    clear:both;
+    display: block;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 0 0 0 20px;
+    font-size: 16px;
+    color: #8e0000;
+    font-weight: bold;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > input[disabled][type=text]{
+    background:#e2e2e2;
+    color:#a6a6a6;
+    border-color:#999;
+    cursor:default;
+}
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > input[type=text] {
+    background: #fff;
+    border: solid 1px #900000;
+    font-weight: normal;
+    margin-top: 10px;
+    color: #393939;
+    width: 100%;
+    cursor: text;
+    display: block;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#i18n-editor-wrapper > div > .inspector > .forms > form > input[type=submit]{
+    font-size:16px;
+    clear: both;
+    background:green;
+    color:#fff;
+    cursor:pointer;
+    float:right;
+    padding:10px;
+    margin-top:20px;
 }
