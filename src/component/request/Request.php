@@ -114,7 +114,7 @@ class Request extends Component implements Interfaces\Request
      * */
     public $editor;
 
-    /*
+    /**
      * Callback exclusions
      * If Callback returns true then current page
      * must be skipped
