@@ -113,6 +113,15 @@ class Request extends Component implements Interfaces\Request
      * */
     public $editor;
 
+    /*
+     * Callback exclusions
+     * If Callback returns true then current page
+     * must be skipped
+     *
+     * @var array
+     * */
+    public $exclusions = [];
+
     /**
      * Get request referer source url
      *
@@ -356,6 +365,28 @@ class Request extends Component implements Interfaces\Request
     }
 
     /**
+     * Check exclusions array and expand
+     * Callbacks and variables
+     *
+     * @return bool|mixed
+     */
+    private function _isExclusion()
+    {
+        foreach ($this->exclusions as $exclusion) {
+            if (is_callable($exclusion)) {
+                if (call_user_func($exclusion, $this) == true) {
+                    return true;
+                }
+            } else {
+                if ($exclusion == true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Prepare
      * To create response document
      *
@@ -366,6 +397,9 @@ class Request extends Component implements Interfaces\Request
      */
     private function _prepare()
     {
+        if ($this->_isExclusion()) {
+            return false;
+        }
 
         $this->_setTranslation($this->context->translation);
 
@@ -556,7 +590,7 @@ class Request extends Component implements Interfaces\Request
      * @return bool
      * @throws Exception
      */
-    private function _editorSave() : bool
+    private function _editorSave(): bool
     {
 
         if ($this->editor == true
