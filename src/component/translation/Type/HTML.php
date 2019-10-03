@@ -228,7 +228,7 @@ class HTML extends Type
                             }
                         }
 
-                        $node->data = $translate ?? $node->data;
+                        $node->data = html_entity_decode($translate ?? $node->data);
                     },
                     /*
                      * Callback for Attribute nodes
@@ -283,7 +283,9 @@ class HTML extends Type
                                 );
                             }
                         }
-                        $node->value = $translate ?? $node->value;
+                        $node->value = html_entity_decode(
+                            $translate ?? $node->value
+                        );
                     }
                 );
 
