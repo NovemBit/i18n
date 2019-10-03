@@ -67,7 +67,6 @@ class Text extends Type
     public function doTranslate(array $texts)
     {
 
-
         $translations = $this->context->method->translate($texts);
 
         foreach ($translations as $source => &$translation) {
@@ -98,4 +97,5 @@ class Text extends Type
 
         return parent::validateBeforeTranslate($text);
     }
+
 }

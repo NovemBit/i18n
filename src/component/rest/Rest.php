@@ -14,7 +14,6 @@
 namespace NovemBit\i18n\component\rest;
 
 
-use ErrorException;
 use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;

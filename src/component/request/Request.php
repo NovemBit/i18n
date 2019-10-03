@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\request;
 
+use NovemBit\i18n\component\languages\Languages;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Type\HTML;
 use NovemBit\i18n\Module;
@@ -22,10 +23,12 @@ use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\exception\Exception;
 
 /**
- * Main Request class
- *  It make easy to make requests flexible
- *  Determine type of received request
- *  Then provide translation for current type of content
+ * Main Request class.
+ * It make easy to make requests flexible.
+ * Determine type of received request.
+ * Then provide translation for current type of content.
+ *
+ * Using Translation component to translate received buffer content.
  *
  * @category Component
  * @package  Component
@@ -34,6 +37,9 @@ use NovemBit\i18n\system\exception\Exception;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Module $context
+ *
+ * @see Translation
+ * @see Languages
  * */
 class Request extends Component implements Interfaces\Request
 {
@@ -108,7 +114,7 @@ class Request extends Component implements Interfaces\Request
     public $editor_query_key = "editor";
 
     /**
-     * Status of editor (enabled/disabled)
+     * Editor status (enabled/disabled)
      *
      * @var bool
      * */
@@ -388,8 +394,8 @@ class Request extends Component implements Interfaces\Request
     }
 
     /**
-     * Prepare
-     * To create response document
+     * Prepare all components to start request translation
+     * And to create response document
      *
      * @return boolean
      * @throws Exception
@@ -404,15 +410,23 @@ class Request extends Component implements Interfaces\Request
 
         $this->_setTranslation($this->context->translation);
 
-        if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])) {
-            $this->editor = true;
+        /**
+         * If isset editor query key
+         * And current language is not equal from language
+         * Then set editor status true to initialize editor JavaScript
+         * */
+        if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
+            && $this->getLanguage() != $this->context->languages->getFromLanguage()
+        ) {
 
-            /**
-             * Enable helper attributes to use for editor
-             *
-             * @see HTML::$helper_attributes
-             * */
-            $this->context->translation->html->helper_attributes = true;
+                $this->editor = true;
+
+                /**
+                 * Enable helper attributes to use for editor
+                 *
+                 * @see HTML::$helper_attributes
+                 * */
+                $this->context->translation->html->helper_attributes = true;
         }
 
         return $this->_prepareLanguage()
