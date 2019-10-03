@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\request;
 
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\Type\HTML;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\URL;
@@ -405,6 +406,13 @@ class Request extends Component implements Interfaces\Request
 
         if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])) {
             $this->editor = true;
+
+            /**
+             * Enable helper attributes to use for editor
+             *
+             * @see HTML::$helper_attributes
+             * */
+            $this->context->translation->html->helper_attributes = true;
         }
 
         return $this->_prepareLanguage()

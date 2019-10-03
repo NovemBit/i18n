@@ -47,6 +47,14 @@ class HTML extends Type
     public $fields_to_translate = [];
 
     /**
+     * Show helper attributes that contains
+     * All information about current node and child Text/Attr nodes
+     *
+     * @var bool
+     * */
+    public $helper_attributes = false;
+
+    /**
      * Html parser
      *
      * @var \NovemBit\i18n\system\parsers\HTML
@@ -191,29 +199,35 @@ class HTML extends Type
                             );
                         }
 
-                        $parent = $node->parentNode;
+                        /**
+                         * Enable helper attributes
+                         * */
+                        if ($this->helper_attributes == true) {
+                            $parent = $node->parentNode;
 
-                        if ($parent->hasAttribute(
-                            $this->context->context->prefix . '-text'
-                        )
-                        ) {
-                            $text = json_decode(
-                                $parent->getAttribute(
-                                    $this->context->context->prefix . '-text'
-                                ),
-                                true
-                            );
-                        } else {
-                            $text = [];
+                            if ($parent->hasAttribute(
+                                $this->context->context->prefix . '-text'
+                            )
+                            ) {
+                                $text = json_decode(
+                                    $parent->getAttribute(
+                                        $this->context->context->prefix . '-text'
+                                    ),
+                                    true
+                                );
+                            } else {
+                                $text = [];
+                            }
+
+                            if ($translate !== false) {
+                                $text[] = [$node->data, $translate, $type];
+                                $parent->setAttribute(
+                                    $this->context->context->prefix . '-text',
+                                    json_encode($text)
+                                );
+                            }
                         }
 
-                        if ($translate !== false) {
-                            $text[] = [$node->data, $translate, $type];
-                            $parent->setAttribute(
-                                $this->context->context->prefix . '-text',
-                                json_encode($text)
-                            );
-                        }
                         $node->data = $translate ?? $node->data;
                     },
                     /*
@@ -238,26 +252,36 @@ class HTML extends Type
                             );
                         }
 
-                        $parent = $node->parentNode;
-                        if ($parent->hasAttribute(
-                            $this->context->context->prefix . '-attr'
-                        )
-                        ) {
-                            $attr = json_decode(
-                                $parent->getAttribute(
-                                    $this->context->context->prefix . '-attr'
-                                ),
-                                true
-                            );
-                        } else {
-                            $attr = [];
-                        }
-                        if ($translate !== false) {
-                            $attr[$node->name] = [$node->value, $translate, $type];
-                            $parent->setAttribute(
-                                $this->context->context->prefix . '-attr',
-                                json_encode($attr)
-                            );
+                        /**
+                         * Enable helper attributes
+                         * */
+                        if ($this->helper_attributes == true) {
+
+                            $parent = $node->parentNode;
+                            if ($parent->hasAttribute(
+                                $this->context->context->prefix . '-attr'
+                            )
+                            ) {
+                                $attr = json_decode(
+                                    $parent->getAttribute(
+                                        $this->context->context->prefix . '-attr'
+                                    ),
+                                    true
+                                );
+                            } else {
+                                $attr = [];
+                            }
+                            if ($translate !== false) {
+                                $attr[$node->name] = [
+                                    $node->value,
+                                    $translate,
+                                    $type
+                                ];
+                                $parent->setAttribute(
+                                    $this->context->context->prefix . '-attr',
+                                    json_encode($attr)
+                                );
+                            }
                         }
                         $node->value = $translate ?? $node->value;
                     }
