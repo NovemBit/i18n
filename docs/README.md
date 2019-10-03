@@ -241,11 +241,6 @@
     * [setLanguages](#setlanguages)
     * [getLanguages](#getlanguages)
     * [getFromLanguage](#getfromlanguage-1)
-    * [getMethod](#getmethod)
-    * [getText](#gettext)
-    * [getUrl](#geturl)
-    * [getHtml](#gethtml-1)
-    * [getJson](#getjson)
 * [URL](#url)
     * [init](#init-12)
     * [beforeTranslate](#beforetranslate-6)
@@ -4971,7 +4966,7 @@ Translation::get( integer $type, array $texts, string $from_language, array $to_
 Main method to save translations in DB
 
 ```php
-Translation::saveTranslations( string $from_language, integer $type, array $translations ): void
+Translation::saveTranslations( string $from_language, integer $type, array $translations, integer $level ): void
 ```
 
 
@@ -4984,6 +4979,7 @@ Translation::saveTranslations( string $from_language, integer $type, array $tran
 | `$from_language` | **string** | From language |
 | `$type` | **integer** | Type of translations |
 | `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
 
 
 
@@ -5153,86 +5149,6 @@ Get from language from Languages component
 
 ```php
 Translation::getFromLanguage(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getMethod
-
-Get Method Translator
-
-```php
-Translation::getMethod(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getText
-
-Get Text
-
-```php
-Translation::getText(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getUrl
-
-Get URL
-
-```php
-Translation::getUrl(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getHtml
-
-Get HTML
-
-```php
-Translation::getHtml(  ): mixed
-```
-
-
-
-
-
-
-
----
-
-### getJson
-
-Get JSON
-
-```php
-Translation::getJson(  ): mixed
 ```
 
 
@@ -5791,4 +5707,4 @@ URL::buildUrl( array $parts ): string
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-02 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-03 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

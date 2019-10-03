@@ -22,13 +22,7 @@
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="9" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\Method\Interfaces\Method" source="phpDocumentor.file.PPC:ERR-50009"/>
   </file>
-  <file name="component\translation\Translation.php">
-    <error line="46" severity="error" message="No summary for property $method" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="47" severity="error" message="No summary for property $text" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="48" severity="error" message="No summary for property $url" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="49" severity="error" message="No summary for property $html" source="phpDocumentor.file.PPC:ERR-50007"/>
-    <error line="50" severity="error" message="No summary for property $json" source="phpDocumentor.file.PPC:ERR-50007"/>
-  </file>
+  <file name="component\translation\Translation.php"/>
   <file name="component\translation\Type\Text.php"/>
   <file name="component\translation\Type\HTML.php"/>
   <file name="component\languages\Languages.php"/>
@@ -45,11 +39,6 @@
   <file name="component\translation\Interfaces\Translation.php">
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="10" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\Interfaces\Translation" source="phpDocumentor.file.PPC:ERR-50009"/>
-    <error line="13" severity="error" message="No summary for method getMethod()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="15" severity="error" message="No summary for method getText()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="17" severity="error" message="No summary for method getHtml()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="19" severity="error" message="No summary for method getUrl()" source="phpDocumentor.file.PPC:ERR-50008"/>
-    <error line="21" severity="error" message="No summary for method getJson()" source="phpDocumentor.file.PPC:ERR-50008"/>
   </file>
   <file name="component\translation\Method\Dummy.php"/>
   <file name="component\translation\Type\Type.php"/>

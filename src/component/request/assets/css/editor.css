@@ -15,7 +15,6 @@
 
 #i18n-editor-wrapper > div {
     background: #c90000;
-    transition: all ease 0.3s;
     opacity: 0.9;
     width: 10px !important;
     border: solid 1px #ddd;
