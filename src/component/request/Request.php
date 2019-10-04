@@ -130,6 +130,14 @@ class Request extends Component implements Interfaces\Request
     public $exclusions = [];
 
     /**
+     * Page not found callback function
+     * Trigger when page not found
+     *
+     * @var callable
+     * */
+    public $page_not_found_callback;
+
+    /**
      * Get request referer source url
      *
      * @return string
@@ -177,7 +185,7 @@ class Request extends Component implements Interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate   Translated url
+     * @param string $translate Translated url
      * @param string $to_language Language of translated string
      *
      * @return null
@@ -356,16 +364,27 @@ class Request extends Component implements Interfaces\Request
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
+                ?? null
             );
         }
 
         /**
          * Setting source url as @REQUEST_URI
          * */
-        $_SERVER['REQUEST_URI'] = $this->getSourceUrl();
+        $_SERVER['REQUEST_URI'] = $this->getSourceUrl() ?? '/';
 
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
-            throw new Exception("404 Not Found", 404);
+
+            if (isset($this->page_not_found_callback)
+                && is_callable($this->page_not_found_callback)
+            ) {
+
+                call_user_func($this->page_not_found_callback, $this);
+                return false;
+
+            } else {
+                throw new Exception("404 Not Found", 404);
+            }
         }
 
         return true;
@@ -419,14 +438,14 @@ class Request extends Component implements Interfaces\Request
             && $this->getLanguage() != $this->context->languages->getFromLanguage()
         ) {
 
-                $this->editor = true;
+            $this->editor = true;
 
-                /**
-                 * Enable helper attributes to use for editor
-                 *
-                 * @see HTML::$helper_attributes
-                 * */
-                $this->context->translation->html->helper_attributes = true;
+            /**
+             * Enable helper attributes to use for editor
+             *
+             * @see HTML::$helper_attributes
+             * */
+            $this->context->translation->html->helper_attributes = true;
         }
 
         return $this->_prepareLanguage()
