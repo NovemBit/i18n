@@ -187,17 +187,10 @@ class HTML extends Type
                          * @var DOMText $node
                          * @var DOMElement $parent
                          */
-                        $translate = false;
-
-                        $exists = isset(
+                        $translate = isset(
                             $this->_translations[$type][$node->data][$language]
-                        );
-
-                        if ($exists) {
-                            $translate = htmlspecialchars(
-                                $this->_translations[$type][$node->data][$language]
-                            );
-                        }
+                        ) ? $this->_translations[$type][$node->data][$language]
+                            : false;
 
                         /**
                          * Enable helper attributes
@@ -220,7 +213,10 @@ class HTML extends Type
                             }
 
                             if ($translate !== false) {
-                                $text[] = [$node->data, $translate, $type];
+                                $text[] = [$node->data,
+                                    htmlspecialchars($translate),
+                                    $type
+                                ];
                                 $parent->setAttribute(
                                     $this->context->context->prefix . '-text',
                                     json_encode($text)
@@ -228,7 +224,7 @@ class HTML extends Type
                             }
                         }
 
-                        $node->data = html_entity_decode($translate ?? $node->data);
+                        $node->data = $translate ?? $node->data;
                     },
                     /*
                      * Callback for Attribute nodes
@@ -241,16 +237,10 @@ class HTML extends Type
                          * @var DOMElement $parent
                          */
 
-                        $translate = false;
-
-                        $exists = isset(
+                        $translate = isset(
                             $this->_translations[$type][$node->value][$language]
-                        );
-                        if ($exists) {
-                            $translate = htmlspecialchars(
-                                $this->_translations[$type][$node->value][$language]
-                            );
-                        }
+                        ) ? $this->_translations[$type][$node->value][$language]
+                        : false;
 
                         /**
                          * Enable helper attributes
@@ -274,7 +264,7 @@ class HTML extends Type
                             if ($translate !== false) {
                                 $attr[$node->name] = [
                                     $node->value,
-                                    $translate,
+                                    htmlspecialchars($translate),
                                     $type
                                 ];
                                 $parent->setAttribute(
@@ -283,9 +273,8 @@ class HTML extends Type
                                 );
                             }
                         }
-                        $node->value = html_entity_decode(
-                            $translate ?? $node->value
-                        );
+
+                        $node->value = $translate ?? $node->value;
                     }
                 );
 

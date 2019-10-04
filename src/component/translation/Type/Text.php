@@ -57,6 +57,23 @@ class Text extends Type
     ];
 
     /**
+     * If element contains whitespace
+     * Then after translation removing whitespace
+     * To return final result as clean text
+     *
+     * @var bool
+     * */
+    public $preserve_whitespace = true;
+
+    /**
+     * If clean whitespace is true then removing whitespace
+     * from  translated text before caching
+     *
+     * @var bool
+     * */
+    public $clean_whitespace = true;
+
+    /**
      * Doing translate method
      *
      * @param array $texts List of texts to translate
@@ -72,10 +89,35 @@ class Text extends Type
         foreach ($translations as $source => &$translation) {
             foreach ($translation as $language => &$text) {
                 $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);
+
+                /**
+                 * Clean whitespace
+                 * */
+                if ($this->clean_whitespace) {
+                    $text = preg_replace('/\s+/', ' ', $text);
+                }
             }
         }
 
         return $translations;
+    }
+
+    /**
+     * Remove Whitespace
+     *
+     * @param string $before     Before
+     * @param string $after      After
+     * @param array  $translates Last result
+     *
+     * @return bool
+     */
+    public function validateAfterTranslate($before, $after, &$translates)
+    {
+        if (!$this->preserve_whitespace) {
+            $translates[$before] = preg_replace('/\s+/', ' ', $translates[$before]);
+        }
+
+        return parent::validateAfterTranslate($before, $after, $translates);
     }
 
     /**
@@ -97,5 +139,6 @@ class Text extends Type
 
         return parent::validateBeforeTranslate($text);
     }
+
 
 }

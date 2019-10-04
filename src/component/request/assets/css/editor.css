@@ -69,7 +69,7 @@
     right: 0;
     background: #ffffff;
     opacity: 0.9;
-    box-shadow: 0px 0px 1px #707070;
+    box-shadow: 0 0 1px #707070;
     border-left: solid 1px;
     border-top: solid 1px;
     border-color: #9a9a9a;
@@ -158,13 +158,13 @@
     font-weight: bold;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > input[disabled][type=text]{
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > textarea[disabled]{
     background:#e2e2e2;
     color:#a6a6a6;
     border-color:#999;
     cursor:default;
 }
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > input[type=text] {
+#i18n-editor-wrapper > div > .inspector > .forms > form > label > textarea {
     background: #fff;
     border: solid 1px #900000;
     font-weight: normal;

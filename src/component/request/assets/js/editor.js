@@ -13,31 +13,21 @@
         last_node_index: 0,
         updateNodeText: function (node, index, value) {
             node.childNodes[index].nodeValue = value;
-            console.log("Text Update");
         },
         updateNodeAttr: function (node, attr_key, value) {
-            node.setAttribute(attr_key,value);
-            console.log("Attr Update");
+            node.setAttribute(attr_key, value);
         },
         submitForm: function (form) {
-
             let params = new FormData(form);
-
-
-            var http = new XMLHttpRequest();
-            var url = window.location.href;
-            // var params = 'orem=ipsum&name=binny';
+            let http = new XMLHttpRequest();
+            let url = window.location.href;
             http.open('POST', url, true);
-
-            http.onreadystatechange = function() {//Call a function when the state changes.
-                if(http.readyState === 4 && http.status === 200) {
+            http.onreadystatechange = function () {//Call a function when the state changes.
+                if (http.readyState === 4 && http.status === 200) {
                     form.classList.add('saved');
                 }
             };
-
             http.send(params);
-
-            console.log('Submit form.');
         },
         initNodeInspector: function (selector, node) {
             let editor = this;
@@ -77,17 +67,15 @@
                 }
 
                 for (let i = 0; i < data.text.length; i++) {
-                    let input = document.createElement('input');
+                    let input = document.createElement('textarea');
                     let label = document.createElement('label');
                     label.innerText = "Text " + (i + 1);
-                    input.type = 'text';
                     input.value = data.text[i][1];
                     input.name = window.novembit.i18n.prefix + "-form[" + data.text[i][0] + "]";
 
-                    input.oninput = function (e) {
+                    input.oninput = function () {
                         editor.updateNodeText(node, i, this.value);
-
-                        if(this.form.classList.contains('saved')){
+                        if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
                     };
@@ -136,13 +124,12 @@
 
                     label.appendChild(original);
 
-                    let input = document.createElement('input');
+                    let input = document.createElement('textarea');
                     input.name = window.novembit.i18n.prefix + "-form[" + data.attr[attr_key][0] + "]";
-                    input.type = 'text';
                     input.value = data.attr[attr_key][1];
-                    input.oninput = function (e) {
+                    input.oninput = function () {
                         editor.updateNodeAttr(node, attr_key, this.value);
-                        if(this.form.classList.contains('saved')){
+                        if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
                     };
@@ -248,7 +235,7 @@
         },
         initSelectors: function initSelectors() {
             let editor = this;
-            let nodes = document.querySelectorAll(this.text_node_selector + ',' + this.attr_node_selector);
+            let nodes = document.body.querySelectorAll(this.text_node_selector + ',' + this.attr_node_selector);
             for (let i = 0; i < nodes.length; i++) {
                 this.last_node_index++;
                 let key = this.last_node_index;
