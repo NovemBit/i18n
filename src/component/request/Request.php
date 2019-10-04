@@ -13,7 +13,6 @@
 
 namespace NovemBit\i18n\component\request;
 
-use NovemBit\i18n\component\languages\Languages;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Type\HTML;
 use NovemBit\i18n\Module;
@@ -37,9 +36,6 @@ use NovemBit\i18n\system\exception\Exception;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Module $context
- *
- * @see Translation
- * @see Languages
  * */
 class Request extends Component implements Interfaces\Request
 {
@@ -125,6 +121,17 @@ class Request extends Component implements Interfaces\Request
      * If Callback returns true then current page
      * must be skipped
      *
+     * ```php
+     * function ($request) {
+     *   if (  is_admin() && !wp_doing_ajax()
+     *       && (isset($GLOBALS['pagenow']) && $GLOBALS['pagenow'] != 'wp-login.php')
+     *   ) {
+     *      return true;
+     *   }
+     *   return false;
+     * }
+     * ```
+     *
      * @var array
      * */
     public $exclusions = [];
@@ -133,9 +140,22 @@ class Request extends Component implements Interfaces\Request
      * Page not found callback function
      * Trigger when page not found
      *
+     * ```php
+     * 'request' => [
+     *   ...
+     *
+     *   'page_not_found_callback' => function($request){
+     *       echo "404 page not found";
+     *       die;
+     *   },
+     *
+     *   ...
+     * ]
+     * ```
+     *
      * @var callable
      * */
-    public $page_not_found_callback;
+    public $on_page_not_found;
 
     /**
      * Get request referer source url
@@ -379,12 +399,11 @@ class Request extends Component implements Interfaces\Request
          * */
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
 
-            if (isset($this->page_not_found_callback)
-                && is_callable($this->page_not_found_callback)
+            if (isset($this->on_page_not_found)
+                && is_callable($this->on_page_not_found)
             ) {
 
-                call_user_func($this->page_not_found_callback, $this);
-                return false;
+                return call_user_func($this->on_page_not_found, $this);
 
             } else {
                 throw new Exception("404 Not Found", 404);
@@ -531,7 +550,7 @@ class Request extends Component implements Interfaces\Request
          * Check if tried to access from cli
          * */
         if (!isset($_SERVER['REQUEST_URI'])) {
-            throw new Exception('Access without http request was denied.');
+            return false;
         }
 
 

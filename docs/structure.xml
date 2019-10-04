@@ -2653,7 +2653,7 @@ Only on cli script</description>
     </class>
     <source>eJzVVV1v0zAUfc+vuA+V1lVqsrIH0DpKAUEZ6gZi3QOiaPJSNzFL7Mh22kZj/x07X3U+SlcQD/ilju+5514fH7vnryI/spxez4IezDiiIkCSMAouCyNGMZU6oDCwwlzowHP7mT04Uas6MHaRxB7jCbw18eMIuffIw1BbRrH0GQeA14grqq+MLxBNEIVzpBfshPGxFyIS2Kr8KE0JiIupUEy+lJE4c5z1em17NLYZ95w8KBwvCvqn9oktNxImVzfO5PN0dZrmF23D5GJ2BuOBAg3GOTO9Bz0KZo9IP77TpZ0rtsLhGyIdMnhBFdqxLIpCLNS+MBTBuQ7OS6Hmcivf0LKsWDwJOr/ESpRF/jN8ctosifD8w+xyemDKx+tPVwemzPBGHphy86W1L5EIicM53rg4SsHvitlv0KWH2jCXbBEHWOm9x8P/h1sP8WTWOmcR5jKBTAfouIxKdVypZ90ACVFRREUwXYjtRoGEUYBDNRNwoTL5UjlczI0c68GydEepvnr0ILNqScx4Hiji4xXiOahYUt3oSRTfKRWgE+ZmrzNrp+3hnaW7a2WVqU/rnDc82EOpzLqDMeZBk1Bfuj2MGrKD0pdhC6e+lXs4NWQH5w+RPjk1zimiXqx8LYAtwY05T8+bComoi9sqIM5RUi/ByUrdGujcBgVds9I1llCGYakujfEg1CtFiKMwq/VTSE6oZ5JDQITUDZcr9XyOZcypaesyJH3O1gLKRyUPVMRaxtRN74LAslSoa3RwnKIfslw1yBK6RNxmrVaAxwZKD3MbL+Gb8fl9WAIfrQpzR/pE9Ef5te2PypT+aIUCslDat3fZKJ4RVVpoHloxchHTJKM3wIF6varEqahA8Xqra/eo6AkokyDiKGJcKnnso2Nzp8Z+DbdMlFsKOxb97TjkkGzw4s+O1zOPt/1MlQO6DdkawppSmcC/kU1kumH5ZMGWnIWlWtnXlsz4o/sHMr5XxYpaDSWr6rTZuMEwLLZpPf4Co4Ym1Q==</source>
   </file>
-  <file path="component\translation\Type\Text.php" generated-path="component.translation.Type.Text.html" hash="78a611f82598db39fc1c62e397b0bb9a" package="Component\Translation\Type">
+  <file path="component\translation\Type\Text.php" generated-path="component.translation.Type.Text.html" hash="f72b04bfc80b90efc708b9cddaa88b04" package="Component\Translation\Type">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -2712,6 +2712,33 @@ Module class</long-description>
           <long-description></long-description>
           <tag name="var" line="50" description="" type="array&lt;mixed,string&gt;" variable="">
             <type>array&lt;mixed,string&gt;</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="66" package="Component\Translation\Type">
+        <name>$preserve_whitespace</name>
+        <full_name>\NovemBit\i18n\component\translation\Type\Text::preserve_whitespace</full_name>
+        <default>true</default>
+        <docblock line="66">
+          <description>If element contains whitespace
+Then after translation removing whitespace
+To return final result as clean text</description>
+          <long-description></long-description>
+          <tag name="var" line="66" description="" type="boolean" variable="">
+            <type>boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="74" package="Component\Translation\Type">
+        <name>$clean_whitespace</name>
+        <full_name>\NovemBit\i18n\component\translation\Type\Text::clean_whitespace</full_name>
+        <default>true</default>
+        <docblock line="74">
+          <description>If clean whitespace is true then removing whitespace
+from  translated text before caching</description>
+          <long-description></long-description>
+          <tag name="var" line="74" description="" type="boolean" variable="">
+            <type>boolean</type>
           </tag>
         </docblock>
       </property>
@@ -2823,19 +2850,19 @@ Module class</long-description>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="67" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="84" package="Component\Translation\Type">
         <name>doTranslate</name>
         <full_name>\NovemBit\i18n\component\translation\Type\Text::doTranslate()</full_name>
-        <docblock line="67">
+        <docblock line="84">
           <description>Doing translate method</description>
           <long-description></long-description>
-          <tag name="param" line="67" description="&lt;p&gt;List of texts to translate&lt;/p&gt;" type="array" variable="$texts">
+          <tag name="param" line="84" description="&lt;p&gt;List of texts to translate&lt;/p&gt;" type="array" variable="$texts">
             <type>array</type>
           </tag>
-          <tag name="return" line="67" description="" type="array">
+          <tag name="return" line="84" description="" type="array">
             <type>array</type>
           </tag>
-          <tag name="throws" line="67" description="" type="\Exception">
+          <tag name="throws" line="84" description="" type="\Exception">
             <type>\Exception</type>
           </tag>
         </docblock>
@@ -2845,16 +2872,51 @@ Module class</long-description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="89" package="Component\Translation\Type">
-        <name>validateBeforeTranslate</name>
-        <full_name>\NovemBit\i18n\component\translation\Type\Text::validateBeforeTranslate()</full_name>
-        <docblock line="89">
-          <description>Validate text before translate</description>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="114" package="Component\Translation\Type">
+        <name>validateAfterTranslate</name>
+        <full_name>\NovemBit\i18n\component\translation\Type\Text::validateAfterTranslate()</full_name>
+        <docblock line="114">
+          <description>Remove Whitespace</description>
           <long-description></long-description>
-          <tag name="param" line="89" description="&lt;p&gt;Referenced text variable to translate&lt;/p&gt;" type="string" variable="$text">
+          <tag name="param" line="114" description="&lt;p&gt;Before&lt;/p&gt;" type="string" variable="$before">
             <type>string</type>
           </tag>
-          <tag name="return" line="89" description="" type="boolean">
+          <tag name="param" line="114" description="&lt;p&gt;After&lt;/p&gt;" type="string" variable="$after">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="114" description="&lt;p&gt;Last result&lt;/p&gt;" type="array" variable="$translates">
+            <type>array</type>
+          </tag>
+          <tag name="return" line="114" description="" type="boolean">
+            <type>boolean</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$before</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$after</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="true">
+          <name>$translates</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="130" package="Component\Translation\Type">
+        <name>validateBeforeTranslate</name>
+        <full_name>\NovemBit\i18n\component\translation\Type\Text::validateBeforeTranslate()</full_name>
+        <docblock line="130">
+          <description>Validate text before translate</description>
+          <long-description></long-description>
+          <tag name="param" line="130" description="&lt;p&gt;Referenced text variable to translate&lt;/p&gt;" type="string" variable="$text">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="130" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -3411,9 +3473,9 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>eJzdVW1v0zAQ/p5fcUIVtGNLVoYE2lgpg2kgjfFWkNA6Kje5JhaJHdlOt2r0v3O2k7brVhhfiVTJ9t09d889Z/fFyzIrg2hrK4AtGCgmdM4MlwJiWZRSoDDWQD4wRaWt4Vn4JOzu0qk19GNmMJVqBq8b/+EKynAwK9H5lSz+yVKEv/mxymRSAcArpijZd6kSJmZMwAtmD8KZVP20YDwPqcCeC8l5jEITdGZMqfej6PLyMkxFFUqVRrVRR2mZ7+yFu6G5MnBy9jU6+Xg63XPxDTE4eTfYh36XnLr9Gln8BPs1yCk3WTW2qaMzOcXiiJuId58L8o6CQLACNRFFaIxDaxwuWjk0a5QPgqCiyo+vYizt4YHb3it6uSaQRj8kcoZwYUI93KTm/6Lbv6jjuShZojKztc4IQ21zCsY509p3kX4oEtpYgtdBYPO4Lttvyx1DpblIgWl4c+S7Hsu8KgRMWV5h7dkE9KdMAbf993vKZhdlNSam0HLhh9A9uJXpus9FhoqbRMbzDdGUkCeeziEYVeFtmDdEE5oBQlCY4lUJJTMGldB3FauNInrnFxtyJgQ4WgCOGiQq4Nwn9wUslrdrsG3XYDJmnAiMU3SO2h6hgD2IM6ZYTKh6FeSDAiFvRJh1l7pS+z360W6f/xiW16fzi8edX+3wurv9ZN7ptB45l4u7GmVFXVZZIA12st6gkkorgCnFZiSeI3LKtQE5aWjJJcZ6sEJTKeGjF4cmU/JSL5+C2nCj6ZNKxE7lRDYjjO3VIjrOm8Z10YDWyqNhxWmZjOudXj31Oz1Pb6e3KLZdIx0sMegxQRZn0L4JRoPf0rJS9N4d9uDhqrFDNcDKdyeCA8iZSCv7wHgISr0e61nYO3lIN73IdYkxZ7mdDj1KMJZJXfM2HJ8NRp++fhgcf4FfbvN28P706W6XyKyizYPlarGsRblB0YfNb83IN3/f/AjDGC29zXL7WfHXqWbyGSeoUMSYeAi6b5yNc7zP2IylzP84HPVrgEeuruWg1O1tRuQObdxobLrYVq16sy4Rn0C7pCdlVDATZ+0HUeMYPdj2jDud1ZRrPZ+wXOP9JaJ+0t/Q/v4mnj5ho938N/mZrwQ=</source>
+    <source>eJzdVm1vGkcQ/s6vmEaovARzJq7UysSUOLacSK7TpqRVZRy0HMvdKXe7p909MCL8987u3nHLAQ352pVA+zJvzzwzA69/TcO05rXbNWjDSBAmY6IizsDnScoZZUo/oAwsqJD64efuq27vHG/1w9AnigZcrOBtIT92rIxHq5QauZT4X0hA4VtyJFMhFwDwhgh09g8XM8JWhMFroi+6Ky6GQUKiuIsBDoxKHPmUSTQdKpXKS89bLpfdgGVdLgIvf5RekMZnF93zrnpWcPfwybv7/X5xYfQLYHD3fnQJwx4K9Ya5ZfYF9CosB5EKs6l27T3wBU2uI+VFvV8YSnu1GiMJlQiUQvE41o/jbSrHqgK5X6tlGPnts09Tfdk3x5O0yz0aKfijCE6hXZhjDo+x+X/h7XvYsVgET6lQq0pmmMK0GQb9mEhps4gfymZ40ADXtZr2Y7KsV9tcQyYjFgCRcHNts+7zOEsYLEic0VyyUBguiIBI59+e0ZvepNkUkULdqF9Br7/naT2MWEhFpGbc3xzRRofRzMK5AiUyum/mBmFCUUAUBA3ocwopUYoKJg8FK5VAeI9PR3zO0OBka3BSWMIAHq1zG8B2ux+DTrsEFRJlSCARasdU6ivK4AL8kAjio1XpGvkggPEdDVUVySPVq/G52Xz8PE7X95unl62vze6613m1abXqDSPytJ+o93OgMU2w0EsfyzBStrO3/OsQyRw9g9OVmNaEL3RRHNDg+KoywWAeMRLjQWax0tXjxxT7xBbhPg1TzuMjFKRog4oFnZTejvKPsKwfRzaSRtjm+z9CnwueQEnczMQKU4pDBmue+CGqfWfoJpZT4r7hOqayaBKKc2ZW9ZZipSRAhCAr7CVTV/eRVMDnRZXx0kZVOafFaG8vVSj4UpaTOX/YQTHPmG9on/FiotCmG0TLSK/Lfqg7xaJbpa7CSJ4N8hl0NrDozgbbWJu5oX5pQ2cdcw7NXWNYSHXJM6FzOYAf3ccWhgDOOmjBGIgJCzI97q0JdF3VtSg0/1c4d5NYptSPSKx7VU5m1OezPOYO3D6MJn98+jC6/RO+msO70W/3P533XDDF2jLurja8rZTsIRmn24sVzTU2m9pKoR3C42LCngomgqYxyjYb3li+9BodaAB+2Xz099Q3tcOnTQkzL7EdxqyhzV7Ff9SNSOHvahtWit2OZ6jnbajXtdkekbPDyqw3enuwd8oIKXYQwQ6yY+pIyzgNfrgx8h8majyWPZIH3cmj6jjlSrdN45L5Q87mgYlXJdSx9Jj7efoWr/saDs37NGLG8Ofh8vJUdC64Y6z/ldvama1HR9YutUblI51TDMsvxjMO4IhMY3rK6DuZR1thJdR8RlTHnDNgDG3H/ivokZMfqjRq1g1nCVF+2HzhFYLei6ITW67LCkVzEkvaP7kxq4xWcbqtj9q1zb8thug9</source>
   </file>
-  <file path="component\translation\Type\HTML.php" generated-path="component.translation.Type.HTML.html" hash="938f12b622c2c8cab9a4c7afbaee863d" package="Component\Translation\Type">
+  <file path="component\translation\Type\HTML.php" generated-path="component.translation.Type.HTML.html" hash="33c162390a53d3df3bcd55f40bbe47fb" package="Component\Translation\Type">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -3467,38 +3529,51 @@ Module class</long-description>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="54" package="Component\Translation\Type">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="55" package="Component\Translation\Type">
+        <name>$helper_attributes</name>
+        <full_name>\NovemBit\i18n\component\translation\Type\HTML::helper_attributes</full_name>
+        <default>false</default>
+        <docblock line="55">
+          <description>Show helper attributes that contains
+All information about current node and child Text/Attr nodes</description>
+          <long-description></long-description>
+          <tag name="var" line="55" description="" type="boolean" variable="">
+            <type>boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="62" package="Component\Translation\Type">
         <name>$_html_parser</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::_html_parser</full_name>
         <default></default>
-        <docblock line="54">
+        <docblock line="62">
           <description>Html parser</description>
           <long-description></long-description>
-          <tag name="var" line="54" description="" type="\NovemBit\i18n\system\parsers\HTML" variable="">
+          <tag name="var" line="62" description="" type="\NovemBit\i18n\system\parsers\HTML" variable="">
             <type>\NovemBit\i18n\system\parsers\HTML</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="61" package="Component\Translation\Type">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="69" package="Component\Translation\Type">
         <name>$_to_translate</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::_to_translate</full_name>
         <default>array()</default>
-        <docblock line="61">
+        <docblock line="69">
           <description>To translate</description>
           <long-description></long-description>
-          <tag name="var" line="61" description="" type="array" variable="">
+          <tag name="var" line="69" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="68" package="Component\Translation\Type">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\Type" line="76" package="Component\Translation\Type">
         <name>$_translations</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::_translations</full_name>
         <default>array()</default>
-        <docblock line="68">
+        <docblock line="76">
           <description>Translated contents</description>
           <long-description></long-description>
-          <tag name="var" line="68" description="" type="array" variable="">
+          <tag name="var" line="76" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
@@ -3611,38 +3686,38 @@ Module class</long-description>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="75" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="83" package="Component\Translation\Type">
         <name>init</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::init()</full_name>
-        <docblock line="75">
+        <docblock line="83">
           <description>{@inheritdoc}</description>
           <long-description></long-description>
-          <tag name="return" line="75" description="" type="void">
+          <tag name="return" line="83" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="100" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="108" package="Component\Translation\Type">
         <name>getHtmlParser</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::getHtmlParser()</full_name>
-        <docblock line="100">
+        <docblock line="108">
           <description>Get Html parser</description>
           <long-description></long-description>
-          <tag name="return" line="100" description="" type="\NovemBit\i18n\system\parsers\HTML">
+          <tag name="return" line="108" description="" type="\NovemBit\i18n\system\parsers\HTML">
             <type>\NovemBit\i18n\system\parsers\HTML</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="112" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="120" package="Component\Translation\Type">
         <name>setHtmlParser</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::setHtmlParser()</full_name>
-        <docblock line="112">
+        <docblock line="120">
           <description>Set Html Parser</description>
           <long-description></long-description>
-          <tag name="param" line="112" description="&lt;p&gt;Html parser&lt;/p&gt;" type="\NovemBit\i18n\system\parsers\HTML" variable="$_html_parser">
+          <tag name="param" line="120" description="&lt;p&gt;Html parser&lt;/p&gt;" type="\NovemBit\i18n\system\parsers\HTML" variable="$_html_parser">
             <type>\NovemBit\i18n\system\parsers\HTML</type>
           </tag>
-          <tag name="return" line="112" description="" type="void">
+          <tag name="return" line="120" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -3652,19 +3727,19 @@ Module class</long-description>
           <type>\NovemBit\i18n\system\parsers\HTML</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="125" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\Type" line="133" package="Component\Translation\Type">
         <name>doTranslate</name>
         <full_name>\NovemBit\i18n\component\translation\Type\HTML::doTranslate()</full_name>
-        <docblock line="125">
+        <docblock line="133">
           <description>Doing translate method</description>
           <long-description></long-description>
-          <tag name="param" line="125" description="&lt;p&gt;list of translatable HTML strings&lt;/p&gt;" type="array" variable="$html_list">
+          <tag name="param" line="133" description="&lt;p&gt;list of translatable HTML strings&lt;/p&gt;" type="array" variable="$html_list">
             <type>array</type>
           </tag>
-          <tag name="return" line="125" description="" type="mixed">
+          <tag name="return" line="133" description="" type="mixed">
             <type>mixed</type>
           </tag>
-          <tag name="throws" line="125" description="" type="\Exception">
+          <tag name="throws" line="133" description="" type="\Exception">
             <type>\Exception</type>
           </tag>
         </docblock>
@@ -4221,7 +4296,7 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="component\languages\Languages.php" generated-path="component.languages.Languages.html" hash="6991eed974fd276f74a9e667016a8d7d" package="Component">
     <docblock line="0">
@@ -6316,7 +6391,7 @@ php version 7.2.10</description>
     </class>
     <source>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</source>
   </file>
-  <file path="component\rest\Rest.php" generated-path="component.rest.Rest.html" hash="4e1c5a8ee3c283ae8b834adef99de848" package="Component">
+  <file path="component\rest\Rest.php" generated-path="component.rest.Rest.html" hash="bba2dcbddfda1f9e9302a3fe9ce5dd16" package="Component">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -6328,94 +6403,93 @@ php version 7.2.10</description>
       <tag name="version" line="0" description="GIT: @1.0.1@"/>
       <tag name="link" line="0" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
     </docblock>
-    <namespace-alias name="ErrorException">\ErrorException</namespace-alias>
     <namespace-alias name="Exception">\Exception</namespace-alias>
     <namespace-alias name="Module">\NovemBit\i18n\Module</namespace-alias>
     <namespace-alias name="Component">\NovemBit\i18n\system\Component</namespace-alias>
-    <class final="false" abstract="false" namespace="NovemBit\i18n\component\rest" line="33" package="Component">
+    <class final="false" abstract="false" namespace="NovemBit\i18n\component\rest" line="32" package="Component">
       <extends>\NovemBit\i18n\system\Component</extends>
       <implements>\NovemBit\i18n\component\rest\Interfaces\Rest</implements>
       <name>Rest</name>
       <full_name>\NovemBit\i18n\component\rest\Rest</full_name>
-      <docblock line="33">
+      <docblock line="32">
         <description>Rest component</description>
         <long-description>Its simple but provides very useful functionality
 Module class</long-description>
-        <tag name="category" line="33" description="Component"/>
-        <tag name="package" line="33" description="Component"/>
-        <tag name="author" line="33" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
-        <tag name="license" line="33" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
-        <tag name="link" line="33" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
+        <tag name="category" line="32" description="Component"/>
+        <tag name="package" line="32" description="Component"/>
+        <tag name="author" line="32" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
+        <tag name="license" line="32" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
+        <tag name="link" line="32" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
         <tag name="inherited_from" description="\NovemBit\i18n\system\Component" refers="\NovemBit\i18n\system\Component" link="/classes/NovemBit.i18n.system.Component.html"/>
       </docblock>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="41" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="40" package="Component">
         <name>$api_keys</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::api_keys</full_name>
         <default>array()</default>
-        <docblock line="41">
+        <docblock line="40">
           <description>Api keys list</description>
           <long-description></long-description>
-          <tag name="var" line="41" description="" type="array&lt;mixed,string&gt;" variable="">
+          <tag name="var" line="40" description="" type="array&lt;mixed,string&gt;" variable="">
             <type>array&lt;mixed,string&gt;</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="48" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="47" package="Component">
         <name>$endpoint</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::endpoint</full_name>
         <default>"i18n/rest/v1"</default>
-        <docblock line="48">
+        <docblock line="47">
           <description>Default endpoint of rest api</description>
           <long-description></long-description>
-          <tag name="var" line="48" description="" type="string" variable="">
+          <tag name="var" line="47" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="55" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="54" package="Component">
         <name>$actionPrefix</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::actionPrefix</full_name>
         <default>'action'</default>
-        <docblock line="55">
+        <docblock line="54">
           <description>Action prefix</description>
           <long-description></long-description>
-          <tag name="var" line="55" description="" type="string" variable="">
+          <tag name="var" line="54" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="62" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="61" package="Component">
         <name>$defaultAction</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::defaultAction</full_name>
         <default>'index'</default>
-        <docblock line="62">
+        <docblock line="61">
           <description>Default action</description>
           <long-description></long-description>
-          <tag name="var" line="62" description="" type="string" variable="">
+          <tag name="var" line="61" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="69" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="68" package="Component">
         <name>$restrictAction</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::restrictAction</full_name>
         <default>'restrict'</default>
-        <docblock line="69">
+        <docblock line="68">
           <description>Restring action</description>
           <long-description></long-description>
-          <tag name="var" line="69" description="" type="string" variable="">
+          <tag name="var" line="68" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\rest" line="77" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\rest" line="76" package="Component">
         <name>$_api_key</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::_api_key</full_name>
         <default></default>
-        <docblock line="77">
+        <docblock line="76">
           <description>Current api key</description>
           <long-description></long-description>
-          <tag name="var" line="77" description="" type="string" variable="">
+          <tag name="var" line="76" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
@@ -6444,61 +6518,61 @@ Module class</long-description>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="84" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="83" package="Component">
         <name>start</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::start()</full_name>
-        <docblock line="84">
+        <docblock line="83">
           <description>Start rest request</description>
           <long-description></long-description>
-          <tag name="return" line="84" description="" type="void">
+          <tag name="return" line="83" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\rest" line="124" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\rest" line="123" package="Component">
         <name>_validateAPI</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::_validateAPI()</full_name>
-        <docblock line="124">
+        <docblock line="123">
           <description>Validation of api key</description>
           <long-description></long-description>
-          <tag name="return" line="124" description="" type="void">
+          <tag name="return" line="123" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="137" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="136" package="Component">
         <name>actionTranslate</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::actionTranslate()</full_name>
-        <docblock line="137">
+        <docblock line="136">
           <description>Translate Action method</description>
           <long-description></long-description>
-          <tag name="return" line="137" description="" type="array|integer">
+          <tag name="return" line="136" description="" type="array|integer">
             <type>array</type>
             <type>integer</type>
           </tag>
-          <tag name="throws" line="137" description="" type="\Exception">
+          <tag name="throws" line="136" description="" type="\Exception">
             <type>\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="156" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="155" package="Component">
         <name>actionIndex</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::actionIndex()</full_name>
-        <docblock line="156">
+        <docblock line="155">
           <description>Index Action method</description>
           <long-description></long-description>
-          <tag name="return" line="156" description="" type="array">
+          <tag name="return" line="155" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="166" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\rest" line="165" package="Component">
         <name>actionRestrict</name>
         <full_name>\NovemBit\i18n\component\rest\Rest::actionRestrict()</full_name>
-        <docblock line="166">
+        <docblock line="165">
           <description>Restrict Action method</description>
           <long-description></long-description>
-          <tag name="return" line="166" description="" type="array">
+          <tag name="return" line="165" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
@@ -6624,23 +6698,23 @@ Only on cli script</description>
         </docblock>
         <inherited_from>\NovemBit\i18n\system\Component</inherited_from>
       </method>
-      <property final="false" static="false" visibility="public" line="33">
+      <property final="false" static="false" visibility="public" line="32">
         <name>$context</name>
         <default/>
         <docblock>
           <description/>
           <long-description/>
-          <tag name="var" description="" type="\NovemBit\i18n\Module" line="33">
+          <tag name="var" description="" type="\NovemBit\i18n\Module" line="32">
             <type by_reference="false">\NovemBit\i18n\Module</type>
           </tag>
-          <tag name="magic" line="33"/>
-          <tag name="property" line="33" description="" type="\NovemBit\i18n\Module" variable="$context">
+          <tag name="magic" line="32"/>
+          <tag name="property" line="32" description="" type="\NovemBit\i18n\Module" variable="$context">
             <type>\NovemBit\i18n\Module</type>
           </tag>
         </docblock>
       </property>
     </class>
-    <source>eJzVV1tv2zYUftevOA2MSg4cKV4GbKjbLFlnpAHSznOSAkXsCaxE21xkUiUpx0aW/75D3SxZcpEMe5leIvNcvnO+cxHz9pd4EVve4aEFh3AjCVcR0UxwCMQyFpxybQSoAysqlRH85P7g9o/x1AjOAqLpXMgNvK/qn8UkuCdzCjvHJNELIQHgnEh09UXIkPAN4fCWmAN3I+TZfElY5CL8aWoSsYByhZ4WWsfqjec9PDy4c564Qs69XKi8eRwdnbjHrl5ruPh0612MrlYnqX0RNlxc3ryBsz4q9c9yz/wezFN4njO9SL4aaO+TWNHlr0x7rP8zR23PsjhZUoV5USiEEyOclERNJFV6YFlWguEOpRRyuA5obNgcZGf1n3U3H0WYRLRNojZK0+WkZBIh8nqNEbBWqP9HSV5CfBa6FDGVegMZSdAJBNd0rdPCBBFRKqMCjygP1TZDYMs4okt8U3CJJnKG9VMTo2w9WpaJIaXSPIdwHjO4pxsFEUN5dljIzlZEgtKS8fndtDhEdPMSJ18xa+iQmPmp/Tu4mw4a7n+jM5JEGCUPY8EwODED0zKAdvvR9mCVTt7BgaHKM568Vf+giXsepAMdSzpj6xcDkdR6lBojmJ39tvenlym8GCfMzPNgEYjxkK5bcEzxjJ9/CyRT+6CCVJwYsF2094mUppFI1hvPR5NshXMIHT/vimYi15pInXWApN8S2uw5SXUiOawEC/OzWiqzhGc5KOPJ6aayx0wTn2qPxEQq6icycjr+9XD8eTi+s8fDP26H1zf+7fjSnvZg9GGEr1f+6PzmQzePdtcNZrp0yoMe2J6NqqWmpIZO708bXNNuc/9bIjR1OnrB1NFp3QxVDhz3sNvxDipgbAZOarkkOlg46LEHFbxOekxVtwuPW6MUmxTlzGLMFe/60yLKNvWPFJdfOEL2zNASKcnGn7EIF4VD13EkQurYR3avUO9+1w16yDOtzsyuRabhr0jEQmyQ89Gls+vVkPCKKUV1QV3RRGnesPPUg3DLKOqNPqjZPQGNFDVAdBnrjdPk40VQteFtQ2rxNROSkmABLdhAFHQwXXh32qxUW1ytsSXBjEmlm/67g4aDp3rMzXrUvb/CNrfh9WtYpr99usYvhsqq1atH0sojDRYC/lKC+5QHpstyHh9rpk9OtyXUkNEdhq3tm1X5U1k1n7NuMwOCH509u2zvtslXWblu6s27s3UMWXnv+hfDmzs7b1172jWEMe6nY9aQ9srhyb+iDeJ2ZsGM246PQYWJdiKKGy4tvopZAfdQkUb6N+O6FOiFFA9qe5P77lrOallCllS1cjX6/RpTMbcaVVBVk0SEzxO8vxlpc/vpys29nMr8lnR0WpE22unoFFGuCuetcC02GW1bz7SRQb1Hc0KrcQ5227aidzzYU79Lcyl4fu2eUZ7UY6OLcyfb3kpXUb0Bp/uCHOeL9z+Ns3DaCNVcon3c9XjjxU98uk1+PD6p8F/mgv+/qLSkJhn7i0ggFHxia1iQFUUYvBor0AJMmuUt1bW3eT79A4eG/0I=</source>
+    <source>eJzVV21v2zYQ/q5fcQ2MSg4cKV4GbKjbLFlnpAHSznOSAkXsCaxE21xkUiUpx0aW/76j3ixZcpEM+zJ9icy7e567544U8/aXeBFb3uGhBYdwIwlXEdFMcAjEMhaccm0M6AMrKpUx/OT+4PaPcdUYzgKi6VzIDbyv+p/FJLgncwo7yyTRCyEB4JxIhPoiZEj4hnB4S8yCuxHybL4kLHKR/jQNiVhAuUKkhdaxeuN5Dw8P7pwnrpBzLzcqbx5HRyfusavXGi4+3XoXo6vVSRpfpA0Xlzdv4KyPTv2zHJnfg3kK5DnTi+SrofY+iRVd/sq0x/o/c/T2LIuTJVVYF4XCODHGSSnURFKlB5ZlJZjucB3Q2Ag5SH/WQz6KMIlom0VtlKbLSakawuW9GSN4rSn/D/lfInKWuhQxlXoDmUjQCQTXdK3TJgQRUSqTApcoD9W2QmDLOKJLfFNwiSFyhr1SE+NsPVqWySGV0jyHcB4zuKcbBRFDe7ZY2M5WRILSkvH53bRYRHbzEidfsWrokJj5afw7uJsOGvC/0RlJIsySh7FgmJyYgRkPwLj9bHu4SpB3cGCk8gySt+ofNHnPg3TzxpLO2PrFRCSNHqXBSGZnv+395WUOL+YJs/A8WSRiPKTrFh7TPIPzb4lkGh9UmIoVQ7bL9j6R0gwSyWbj+WySrXAfQsfPp6JZyLUmUmcTIOm3hDZnTlKdSA4rwcJ8rVbKLOFZDcogOd3U9ph54lOdkZhIRf1ERk7Hvx6OPw/Hd/Z4+Mft8PrGvx1f2tMejD6M8PXKH53ffOjm2e7CYKVLp1zoge3Z6Fp6Smrk9P60wTXjNve/JUJTp6MXTB2d1sPQ5cBxD7sd76BCxmbgpJFLooOFg4g9qPB10mWqul143Aal3KRoZ5Zj7njXnxZZtrl/pHj4hSNUz2xaIiXZ+DMW4UHh0HUciZA69pHdK9y734VBhLzS6p7Zjcg8/BWJWIgDcj66dHZRjQivmFJUF9IVQ5TWDTtPPQm3zKI+6INa3BPQSFFDRJex3jhNPV5EVdu8bUwtWDMhKQkW0MINREEHy4V3p81OteXVmlsSzJhUuonfHTQAnuo5N/tRR3+FY27D69ewTH/7dI1fDJV1q1fPpFVHGiwE/KUE9ykPzJTlOj7WQp+cbkuqIaM7ClvbN6vyp3LUfM6mzWwQ/OjsOcv2njb5UVYeN/Xh3Tl1jFj57PoXw5s7Ox9de9o1gjHup9usYe2Vmyf/ijaE29kLZrvtYAwqSrQLUdxmafFVzBq4R4o0078Z16VBL6R4UNub3HeP5ayXJWUpVatWo9+vsRRzq1GFVDVLRPg8wfubsTZPP125pZe7Mr8lHZ1WrI1xOjpFlqsCvJWuJSaTbYtMGxXUZzQXtJrnYHdsK37Hgz39uzSXguf37hntSREbU5yDbGcrPYrqAzjdl+Q4P3j/0zwL0Eaq5hLt41mPN178xKenyY/HJxX9y1rwfxWVttQUY38RCYSCT2wNC7KiSINXYwVagCmzvKW69rbOp38A+OP31w==</source>
   </file>
   <file path="component\translation\Type\URL.php" generated-path="component.translation.Type.URL.html" hash="8fcd0f2703282e744adaa707767b030f" package="Component\Translation\Type">
     <docblock line="0">
@@ -11692,7 +11766,7 @@ Only on cli script</description>
     </parse_markers>
     <source>eJyzsS/IKODlAsG8xNzU4oLE5FQFv/yy1FynzJKYTEOLvJjk/NyC/LzUvJKYkqLEvOKcxJLM/LyYkMqC1JjMvJLUojSglmJriBmlxcTp9oRrjAmBCucXgc2AG6kAskEhtaIkNS+lWAGhiperGqSuFgD0XUGZ</source>
   </file>
-  <file path="component\request\Request.php" generated-path="component.request.Request.html" hash="c413593b1771e15f5f6ed24788701b7a" package="Component">
+  <file path="component\request\Request.php" generated-path="component.request.Request.html" hash="7f49313900123de72f86b4175f25346d" package="Component">
     <docblock line="0">
       <description>Request component
 php version 7.2.10</description>
@@ -11705,159 +11779,207 @@ php version 7.2.10</description>
       <tag name="link" line="0" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
     </docblock>
     <namespace-alias name="Translation">\NovemBit\i18n\component\translation\Translation</namespace-alias>
+    <namespace-alias name="HTML">\NovemBit\i18n\component\translation\Type\HTML</namespace-alias>
     <namespace-alias name="Module">\NovemBit\i18n\Module</namespace-alias>
     <namespace-alias name="Component">\NovemBit\i18n\system\Component</namespace-alias>
     <namespace-alias name="URL">\NovemBit\i18n\system\helpers\URL</namespace-alias>
     <namespace-alias name="DataType">\NovemBit\i18n\system\helpers\DataType</namespace-alias>
     <namespace-alias name="Exception">\NovemBit\i18n\system\exception\Exception</namespace-alias>
-    <class final="false" abstract="false" namespace="NovemBit\i18n\component\request" line="37" package="Component">
+    <class final="false" abstract="false" namespace="NovemBit\i18n\component\request" line="40" package="Component">
       <extends>\NovemBit\i18n\system\Component</extends>
       <implements>\NovemBit\i18n\component\request\Interfaces\Request</implements>
       <name>Request</name>
       <full_name>\NovemBit\i18n\component\request\Request</full_name>
-      <docblock line="37">
-        <description>Main Request class
- It make easy to make requests flexible
- Determine type of received request
- Then provide translation for current type of content</description>
-        <long-description>Its simple but provides very useful functionality
-Module class</long-description>
-        <tag name="category" line="37" description="Component"/>
-        <tag name="package" line="37" description="Component"/>
-        <tag name="author" line="37" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
-        <tag name="license" line="37" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
-        <tag name="link" line="37" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
+      <docblock line="40">
+        <description>Main Request class.</description>
+        <long-description>It make easy to make requests flexible.
+Determine type of received request.
+Then provide translation for current type of content.
+
+Using Translation component to translate received buffer content.</long-description>
+        <tag name="category" line="40" description="Component"/>
+        <tag name="package" line="40" description="Component"/>
+        <tag name="author" line="40" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
+        <tag name="license" line="40" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
+        <tag name="link" line="40" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
         <tag name="inherited_from" description="\NovemBit\i18n\system\Component" refers="\NovemBit\i18n\system\Component" link="/classes/NovemBit.i18n.system.Component.html"/>
       </docblock>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="44" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="47" package="Component">
         <name>$_translation</name>
         <full_name>\NovemBit\i18n\component\request\Request::_translation</full_name>
         <default></default>
-        <docblock line="44">
+        <docblock line="47">
           <description>Translation component</description>
           <long-description></long-description>
-          <tag name="var" line="44" description="" type="\NovemBit\i18n\component\translation\Translation" variable="">
+          <tag name="var" line="47" description="" type="\NovemBit\i18n\component\translation\Translation" variable="">
             <type>\NovemBit\i18n\component\translation\Translation</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="51" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="54" package="Component">
         <name>$_language</name>
         <full_name>\NovemBit\i18n\component\request\Request::_language</full_name>
         <default></default>
-        <docblock line="51">
+        <docblock line="54">
           <description>Languages of URL</description>
           <long-description></long-description>
-          <tag name="var" line="51" description="" type="string" variable="">
+          <tag name="var" line="54" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="58" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="61" package="Component">
         <name>$_referer_language</name>
         <full_name>\NovemBit\i18n\component\request\Request::_referer_language</full_name>
         <default></default>
-        <docblock line="58">
+        <docblock line="61">
           <description>Language of Referer</description>
           <long-description></long-description>
-          <tag name="var" line="58" description="" type="string" variable="">
+          <tag name="var" line="61" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="65" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="68" package="Component">
         <name>$_destination</name>
         <full_name>\NovemBit\i18n\component\request\Request::_destination</full_name>
         <default></default>
-        <docblock line="65">
+        <docblock line="68">
           <description>Original Destination (REQUEST_URI)</description>
           <long-description></long-description>
-          <tag name="var" line="65" description="" type="string" variable="">
+          <tag name="var" line="68" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="72" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="75" package="Component">
         <name>$_referer</name>
         <full_name>\NovemBit\i18n\component\request\Request::_referer</full_name>
         <default></default>
-        <docblock line="72">
+        <docblock line="75">
           <description>Original Referer (HTTP_REFERER)</description>
           <long-description></long-description>
-          <tag name="var" line="72" description="" type="string" variable="">
+          <tag name="var" line="75" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="79" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="82" package="Component">
         <name>$_source_url</name>
         <full_name>\NovemBit\i18n\component\request\Request::_source_url</full_name>
         <default></default>
-        <docblock line="79">
+        <docblock line="82">
           <description>Source url</description>
           <long-description></long-description>
-          <tag name="var" line="79" description="" type="string" variable="">
+          <tag name="var" line="82" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="86" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="89" package="Component">
         <name>$_referer_source_url</name>
         <full_name>\NovemBit\i18n\component\request\Request::_referer_source_url</full_name>
         <default></default>
-        <docblock line="86">
+        <docblock line="89">
           <description>Referer Source url</description>
           <long-description></long-description>
-          <tag name="var" line="86" description="" type="string" variable="">
+          <tag name="var" line="89" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="93" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="96" package="Component">
         <name>$_url_translations</name>
         <full_name>\NovemBit\i18n\component\request\Request::_url_translations</full_name>
         <default></default>
-        <docblock line="93">
+        <docblock line="96">
           <description>Translations of url</description>
           <long-description></long-description>
-          <tag name="var" line="93" description="" type="array" variable="">
+          <tag name="var" line="96" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="100" package="Component">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="103" package="Component">
         <name>$_referer_translations</name>
         <full_name>\NovemBit\i18n\component\request\Request::_referer_translations</full_name>
         <default></default>
-        <docblock line="100">
+        <docblock line="103">
           <description>Translations of referer</description>
           <long-description></long-description>
-          <tag name="var" line="100" description="" type="array" variable="">
+          <tag name="var" line="103" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="107" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="110" package="Component">
         <name>$editor_query_key</name>
         <full_name>\NovemBit\i18n\component\request\Request::editor_query_key</full_name>
         <default>"editor"</default>
-        <docblock line="107">
+        <docblock line="110">
           <description>Editor query argument key</description>
           <long-description></long-description>
-          <tag name="var" line="107" description="" type="string" variable="">
+          <tag name="var" line="110" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="114" package="Component">
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="117" package="Component">
         <name>$editor</name>
         <full_name>\NovemBit\i18n\component\request\Request::editor</full_name>
         <default></default>
-        <docblock line="114">
-          <description>Status of editor (enabled/disabled)</description>
+        <docblock line="117">
+          <description>Editor status (enabled/disabled)</description>
           <long-description></long-description>
-          <tag name="var" line="114" description="" type="boolean" variable="">
+          <tag name="var" line="117" description="" type="boolean" variable="">
             <type>boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="137" package="Component">
+        <name>$exclusions</name>
+        <full_name>\NovemBit\i18n\component\request\Request::exclusions</full_name>
+        <default>array()</default>
+        <docblock line="137">
+          <description>Callback exclusions
+If Callback returns true then current page
+must be skipped</description>
+          <long-description>```php
+function ($request) {
+  if (  is_admin() &amp;&amp; !wp_doing_ajax()
+      &amp;&amp; (isset($GLOBALS['pagenow']) &amp;&amp; $GLOBALS['pagenow'] != 'wp-login.php')
+  ) {
+     return true;
+  }
+  return false;
+}
+```</long-description>
+          <tag name="var" line="137" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="158" package="Component">
+        <name>$on_page_not_found</name>
+        <full_name>\NovemBit\i18n\component\request\Request::on_page_not_found</full_name>
+        <default></default>
+        <docblock line="158">
+          <description>Page not found callback function
+Trigger when page not found</description>
+          <long-description>```php
+'request' =&gt; [
+  ...
+
+  'page_not_found_callback' =&gt; function($request){
+      echo "404 page not found";
+      die;
+  },
+
+  ...
+]
+```</long-description>
+          <tag name="var" line="158" description="" type="callable" variable="">
+            <type>callable</type>
           </tag>
         </docblock>
       </property>
@@ -11885,27 +12007,27 @@ Module class</long-description>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="121" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="165" package="Component">
         <name>getRefererSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::getRefererSourceUrl()</full_name>
-        <docblock line="121">
+        <docblock line="165">
           <description>Get request referer source url</description>
           <long-description></long-description>
-          <tag name="return" line="121" description="" type="string">
+          <tag name="return" line="165" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="133" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="177" package="Component">
         <name>setRefererSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::setRefererSourceUrl()</full_name>
-        <docblock line="133">
+        <docblock line="177">
           <description>Set request referer source url</description>
           <long-description></long-description>
-          <tag name="param" line="133" description="&lt;p&gt;Referer source url&lt;/p&gt;" type="string" variable="$_referer_source_url">
+          <tag name="param" line="177" description="&lt;p&gt;Referer source url&lt;/p&gt;" type="string" variable="$_referer_source_url">
             <type>string</type>
           </tag>
-          <tag name="return" line="133" description="" type="void">
+          <tag name="return" line="177" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11915,27 +12037,27 @@ Module class</long-description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="143" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="187" package="Component">
         <name>getRefererTranslations</name>
         <full_name>\NovemBit\i18n\component\request\Request::getRefererTranslations()</full_name>
-        <docblock line="143">
+        <docblock line="187">
           <description>Get Referer translations</description>
           <long-description></long-description>
-          <tag name="return" line="143" description="" type="array">
+          <tag name="return" line="187" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="155" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="199" package="Component">
         <name>setRefererTranslations</name>
         <full_name>\NovemBit\i18n\component\request\Request::setRefererTranslations()</full_name>
-        <docblock line="155">
+        <docblock line="199">
           <description>Set Referer translations</description>
           <long-description></long-description>
-          <tag name="param" line="155" description="&lt;p&gt;Referer translations&lt;/p&gt;" type="array" variable="$_referer_translations">
+          <tag name="param" line="199" description="&lt;p&gt;Referer translations&lt;/p&gt;" type="array" variable="$_referer_translations">
             <type>array</type>
           </tag>
-          <tag name="return" line="155" description="" type="void">
+          <tag name="return" line="199" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11945,23 +12067,23 @@ Module class</long-description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="170" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="214" package="Component">
         <name>_getSourceUrlFromTranslate</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getSourceUrlFromTranslate()</full_name>
-        <docblock line="170">
+        <docblock line="214">
           <description>Get Source Url from translate
 Using ReTranslate method of Translation</description>
           <long-description></long-description>
-          <tag name="param" line="170" description="&lt;p&gt;Translated url&lt;/p&gt;" type="string" variable="$translate">
+          <tag name="param" line="214" description="&lt;p&gt;Translated url&lt;/p&gt;" type="string" variable="$translate">
             <type>string</type>
           </tag>
-          <tag name="param" line="170" description="&lt;p&gt;Language of translated string&lt;/p&gt;" type="string" variable="$to_language">
+          <tag name="param" line="214" description="&lt;p&gt;Language of translated string&lt;/p&gt;" type="string" variable="$to_language">
             <type>string</type>
           </tag>
-          <tag name="return" line="170" description="" type="null">
+          <tag name="return" line="214" description="" type="null">
             <type>null</type>
           </tag>
-          <tag name="throws" line="170" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="214" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
@@ -11976,38 +12098,38 @@ Using ReTranslate method of Translation</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="187" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="231" package="Component">
         <name>_prepareDestination</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareDestination()</full_name>
-        <docblock line="187">
+        <docblock line="231">
           <description>Prepare Destination to finding source</description>
           <long-description></long-description>
-          <tag name="return" line="187" description="" type="boolean">
+          <tag name="return" line="231" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="204" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="248" package="Component">
         <name>getReferer</name>
         <full_name>\NovemBit\i18n\component\request\Request::getReferer()</full_name>
-        <docblock line="204">
+        <docblock line="248">
           <description>Get request referer</description>
           <long-description></long-description>
-          <tag name="return" line="204" description="" type="string">
+          <tag name="return" line="248" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="216" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="260" package="Component">
         <name>setReferer</name>
         <full_name>\NovemBit\i18n\component\request\Request::setReferer()</full_name>
-        <docblock line="216">
+        <docblock line="260">
           <description>Set request referer</description>
           <long-description></long-description>
-          <tag name="param" line="216" description="&lt;p&gt;Referer url&lt;/p&gt;" type="string" variable="$_referer">
+          <tag name="param" line="260" description="&lt;p&gt;Referer url&lt;/p&gt;" type="string" variable="$_referer">
             <type>string</type>
           </tag>
-          <tag name="return" line="216" description="" type="void">
+          <tag name="return" line="260" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12017,90 +12139,103 @@ Using ReTranslate method of Translation</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="228" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="272" package="Component">
         <name>_prepareReferer</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareReferer()</full_name>
-        <docblock line="228">
+        <docblock line="272">
           <description>Prepare Referer
 To create response document</description>
           <long-description></long-description>
-          <tag name="return" line="228" description="" type="boolean">
+          <tag name="return" line="272" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="228" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="272" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="254" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="298" package="Component">
         <name>_prepareRefererSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareRefererSourceUrl()</full_name>
-        <docblock line="254">
+        <docblock line="298">
           <description>Prepare Referer source url
 To create response document</description>
           <long-description></long-description>
-          <tag name="return" line="254" description="" type="boolean">
+          <tag name="return" line="298" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="254" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="298" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="304" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="348" package="Component">
         <name>_prepareSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareSourceUrl()</full_name>
-        <docblock line="304">
+        <docblock line="348">
           <description>Prepare Source url
 To create response document</description>
           <long-description></long-description>
-          <tag name="return" line="304" description="" type="boolean">
+          <tag name="return" line="348" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="304" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="348" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="367" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="422" package="Component">
+        <name>_isExclusion</name>
+        <full_name>\NovemBit\i18n\component\request\Request::_isExclusion()</full_name>
+        <docblock line="422">
+          <description>Check exclusions array and expand
+Callbacks and variables</description>
+          <long-description></long-description>
+          <tag name="return" line="422" description="" type="boolean|mixed">
+            <type>boolean</type>
+            <type>mixed</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="447" package="Component">
         <name>_prepare</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepare()</full_name>
-        <docblock line="367">
-          <description>Prepare
-To create response document</description>
+        <docblock line="447">
+          <description>Prepare all components to start request translation
+And to create response document</description>
           <long-description></long-description>
-          <tag name="return" line="367" description="" type="boolean">
+          <tag name="return" line="447" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="367" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="447" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
-          <tag name="throws" line="367" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="447" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="387" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="485" package="Component">
         <name>getRefererLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::getRefererLanguage()</full_name>
-        <docblock line="387">
+        <docblock line="485">
           <description>Get Referer language</description>
           <long-description></long-description>
-          <tag name="return" line="387" description="" type="string">
+          <tag name="return" line="485" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="399" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="497" package="Component">
         <name>setRefererLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::setRefererLanguage()</full_name>
-        <docblock line="399">
+        <docblock line="497">
           <description>Set Referer Language</description>
           <long-description></long-description>
-          <tag name="param" line="399" description="&lt;p&gt;Referer language&lt;/p&gt;" type="mixed" variable="$_referer_language">
+          <tag name="param" line="497" description="&lt;p&gt;Referer language&lt;/p&gt;" type="mixed" variable="$_referer_language">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="399" description="" type="void">
+          <tag name="return" line="497" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12110,47 +12245,47 @@ To create response document</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="410" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="508" package="Component">
         <name>_prepareRefererLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareRefererLanguage()</full_name>
-        <docblock line="410">
+        <docblock line="508">
           <description>Prepare Referer language</description>
           <long-description></long-description>
-          <tag name="return" line="410" description="" type="boolean">
+          <tag name="return" line="508" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="410" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="508" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="449" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="547" package="Component">
         <name>_prepareLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::_prepareLanguage()</full_name>
-        <docblock line="449">
+        <docblock line="547">
           <description>Prepare language</description>
           <long-description></long-description>
-          <tag name="return" line="449" description="" type="boolean">
+          <tag name="return" line="547" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="449" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="547" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
-          <tag name="throws" line="449" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="547" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="494" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="592" package="Component">
         <name>_removeLanguageFromURI</name>
         <full_name>\NovemBit\i18n\component\request\Request::_removeLanguageFromURI()</full_name>
-        <docblock line="494">
+        <docblock line="592">
           <description>Remove language from uri string</description>
           <long-description></long-description>
-          <tag name="param" line="494" description="&lt;p&gt;Referenced variable of URI string&lt;/p&gt;" type="string" variable="$uri">
+          <tag name="param" line="592" description="&lt;p&gt;Referenced variable of URI string&lt;/p&gt;" type="string" variable="$uri">
             <type>string</type>
           </tag>
-          <tag name="return" line="494" description="" type="void">
+          <tag name="return" line="592" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12160,19 +12295,19 @@ To create response document</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="517" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="615" package="Component">
         <name>translateBuffer</name>
         <full_name>\NovemBit\i18n\component\request\Request::translateBuffer()</full_name>
-        <docblock line="517">
+        <docblock line="615">
           <description>Translate buffer of request content</description>
           <long-description></long-description>
-          <tag name="param" line="517" description="&lt;p&gt;content of request buffer&lt;/p&gt;" type="string" variable="$content">
+          <tag name="param" line="615" description="&lt;p&gt;content of request buffer&lt;/p&gt;" type="string" variable="$content">
             <type>string</type>
           </tag>
-          <tag name="return" line="517" description="" type="string">
+          <tag name="return" line="615" description="" type="string">
             <type>string</type>
           </tag>
-          <tag name="throws" line="517" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="615" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
@@ -12182,115 +12317,115 @@ To create response document</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="559" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="657" package="Component">
         <name>_editorSave</name>
         <full_name>\NovemBit\i18n\component\request\Request::_editorSave()</full_name>
-        <docblock line="559">
+        <docblock line="657">
           <description>Save Editor if request is POST and has parameter %prefix%-form</description>
           <long-description></long-description>
-          <tag name="return" line="559" description="" type="boolean">
+          <tag name="return" line="657" description="" type="boolean">
             <type>boolean</type>
           </tag>
-          <tag name="throws" line="559" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="657" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="592" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="690" package="Component">
         <name>start</name>
         <full_name>\NovemBit\i18n\component\request\Request::start()</full_name>
-        <docblock line="592">
+        <docblock line="690">
           <description>Start request translation</description>
           <long-description></long-description>
-          <tag name="return" line="592" description="" type="void">
+          <tag name="return" line="690" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="throws" line="592" description="" type="\NovemBit\i18n\system\exception\Exception">
+          <tag name="throws" line="690" description="" type="\NovemBit\i18n\system\exception\Exception">
             <type>\NovemBit\i18n\system\exception\Exception</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="611" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="709" package="Component">
         <name>_getHeadAdditionalTags</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getHeadAdditionalTags()</full_name>
-        <docblock line="611">
+        <docblock line="709">
           <description>Get in &lt;head&gt; additional tags
 Scripts, Styles, Metas and Links</description>
           <long-description></long-description>
-          <tag name="return" line="611" description="" type="string">
+          <tag name="return" line="709" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="633" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="731" package="Component">
         <name>_getAlternateLinkTags</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getAlternateLinkTags()</full_name>
-        <docblock line="633">
+        <docblock line="731">
           <description>Get &lt;link rel="alternate".</description>
           <long-description>..&gt; tags
 To add on HTML document &lt;head&gt;</long-description>
-          <tag name="return" line="633" description="" type="string">
+          <tag name="return" line="731" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="649" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="747" package="Component">
         <name>_getMainJavaScriptTag</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getMainJavaScriptTag()</full_name>
-        <docblock line="649">
+        <docblock line="747">
           <description>Get main JS object &lt;script&gt; tag
 To add on HTML document &lt;head&gt;</description>
           <long-description></long-description>
-          <tag name="return" line="649" description="" type="string">
+          <tag name="return" line="747" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="681" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="779" package="Component">
         <name>_getEditorJavaScriptTag</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getEditorJavaScriptTag()</full_name>
-        <docblock line="681">
+        <docblock line="779">
           <description>Get Editor JS &lt;script&gt; tag
 To add on HTML document &lt;head&gt;</description>
           <long-description></long-description>
-          <tag name="return" line="681" description="" type="string">
+          <tag name="return" line="779" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="700" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="798" package="Component">
         <name>_getXHRManipulationJavaScriptTag</name>
         <full_name>\NovemBit\i18n\component\request\Request::_getXHRManipulationJavaScriptTag()</full_name>
-        <docblock line="700">
+        <docblock line="798">
           <description>Get XHR(ajax) Manipulation javascript &lt;script&gt; tag
 To add on HTML document &lt;head&gt;</description>
           <long-description></long-description>
-          <tag name="return" line="700" description="" type="string">
+          <tag name="return" line="798" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="711" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="809" package="Component">
         <name>getDestination</name>
         <full_name>\NovemBit\i18n\component\request\Request::getDestination()</full_name>
-        <docblock line="711">
+        <docblock line="809">
           <description>Get Request Destination</description>
           <long-description></long-description>
-          <tag name="return" line="711" description="" type="string">
+          <tag name="return" line="809" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="723" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="821" package="Component">
         <name>_setDestination</name>
         <full_name>\NovemBit\i18n\component\request\Request::_setDestination()</full_name>
-        <docblock line="723">
+        <docblock line="821">
           <description>Set Request Destination</description>
           <long-description></long-description>
-          <tag name="param" line="723" description="&lt;p&gt;Destination uri&lt;/p&gt;" type="string" variable="$destination">
+          <tag name="param" line="821" description="&lt;p&gt;Destination uri&lt;/p&gt;" type="string" variable="$destination">
             <type>string</type>
           </tag>
-          <tag name="return" line="723" description="" type="void">
+          <tag name="return" line="821" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12300,27 +12435,27 @@ To add on HTML document &lt;head&gt;</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="733" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="831" package="Component">
         <name>getSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::getSourceUrl()</full_name>
-        <docblock line="733">
+        <docblock line="831">
           <description>Get Source Url</description>
           <long-description></long-description>
-          <tag name="return" line="733" description="" type="string">
+          <tag name="return" line="831" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="745" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="843" package="Component">
         <name>_setSourceUrl</name>
         <full_name>\NovemBit\i18n\component\request\Request::_setSourceUrl()</full_name>
-        <docblock line="745">
+        <docblock line="843">
           <description>Set Source Url</description>
           <long-description></long-description>
-          <tag name="param" line="745" description="&lt;p&gt;Source Url&lt;/p&gt;" type="string" variable="$source_url">
+          <tag name="param" line="843" description="&lt;p&gt;Source Url&lt;/p&gt;" type="string" variable="$source_url">
             <type>string</type>
           </tag>
-          <tag name="return" line="745" description="" type="void">
+          <tag name="return" line="843" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12330,27 +12465,27 @@ To add on HTML document &lt;head&gt;</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="755" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="853" package="Component">
         <name>getUrlTranslations</name>
         <full_name>\NovemBit\i18n\component\request\Request::getUrlTranslations()</full_name>
-        <docblock line="755">
+        <docblock line="853">
           <description>Get Url translations list</description>
           <long-description></long-description>
-          <tag name="return" line="755" description="" type="array">
+          <tag name="return" line="853" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="767" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="865" package="Component">
         <name>_setUrlTranslations</name>
         <full_name>\NovemBit\i18n\component\request\Request::_setUrlTranslations()</full_name>
-        <docblock line="767">
+        <docblock line="865">
           <description>Set Url Translations list</description>
           <long-description></long-description>
-          <tag name="param" line="767" description="&lt;p&gt;Url Translations list&lt;/p&gt;" type="array" variable="$url_translations">
+          <tag name="param" line="865" description="&lt;p&gt;Url Translations list&lt;/p&gt;" type="array" variable="$url_translations">
             <type>array</type>
           </tag>
-          <tag name="return" line="767" description="" type="void">
+          <tag name="return" line="865" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12360,27 +12495,27 @@ To add on HTML document &lt;head&gt;</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="777" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="875" package="Component">
         <name>getLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::getLanguage()</full_name>
-        <docblock line="777">
+        <docblock line="875">
           <description>Get Request current Language</description>
           <long-description></long-description>
-          <tag name="return" line="777" description="" type="string">
+          <tag name="return" line="875" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="789" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="887" package="Component">
         <name>_setLanguage</name>
         <full_name>\NovemBit\i18n\component\request\Request::_setLanguage()</full_name>
-        <docblock line="789">
+        <docblock line="887">
           <description>Set Request current language</description>
           <long-description></long-description>
-          <tag name="param" line="789" description="&lt;p&gt;Language&lt;/p&gt;" type="string" variable="$language">
+          <tag name="param" line="887" description="&lt;p&gt;Language&lt;/p&gt;" type="string" variable="$language">
             <type>string</type>
           </tag>
-          <tag name="return" line="789" description="" type="void">
+          <tag name="return" line="887" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12390,27 +12525,27 @@ To add on HTML document &lt;head&gt;</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="799" package="Component">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\request" line="897" package="Component">
         <name>getTranslation</name>
         <full_name>\NovemBit\i18n\component\request\Request::getTranslation()</full_name>
-        <docblock line="799">
+        <docblock line="897">
           <description>Get Translation Component</description>
           <long-description></long-description>
-          <tag name="return" line="799" description="" type="\NovemBit\i18n\component\translation\Translation">
+          <tag name="return" line="897" description="" type="\NovemBit\i18n\component\translation\Translation">
             <type>\NovemBit\i18n\component\translation\Translation</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="811" package="Component">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\request" line="909" package="Component">
         <name>_setTranslation</name>
         <full_name>\NovemBit\i18n\component\request\Request::_setTranslation()</full_name>
-        <docblock line="811">
+        <docblock line="909">
           <description>Set Translation component</description>
           <long-description></long-description>
-          <tag name="param" line="811" description="&lt;p&gt;Translation component&lt;/p&gt;" type="\NovemBit\i18n\component\translation\Translation" variable="$translation">
+          <tag name="param" line="909" description="&lt;p&gt;Translation component&lt;/p&gt;" type="\NovemBit\i18n\component\translation\Translation" variable="$translation">
             <type>\NovemBit\i18n\component\translation\Translation</type>
           </tag>
-          <tag name="return" line="811" description="" type="void">
+          <tag name="return" line="909" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -12541,23 +12676,23 @@ Only on cli script</description>
         </docblock>
         <inherited_from>\NovemBit\i18n\system\Component</inherited_from>
       </method>
-      <property final="false" static="false" visibility="public" line="37">
+      <property final="false" static="false" visibility="public" line="40">
         <name>$context</name>
         <default/>
         <docblock>
           <description/>
           <long-description/>
-          <tag name="var" description="" type="\NovemBit\i18n\Module" line="37">
+          <tag name="var" description="" type="\NovemBit\i18n\Module" line="40">
             <type by_reference="false">\NovemBit\i18n\Module</type>
           </tag>
-          <tag name="magic" line="37"/>
-          <tag name="property" line="37" description="" type="\NovemBit\i18n\Module" variable="$context">
+          <tag name="magic" line="40"/>
+          <tag name="property" line="40" description="" type="\NovemBit\i18n\Module" variable="$context">
             <type>\NovemBit\i18n\Module</type>
           </tag>
         </docblock>
       </property>
     </class>
-    <source>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</source>
+    <source>eJztHGtz2zbyu38FonErKWNLTtuZu9qR4jR1E/ecJpWdzt3YHhaWIIkJReoIyo9L/d9vAQLEm6LtNL3MHD8kMgksFvvexZJPny3ny43+48cb6DEakX+vCC3QOFsss5SkBbsJz9ElyWmcpehvvW96T3bgLnuwP8YFmWX5DXqhj99f4vEHPCPIuo1XxTzLEULPcQ6g/pXlE5ze4BQ9xexG7ybL92cLHCc9WH7IpyTxmKQUIM2LYkl3+/2rq6veLF31snzWFw9pf7ZMtr/t7fSK6wK9/OVd/+Xbo8tv+XyJNnp5eLKL9p/AoCf7AnL6AbFLQp7FxXx1wZbu/5JdksUPcdGPn/w9hdH9jY0ULwiFfREkH56xh2cVoc7yknR7GxsrGh5V5DilCS4AqbMT9Xuv+aSbJTl7dfL6yDfldTZZJcT3hN7QgizOKobUjJmTZAlkO3s38q5hjfoRF5jhVDOUXI/JkiN/IH8BlYTEvcZxqsQuwZT22O3DAi3wB4IIpjeoyMo/BIkpmibkOr5ICB/6IylIvohTggrAA2VTGDcm8SWZyAl82MmcpGiZZ5fxBEYqiqIpyOR4ledAlQrCOEsL+LsnBP0djdMZ0vilFIQhJ6ERtfLFajoluQ3nf19h7qIWJep5BnJQ3KBS9tAm3/I13wAoDudoxV+4T9IJVdtE8WKZkAX8ougQ5uVTUDF6JsZvfNxgqHBJYddjPwvEQzlm/xLn+kB5H7BhP5Z5fMlYtRkVuv7ZKx3hdLYCnlAmDqAKvkVokYNcBOEnAkQYOIM9IiAoJL8H/LycWbPOmzyexSlOQEdoAT843Tqjg1/fHRyfRO9Gh917LDtRsGpWFNtCnVcnJ2+j0cFPB6OD0X2WE7t0lzrOVjnY41We3AMq5ZMjmOwClqg/aAHJnLqFNCHlYhZYCec5vgkuBJN0Sabrl8nDEle/lNxT/XIHk7gAqwUaDHYO57MVU2/0gdw0p+LqAkwV2iQcUsQhRQAADVCrvNcKLksLXKwo6pAUg4OY9Ccx5T+8oneRZUnt2u4yL3CSXIC5Bls2TlYsuKDy0eFUPc1JscqB3EW+Am/DXI90MUvQVDljsQKjeEEQ/RAvl2Riofj777+z0Ez8NV2l41J/N4Vb66KP8iFC8RR14F8a4Qn4wk4Xff01enS1jCYZ0DfC7/F1p6tGswsGdGJKSdHZfHn05ofnR8enbYZcml21z/l8z330aIDaV8vtJAM17wF6bQ2qgRBcJRE4DfbUg1v1UwyY4oSqEbfa/hvLqORaxRSQldNzl31vmdVNswK8/iqdoLHkl6Su0pl4NgMbcMWjBmNSLZfagjdtNBiiU7XTXq9nzUOIUzUCuBGHG0lk+FyJkOK2SVtExvMMtb7b+c5Cr7VnjpvEBvG3HDQUauh8DekZhkybAtTP0sjckkv/l6SQUZm0Q4gG7ayQD8NIGEtWSjEjhTDbpdV+lydC3gXZlLRtFvOYbg+9Fhpx+XQ8zZ2QXuIcLwTOXkdQOZi1G7/M4knttqln274lbVKEaQB643deftIwfsrt6G4hsCFdd9cxUndbTXlpeqYwN5ugXPKRYxzwfXfZ+R1YaWzcv/I6fhpYDoKuO8xTEfuAPKFpni1UiiMHlSnRiJxUuc+CQLYyYQGGG3wHlEMlTqiaBMmTUghnQlZFu0YQXajJhrGwuZCuEgW6mOfZFUVVUmqyR0Q9FX8ikMxKyX4CmlQId9Q+tgwUJZcUm3ISqT0PJNtEyrQ9LGzCiWt7CNJRZSQdY43tIZBre5grTnROFULn3b0KEgsRhMPX8TBGdzWh0vUsNEFBv92wlZMROyRjb3MCnCVGYgKZ9DROJ4zRpeEJMFGL2kK8WpbgNeiOBdlkeQzwoN1vox4IULwAXTs+GP12MDptaylS+3yLjdHoKGdCVri7m5MFpMW/shD1N5zTjkE9PnLLvGWxXPIR7s0Ujzm8f5AbGbPB5UEAGD8h42wCEsju6COEPQBm6zSwhzkBmt8YWL7vU3jphgb9Dh65mRuuTPYncbrKOq8xyLoNXqcSZkEAnWRonJOyuESXGSvuTLIxT6rW68edjZxQnBCXNBNS6Yqe4LddCyIpYUKWgt7p7m2YwxXFLJ0017GV0pq7Xjf1CVvuk/uqKbvCaGkaKwVnz0ctXcTUwAZ01aLfOtNcp/GWHLpR6l8qkuHwvv9Y0Ycn4zLjriKGmKIJmeJVou7pU3iFWLlnOZ0FxaxGDLlPNY3q8wTm7GL6IRijiQlk4wPX2ZsixSIKNT6gRIEYMSS9AFYbZwmpvJzYog7L52PGMzW6G4LJY5JCj0gkRpVpOe9679qaVE8HLe1xYekqgEgCYmpSVZcYJN2KEPeMFzJV5dfH7TUYhdhSE0l6qenZmWuwvAOVQDnjHYtVRxlBGl0jmDa4aU9zMn25AqxZIEOE9fshd6BZ4sriVvQtVORbkpiifS0QDZickINU6YW3NrJ3L5/glMT/Gl/wQCfAMtroE3uAT+4CDBH64w+NmUZWw8BCJKTShED4BToC9Ppytc7Y9Lk7Pzj0Hnau3gUEjRujsc8fGfh8Rp9k4vPpvZGxr3Ue6X/OFX3xGnFnP8SuZ8+0GpiiuPz5p/ono6hiuCcNZYYh2LO9ICKvcDpJGCbs6AOXfmFp2fHRKk3ZEPM0wjq+cDA1LbdpZR8NON34qZgX7UE5oKuX+yRQkTGX85xDEpfzsEhMI4ltw4nOyuwSLpeBilaU5BFzpUGAW+XebA302il2ceeNUnKl/HeHn0j9khXoJ34YtcXYZOW4t/dMTF/MiXHuKmrzIA9wc4mrk7nqFJbyZ5c4jxkdQ5V5Fo/8sYiviVX1cYKPmB7ItZ24A8IDgsfzSoB0LKl2Lmm751I8NF6rkfZQOdxmZjVDso/JIqOjD4CX1H7m8L9CrOe6Uq38KVfccH+5x8ThCJU5g6oziLKaMi1wrqqFTon9MXoOQlLcK4wluAISimQfGOl6K3DSgxkCGajc62fryNA4zQ/qzq3mTKIbtsoQaXMrh4je/VE1fShC++JxdnYN7MHirCkYmWvwRZtH2V6RoTiNixgn8X+IHPAzvsTH4zxeFjXWXpYyXx6cnNr7BgZM42vUQ+1tdkAg9dpqSbEiUcM9aLH/o3vG/o5RN9BAA6FSVsDkREwHvBkGlT2bCBdFHl+sCsLVg7VtsuSmBGnNtAHtU0IQ6z7d3d0soUUKWrO4yydY28N5sYA4xwFZ7VACcT2GVQcNxJmKMeGzofBYO98Mj6wqNE0OzE1Bf9iBirXvtSflqmnQj6d+Sn4UwLM8YuGu09OO2HSbdzhvqTbprrbuRLzCauDtnPQTwS6Fr9lJQ5fQrNDtMNSNqFtvRocvI73s0+JxdfXcfBS23if4AwuXKxpxMywtdZMYX6duyM4ZmmMYSGb8ys4VP+L1fqdae5IR4UuuY9YlDqnyvpEru9G+wluF7zqajTYm0gV+sKCfa0kgRlLly6kkpeMU3FoK2ZXPA+rktoupSi8qddgLLTrih2Kqe4Lzuoa1lR6xaQbHRofhU8D7lRc/jX49UP+CltSkY5mNxKz3JCY8gMSQ01MqlCeJa+TukX2GaqTGzUO5kEnQwFkWwXjy5RgEi0D/twdeHdXqT3+hJQiyqoEhECiZcrfK40BXl9njwcaVBhFopvL+8gWOw/rGMDcIccyDf99fs2Wd4AMQK1jwCv9T3j/ZKZsZYGzZuOBvy+LTWLd1Mfd1UrD7AJRcLxPWQgBwtlBSAjZmVksY07XM0Sezl5A+TWDHSoIYsNMdFw92rVKBcDkkVOBRxJC4Af7snZ8Kfw7CboJIyZXoReV9HBerOJlwe8BB2aMZ34Eqi2Vx05FTu4iXEdFuBUzXP7/wqVZG8fYWf1dCvhDJX+SqF0AxSA7W55cQmwT669yWFRxXpeEf+AodiYQjkiJjHvA3uyJZ5Yh4M0rYRhxOVUFEQICEna64q6uxpHEa8epcR6y7hQBPEKpvdna20Dfff9/telJb9vLdAMk3Cnd3Wdkdfqg9eSWazXoE9nrHWwG1jw9sVhuMNQdZ+SvHUbJWmH93GhKuzDgv8B8NGCWCUP3/I9/gbeCpfjAgUGNnAfLnqW+l8z2XSoqSQMgWS8ZboVqeRgIImGYgScsEjwOHRexq9ztP5wRPeo+fDbv9mLb9R0V86OYTVmt5++ptdPDmSFVd2BnVKwDxfDKJGUVxcoJnNHTopGMZHvHE+6Trq08GjJunFiFWDSbVGJybeFEpVsYBNOrtm+MTXq2eY4q4VWFvtaKvyirUV9vTLF/URMX3DXnLog9Dq9PdVZA0PdK8hiw6lTUZgyj8xKIMadlO6oppbCftc7PEpYPaTMEilU3rzUC5DYSUdXhp7//ISxXpyzVYZV6cZw2GWje6T/QF2FMxIaBa3C5IMLZTNP48M1+VXgBCCdVfCd/dpcCWRseTjWqKriY88bQ9lrv0jDXu2IbYW9931aO2gH+8pkxfE7Hd0WXyAwFvYf2RVc0LVdW9m9Qr87pe2SDUC1nm/OwiKjErRQuCOMu3t89rq4qQ3nA7O0S4MpOoADtZUZiXwwHwcXGTEPj/NSlweUZ2FKcfQudjvjKk7+UIn4G2gxCGDuu51893y5u9gW7s2VcBVAUfYBkhim/GP1+NXuM0Xq5KoQlPdgya2zHjQi9ttgPUw0Xf7OcJ2PKUxdZA5pIwTg8+n1fH3qf81fycJIMWlvBavV5vaPD4JGPcR8ASVqWvzrCEZDyQw5591DBY3rOPRmdu30WXm2KVW9cZ44rALUWRM0WSs1ZrLzAezcF1sEVg/Mdqtduz8gG/Wa0Kd4ctO2W4C7sW7LsWPx+DVr8nY6A/5XLDmfVZeOXRIJtX4Dam8Qy49Z5maQRJM0sFDNqdOn6gzbyV/nKr/VzULqrServkpusr/ZFZG/PGmGo61eevKSHpl7/JJrCmBKeO9R6yqvtyQGBZ+yxRX9R+FgBRBkNebMtHgXmskwyS4tjiToOOrrY7Szsdq1tOHLpYk9e0NLdrZ61f2f46ggXHMUT1WNSB8r61uuWmWmZPlvpLf3urNBbscwed6j1wsINXcTrJrnopixwv4mLwUajw7W230205LqUljA7/qg2zkcslxEEctf57MA3lUzB0H8WCt0/7wky16kybSGDAuH12q+b1w7Zdq6g3jRPCZkUiLaOdKPrxcBRFLHvoY5aw0P572i+VrfeeGm/5jSltCgOGSiDws+0pesqal8H8dnvLY0YfwjZXfNtPKYv2SmAtZhoYtq0h72lgW4RtwHw2ZtiuF02/NEDg1WGfl+giPf5CCtPPLyX1seA9xUVkJprYXM+ZzFhi8yfrnvySkmap70Ast3ug7g1Zq3PA+O6PH8PjZhiaVVMNrvE6MDia9alfSAp8L76KP0KdAjoeAwOtZi/KP4gPjb9a0exrFWGsTNpr331Yu5FmVNca4Nd/fsL87ESzr02wTxIYnzdIYhrq0Wv0uQknBqhngPu9pTAbGK4n63A1vjNhQ28G4k4csvfrrBniloPbwMW3ie2Sx5uhtqI7KU7Tvqdm/U4mgqF2BFOHnA9SPIg7ngPcADv0o+h1u2Pk17+d9yL07TyBq/sFjyAD3BcjgjwwPrgXZkOjj/yVPNCHbmrgm8G4E2P0fYaWDbFKx2xgzJB0uP0vWhTBmg==</source>
   </file>
   <file path="component\request\Interfaces\Request.php" generated-path="component.request.Interfaces.Request.html" hash="d1a852cb9c47d878d61087d954029afb" package="Default">
     <docblock line="0">

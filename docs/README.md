@@ -3142,13 +3142,13 @@ Module::instance( null|array $config = null ): \NovemBit\i18n\Module
 
 ## Request
 
-Main Request class
- It make easy to make requests flexible
- Determine type of received request
- Then provide translation for current type of content
+Main Request class.
 
-Its simple but provides very useful functionality
-Module class
+It make easy to make requests flexible.
+Determine type of received request.
+Then provide translation for current type of content.
+
+Using Translation component to translate received buffer content.
 
 * Full name: \NovemBit\i18n\component\request\Request
 * Parent class: \NovemBit\i18n\system\Component
@@ -4664,7 +4664,7 @@ Text::validateBeforeTranslate( string &$text ): boolean
 
 ### validateAfterTranslate
 
-Validate after translate
+Remove Whitespace
 
 ```php
 Text::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
@@ -4677,9 +4677,9 @@ Text::validateAfterTranslate( string $before, string $after, array &$translates 
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
+| `$before` | **string** | Before |
+| `$after` | **string** | After |
+| `$translates` | **array** | Last result |
 
 
 
@@ -5707,4 +5707,4 @@ URL::buildUrl( array $parts ): string
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-03 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-04 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
