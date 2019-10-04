@@ -185,7 +185,7 @@ class Request extends Component implements Interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
      * @return null
@@ -373,6 +373,10 @@ class Request extends Component implements Interfaces\Request
          * */
         $_SERVER['REQUEST_URI'] = $this->getSourceUrl() ?? '/';
 
+        /**
+         * Handling 404 action page
+         * Running page_not_found callable
+         * */
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
 
             if (isset($this->page_not_found_callback)
