@@ -12,7 +12,7 @@
  */
 
 
-namespace NovemBit\i18n\component\translation\Method;
+namespace NovemBit\i18n\component\translation\method;
 
 
 use Exception;

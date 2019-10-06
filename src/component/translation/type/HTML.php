@@ -11,7 +11,7 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\component\translation\Type;
+namespace NovemBit\i18n\component\translation\type;
 
 use DOMAttr;
 use DOMElement;

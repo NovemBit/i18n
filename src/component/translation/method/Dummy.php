@@ -11,7 +11,7 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\component\translation\Method;
+namespace NovemBit\i18n\component\translation\method;
 
 use Exception;
 use NovemBit\i18n\component\translation\Translation;

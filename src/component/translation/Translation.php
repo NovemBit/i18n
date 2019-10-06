@@ -14,11 +14,11 @@
 namespace NovemBit\i18n\component\translation;
 
 
-use NovemBit\i18n\component\translation\Method\Method;
-use NovemBit\i18n\component\translation\Type\HTML;
-use NovemBit\i18n\component\translation\Type\JSON;
-use NovemBit\i18n\component\translation\Type\Text;
-use NovemBit\i18n\component\translation\Type\URL;
+use NovemBit\i18n\component\translation\method\Method;
+use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\JSON;
+use NovemBit\i18n\component\translation\type\Text;
+use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
@@ -34,7 +34,7 @@ use NovemBit\i18n\Module;
  *
  * @property Module $context
  */
-class Translation extends Component implements Interfaces\Translation
+class Translation extends Component implements interfaces\Translation
 {
 
     /**

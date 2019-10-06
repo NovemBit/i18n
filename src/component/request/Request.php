@@ -14,7 +14,7 @@
 namespace NovemBit\i18n\component\request;
 
 use NovemBit\i18n\component\translation\Translation;
-use NovemBit\i18n\component\translation\Type\HTML;
+use NovemBit\i18n\component\translation\type\HTML;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\URL;

@@ -28,7 +28,7 @@ use NovemBit\i18n\system\Component;
  *
  * @property Translation context
  */
-abstract class Translator extends Component implements Interfaces\Translator
+abstract class Translator extends Component implements interfaces\Translator
 {
     /**
      * Type id. Using as column value to save on DB
