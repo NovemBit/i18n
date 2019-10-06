@@ -37,7 +37,7 @@ use NovemBit\i18n\system\exception\Exception;
  *
  * @property Module $context
  * */
-class Request extends Component implements Interfaces\Request
+class Request extends Component implements interfaces\Request
 {
     /**
      * Translation component

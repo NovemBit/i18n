@@ -29,7 +29,7 @@ use NovemBit\i18n\system\Component;
  *
  * @property Module $context
  */
-class Rest extends Component implements Interfaces\Rest
+class Rest extends Component implements interfaces\Rest
 {
 
     /**

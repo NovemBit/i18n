@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NovemBit\i18n\component\languages\Interfaces;
+namespace NovemBit\i18n\component\languages\interfaces;
 
 /**
  * Languages component interface

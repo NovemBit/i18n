@@ -30,7 +30,7 @@ use NovemBit\i18n\component\translation\Translator;
  *
  * @property Translation context
  */
-abstract class Method extends Translator implements Interfaces\Method
+abstract class Method extends Translator implements interfaces\Method
 {
 
     /**

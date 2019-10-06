@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NovemBit\i18n\component\translation\method\Interfaces;
+namespace NovemBit\i18n\component\translation\method\interfaces;
 
 
 use NovemBit\i18n\component\translation\interfaces\Translator;

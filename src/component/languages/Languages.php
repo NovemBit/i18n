@@ -32,7 +32,7 @@ use NovemBit\i18n\system\helpers\URL;
  *
  * @property Module $context
  * */
-class Languages extends Component implements Interfaces\Languages
+class Languages extends Component implements interfaces\Languages
 {
 
     /**
