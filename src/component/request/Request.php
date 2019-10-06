@@ -417,19 +417,15 @@ class Request extends Component implements Interfaces\Request
      * Check exclusions array and expand
      * Callbacks and variables
      *
-     * @return bool|mixed
+     * @return bool
      */
     private function _isExclusion()
     {
         foreach ($this->exclusions as $exclusion) {
             if (is_callable($exclusion)) {
-                if (call_user_func($exclusion, $this) == true) {
-                    return true;
-                }
+                return call_user_func($exclusion, $this);
             } else {
-                if ($exclusion == true) {
-                    return true;
-                }
+                return $exclusion;
             }
         }
         return false;

@@ -97,6 +97,7 @@ To make translations,
 Its using builtin caching system to
 Save already translated texts on DB with Active data</span><pre>translate()</pre></a></li>
 <li class="method public inherited"><a href="#method_validateAfterReTranslate" title="validateAfterReTranslate() :: Validate after ReTranslate"><span class="description">Validate after ReTranslate</span><pre>validateAfterReTranslate()</pre></a></li>
+<li class="method public "><a href="#method_validateAfterTranslate" title="validateAfterTranslate() :: Remove Whitespace"><span class="description">Remove Whitespace</span><pre>validateAfterTranslate()</pre></a></li>
 <li class="method public inherited"><a href="#method_validateAfterTranslate" title="validateAfterTranslate() :: Validate after translate"><span class="description">Validate after translate</span><pre>validateAfterTranslate()</pre></a></li>
 <li class="method public inherited"><a href="#method_validateAllAfterReTranslate" title="validateAllAfterReTranslate() :: Validate all after ReTranslate"><span class="description">Validate all after ReTranslate</span><pre>validateAllAfterReTranslate()</pre></a></li>
 <li class="method public inherited"><a href="#method_validateAllAfterTranslate" title="validateAllAfterTranslate() :: Validate all after translate"><span class="description">Validate all after translate</span><pre>validateAllAfterTranslate()</pre></a></li>
@@ -123,11 +124,16 @@ Sort exclusions by priority</span><pre>_initExclusions()</pre></a></li>
 <i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul>
 <li class="property public "><a href="#property_" title="() :: context"><span class="description"></span><pre></pre></a></li>
+<li class="property public "><a href="#property_clean_whitespace" title="$clean_whitespace() :: If clean whitespace is true then removing whitespace
+from  translated text before caching"><span class="description"></span><pre>$clean_whitespace</pre></a></li>
 <li class="property public "><a href="#property_config" title="$config() :: Constructor configuration array"><span class="description"></span><pre>$config</pre></a></li>
 <li class="property public "><a href="#property_context" title="$context() :: Context (parent) component of current component"><span class="description"></span><pre>$context</pre></a></li>
 <li class="property public "><a href="#property_dont_translate_patterns" title="$dont_translate_patterns() :: Dont translate regexp patterns"><span class="description"></span><pre>$dont_translate_patterns</pre></a></li>
 <li class="property public "><a href="#property_exclusion_pattern" title="$exclusion_pattern() :: Exclusion regex replacement pattern"><span class="description"></span><pre>$exclusion_pattern</pre></a></li>
 <li class="property public "><a href="#property_exclusions" title="$exclusions() :: Exclusions Array of string exclusions"><span class="description"></span><pre>$exclusions</pre></a></li>
+<li class="property public "><a href="#property_preserve_whitespace" title="$preserve_whitespace() :: If element contains whitespace
+Then after translation removing whitespace
+To return final result as clean text"><span class="description"></span><pre>$preserve_whitespace</pre></a></li>
 <li class="property public "><a href="#property_save_translations" title="$save_translations() :: If true then all translations saving on DB"><span class="description"></span><pre>$save_translations</pre></a></li>
 <li class="property public "><a href="#property_type" title="$type() :: Type using as DB type column value"><span class="description"></span><pre>$type</pre></a></li>
 <li class="property public "><a href="#property_type" title="$type() :: Type id. Using as column value to save on DB"><span class="description"></span><pre>$type</pre></a></li>
@@ -410,6 +416,26 @@ Save already translated texts on DB with Active data</h2>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
 </div>
+<a id="method_validateAfterTranslate"></a><div class="element clickable method public method_validateAfterTranslate " data-toggle="collapse" data-target=".method_validateAfterTranslate .collapse" title="public">
+<h2>Remove Whitespace</h2>
+<pre>validateAfterTranslate(string $before, string $after, array $translates) : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$before</h4>
+<code>string</code><p>Before</p></div>
+<div class="subelement argument">
+<h4>$after</h4>
+<code>string</code><p>After</p></div>
+<div class="subelement argument">
+<h4>$translates</h4>
+<code>array</code><p>Last result</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
 <a id="method_validateAfterTranslate"></a><div class="element clickable method public method_validateAfterTranslate inherited" data-toggle="collapse" data-target=".method_validateAfterTranslate .collapse" title="public">
 <h2>Validate after translate</h2>
 <pre>validateAfterTranslate(string $before, string $after, array $translates) : boolean</pre>
@@ -594,6 +620,17 @@ Sort exclusions by priority</h2>
 </table>
 </div></div>
 </div>
+<a id="property_clean_whitespace"> </a><div class="element clickable property public property_clean_whitespace" data-toggle="collapse" data-target=".property_clean_whitespace .collapse" title="public">
+<h2>If clean whitespace is true then removing whitespace
+from  translated text before caching</h2>
+<pre>$clean_whitespace : boolean</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>true</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property_config"> </a><div class="element clickable property public property_config" data-toggle="collapse" data-target=".property_config .collapse" title="public">
 <h2>Constructor configuration array</h2>
 <pre>$config : array</pre>
@@ -640,6 +677,18 @@ Sort exclusions by priority</h2>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_preserve_whitespace"> </a><div class="element clickable property public property_preserve_whitespace" data-toggle="collapse" data-target=".property_preserve_whitespace .collapse" title="public">
+<h2>If element contains whitespace
+Then after translation removing whitespace
+To return final result as clean text</h2>
+<pre>$preserve_whitespace : boolean</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>true</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -721,7 +770,7 @@ Sort exclusions by priority</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-03T14:32:54+04:00.<br></footer></div>
+            generated on 2019-10-04T14:53:30+04:00.<br></footer></div>
 </div>
 </body>
 </html>

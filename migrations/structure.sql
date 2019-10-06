@@ -1,6 +1,6 @@
 /*
-NovemBit i18n db structure
-Database tables structures
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 5.7.27-0ubuntu0.18.04.1 
 *********************************************************************
 */
 /*!40101 SET NAMES utf8 */;
@@ -15,4 +15,4 @@ create table `i18n_translations` (
 	`level` int (11),
 	`created_at` int (11),
 	`updated_at` int (11)
-);
+); 

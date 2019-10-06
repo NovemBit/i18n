@@ -115,9 +115,12 @@ Using ReTranslate method of Translation</span><pre>_getSourceUrlFromTranslate()<
 To add on HTML document &lt;head&gt;"><span class="description">Get XHR(ajax) Manipulation javascript &lt;script&gt; tag
 To add on HTML document &lt;head&gt;</span><pre>_getXHRManipulationJavaScriptTag()</pre></a></li>
 <li class="method private inherited"><a href="#method__isCli" title="_isCli() :: Check if script running on CLI"><span class="description">Check if script running on CLI</span><pre>_isCli()</pre></a></li>
-<li class="method private "><a href="#method__prepare" title="_prepare() :: Prepare
-To create response document"><span class="description">Prepare
-To create response document</span><pre>_prepare()</pre></a></li>
+<li class="method private "><a href="#method__isExclusion" title="_isExclusion() :: Check exclusions array and expand
+Callbacks and variables"><span class="description">Check exclusions array and expand
+Callbacks and variables</span><pre>_isExclusion()</pre></a></li>
+<li class="method private "><a href="#method__prepare" title="_prepare() :: Prepare all components to start request translation
+And to create response document"><span class="description">Prepare all components to start request translation
+And to create response document</span><pre>_prepare()</pre></a></li>
 <li class="method private "><a href="#method__prepareDestination" title="_prepareDestination() :: Prepare Destination to finding source"><span class="description">Prepare Destination to finding source</span><pre>_prepareDestination()</pre></a></li>
 <li class="method private "><a href="#method__prepareLanguage" title="_prepareLanguage() :: Prepare language"><span class="description">Prepare language</span><pre>_prepareLanguage()</pre></a></li>
 <li class="method private "><a href="#method__prepareReferer" title="_prepareReferer() :: Prepare Referer
@@ -144,8 +147,13 @@ To create response document</span><pre>_prepareSourceUrl()</pre></a></li>
 <li class="property public "><a href="#property_config" title="$config() :: Constructor configuration array"><span class="description"></span><pre>$config</pre></a></li>
 <li class="property public "><a href="#property_context" title="$context() :: Context (parent) component of current component"><span class="description"></span><pre>$context</pre></a></li>
 <li class="property public "><a href="#property_context" title="$context() :: "><span class="description"></span><pre>$context</pre></a></li>
-<li class="property public "><a href="#property_editor" title="$editor() :: Status of editor (enabled/disabled)"><span class="description"></span><pre>$editor</pre></a></li>
+<li class="property public "><a href="#property_editor" title="$editor() :: Editor status (enabled/disabled)"><span class="description"></span><pre>$editor</pre></a></li>
 <li class="property public "><a href="#property_editor_query_key" title="$editor_query_key() :: Editor query argument key"><span class="description"></span><pre>$editor_query_key</pre></a></li>
+<li class="property public "><a href="#property_exclusions" title="$exclusions() :: Callback exclusions
+If Callback returns true then current page
+must be skipped"><span class="description"></span><pre>$exclusions</pre></a></li>
+<li class="property public "><a href="#property_on_page_not_found" title="$on_page_not_found() :: Page not found callback function
+Trigger when page not found"><span class="description"></span><pre>$on_page_not_found</pre></a></li>
 </ul>
 </li>
 <li class="nav-header private">» Private
@@ -183,13 +191,12 @@ To create response document</span><pre>_prepareSourceUrl()</pre></a></li>
 </li>
 </ul>
 <div xmlns:php="http://php.net/xsl" class="element class">
-<p class="short_description">Main Request class
- It make easy to make requests flexible
- Determine type of received request
- Then provide translation for current type of content</p>
+<p class="short_description">Main Request class.</p>
 <div class="details">
-<div class="long_description"><p>Its simple but provides very useful functionality
-Module class</p></div>
+<div class="long_description"><p>It make easy to make requests flexible.
+Determine type of received request.
+Then provide translation for current type of content.</p>
+<p>Using Translation component to translate received buffer content.</p></div>
 <table class="table table-bordered">
 <tr>
 <th>category</th>
@@ -551,9 +558,22 @@ To add on HTML document &lt;head&gt;</h2>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
 </div>
+<a id="method__isExclusion"></a><div class="element clickable method private method__isExclusion " data-toggle="collapse" data-target=".method__isExclusion .collapse" title="private">
+<h2>Check exclusions array and expand
+Callbacks and variables</h2>
+<pre>_isExclusion() : boolean | mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>boolean</code><code>mixed</code>
+</div>
+</div></div>
+</div>
 <a id="method__prepare"></a><div class="element clickable method private method__prepare " data-toggle="collapse" data-target=".method__prepare .collapse" title="private">
-<h2>Prepare
-To create response document</h2>
+<h2>Prepare all components to start request translation
+And to create response document</h2>
 <pre>_prepare() : boolean</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -784,7 +804,7 @@ To create response document</h2>
 </div></div>
 </div>
 <a id="property_editor"> </a><div class="element clickable property public property_editor" data-toggle="collapse" data-target=".property_editor .collapse" title="public">
-<h2>Status of editor (enabled/disabled)</h2>
+<h2>Editor status (enabled/disabled)</h2>
 <pre>$editor : boolean</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
@@ -802,6 +822,45 @@ To create response document</h2>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_exclusions"> </a><div class="element clickable property public property_exclusions" data-toggle="collapse" data-target=".property_exclusions .collapse" title="public">
+<h2>Callback exclusions
+If Callback returns true then current page
+must be skipped</h2>
+<pre>$exclusions : array</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>array()</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><pre><code class="language-php">function ($request) {
+  if (  is_admin() &amp;&amp; !wp_doing_ajax()
+      &amp;&amp; (isset($GLOBALS['pagenow']) &amp;&amp; $GLOBALS['pagenow'] != 'wp-login.php')
+  ) {
+     return true;
+  }
+  return false;
+}</code></pre></div></div></div>
+</div>
+<a id="property_on_page_not_found"> </a><div class="element clickable property public property_on_page_not_found" data-toggle="collapse" data-target=".property_on_page_not_found .collapse" title="public">
+<h2>Page not found callback function
+Trigger when page not found</h2>
+<pre>$on_page_not_found : callable</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><pre><code class="language-php">'request' =&gt; [
+  ...
+
+  'page_not_found_callback' =&gt; function($request){
+      echo "404 page not found";
+      die;
+  },
+
+  ...
+]</code></pre></div></div></div>
 </div>
 <a id="property__destination"> </a><div class="element clickable property private property__destination" data-toggle="collapse" data-target=".property__destination .collapse" title="private">
 <h2>Original Destination (REQUEST_URI)</h2>
@@ -900,7 +959,7 @@ To create response document</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-03T14:32:54+04:00.<br></footer></div>
+            generated on 2019-10-04T14:53:30+04:00.<br></footer></div>
 </div>
 </body>
 </html>
