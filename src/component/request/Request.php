@@ -403,7 +403,8 @@ class Request extends Component implements interfaces\Request
                 && is_callable($this->on_page_not_found)
             ) {
 
-                return call_user_func($this->on_page_not_found, $this);
+                call_user_func($this->on_page_not_found, $this);
+                return false;
 
             } else {
                 throw new Exception("404 Not Found", 404);
