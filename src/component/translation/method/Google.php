@@ -93,7 +93,6 @@ class Google extends Method
      * @param string $to     Language code
      * @param array  $result Referenced variable of results
      *
-     * @return array|bool
      * @throws Exception
      */
     private function _translateOneLanguage(array $texts, $to, &$result)
@@ -125,7 +124,9 @@ class Google extends Method
                 );
             }
         } catch (GoogleException $e) {
-            return false;
+            /*
+             * TODO: Make logger to log errors of GT
+             * */
         }
 
         foreach ($translations as $key => $item) {
@@ -139,6 +140,5 @@ class Google extends Method
                 $result[$item['input']][$to] = $node;
             }
         }
-        return true;
     }
 }

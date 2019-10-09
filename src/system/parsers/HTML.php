@@ -207,7 +207,7 @@ class HTML
                              *
                              * @var DOMText $child_node
                              */
-                            if (strlen(trim($child_node->data)) == 0) {
+                            if (mb_strlen(trim($child_node->data)) == 0) {
                                 continue;
                             }
                             call_user_func_array(

@@ -190,7 +190,7 @@ class HTML extends Type
                         $translate = isset(
                             $this->_translations[$type][$node->data][$language]
                         ) ? $this->_translations[$type][$node->data][$language]
-                            : false;
+                            : null;
 
                         /**
                          * Enable helper attributes
@@ -212,7 +212,7 @@ class HTML extends Type
                                 $text = [];
                             }
 
-                            if ($translate !== false) {
+                            if ($translate !== null) {
                                 $text[] = [$node->data,
                                     htmlspecialchars($translate),
                                     $type
