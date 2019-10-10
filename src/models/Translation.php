@@ -171,6 +171,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param int    $level         Level of translation
      *
      * @return void
+     * @throws \yii\db\Exception
      */
     public static function saveTranslations(
         $from_language,
@@ -178,6 +179,8 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $translations,
         $level = 0
     ) {
+
+        $transaction = self::getDb()->beginTransaction();
 
         foreach ($translations as $source => $haystack) {
 
@@ -211,6 +214,8 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 }
             }
         }
+
+        $transaction->commit();
 
     }
 }

@@ -47,6 +47,13 @@ class Request extends Component implements interfaces\Request
     private $_translation;
 
     /**
+     * Main content language
+     *
+     * @var string
+     * */
+    private $_from_language;
+
+    /**
      * Languages of URL
      *
      * @var string
@@ -301,7 +308,7 @@ class Request extends Component implements interfaces\Request
          * If current language is default language
          * Then translate current url for all languages
          * */
-        if ($this->getLanguage() == $this->context->languages->getFromLanguage()) {
+        if ($this->getRefererLanguage() == $this->getFromLanguage()) {
             $this->setRefererTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
@@ -311,22 +318,13 @@ class Request extends Component implements interfaces\Request
             $this->setRefererSourceUrl($this->getReferer());
         } else {
             /*
-            * Set source origin URL
+            * Set referrer source origin URL
             * */
             $this->setRefererSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
                     $this->getRefererLanguage()
                 )
-            );
-
-            /*
-             * Set current url all translations
-             * */
-            $this->setRefererTranslations(
-                $this->getTranslation()
-                    ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
             );
         }
 
@@ -352,9 +350,10 @@ class Request extends Component implements interfaces\Request
          * Then translate current url for all languages
          * */
 
-        if ($this->getLanguage() == $this->context->languages->getFromLanguage()
+        if ($this->getLanguage() == $this->getFromLanguage()
             || $this->getDestination() == '/'
         ) {
+
             $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
@@ -455,7 +454,7 @@ class Request extends Component implements interfaces\Request
          * Then set editor status true to initialize editor JavaScript
          * */
         if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
-            && $this->getLanguage() != $this->context->languages->getFromLanguage()
+            && $this->getLanguage() != $this->getFromLanguage()
         ) {
 
             $this->editor = true;
@@ -543,13 +542,14 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepareLanguage()
     {
-        /*
+        /**
          * Check if tried to access from cli
          * */
         if (!isset($_SERVER['REQUEST_URI'])) {
             return false;
         }
 
+        $this->setFromLanguage($this->context->languages->getFromLanguage());
 
         $_SERVER["ORIG_REQUEST_URI"] = $_SERVER["REQUEST_URI"];
 
@@ -649,7 +649,6 @@ class Request extends Component implements interfaces\Request
      * Save Editor if request is POST and has parameter %prefix%-form
      *
      * @return bool
-     * @throws Exception
      */
     private function _editorSave(): bool
     {
@@ -666,7 +665,7 @@ class Request extends Component implements interfaces\Request
             }
 
             \NovemBit\i18n\models\Translation::saveTranslations(
-                $this->context->languages->getFromLanguage(),
+                $this->getFromLanguage(),
                 1,
                 $result,
                 1
@@ -906,5 +905,27 @@ class Request extends Component implements interfaces\Request
     private function _setTranslation(Translation $translation)
     {
         $this->_translation = $translation;
+    }
+
+    /**
+     * Get main content language
+     *
+     * @return string
+     */
+    public function getFromLanguage(): string
+    {
+        return $this->_from_language;
+    }
+
+    /**
+     * Set main content language
+     *
+     * @param string $from_language Language code
+     *
+     * @return void
+     */
+    public function setFromLanguage(string $from_language)
+    {
+        $this->_from_language = $from_language;
     }
 }

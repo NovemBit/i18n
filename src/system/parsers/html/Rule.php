@@ -218,44 +218,47 @@ class Rule
         }
 
         foreach ($this->getAttrs() as $attribute => $values) {
-            if (!$node->hasAttribute($attribute)) {
-                return false;
+
+            if ($node->hasAttribute($attribute)) {
+                $attribute_value = $node->getAttribute($attribute);
             } else {
-                if ($this->getMode() == self::REGEX) {
-                    $regex_status = false;
-                    foreach ($values as $pattern) {
-                        if (preg_match($pattern, $node->getAttribute($attribute))) {
-                            $regex_status = true;
-                            break;
-                        }
+                $attribute_value = '';
+            }
+
+            if ($this->getMode() == self::REGEX) {
+
+                $regex_status = false;
+                foreach ($values as $pattern) {
+                    if (preg_match($pattern, $attribute_value)) {
+                        $regex_status = true;
+                        break;
                     }
-                    if (!$regex_status) {
-                        return false;
-                    }
-                } elseif ($this->getMode() == self::IN) {
-                    if (!in_array('*', $values)
-                        && !in_array(
-                            $node->getAttribute($attribute), $values
-                        )
-                    ) {
-                        return false;
-                    }
-                } elseif ($this->getMode() == self::CONTAINS) {
-                    if (!(strpos(
-                        $values,
-                        $node->getAttribute($attribute)
-                    ) !== false)
-                    ) {
-                        return false;
-                    }
-                } elseif ($this->getMode() == self::EQ) {
-                    if ($node->getAttribute($attribute) != $values) {
-                        return false;
-                    }
+                }
+                if (!$regex_status) {
+                    return false;
+                }
+            } elseif ($this->getMode() == self::IN) {
+                if (!in_array('*', $values)
+                    && !in_array(
+                        $attribute_value, $values
+                    )
+                ) {
+                    return false;
+                }
+            } elseif ($this->getMode() == self::CONTAINS) {
+                if (!(strpos(
+                    $values,
+                    $attribute_value
+                ) !== false)
+                ) {
+                    return false;
+                }
+            } elseif ($this->getMode() == self::EQ) {
+                if ($attribute_value != $values) {
+                    return false;
                 }
             }
         }
-
 
         return true;
     }
