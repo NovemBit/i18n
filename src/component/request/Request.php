@@ -447,6 +447,7 @@ class Request extends Component implements interfaces\Request
         }
 
         $this->_setTranslation($this->context->translation);
+        $this->setFromLanguage($this->context->languages->getFromLanguage());
 
         /**
          * If isset editor query key
@@ -549,8 +550,6 @@ class Request extends Component implements interfaces\Request
             return false;
         }
 
-        $this->setFromLanguage($this->context->languages->getFromLanguage());
-
         $_SERVER["ORIG_REQUEST_URI"] = $_SERVER["REQUEST_URI"];
 
         /**
@@ -649,6 +648,7 @@ class Request extends Component implements interfaces\Request
      * Save Editor if request is POST and has parameter %prefix%-form
      *
      * @return bool
+     * @throws \yii\db\Exception
      */
     private function _editorSave(): bool
     {
@@ -682,6 +682,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      * @throws Exception
+     * @throws \yii\db\Exception
      */
     public function start()
     {
@@ -793,7 +794,7 @@ class Request extends Component implements interfaces\Request
      */
     private function _getXHRManipulationJavaScriptTag()
     {
-        $script = file_get_contents(__DIR__ . '/request/assets/js/xhr.js.js');
+        $script = file_get_contents(__DIR__ . '/assets/js/xhr.js');
         return "<script type=\"application/javascript\">{$script}</script>";
     }
 

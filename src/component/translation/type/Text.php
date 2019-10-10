@@ -53,7 +53,13 @@ class Text extends Type
          * Dont translate texts that contains less then 3 characters
          * Or not contains letters
          * */
-        '^(([^\p{L}]+)|(.{1,2}))$'
+        '^(([^\p{L}]+)|(.{1,2}))$',
+
+        /**
+         * Do not translate texts that underlined phrase like this
+         * some_underlined_text
+         * */
+        '^\w+?(?>_\w+)+$'
     ];
 
     /**

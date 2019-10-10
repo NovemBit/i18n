@@ -274,7 +274,7 @@ class HTML extends Type
                             }
                         }
 
-                        $node->value = $translate ?? $node->value;
+                        $node->value = htmlspecialchars($translate) ?? $node->value;
                     }
                 );
 
