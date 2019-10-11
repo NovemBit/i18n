@@ -161,6 +161,8 @@
     * [getUrlTranslations](#geturltranslations)
     * [getLanguage](#getlanguage)
     * [getTranslation](#gettranslation)
+    * [getFromLanguage](#getfromlanguage-1)
+    * [setFromLanguage](#setfromlanguage)
 * [Rest](#rest)
     * [__construct](#__construct-8)
     * [commonInit](#commoninit-8)
@@ -240,7 +242,7 @@
     * [cliInit](#cliinit-11)
     * [setLanguages](#setlanguages)
     * [getLanguages](#getlanguages)
-    * [getFromLanguage](#getfromlanguage-1)
+    * [getFromLanguage](#getfromlanguage-2)
 * [URL](#url)
     * [init](#init-12)
     * [beforeTranslate](#beforetranslate-6)
@@ -561,8 +563,8 @@ Dummy method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Method\Dummy
-* Parent class: \NovemBit\i18n\component\translation\Method\Method
+* Full name: \NovemBit\i18n\component\translation\method\Dummy
+* Parent class: \NovemBit\i18n\component\translation\method\Method
 
 **See Also:**
 
@@ -1046,8 +1048,8 @@ Google Translate method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Method\Google
-* Parent class: \NovemBit\i18n\component\translation\Method\Method
+* Full name: \NovemBit\i18n\component\translation\method\Google
+* Parent class: \NovemBit\i18n\component\translation\method\Method
 
 **See Also:**
 
@@ -1501,8 +1503,8 @@ HTML type for translation component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Type\HTML
-* Parent class: \NovemBit\i18n\component\translation\Type\Type
+* Full name: \NovemBit\i18n\component\translation\type\HTML
+* Parent class: \NovemBit\i18n\component\translation\type\Type
 
 **See Also:**
 
@@ -2222,8 +2224,8 @@ JSON type for translation component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Type\JSON
-* Parent class: \NovemBit\i18n\component\translation\Type\Type
+* Full name: \NovemBit\i18n\component\translation\type\JSON
+* Parent class: \NovemBit\i18n\component\translation\type\Type
 
 **See Also:**
 
@@ -2683,7 +2685,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\languages\Languages
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\languages\Interfaces\Languages
+* This class implements: \NovemBit\i18n\component\languages\interfaces\Languages
 
 **See Also:**
 
@@ -3142,17 +3144,18 @@ Module::instance( null|array $config = null ): \NovemBit\i18n\Module
 
 ## Request
 
-Main Request class.
+Request component main class.
 
+# Meaning of Request component
 It make easy to make requests flexible.
 Determine type of received request.
 Then provide translation for current type of content.
 
-Using Translation component to translate received buffer content.
+> Using Translation component to translate received buffer content.
 
 * Full name: \NovemBit\i18n\component\request\Request
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\request\Interfaces\Request
+* This class implements: \NovemBit\i18n\component\request\interfaces\Request
 
 **See Also:**
 
@@ -3532,6 +3535,44 @@ Request::getTranslation(  ): \NovemBit\i18n\component\translation\Translation
 
 ---
 
+### getFromLanguage
+
+Get main content language
+
+```php
+Request::getFromLanguage(  ): string
+```
+
+
+
+
+
+
+
+---
+
+### setFromLanguage
+
+Set main content language
+
+```php
+Request::setFromLanguage( string $from_language ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | Language code |
+
+
+
+
+---
+
 ## Rest
 
 Rest component
@@ -3541,7 +3582,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\rest\Rest
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\rest\Interfaces\Rest
+* This class implements: \NovemBit\i18n\component\rest\interfaces\Rest
 
 **See Also:**
 
@@ -3722,8 +3763,8 @@ Rest Translate method of translation
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Method\RestMethod
-* Parent class: \NovemBit\i18n\component\translation\Method\Method
+* Full name: \NovemBit\i18n\component\translation\method\RestMethod
+* Parent class: \NovemBit\i18n\component\translation\method\Method
 
 **See Also:**
 
@@ -4390,8 +4431,8 @@ Text type for Translation component
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Type\Text
-* Parent class: \NovemBit\i18n\component\translation\Type\Type
+* Full name: \NovemBit\i18n\component\translation\type\Text
+* Parent class: \NovemBit\i18n\component\translation\type\Type
 
 **See Also:**
 
@@ -4995,7 +5036,7 @@ Module class
 
 * Full name: \NovemBit\i18n\component\translation\Translation
 * Parent class: \NovemBit\i18n\system\Component
-* This class implements: \NovemBit\i18n\component\translation\Interfaces\Translation
+* This class implements: \NovemBit\i18n\component\translation\interfaces\Translation
 
 **See Also:**
 
@@ -5167,8 +5208,8 @@ Translate urls paths and build fully working url
 Its simple but provides very useful functionality
 Module class
 
-* Full name: \NovemBit\i18n\component\translation\Type\URL
-* Parent class: \NovemBit\i18n\component\translation\Type\Type
+* Full name: \NovemBit\i18n\component\translation\type\URL
+* Parent class: \NovemBit\i18n\component\translation\type\Type
 
 **See Also:**
 
@@ -5707,4 +5748,4 @@ URL::buildUrl( array $parts ): string
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-04 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-11 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

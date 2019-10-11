@@ -21,6 +21,58 @@
 <path fill="none" stroke="gray" d="M36,-60C36,-60 742.685,-60 742.685,-60 748.685,-60 754.685,-66 754.685,-72 754.685,-72 754.685,-1642 754.685,-1642 754.685,-1648 748.685,-1654 742.685,-1654 742.685,-1654 36,-1654 36,-1654 30,-1654 24,-1648 24,-1642 24,-1642 24,-72 24,-72 24,-66 30,-60 36,-60"/>
 <text text-anchor="middle" x="389.342" y="-1641.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">i18n</text>
 </g>
+<g id="clust4" class="cluster"><title>cluster_\NovemBit\i18n\component</title>
+<path fill="none" stroke="gray" d="M44,-604C44,-604 734.685,-604 734.685,-604 740.685,-604 746.685,-610 746.685,-616 746.685,-616 746.685,-1614 746.685,-1614 746.685,-1620 740.685,-1626 734.685,-1626 734.685,-1626 44,-1626 44,-1626 38,-1626 32,-1620 32,-1614 32,-1614 32,-616 32,-616 32,-610 38,-604 44,-604"/>
+<text text-anchor="middle" x="389.342" y="-1613.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">component</text>
+</g>
+<g id="clust5" class="cluster"><title>cluster_\NovemBit\i18n\component\languages</title>
+<path fill="none" stroke="gray" d="M471.685,-1490C471.685,-1490 715.185,-1490 715.185,-1490 721.185,-1490 727.185,-1496 727.185,-1502 727.185,-1502 727.185,-1586 727.185,-1586 727.185,-1592 721.185,-1598 715.185,-1598 715.185,-1598 471.685,-1598 471.685,-1598 465.685,-1598 459.685,-1592 459.685,-1586 459.685,-1586 459.685,-1502 459.685,-1502 459.685,-1496 465.685,-1490 471.685,-1490"/>
+<text text-anchor="middle" x="593.435" y="-1585.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">languages</text>
+</g>
+<g id="clust6" class="cluster"><title>cluster_\NovemBit\i18n\component\languages\interfaces</title>
+<path fill="none" stroke="gray" d="M479.685,-1498C479.685,-1498 548.685,-1498 548.685,-1498 554.685,-1498 560.685,-1504 560.685,-1510 560.685,-1510 560.685,-1558 560.685,-1558 560.685,-1564 554.685,-1570 548.685,-1570 548.685,-1570 479.685,-1570 479.685,-1570 473.685,-1570 467.685,-1564 467.685,-1558 467.685,-1558 467.685,-1510 467.685,-1510 467.685,-1504 473.685,-1498 479.685,-1498"/>
+<text text-anchor="middle" x="514.185" y="-1557.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
+<g id="clust7" class="cluster"><title>cluster_\NovemBit\i18n\component\rest</title>
+<path fill="none" stroke="gray" d="M483.185,-728C483.185,-728 703.685,-728 703.685,-728 709.685,-728 715.685,-734 715.685,-740 715.685,-740 715.685,-824 715.685,-824 715.685,-830 709.685,-836 703.685,-836 703.685,-836 483.185,-836 483.185,-836 477.185,-836 471.185,-830 471.185,-824 471.185,-824 471.185,-740 471.185,-740 471.185,-734 477.185,-728 483.185,-728"/>
+<text text-anchor="middle" x="593.435" y="-823.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">rest</text>
+</g>
+<g id="clust8" class="cluster"><title>cluster_\NovemBit\i18n\component\rest\interfaces</title>
+<path fill="none" stroke="gray" d="M491.185,-736C491.185,-736 537.185,-736 537.185,-736 543.185,-736 549.185,-742 549.185,-748 549.185,-748 549.185,-796 549.185,-796 549.185,-802 543.185,-808 537.185,-808 537.185,-808 491.185,-808 491.185,-808 485.185,-808 479.185,-802 479.185,-796 479.185,-796 479.185,-748 479.185,-748 479.185,-742 485.185,-736 491.185,-736"/>
+<text text-anchor="middle" x="514.185" y="-795.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
+<g id="clust9" class="cluster"><title>cluster_\NovemBit\i18n\component\translation</title>
+<path fill="none" stroke="gray" d="M52,-844C52,-844 726.685,-844 726.685,-844 732.685,-844 738.685,-850 738.685,-856 738.685,-856 738.685,-1470 738.685,-1470 738.685,-1476 732.685,-1482 726.685,-1482 726.685,-1482 52,-1482 52,-1482 46,-1482 40,-1476 40,-1470 40,-1470 40,-856 40,-856 40,-850 46,-844 52,-844"/>
+<text text-anchor="middle" x="389.342" y="-1469.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">translation</text>
+</g>
+<g id="clust12" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\method</title>
+<path fill="none" stroke="gray" d="M273.592,-1274C273.592,-1274 718.685,-1274 718.685,-1274 724.685,-1274 730.685,-1280 730.685,-1286 730.685,-1286 730.685,-1442 730.685,-1442 730.685,-1448 724.685,-1454 718.685,-1454 718.685,-1454 273.592,-1454 273.592,-1454 267.592,-1454 261.592,-1448 261.592,-1442 261.592,-1442 261.592,-1286 261.592,-1286 261.592,-1280 267.592,-1274 273.592,-1274"/>
+<text text-anchor="middle" x="496.138" y="-1441.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">method</text>
+</g>
+<g id="clust13" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\method\interfaces</title>
+<path fill="none" stroke="gray" d="M281.592,-1282C281.592,-1282 330.592,-1282 330.592,-1282 336.592,-1282 342.592,-1288 342.592,-1294 342.592,-1294 342.592,-1342 342.592,-1342 342.592,-1348 336.592,-1354 330.592,-1354 330.592,-1354 281.592,-1354 281.592,-1354 275.592,-1354 269.592,-1348 269.592,-1342 269.592,-1342 269.592,-1294 269.592,-1294 269.592,-1288 275.592,-1282 281.592,-1282"/>
+<text text-anchor="middle" x="306.092" y="-1341.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
+<g id="clust14" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\interfaces</title>
+<path fill="none" stroke="gray" d="M60,-914C60,-914 143,-914 143,-914 149,-914 155,-920 155,-926 155,-926 155,-1028 155,-1028 155,-1034 149,-1040 143,-1040 143,-1040 60,-1040 60,-1040 54,-1040 48,-1034 48,-1028 48,-1028 48,-926 48,-926 48,-920 54,-914 60,-914"/>
+<text text-anchor="middle" x="101.5" y="-1027.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
+<g id="clust10" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\type</title>
+<path fill="none" stroke="gray" d="M275.092,-950C275.092,-950 703.685,-950 703.685,-950 709.685,-950 715.685,-956 715.685,-962 715.685,-962 715.685,-1254 715.685,-1254 715.685,-1260 709.685,-1266 703.685,-1266 703.685,-1266 275.092,-1266 275.092,-1266 269.092,-1266 263.092,-1260 263.092,-1254 263.092,-1254 263.092,-962 263.092,-962 263.092,-956 269.092,-950 275.092,-950"/>
+<text text-anchor="middle" x="489.388" y="-1253.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">type</text>
+</g>
+<g id="clust11" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\type\interfaces</title>
+<path fill="none" stroke="gray" d="M283.092,-1004C283.092,-1004 537.185,-1004 537.185,-1004 543.185,-1004 549.185,-1010 549.185,-1016 549.185,-1016 549.185,-1226 549.185,-1226 549.185,-1232 543.185,-1238 537.185,-1238 537.185,-1238 283.092,-1238 283.092,-1238 277.092,-1238 271.092,-1232 271.092,-1226 271.092,-1226 271.092,-1016 271.092,-1016 271.092,-1010 277.092,-1004 283.092,-1004"/>
+<text text-anchor="middle" x="410.138" y="-1225.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
+<g id="clust15" class="cluster"><title>cluster_\NovemBit\i18n\component\request</title>
+<path fill="none" stroke="gray" d="M478.185,-612C478.185,-612 708.685,-612 708.685,-612 714.685,-612 720.685,-618 720.685,-624 720.685,-624 720.685,-708 720.685,-708 720.685,-714 714.685,-720 708.685,-720 708.685,-720 478.185,-720 478.185,-720 472.185,-720 466.185,-714 466.185,-708 466.185,-708 466.185,-624 466.185,-624 466.185,-618 472.185,-612 478.185,-612"/>
+<text text-anchor="middle" x="593.435" y="-707.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">request</text>
+</g>
+<g id="clust16" class="cluster"><title>cluster_\NovemBit\i18n\component\request\interfaces</title>
+<path fill="none" stroke="gray" d="M486.185,-620C486.185,-620 542.185,-620 542.185,-620 548.185,-620 554.185,-626 554.185,-632 554.185,-632 554.185,-680 554.185,-680 554.185,-686 548.185,-692 542.185,-692 542.185,-692 486.185,-692 486.185,-692 480.185,-692 474.185,-686 474.185,-680 474.185,-680 474.185,-632 474.185,-632 474.185,-626 480.185,-620 486.185,-620"/>
+<text text-anchor="middle" x="514.185" y="-679.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
+</g>
 <g id="clust17" class="cluster"><title>cluster_\NovemBit\i18n\models</title>
 <path fill="none" stroke="gray" d="M464.685,-68C464.685,-68 722.185,-68 722.185,-68 728.185,-68 734.185,-74 734.185,-80 734.185,-80 734.185,-208 734.185,-208 734.185,-214 728.185,-220 722.185,-220 722.185,-220 464.685,-220 464.685,-220 458.685,-220 452.685,-214 452.685,-208 452.685,-208 452.685,-80 452.685,-80 452.685,-74 458.685,-68 464.685,-68"/>
 <text text-anchor="middle" x="593.435" y="-207.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">models</text>
@@ -53,245 +105,20 @@
 <path fill="none" stroke="gray" d="M283.092,-76C283.092,-76 329.092,-76 329.092,-76 335.092,-76 341.092,-82 341.092,-88 341.092,-88 341.092,-136 341.092,-136 341.092,-142 335.092,-148 329.092,-148 329.092,-148 283.092,-148 283.092,-148 277.092,-148 271.092,-142 271.092,-136 271.092,-136 271.092,-88 271.092,-88 271.092,-82 277.092,-76 283.092,-76"/>
 <text text-anchor="middle" x="306.092" y="-135.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">component</text>
 </g>
-<g id="clust4" class="cluster"><title>cluster_\NovemBit\i18n\component</title>
-<path fill="none" stroke="gray" d="M44,-604C44,-604 734.685,-604 734.685,-604 740.685,-604 746.685,-610 746.685,-616 746.685,-616 746.685,-1614 746.685,-1614 746.685,-1620 740.685,-1626 734.685,-1626 734.685,-1626 44,-1626 44,-1626 38,-1626 32,-1620 32,-1614 32,-1614 32,-616 32,-616 32,-610 38,-604 44,-604"/>
-<text text-anchor="middle" x="389.342" y="-1613.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">component</text>
+<!-- \\NovemBit\\i18n\\component\\languages\\interfaces\\Languages -->
+<g id="node1" class="node"><title>\\NovemBit\\i18n\\component\\languages\\interfaces\\Languages</title>
+<polygon fill="none" stroke="black" points="552.685,-1542 475.685,-1542 475.685,-1506 552.685,-1506 552.685,-1542"/>
+<text text-anchor="middle" x="514.185" y="-1521.2" font-family="Courier,monospace" font-size="11.00">Languages</text>
 </g>
-<g id="clust11" class="cluster"><title>cluster_\NovemBit\i18n\component\rest</title>
-<path fill="none" stroke="gray" d="M483.185,-1490C483.185,-1490 703.685,-1490 703.685,-1490 709.685,-1490 715.685,-1496 715.685,-1502 715.685,-1502 715.685,-1586 715.685,-1586 715.685,-1592 709.685,-1598 703.685,-1598 703.685,-1598 483.185,-1598 483.185,-1598 477.185,-1598 471.185,-1592 471.185,-1586 471.185,-1586 471.185,-1502 471.185,-1502 471.185,-1496 477.185,-1490 483.185,-1490"/>
-<text text-anchor="middle" x="593.435" y="-1585.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">rest</text>
+<!-- \\NovemBit\\i18n\\component\\languages\\Languages -->
+<g id="node2" class="node"><title>\\NovemBit\\i18n\\component\\languages\\Languages</title>
+<polygon fill="none" stroke="black" points="719.185,-1534 642.185,-1534 642.185,-1498 719.185,-1498 719.185,-1534"/>
+<text text-anchor="middle" x="680.685" y="-1513.2" font-family="Courier,monospace" font-size="11.00">Languages</text>
 </g>
-<g id="clust12" class="cluster"><title>cluster_\NovemBit\i18n\component\rest\Interfaces</title>
-<path fill="none" stroke="gray" d="M491.185,-1498C491.185,-1498 537.185,-1498 537.185,-1498 543.185,-1498 549.185,-1504 549.185,-1510 549.185,-1510 549.185,-1558 549.185,-1558 549.185,-1564 543.185,-1570 537.185,-1570 537.185,-1570 491.185,-1570 491.185,-1570 485.185,-1570 479.185,-1564 479.185,-1558 479.185,-1558 479.185,-1510 479.185,-1510 479.185,-1504 485.185,-1498 491.185,-1498"/>
-<text text-anchor="middle" x="514.185" y="-1557.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Interfaces</text>
-</g>
-<g id="clust13" class="cluster"><title>cluster_\NovemBit\i18n\component\languages</title>
-<path fill="none" stroke="gray" d="M471.685,-1374C471.685,-1374 715.185,-1374 715.185,-1374 721.185,-1374 727.185,-1380 727.185,-1386 727.185,-1386 727.185,-1470 727.185,-1470 727.185,-1476 721.185,-1482 715.185,-1482 715.185,-1482 471.685,-1482 471.685,-1482 465.685,-1482 459.685,-1476 459.685,-1470 459.685,-1470 459.685,-1386 459.685,-1386 459.685,-1380 465.685,-1374 471.685,-1374"/>
-<text text-anchor="middle" x="593.435" y="-1469.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">languages</text>
-</g>
-<g id="clust14" class="cluster"><title>cluster_\NovemBit\i18n\component\languages\Interfaces</title>
-<path fill="none" stroke="gray" d="M479.685,-1382C479.685,-1382 548.685,-1382 548.685,-1382 554.685,-1382 560.685,-1388 560.685,-1394 560.685,-1394 560.685,-1442 560.685,-1442 560.685,-1448 554.685,-1454 548.685,-1454 548.685,-1454 479.685,-1454 479.685,-1454 473.685,-1454 467.685,-1448 467.685,-1442 467.685,-1442 467.685,-1394 467.685,-1394 467.685,-1388 473.685,-1382 479.685,-1382"/>
-<text text-anchor="middle" x="514.185" y="-1441.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Interfaces</text>
-</g>
-<g id="clust5" class="cluster"><title>cluster_\NovemBit\i18n\component\translation</title>
-<path fill="none" stroke="gray" d="M52,-728C52,-728 726.685,-728 726.685,-728 732.685,-728 738.685,-734 738.685,-740 738.685,-740 738.685,-1354 738.685,-1354 738.685,-1360 732.685,-1366 726.685,-1366 726.685,-1366 52,-1366 52,-1366 46,-1366 40,-1360 40,-1354 40,-1354 40,-740 40,-740 40,-734 46,-728 52,-728"/>
-<text text-anchor="middle" x="389.342" y="-1353.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">translation</text>
-</g>
-<g id="clust8" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\Method</title>
-<path fill="none" stroke="gray" d="M273.592,-1158C273.592,-1158 718.685,-1158 718.685,-1158 724.685,-1158 730.685,-1164 730.685,-1170 730.685,-1170 730.685,-1326 730.685,-1326 730.685,-1332 724.685,-1338 718.685,-1338 718.685,-1338 273.592,-1338 273.592,-1338 267.592,-1338 261.592,-1332 261.592,-1326 261.592,-1326 261.592,-1170 261.592,-1170 261.592,-1164 267.592,-1158 273.592,-1158"/>
-<text text-anchor="middle" x="496.138" y="-1325.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Method</text>
-</g>
-<g id="clust9" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\Method\Interfaces</title>
-<path fill="none" stroke="gray" d="M281.592,-1166C281.592,-1166 330.592,-1166 330.592,-1166 336.592,-1166 342.592,-1172 342.592,-1178 342.592,-1178 342.592,-1226 342.592,-1226 342.592,-1232 336.592,-1238 330.592,-1238 330.592,-1238 281.592,-1238 281.592,-1238 275.592,-1238 269.592,-1232 269.592,-1226 269.592,-1226 269.592,-1178 269.592,-1178 269.592,-1172 275.592,-1166 281.592,-1166"/>
-<text text-anchor="middle" x="306.092" y="-1225.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Interfaces</text>
-</g>
-<g id="clust10" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\Interfaces</title>
-<path fill="none" stroke="gray" d="M60,-798C60,-798 143,-798 143,-798 149,-798 155,-804 155,-810 155,-810 155,-912 155,-912 155,-918 149,-924 143,-924 143,-924 60,-924 60,-924 54,-924 48,-918 48,-912 48,-912 48,-810 48,-810 48,-804 54,-798 60,-798"/>
-<text text-anchor="middle" x="101.5" y="-911.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Interfaces</text>
-</g>
-<g id="clust6" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\Type</title>
-<path fill="none" stroke="gray" d="M275.092,-834C275.092,-834 703.685,-834 703.685,-834 709.685,-834 715.685,-840 715.685,-846 715.685,-846 715.685,-1138 715.685,-1138 715.685,-1144 709.685,-1150 703.685,-1150 703.685,-1150 275.092,-1150 275.092,-1150 269.092,-1150 263.092,-1144 263.092,-1138 263.092,-1138 263.092,-846 263.092,-846 263.092,-840 269.092,-834 275.092,-834"/>
-<text text-anchor="middle" x="489.388" y="-1137.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Type</text>
-</g>
-<g id="clust7" class="cluster"><title>cluster_\NovemBit\i18n\component\translation\Type\interfaces</title>
-<path fill="none" stroke="gray" d="M283.092,-888C283.092,-888 537.185,-888 537.185,-888 543.185,-888 549.185,-894 549.185,-900 549.185,-900 549.185,-1110 549.185,-1110 549.185,-1116 543.185,-1122 537.185,-1122 537.185,-1122 283.092,-1122 283.092,-1122 277.092,-1122 271.092,-1116 271.092,-1110 271.092,-1110 271.092,-900 271.092,-900 271.092,-894 277.092,-888 283.092,-888"/>
-<text text-anchor="middle" x="410.138" y="-1109.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">interfaces</text>
-</g>
-<g id="clust15" class="cluster"><title>cluster_\NovemBit\i18n\component\request</title>
-<path fill="none" stroke="gray" d="M478.185,-612C478.185,-612 708.685,-612 708.685,-612 714.685,-612 720.685,-618 720.685,-624 720.685,-624 720.685,-708 720.685,-708 720.685,-714 714.685,-720 708.685,-720 708.685,-720 478.185,-720 478.185,-720 472.185,-720 466.185,-714 466.185,-708 466.185,-708 466.185,-624 466.185,-624 466.185,-618 472.185,-612 478.185,-612"/>
-<text text-anchor="middle" x="593.435" y="-707.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">request</text>
-</g>
-<g id="clust16" class="cluster"><title>cluster_\NovemBit\i18n\component\request\Interfaces</title>
-<path fill="none" stroke="gray" d="M486.185,-620C486.185,-620 542.185,-620 542.185,-620 548.185,-620 554.185,-626 554.185,-632 554.185,-632 554.185,-680 554.185,-680 554.185,-686 548.185,-692 542.185,-692 542.185,-692 486.185,-692 486.185,-692 480.185,-692 474.185,-686 474.185,-680 474.185,-680 474.185,-632 474.185,-632 474.185,-626 480.185,-620 486.185,-620"/>
-<text text-anchor="middle" x="514.185" y="-679.2" font-family="Times New Roman,serif" font-size="11.00" fill="gray">Interfaces</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\URL -->
-<g id="node1" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\URL</title>
-<polygon fill="none" stroke="black" points="541.185,-1094 487.185,-1094 487.185,-1058 541.185,-1058 541.185,-1094"/>
-<text text-anchor="middle" x="514.185" y="-1073.2" font-family="Courier,monospace" font-size="11.00">URL</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="node5" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<polygon fill="none" stroke="black" points="333.092,-959 279.092,-959 279.092,-923 333.092,-923 333.092,-959"/>
-<text text-anchor="middle" x="306.092" y="-938.2" font-family="Courier,monospace" font-size="11.00">Type</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="edge28" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<path fill="none" stroke="black" d="M486.955,-1065.77C476.083,-1061.16 463.508,-1055.33 452.685,-1049 409.904,-1023.99 364.67,-988.89 336.186,-965.572"/>
-<polygon fill="none" stroke="black" points="338.2,-962.696 328.259,-959.032 333.745,-968.095 338.2,-962.696"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Text -->
-<g id="node2" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Text</title>
-<polygon fill="none" stroke="black" points="541.185,-1040 487.185,-1040 487.185,-1004 541.185,-1004 541.185,-1040"/>
-<text text-anchor="middle" x="514.185" y="-1019.2" font-family="Courier,monospace" font-size="11.00">Text</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="edge29" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<path fill="none" stroke="black" d="M487.083,-1011.74C450.483,-997.356 383.794,-971.146 342.675,-954.985"/>
-<polygon fill="none" stroke="black" points="343.894,-951.704 333.307,-951.303 341.333,-958.218 343.894,-951.704"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\JSON -->
-<g id="node3" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\JSON</title>
-<polygon fill="none" stroke="black" points="541.185,-986 487.185,-986 487.185,-950 541.185,-950 541.185,-986"/>
-<text text-anchor="middle" x="514.185" y="-965.2" font-family="Courier,monospace" font-size="11.00">JSON</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="edge31" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<path fill="none" stroke="black" d="M487.083,-964.58C450.714,-959.816 384.637,-951.159 343.458,-945.764"/>
-<polygon fill="none" stroke="black" points="343.677,-942.263 333.307,-944.434 342.767,-949.204 343.677,-942.263"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\HTML -->
-<g id="node4" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\HTML</title>
-<polygon fill="none" stroke="black" points="541.185,-932 487.185,-932 487.185,-896 541.185,-896 541.185,-932"/>
-<text text-anchor="middle" x="514.185" y="-911.2" font-family="Courier,monospace" font-size="11.00">HTML</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="edge32" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<path fill="none" stroke="black" d="M487.083,-917.42C450.714,-922.184 384.637,-930.841 343.458,-936.236"/>
-<polygon fill="none" stroke="black" points="342.767,-932.796 333.307,-937.566 343.677,-939.737 342.767,-932.796"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator -->
-<g id="node17" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator</title>
-<polygon fill="none" stroke="black" points="143.5,-896 59.5,-896 59.5,-860 143.5,-860 143.5,-896"/>
-<text text-anchor="middle" x="101.5" y="-875.2" font-family="Courier,monospace" font-size="11.00">Translator</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator -->
-<g id="edge33" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator</title>
-<path fill="none" stroke="black" d="M278.932,-934.95C261.782,-930.829 238.931,-925.041 219,-919 197.31,-912.426 173.67,-904.291 153.388,-897.004"/>
-<polygon fill="none" stroke="black" points="154.318,-893.619 143.724,-893.506 151.936,-900.201 154.318,-893.619"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\Text -->
-<g id="node6" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\Text</title>
-<polygon fill="none" stroke="black" points="707.685,-932 653.685,-932 653.685,-896 707.685,-896 707.685,-932"/>
-<text text-anchor="middle" x="680.685" y="-911.2" font-family="Courier,monospace" font-size="11.00">Text</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\Type -->
-<g id="node9" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\Type</title>
-<polygon fill="none" stroke="black" points="556.185,-878 472.185,-878 472.185,-842 556.185,-842 556.185,-878"/>
-<text text-anchor="start" x="480.185" y="-863.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="500.185" y="-851.2" font-family="Courier,monospace" font-size="11.00">Type</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type -->
-<g id="edge8" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type</title>
-<path fill="none" stroke="black" d="M653.619,-905.444C630.096,-897.722 594.829,-886.145 565.779,-876.609"/>
-<polygon fill="none" stroke="black" points="566.785,-873.255 556.192,-873.461 564.601,-879.906 566.785,-873.255"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\HTML -->
-<g id="node7" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\HTML</title>
-<polygon fill="none" stroke="black" points="707.685,-878 653.685,-878 653.685,-842 707.685,-842 707.685,-878"/>
-<text text-anchor="middle" x="680.685" y="-857.2" font-family="Courier,monospace" font-size="11.00">HTML</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type -->
-<g id="edge9" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type</title>
-<path fill="none" stroke="black" d="M653.619,-860C630.301,-860 595.442,-860 566.539,-860"/>
-<polygon fill="none" stroke="black" points="566.192,-856.5 556.192,-860 566.192,-863.5 566.192,-856.5"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\URL -->
-<g id="node8" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\URL</title>
-<polygon fill="none" stroke="black" points="707.685,-1040 653.685,-1040 653.685,-1004 707.685,-1004 707.685,-1040"/>
-<text text-anchor="middle" x="680.685" y="-1019.2" font-family="Courier,monospace" font-size="11.00">URL</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type -->
-<g id="edge19" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type</title>
-<path fill="none" stroke="black" d="M653.222,-1008.79C646.876,-1004.89 640.427,-1000.24 635.185,-995 594.337,-954.193 610.84,-922.358 567.685,-884 566.715,-883.139 565.71,-882.303 564.675,-881.493"/>
-<polygon fill="none" stroke="black" points="566.491,-878.495 556.252,-875.771 562.558,-884.286 566.491,-878.495"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type -->
-<g id="edge22" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\interfaces\\Type</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M472.132,-875.292C465.554,-878.026 458.877,-880.973 452.685,-884 425.121,-897.474 421.55,-907.309 393.185,-919 377.273,-925.558 358.879,-930.579 343.189,-934.156"/>
-<polygon fill="none" stroke="black" points="342.35,-930.756 333.322,-936.3 343.837,-937.597 342.35,-930.756"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translator -->
-<g id="node19" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Translator</title>
-<polygon fill="none" stroke="black" points="348.092,-826 264.092,-826 264.092,-790 348.092,-790 348.092,-826"/>
-<text text-anchor="start" x="272.092" y="-811.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="272.092" y="-799.2" font-family="Courier,monospace" font-size="11.00">Translator</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator -->
-<g id="edge21" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator</title>
-<path fill="none" stroke="black" d="M471.974,-849.602C439.259,-841.347 393.348,-829.763 358.277,-820.915"/>
-<polygon fill="none" stroke="black" points="358.784,-817.433 348.231,-818.38 357.071,-824.22 358.784,-817.433"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\JSON -->
-<g id="node10" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Type\\JSON</title>
-<polygon fill="none" stroke="black" points="707.685,-986 653.685,-986 653.685,-950 707.685,-950 707.685,-986"/>
-<text text-anchor="middle" x="680.685" y="-965.2" font-family="Courier,monospace" font-size="11.00">JSON</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Type\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type -->
-<g id="edge23" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Type\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Type\\Type</title>
-<path fill="none" stroke="black" d="M653.361,-952.96C647.274,-949.228 640.908,-945.114 635.185,-941 603.303,-918.08 600.847,-905.024 567.685,-884 566.907,-883.507 566.117,-883.018 565.318,-882.535"/>
-<polygon fill="none" stroke="black" points="566.888,-879.402 556.456,-877.549 563.456,-885.503 566.888,-879.402"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method -->
-<g id="node11" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method</title>
-<polygon fill="none" stroke="black" points="334.592,-1210 277.592,-1210 277.592,-1174 334.592,-1174 334.592,-1210"/>
-<text text-anchor="middle" x="306.092" y="-1189.2" font-family="Courier,monospace" font-size="11.00">Method</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator -->
-<g id="edge30" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator</title>
-<path fill="none" stroke="black" d="M277.47,-1175.76C259.045,-1163.84 235.301,-1146.24 219,-1126 162.713,-1056.1 126.117,-954.541 110.759,-905.945"/>
-<polygon fill="none" stroke="black" points="114.023,-904.654 107.722,-896.137 107.336,-906.724 114.023,-904.654"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Method -->
-<g id="node12" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Method</title>
-<polygon fill="none" stroke="black" points="556.185,-1210 472.185,-1210 472.185,-1174 556.185,-1174 556.185,-1210"/>
-<text text-anchor="start" x="480.185" y="-1195.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="493.685" y="-1183.2" font-family="Courier,monospace" font-size="11.00">Method</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method -->
-<g id="edge3" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Interfaces\\Method</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M471.974,-1192C434.875,-1192 380.808,-1192 344.822,-1192"/>
-<polygon fill="none" stroke="black" points="344.727,-1188.5 334.727,-1192 344.727,-1195.5 344.727,-1188.5"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator -->
-<g id="edge2" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator</title>
-<path fill="none" stroke="black" d="M491.758,-1173.83C478.63,-1161.59 462.515,-1144.36 452.685,-1126 400.41,-1028.35 450.541,-978.751 393.185,-884 380.852,-863.626 361.283,-845.719 343.917,-832.411"/>
-<polygon fill="none" stroke="black" points="345.729,-829.398 335.61,-826.258 341.562,-835.023 345.729,-829.398"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\RestMethod -->
-<g id="node13" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Method\\RestMethod</title>
-<polygon fill="none" stroke="black" points="722.685,-1256 638.685,-1256 638.685,-1220 722.685,-1220 722.685,-1256"/>
-<text text-anchor="middle" x="680.685" y="-1235.2" font-family="Courier,monospace" font-size="11.00">RestMethod</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\RestMethod&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method -->
-<g id="edge5" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\RestMethod&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method</title>
-<path fill="none" stroke="black" d="M638.599,-1226.51C616.616,-1220.36 589.347,-1212.74 566.037,-1206.22"/>
-<polygon fill="none" stroke="black" points="566.89,-1202.82 556.317,-1203.5 565.005,-1209.57 566.89,-1202.82"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Dummy -->
-<g id="node14" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Dummy</title>
-<polygon fill="none" stroke="black" points="707.685,-1202 653.685,-1202 653.685,-1166 707.685,-1166 707.685,-1202"/>
-<text text-anchor="middle" x="680.685" y="-1181.2" font-family="Courier,monospace" font-size="11.00">Dummy</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Dummy&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method -->
-<g id="edge20" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Dummy&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method</title>
-<path fill="none" stroke="black" d="M653.619,-1185.27C630.301,-1186.4 595.442,-1188.1 566.539,-1189.5"/>
-<polygon fill="none" stroke="black" points="566.01,-1186.02 556.192,-1190.01 566.35,-1193.02 566.01,-1186.02"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Google -->
-<g id="node15" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Google</title>
-<polygon fill="none" stroke="black" points="709.185,-1310 652.185,-1310 652.185,-1274 709.185,-1274 709.185,-1310"/>
-<text text-anchor="middle" x="680.685" y="-1289.2" font-family="Courier,monospace" font-size="11.00">Google</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Method\\Google&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method -->
-<g id="edge25" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Method\\Google&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Method\\Method</title>
-<path fill="none" stroke="black" d="M651.908,-1275.15C646.367,-1271.79 640.591,-1268.28 635.185,-1265 607.834,-1248.38 576.99,-1229.62 553.422,-1215.28"/>
-<polygon fill="none" stroke="black" points="555.13,-1212.22 544.768,-1210.01 551.49,-1218.2 555.13,-1212.22"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Interfaces\\Translation -->
-<g id="node16" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translation</title>
-<polygon fill="none" stroke="black" points="147,-842 56,-842 56,-806 147,-806 147,-842"/>
-<text text-anchor="middle" x="101.5" y="-821.2" font-family="Courier,monospace" font-size="11.00">Translation</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translation -->
-<g id="node18" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Translation</title>
-<polygon fill="none" stroke="black" points="351.592,-772 260.592,-772 260.592,-736 351.592,-736 351.592,-772"/>
-<text text-anchor="middle" x="306.092" y="-751.2" font-family="Courier,monospace" font-size="11.00">Translation</text>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translation -->
-<g id="edge7" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translation</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M260.271,-767.594C246.945,-771.76 232.343,-776.448 219,-781 198.484,-787.999 176.112,-796.133 156.507,-803.431"/>
-<polygon fill="none" stroke="black" points="155.267,-800.158 147.125,-806.938 157.718,-806.715 155.267,-800.158"/>
+<!-- \\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\component\\languages\\interfaces\\Languages -->
+<g id="edge13" class="edge"><title>\\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\component\\languages\\interfaces\\Languages</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M641.945,-1517.84C618.435,-1518.98 587.982,-1520.46 562.817,-1521.68"/>
+<polygon fill="none" stroke="black" points="562.567,-1518.19 552.749,-1522.17 562.907,-1525.18 562.567,-1518.19"/>
 </g>
 <!-- \\NovemBit\\i18n\\system\\Component -->
 <g id="node35" class="node"><title>\\NovemBit\\i18n\\system\\Component</title>
@@ -299,61 +126,234 @@
 <text text-anchor="start" x="67.5" y="-509.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
 <text text-anchor="start" x="71" y="-497.2" font-family="Courier,monospace" font-size="11.00">Component</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge6" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
-<path fill="none" stroke="black" d="M290.195,-735.764C254.705,-692.32 165.057,-582.578 123.835,-532.117"/>
-<polygon fill="none" stroke="black" points="126.456,-529.793 117.419,-524.263 121.035,-534.221 126.456,-529.793"/>
+<!-- \\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
+<g id="edge12" class="edge"><title>\\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<path fill="none" stroke="black" d="M661.355,-1497.87C651.796,-1487.21 640.926,-1472.93 635.185,-1458 567.792,-1282.8 696.883,-752.174 567.685,-616 551.482,-598.923 535.247,-621.313 515.185,-609"/>
 </g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator -->
-<g id="edge14" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Interfaces\\Translator</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M263.606,-822.334C231.681,-833.365 187.407,-848.663 153.35,-860.43"/>
-<polygon fill="none" stroke="black" points="151.893,-857.231 143.584,-863.804 154.179,-863.847 151.893,-857.231"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge13" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
-<path fill="none" stroke="black" d="M263.721,-802.547C248.169,-798.706 231.295,-792.159 219,-781 144.31,-713.212 115.861,-589.653 106.506,-534.226"/>
-<polygon fill="none" stroke="black" points="109.919,-533.406 104.881,-524.085 103.007,-534.513 109.919,-533.406"/>
-</g>
-<!-- \\NovemBit\\i18n\\component\\rest\\Interfaces\\Rest -->
-<g id="node20" class="node"><title>\\NovemBit\\i18n\\component\\rest\\Interfaces\\Rest</title>
-<polygon fill="none" stroke="black" points="541.185,-1542 487.185,-1542 487.185,-1506 541.185,-1506 541.185,-1542"/>
-<text text-anchor="middle" x="514.185" y="-1521.2" font-family="Courier,monospace" font-size="11.00">Rest</text>
+<!-- \\NovemBit\\i18n\\component\\rest\\interfaces\\Rest -->
+<g id="node3" class="node"><title>\\NovemBit\\i18n\\component\\rest\\interfaces\\Rest</title>
+<polygon fill="none" stroke="black" points="541.185,-780 487.185,-780 487.185,-744 541.185,-744 541.185,-780"/>
+<text text-anchor="middle" x="514.185" y="-759.2" font-family="Courier,monospace" font-size="11.00">Rest</text>
 </g>
 <!-- \\NovemBit\\i18n\\component\\rest\\Rest -->
-<g id="node21" class="node"><title>\\NovemBit\\i18n\\component\\rest\\Rest</title>
-<polygon fill="none" stroke="black" points="707.685,-1534 653.685,-1534 653.685,-1498 707.685,-1498 707.685,-1534"/>
-<text text-anchor="middle" x="680.685" y="-1513.2" font-family="Courier,monospace" font-size="11.00">Rest</text>
+<g id="node4" class="node"><title>\\NovemBit\\i18n\\component\\rest\\Rest</title>
+<polygon fill="none" stroke="black" points="707.685,-772 653.685,-772 653.685,-736 707.685,-736 707.685,-772"/>
+<text text-anchor="middle" x="680.685" y="-751.2" font-family="Courier,monospace" font-size="11.00">Rest</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\component\\rest\\Interfaces\\Rest -->
-<g id="edge18" class="edge"><title>\\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\component\\rest\\Interfaces\\Rest</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M653.619,-1517.27C626.147,-1518.6 582.655,-1520.72 551.757,-1522.22"/>
-<polygon fill="none" stroke="black" points="551.218,-1518.74 541.4,-1522.73 551.558,-1525.74 551.218,-1518.74"/>
+<!-- \\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\component\\rest\\interfaces\\Rest -->
+<g id="edge23" class="edge"><title>\\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\component\\rest\\interfaces\\Rest</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M653.619,-755.268C626.147,-756.604 582.655,-758.719 551.757,-760.221"/>
+<polygon fill="none" stroke="black" points="551.218,-756.743 541.4,-760.725 551.558,-763.735 551.218,-756.743"/>
 </g>
 <!-- \\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge17" class="edge"><title>\\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
-<path fill="none" stroke="black" d="M653.608,-1503.96C646.46,-1499.36 639.5,-1493.41 635.185,-1486 537.568,-1318.45 700.972,-756.845 567.685,-616 551.504,-598.902 534.265,-622.787 515.185,-609"/>
+<g id="edge22" class="edge"><title>\\NovemBit\\i18n\\component\\rest\\Rest&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<path fill="none" stroke="black" d="M653.314,-738.878C646.966,-734.548 640.493,-729.495 635.185,-724 595.857,-683.289 615.267,-646.658 567.685,-616 547.897,-603.25 535.247,-621.313 515.185,-609"/>
 </g>
-<!-- \\NovemBit\\i18n\\component\\languages\\Interfaces\\Languages -->
-<g id="node22" class="node"><title>\\NovemBit\\i18n\\component\\languages\\Interfaces\\Languages</title>
-<polygon fill="none" stroke="black" points="552.685,-1426 475.685,-1426 475.685,-1390 552.685,-1390 552.685,-1426"/>
-<text text-anchor="middle" x="514.185" y="-1405.2" font-family="Courier,monospace" font-size="11.00">Languages</text>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Text -->
+<g id="node5" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Text</title>
+<polygon fill="none" stroke="black" points="541.185,-1210 487.185,-1210 487.185,-1174 541.185,-1174 541.185,-1210"/>
+<text text-anchor="middle" x="514.185" y="-1189.2" font-family="Courier,monospace" font-size="11.00">Text</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\languages\\Languages -->
-<g id="node23" class="node"><title>\\NovemBit\\i18n\\component\\languages\\Languages</title>
-<polygon fill="none" stroke="black" points="719.185,-1418 642.185,-1418 642.185,-1382 719.185,-1382 719.185,-1418"/>
-<text text-anchor="middle" x="680.685" y="-1397.2" font-family="Courier,monospace" font-size="11.00">Languages</text>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="node7" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<polygon fill="none" stroke="black" points="333.092,-1075 279.092,-1075 279.092,-1039 333.092,-1039 333.092,-1075"/>
+<text text-anchor="middle" x="306.092" y="-1054.2" font-family="Courier,monospace" font-size="11.00">Type</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\component\\languages\\Interfaces\\Languages -->
-<g id="edge11" class="edge"><title>\\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\component\\languages\\Interfaces\\Languages</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M641.945,-1401.84C618.435,-1402.98 587.982,-1404.46 562.817,-1405.68"/>
-<polygon fill="none" stroke="black" points="562.567,-1402.19 552.749,-1406.17 562.907,-1409.18 562.567,-1402.19"/>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="edge28" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<path fill="none" stroke="black" d="M486.955,-1181.77C476.083,-1177.16 463.508,-1171.33 452.685,-1165 409.904,-1139.99 364.67,-1104.89 336.186,-1081.57"/>
+<polygon fill="none" stroke="black" points="338.2,-1078.7 328.259,-1075.03 333.745,-1084.1 338.2,-1078.7"/>
 </g>
-<!-- \\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge10" class="edge"><title>\\NovemBit\\i18n\\component\\languages\\Languages&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
-<path fill="none" stroke="black" d="M661.428,-1381.84C651.892,-1371.17 641.021,-1356.89 635.185,-1342 576.052,-1191.15 679.951,-732.831 567.685,-616 551.374,-599.027 534.265,-622.787 515.185,-609"/>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\URL -->
+<g id="node6" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\URL</title>
+<polygon fill="none" stroke="black" points="541.185,-1156 487.185,-1156 487.185,-1120 541.185,-1120 541.185,-1156"/>
+<text text-anchor="middle" x="514.185" y="-1135.2" font-family="Courier,monospace" font-size="11.00">URL</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\request\\Interfaces\\Request -->
-<g id="node24" class="node"><title>\\NovemBit\\i18n\\component\\request\\Interfaces\\Request</title>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="edge29" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<path fill="none" stroke="black" d="M487.083,-1127.74C450.483,-1113.36 383.794,-1087.15 342.675,-1070.98"/>
+<polygon fill="none" stroke="black" points="343.894,-1067.7 333.307,-1067.3 341.333,-1074.22 343.894,-1067.7"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\interfaces\\Translator -->
+<g id="node20" class="node"><title>\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator</title>
+<polygon fill="none" stroke="black" points="143.5,-1012 59.5,-1012 59.5,-976 143.5,-976 143.5,-1012"/>
+<text text-anchor="middle" x="101.5" y="-991.2" font-family="Courier,monospace" font-size="11.00">Translator</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator -->
+<g id="edge30" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator</title>
+<path fill="none" stroke="black" d="M278.932,-1050.95C261.782,-1046.83 238.931,-1041.04 219,-1035 197.31,-1028.43 173.67,-1020.29 153.388,-1013"/>
+<polygon fill="none" stroke="black" points="154.318,-1009.62 143.724,-1009.51 151.936,-1016.2 154.318,-1009.62"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\HTML -->
+<g id="node8" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\HTML</title>
+<polygon fill="none" stroke="black" points="541.185,-1102 487.185,-1102 487.185,-1066 541.185,-1066 541.185,-1102"/>
+<text text-anchor="middle" x="514.185" y="-1081.2" font-family="Courier,monospace" font-size="11.00">HTML</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="edge31" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<path fill="none" stroke="black" d="M487.083,-1080.58C450.714,-1075.82 384.637,-1067.16 343.458,-1061.76"/>
+<polygon fill="none" stroke="black" points="343.677,-1058.26 333.307,-1060.43 342.767,-1065.2 343.677,-1058.26"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\JSON -->
+<g id="node9" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\JSON</title>
+<polygon fill="none" stroke="black" points="541.185,-1048 487.185,-1048 487.185,-1012 541.185,-1012 541.185,-1048"/>
+<text text-anchor="middle" x="514.185" y="-1027.2" font-family="Courier,monospace" font-size="11.00">JSON</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\interfaces\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="edge32" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<path fill="none" stroke="black" d="M487.083,-1033.42C450.714,-1038.18 384.637,-1046.84 343.458,-1052.24"/>
+<polygon fill="none" stroke="black" points="342.767,-1048.8 333.307,-1053.57 343.677,-1055.74 342.767,-1048.8"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\Text -->
+<g id="node10" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\Text</title>
+<polygon fill="none" stroke="black" points="707.685,-1156 653.685,-1156 653.685,-1120 707.685,-1120 707.685,-1156"/>
+<text text-anchor="middle" x="680.685" y="-1135.2" font-family="Courier,monospace" font-size="11.00">Text</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\Type -->
+<g id="node13" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\Type</title>
+<polygon fill="none" stroke="black" points="556.185,-994 472.185,-994 472.185,-958 556.185,-958 556.185,-994"/>
+<text text-anchor="start" x="480.185" y="-979.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="500.185" y="-967.2" font-family="Courier,monospace" font-size="11.00">Type</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type -->
+<g id="edge2" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\Text&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type</title>
+<path fill="none" stroke="black" d="M653.222,-1124.79C646.876,-1120.89 640.427,-1116.24 635.185,-1111 594.337,-1070.19 610.84,-1038.36 567.685,-1000 566.715,-999.139 565.71,-998.303 564.675,-997.493"/>
+<polygon fill="none" stroke="black" points="566.491,-994.495 556.252,-991.771 562.558,-1000.29 566.491,-994.495"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\HTML -->
+<g id="node11" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\HTML</title>
+<polygon fill="none" stroke="black" points="707.685,-1102 653.685,-1102 653.685,-1066 707.685,-1066 707.685,-1102"/>
+<text text-anchor="middle" x="680.685" y="-1081.2" font-family="Courier,monospace" font-size="11.00">HTML</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type -->
+<g id="edge7" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\HTML&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type</title>
+<path fill="none" stroke="black" d="M653.361,-1068.96C647.274,-1065.23 640.908,-1061.11 635.185,-1057 603.303,-1034.08 600.847,-1021.02 567.685,-1000 566.907,-999.507 566.117,-999.018 565.318,-998.535"/>
+<polygon fill="none" stroke="black" points="566.888,-995.402 556.456,-993.549 563.456,-1001.5 566.888,-995.402"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\JSON -->
+<g id="node12" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\JSON</title>
+<polygon fill="none" stroke="black" points="707.685,-1048 653.685,-1048 653.685,-1012 707.685,-1012 707.685,-1048"/>
+<text text-anchor="middle" x="680.685" y="-1027.2" font-family="Courier,monospace" font-size="11.00">JSON</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type -->
+<g id="edge9" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\JSON&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type</title>
+<path fill="none" stroke="black" d="M653.619,-1021.44C630.096,-1013.72 594.829,-1002.14 565.779,-992.609"/>
+<polygon fill="none" stroke="black" points="566.785,-989.255 556.192,-989.461 564.601,-995.906 566.785,-989.255"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type -->
+<g id="edge15" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\interfaces\\Type</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M472.132,-991.292C465.554,-994.026 458.877,-996.973 452.685,-1000 425.121,-1013.47 421.55,-1023.31 393.185,-1035 377.273,-1041.56 358.879,-1046.58 343.189,-1050.16"/>
+<polygon fill="none" stroke="black" points="342.35,-1046.76 333.322,-1052.3 343.837,-1053.6 342.35,-1046.76"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translator -->
+<g id="node23" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Translator</title>
+<polygon fill="none" stroke="black" points="348.092,-942 264.092,-942 264.092,-906 348.092,-906 348.092,-942"/>
+<text text-anchor="start" x="272.092" y="-927.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="272.092" y="-915.2" font-family="Courier,monospace" font-size="11.00">Translator</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator -->
+<g id="edge14" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\Type&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator</title>
+<path fill="none" stroke="black" d="M471.974,-965.602C439.259,-957.347 393.348,-945.763 358.277,-936.915"/>
+<polygon fill="none" stroke="black" points="358.784,-933.433 348.231,-934.38 357.071,-940.22 358.784,-933.433"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\URL -->
+<g id="node14" class="node"><title>\\NovemBit\\i18n\\component\\translation\\type\\URL</title>
+<polygon fill="none" stroke="black" points="707.685,-994 653.685,-994 653.685,-958 707.685,-958 707.685,-994"/>
+<text text-anchor="middle" x="680.685" y="-973.2" font-family="Courier,monospace" font-size="11.00">URL</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\type\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type -->
+<g id="edge17" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\type\\URL&#45;&gt;\\NovemBit\\i18n\\component\\translation\\type\\Type</title>
+<path fill="none" stroke="black" d="M653.619,-976C630.301,-976 595.442,-976 566.539,-976"/>
+<polygon fill="none" stroke="black" points="566.192,-972.5 556.192,-976 566.192,-979.5 566.192,-972.5"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method -->
+<g id="node15" class="node"><title>\\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method</title>
+<polygon fill="none" stroke="black" points="334.592,-1326 277.592,-1326 277.592,-1290 334.592,-1290 334.592,-1326"/>
+<text text-anchor="middle" x="306.092" y="-1305.2" font-family="Courier,monospace" font-size="11.00">Method</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator -->
+<g id="edge33" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator</title>
+<path fill="none" stroke="black" d="M277.47,-1291.76C259.045,-1279.84 235.301,-1262.24 219,-1242 162.713,-1172.1 126.117,-1070.54 110.759,-1021.94"/>
+<polygon fill="none" stroke="black" points="114.023,-1020.65 107.722,-1012.14 107.336,-1022.72 114.023,-1020.65"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Google -->
+<g id="node16" class="node"><title>\\NovemBit\\i18n\\component\\translation\\method\\Google</title>
+<polygon fill="none" stroke="black" points="709.185,-1426 652.185,-1426 652.185,-1390 709.185,-1390 709.185,-1426"/>
+<text text-anchor="middle" x="680.685" y="-1405.2" font-family="Courier,monospace" font-size="11.00">Google</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Method -->
+<g id="node17" class="node"><title>\\NovemBit\\i18n\\component\\translation\\method\\Method</title>
+<polygon fill="none" stroke="black" points="556.185,-1326 472.185,-1326 472.185,-1290 556.185,-1290 556.185,-1326"/>
+<text text-anchor="start" x="480.185" y="-1311.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="493.685" y="-1299.2" font-family="Courier,monospace" font-size="11.00">Method</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Google&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method -->
+<g id="edge3" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\Google&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method</title>
+<path fill="none" stroke="black" d="M651.908,-1391.15C646.367,-1387.79 640.591,-1384.28 635.185,-1381 607.834,-1364.38 576.99,-1345.62 553.422,-1331.28"/>
+<polygon fill="none" stroke="black" points="555.13,-1328.22 544.768,-1326.01 551.49,-1334.2 555.13,-1328.22"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method -->
+<g id="edge5" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\interfaces\\Method</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M471.974,-1308C434.875,-1308 380.808,-1308 344.822,-1308"/>
+<polygon fill="none" stroke="black" points="344.727,-1304.5 334.727,-1308 344.727,-1311.5 344.727,-1304.5"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator -->
+<g id="edge4" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\Method&#45;&gt;\\NovemBit\\i18n\\component\\translation\\Translator</title>
+<path fill="none" stroke="black" d="M491.758,-1289.83C478.63,-1277.59 462.515,-1260.36 452.685,-1242 400.41,-1144.35 450.541,-1094.75 393.185,-1000 380.852,-979.626 361.283,-961.719 343.917,-948.411"/>
+<polygon fill="none" stroke="black" points="345.729,-945.398 335.61,-942.258 341.562,-951.023 345.729,-945.398"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Dummy -->
+<g id="node18" class="node"><title>\\NovemBit\\i18n\\component\\translation\\method\\Dummy</title>
+<polygon fill="none" stroke="black" points="707.685,-1372 653.685,-1372 653.685,-1336 707.685,-1336 707.685,-1372"/>
+<text text-anchor="middle" x="680.685" y="-1351.2" font-family="Courier,monospace" font-size="11.00">Dummy</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\Dummy&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method -->
+<g id="edge6" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\Dummy&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method</title>
+<path fill="none" stroke="black" d="M653.619,-1346.71C630.199,-1340.16 595.136,-1330.36 566.159,-1322.25"/>
+<polygon fill="none" stroke="black" points="566.765,-1318.79 556.192,-1319.47 564.88,-1325.53 566.765,-1318.79"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\RestMethod -->
+<g id="node19" class="node"><title>\\NovemBit\\i18n\\component\\translation\\method\\RestMethod</title>
+<polygon fill="none" stroke="black" points="722.685,-1318 638.685,-1318 638.685,-1282 722.685,-1282 722.685,-1318"/>
+<text text-anchor="middle" x="680.685" y="-1297.2" font-family="Courier,monospace" font-size="11.00">RestMethod</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\method\\RestMethod&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method -->
+<g id="edge24" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\method\\RestMethod&#45;&gt;\\NovemBit\\i18n\\component\\translation\\method\\Method</title>
+<path fill="none" stroke="black" d="M638.599,-1302C616.714,-1303.06 589.591,-1304.38 566.35,-1305.51"/>
+<polygon fill="none" stroke="black" points="566.135,-1302.02 556.317,-1306 566.475,-1309.01 566.135,-1302.02"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\interfaces\\Translation -->
+<g id="node21" class="node"><title>\\NovemBit\\i18n\\component\\translation\\interfaces\\Translation</title>
+<polygon fill="none" stroke="black" points="147,-958 56,-958 56,-922 147,-922 147,-958"/>
+<text text-anchor="middle" x="101.5" y="-937.2" font-family="Courier,monospace" font-size="11.00">Translation</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translation -->
+<g id="node22" class="node"><title>\\NovemBit\\i18n\\component\\translation\\Translation</title>
+<polygon fill="none" stroke="black" points="351.592,-888 260.592,-888 260.592,-852 351.592,-852 351.592,-888"/>
+<text text-anchor="middle" x="306.092" y="-867.2" font-family="Courier,monospace" font-size="11.00">Translation</text>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translation -->
+<g id="edge11" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translation</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M260.271,-883.594C246.945,-887.76 232.343,-892.448 219,-897 198.484,-903.999 176.112,-912.133 156.507,-919.431"/>
+<polygon fill="none" stroke="black" points="155.267,-916.158 147.125,-922.938 157.718,-922.715 155.267,-916.158"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
+<g id="edge10" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translation&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<path fill="none" stroke="black" d="M295.046,-851.949C262.036,-792.641 156.788,-603.539 117.489,-532.931"/>
+<polygon fill="none" stroke="black" points="120.529,-531.195 112.607,-524.16 114.412,-534.6 120.529,-531.195"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator -->
+<g id="edge19" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\component\\translation\\interfaces\\Translator</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M263.606,-938.334C231.681,-949.365 187.407,-964.663 153.35,-976.43"/>
+<polygon fill="none" stroke="black" points="151.893,-973.231 143.584,-979.804 154.179,-979.847 151.893,-973.231"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
+<g id="edge18" class="edge"><title>\\NovemBit\\i18n\\component\\translation\\Translator&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<path fill="none" stroke="black" d="M263.948,-919.442C248.055,-915.736 230.877,-909.048 219,-897 117.284,-793.816 103.737,-605.885 102.4,-534.521"/>
+<polygon fill="none" stroke="black" points="105.895,-534.058 102.279,-524.1 98.8957,-534.14 105.895,-534.058"/>
+</g>
+<!-- \\NovemBit\\i18n\\component\\request\\interfaces\\Request -->
+<g id="node24" class="node"><title>\\NovemBit\\i18n\\component\\request\\interfaces\\Request</title>
 <polygon fill="none" stroke="black" points="546.185,-664 482.185,-664 482.185,-628 546.185,-628 546.185,-664"/>
 <text text-anchor="middle" x="514.185" y="-643.2" font-family="Courier,monospace" font-size="11.00">Request</text>
 </g>
@@ -362,16 +362,16 @@
 <polygon fill="none" stroke="black" points="712.685,-660 648.685,-660 648.685,-624 712.685,-624 712.685,-660"/>
 <text text-anchor="middle" x="680.685" y="-639.2" font-family="Courier,monospace" font-size="11.00">Request</text>
 </g>
-<!-- \\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\component\\request\\Interfaces\\Request -->
-<g id="edge27" class="edge"><title>\\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\component\\request\\Interfaces\\Request</title>
+<!-- \\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\component\\request\\interfaces\\Request -->
+<g id="edge27" class="edge"><title>\\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\component\\request\\interfaces\\Request</title>
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M648.356,-642.762C622.287,-643.396 584.966,-644.303 556.462,-644.996"/>
 <polygon fill="none" stroke="black" points="556.308,-641.499 546.396,-645.241 556.478,-648.497 556.308,-641.499"/>
 </g>
 <!-- \\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
 <g id="edge26" class="edge"><title>\\NovemBit\\i18n\\component\\request\\Request&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
-<path fill="none" stroke="black" d="M513.185,-609C470.105,-577.555 446.519,-609.778 393.185,-610 315.77,-610.323 291.333,-637.589 219,-610 178.488,-594.548 143.128,-557.816 122.293,-532.421"/>
+<path fill="none" stroke="black" d="M648.471,-633.91C626.096,-628.318 595.178,-621.012 567.685,-616 544.526,-611.778 535.188,-621.409 515.185,-609"/>
+<path fill="none" stroke="black" d="M513.185,-609C467.862,-580.883 446.519,-609.778 393.185,-610 315.77,-610.323 291.333,-637.589 219,-610 178.488,-594.548 143.128,-557.816 122.293,-532.421"/>
 <polygon fill="none" stroke="black" points="124.773,-529.919 115.797,-524.291 119.304,-534.289 124.773,-529.919"/>
-<path fill="none" stroke="black" d="M648.471,-633.91C626.096,-628.318 595.178,-621.012 567.685,-616 556.105,-613.889 524.725,-615.893 515.185,-609"/>
 </g>
 <!-- \\NovemBit\\i18n\\models\\interfaces\\Translation -->
 <g id="node26" class="node"><title>\\NovemBit\\i18n\\models\\interfaces\\Translation</title>
@@ -399,12 +399,12 @@
 <text text-anchor="middle" x="680.685" y="-135.2" font-family="Courier,monospace" font-size="11.00">Translation</text>
 </g>
 <!-- \\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\interfaces\\Translation -->
-<g id="edge16" class="edge"><title>\\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\interfaces\\Translation</title>
+<g id="edge21" class="edge"><title>\\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\interfaces\\Translation</title>
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M635.168,-128.258C614.961,-123.836 590.875,-118.565 569.604,-113.909"/>
 <polygon fill="none" stroke="black" points="570.253,-110.469 559.736,-111.75 568.757,-117.307 570.253,-110.469"/>
 </g>
 <!-- \\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\ActiveRecord -->
-<g id="edge15" class="edge"><title>\\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\ActiveRecord</title>
+<g id="edge20" class="edge"><title>\\NovemBit\\i18n\\models\\Translation&#45;&gt;\\NovemBit\\i18n\\models\\ActiveRecord</title>
 <path fill="none" stroke="black" d="M635.168,-147.742C616.034,-151.93 593.421,-156.878 573.014,-161.344"/>
 <polygon fill="none" stroke="black" points="572.219,-157.935 563.198,-163.492 573.715,-164.774 572.219,-157.935"/>
 </g>
@@ -429,7 +429,7 @@
 <text text-anchor="middle" x="101.5" y="-14.3" font-family="Times New Roman,serif" font-size="14.00" fill="gray">xception</text>
 </g>
 <!-- \\NovemBit\\i18n\\system\\exception\\Exception&#45;&gt;\\Exception -->
-<g id="edge12" class="edge"><title>\\NovemBit\\i18n\\system\\exception\\Exception&#45;&gt;\\Exception</title>
+<g id="edge16" class="edge"><title>\\NovemBit\\i18n\\system\\exception\\Exception&#45;&gt;\\Exception</title>
 <path fill="none" stroke="black" d="M267.488,-326.348C250.46,-316.626 231.411,-303.046 219,-286 158.561,-202.986 210.065,-150.672 155,-64 149.249,-54.9477 141.2,-46.6567 133.129,-39.6825"/>
 <polygon fill="none" stroke="black" points="135.098,-36.7722 125.135,-33.1678 130.676,-42.1984 135.098,-36.7722"/>
 </g>
@@ -449,7 +449,7 @@
 <text text-anchor="middle" x="306.092" y="-99.2" font-family="Courier,monospace" font-size="11.00">DB</text>
 </g>
 <!-- \\NovemBit\\i18n\\system\\component\\DB&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge24" class="edge"><title>\\NovemBit\\i18n\\system\\component\\DB&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<g id="edge25" class="edge"><title>\\NovemBit\\i18n\\system\\component\\DB&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
 <path fill="none" stroke="black" d="M279.076,-111.235C259.956,-119.263 234.675,-132.667 219,-152 137.338,-252.719 112.137,-412.688 105.043,-477.417"/>
 <polygon fill="none" stroke="black" points="101.53,-477.358 103.986,-487.665 108.493,-478.076 101.53,-477.358"/>
 </g>
@@ -459,7 +459,7 @@
 <text text-anchor="middle" x="306.092" y="-575.2" font-family="Courier,monospace" font-size="11.00">Module</text>
 </g>
 <!-- \\NovemBit\\i18n\\Module&#45;&gt;\\NovemBit\\i18n\\system\\Component -->
-<g id="edge4" class="edge"><title>\\NovemBit\\i18n\\Module&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
+<g id="edge8" class="edge"><title>\\NovemBit\\i18n\\Module&#45;&gt;\\NovemBit\\i18n\\system\\Component</title>
 <path fill="none" stroke="black" d="M277.347,-568.14C245.479,-556.814 192.536,-537.998 153.242,-524.033"/>
 <polygon fill="none" stroke="black" points="154.162,-520.646 143.567,-520.595 151.818,-527.242 154.162,-520.646"/>
 </g>

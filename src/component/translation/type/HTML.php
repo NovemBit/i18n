@@ -224,7 +224,7 @@ class HTML extends Type
                             }
                         }
 
-                        $node->data = $translate ?? $node->data;
+                        $node->data = htmlspecialchars($translate) ?? $node->data;
                     },
                     /*
                      * Callback for Attribute nodes

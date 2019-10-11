@@ -22,12 +22,14 @@ use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\exception\Exception;
 
 /**
- * Main Request class.
+ * Request component main class.
+ *
+ * # Meaning of Request component
  * It make easy to make requests flexible.
  * Determine type of received request.
  * Then provide translation for current type of content.
  *
- * Using Translation component to translate received buffer content.
+ * > Using Translation component to translate received buffer content.
  *
  * @category Component
  * @package  Component
@@ -309,11 +311,17 @@ class Request extends Component implements interfaces\Request
          * Then translate current url for all languages
          * */
         if ($this->getRefererLanguage() == $this->getFromLanguage()) {
-            $this->setRefererTranslations(
+
+            /**
+             * Temporary commented code to make sure this part is necessary
+             *
+             * @todo Adjust necessity for referer translations.
+             * */
+            /*$this->setRefererTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->url->translate([$this->getReferer()])[$this->getReferer()]
-            );
+            );*/
 
             $this->setRefererSourceUrl($this->getReferer());
         } else {
@@ -349,7 +357,6 @@ class Request extends Component implements interfaces\Request
          * If current language is from_language
          * Then translate current url for all languages
          * */
-
         if ($this->getLanguage() == $this->getFromLanguage()
             || $this->getDestination() == '/'
         ) {

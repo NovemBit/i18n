@@ -416,17 +416,43 @@ class Languages extends Component implements interfaces\Languages
         /**
          * If language_on_domain is enabled and current host exists on
          * "default_language" array and if current language
-         * equal $language then change domain name to current host
+         *
+         * Then change host of url
+         * and add language code if necessary
+         *
+         * @notice This is hard logic.
+         * @notice Dont change this if you not fully understanding method
          * */
         if ($this->language_on_domain
             && isset($this->default_language[$_SERVER['HTTP_HOST']])
-            && $this->getDefaultLanguage() == $language
         ) {
             $parts = parse_url($url);
+            /**
+             * Change host of url
+             * */
             if (isset($parts['host'])) {
                 $parts['host'] = $_SERVER['HTTP_HOST'];
-                $url = URL::buildUrl($parts);
             }
+
+            if ($this->getDefaultLanguage() != $language) {
+                if (!isset($parts['path'])) {
+                    $parts['path'] = '';
+                }
+
+                $path_parts = explode('/', $parts['path']);
+                $path_parts = array_filter($path_parts);
+
+                if ((!empty($path_parts) || !empty($parts['query']))
+                    || (empty($path_parts) && !isset($parts['fragment']))
+                ) {
+                    array_unshift($path_parts, $language);
+                    $parts['path'] = '/' . implode('/', $path_parts);
+                }
+
+            }
+
+            $url = URL::buildUrl($parts);
+
         } elseif ($this->language_on_path == true
             && trim($url, '/') == $this->removeScriptNameFromUrl($url)
         ) {
