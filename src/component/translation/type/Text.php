@@ -94,7 +94,7 @@ class Text extends Type
 
         foreach ($translations as $source => &$translation) {
             foreach ($translation as $language => &$text) {
-                $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);
+                /*$text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);*/
 
                 /**
                  * Clean whitespace
