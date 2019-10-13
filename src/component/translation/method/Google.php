@@ -75,8 +75,8 @@ class Google extends Method
             if ($this->context->getFromLanguage() == $language) {
                 foreach ($texts as $text) {
                     $result[$text][$language] = $text;
-                    continue;
                 }
+                continue;
             }
 
             $this->_translateOneLanguage($texts, $language, $result);
