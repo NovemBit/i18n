@@ -31,21 +31,29 @@ class Rule
     /**
      * Check if tagName|attribute|text
      * exists in array
+     *
+     * @var string
      * */
     const IN = 'in';
 
     /**
      * Check tagName|attribute|text regex validation
+     *
+     * @var string
      * */
     const REGEX = 'regex';
 
     /**
      * Check equality for tagName|attribute|text
+     *
+     * @var string
      * */
     const EQ = 'EQ';
 
     /**
      * Check tagName|attribute|text contains
+     *
+     * @var string
      * */
     const CONTAINS = 'contains';
 

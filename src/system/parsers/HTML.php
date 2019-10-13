@@ -275,10 +275,15 @@ class HTML
 
         $this->setDom(new DomDocument());
 
+        /**
+         * Set encoding of document UTF-8
+         * */
         @$this->getDom()->loadHTML(
-            $html,
+            '<?xml encoding="utf-8"?>'.$html,
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
+        $this->getDom()->encoding = 'utf-8';
+
 
         $this->_setXpath(new DOMXpath($this->_dom));
 
