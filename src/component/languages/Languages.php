@@ -421,7 +421,7 @@ class Languages extends Component implements interfaces\Languages
          * and add language code if necessary
          *
          * @notice This is hard logic.
-         * @notice Dont change this if you not fully understanding method
+         * @notice Dont change this code if you not fully understanding method
          * */
         if ($this->language_on_domain
             && isset($this->default_language[$_SERVER['HTTP_HOST']])

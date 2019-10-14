@@ -82,8 +82,6 @@
     * [commonInit](#commoninit-3)
     * [cli](#cli-3)
     * [cliInit](#cliinit-3)
-    * [getHtmlParser](#gethtmlparser)
-    * [setHtmlParser](#sethtmlparser)
 * [HTML](#html-1)
     * [load](#load)
     * [fetch](#fetch)
@@ -1945,44 +1943,6 @@ HTML::cliInit( array $argv, integer $argc ): void
 |-----------|------|-------------|
 | `$argv` | **array** | Array of cli arguments |
 | `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### getHtmlParser
-
-Get Html parser
-
-```php
-HTML::getHtmlParser(  ): \NovemBit\i18n\system\parsers\HTML
-```
-
-
-
-
-
-
-
----
-
-### setHtmlParser
-
-Set Html Parser
-
-```php
-HTML::setHtmlParser( \NovemBit\i18n\system\parsers\HTML $_html_parser ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$_html_parser` | **\NovemBit\i18n\system\parsers\HTML** | Html parser |
 
 
 
@@ -5748,4 +5708,4 @@ URL::buildUrl( array $parts ): string
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-11 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-14 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

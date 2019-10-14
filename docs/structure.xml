@@ -220,7 +220,7 @@ php version 7.2.10</description>
     </class>
     <source>eJzVUU1r3DAQvetXzHF3YaVsc2jZDVvnA5ZCG0pJDwFfZHtii9gjI8m7MSH/vSPFJklvPVYX4Xkf4/d08bVveqFWKwEruHOafKuDsQSl7XpLSCECzIEjOh+Bz/KT3JzxNAJZqQPW1o3ww1bY+jTrdfmoa4T3Mz2ExjoAuNSOTe6tqzSNmuBCx4EcrcvqTptW8uJ9krSmRPJs04TQ+61Sp9NJ1jRI62o1gV7Vfbs+l2cyPAU43P5Wh5/fj+dJP/8wHL7dbSHbMGmTTc70CPHMzrUJzVDE1erWHrG7MkGZzRdithKCdIeeQyHMYB7BvEvxdkKIwf+NcfShxV1CRmPyqsivLRGWsVyWTI1f8vcRf2HJfUDZau8lXDemrcA+wL0xHwmtKZx243/Q/b81nIJ/jIpPAanykE/lvQfFsxDRO3UYzwoOGODmKpbGOQi61D4Y8kFTiRNrJmcOw+AI3h5kQlS6+6HghMDSwNfDQIkCNYabYrFMlOdXAZ/J6vW5t9t542K53lfFes+ity2L5S7pXoR4+QNxTBfi</source>
   </file>
-  <file path="component\translation\type\Text.php" generated-path="component.translation.type.Text.html" hash="5a550ea30e5468f9e665f1f0bb53d8d9" package="Component\Translation\Type">
+  <file path="component\translation\type\Text.php" generated-path="component.translation.type.Text.html" hash="86c7dca27713b7f2247ad09a1d00f1a9" package="Component\Translation\Type">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -1040,9 +1040,9 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>eJzdVm1v2zYQ/u5fcSuM2U4cK24KbIgbx00TZAWydOvcDUOcGoxES0IkUiApO4br/94jJVm0bK3u1xFIIpL38tw9d8e8vUyCpOEcHTXgCMaCMBkRFXIGLo8TzihT+gJlYE6F1Be/9F73+qd4qi9GLlHU52IJ7wv5iWVlMl4m1MglxH0mPoXvyZFUBVwAwDsi0Nm/XHiELQmDt0Qf9JZcjPyYhFEPAQ6NShS6lEk0HSiVyHPHWSwWPZ+lPS58J7+Ujp9EJ2e90556UXB7/9m5/eNufmb0i8Dg9sP4HEZ9FOqPcsvsGfQqLPuhCtIn7dq553MaX4XKCfu/MpR2Gg1GYioxUArF5URfTjapnCgrZIUhDxqNFJHfvLg00YcDsz1E20oeGin4oxictgszzGEdm/8X3n6EnSwWwRMq1LKSGaYwbYZBNyJSZlnEH8o83OgAV42G9mOyrNeROYZUhswHIuH6Ksu6y6M0ZjAnUUpzyUJhNCcCQp3/bI/e9EeSPmGk0DTqF9Af7HhajUIWUBEqj7vrGm10GHpZOBegREp3zVxjmFAUEAVBffqSQEKUooLJfWClEhjew2ONTw8NTjcGp4UlBPCQOc8AbD53Mei0S1ABUYYEEqJ2RKU+ogzOwA2IIC5albaRjwIY39JQVZEcqV6tL+32w5dJsrpbPx53vrZ7q3739brTaba6NsoKTONhL9CUeVRg4VEPZ6IgWL1R+IwSQbiFQPKYTkvZaVZhNQgni+PL9uVwin87x82WuXncZfDDDGhEY+zAMvhFEKps5GwKU+eOzDAlYI0L5Dvmc12tezQ43qpUMJiFjES4kWmkdFm7EcUGLrFv18cT51FNbSRog4o5nZbeagsTw8r8WLKhNMJZIfwH9JngMZREeQYrPFGcftiMxA1Q7QehGyyH4L7mGlNZJDHFAehVvSVYwjEQIcgSm9zU0V0oFfBZUVW8tFFVzmkx2ptDFQi+kOWTkV9sRTFLmWto93gx6mjbBtEx0quyBZpWsegebuqKPhnmw/FkmEV3MtxgbeeGBqUNnXXMObS3jWEhNSVPhc7lEH62LzsIAay114IxEBHmp/odykyg66puFoXm/wIfhDiSCXVDEukhIqcedbmXY+7Czf14+ufnj+Obv+Cr2fw2/v3uzWnfDqZYW7OhWEfwvlKy+2SsJi9WONOxZamtFNq+eOyYsKf8qaBJhLLtljORx06rCy3AX1k+Bjvq68b+3boMMy+xLcYyQ+udiv+kG5HCP9U2rBR79m5AM29Dva7MZ41cNqzMeqc/9/ZOiZBiBxHsoGxM1bSM1eD7GyN/ManxWPZIDrqbo+pa5Uo3TWOT+VPO5p6JVyXUsvSQ+3n8Hq+7GhbNuzRixvB5OD8/NDo7uDrW/85tbc3W2pG1Ta1R+URnFGG5xXjGARySp4geMvoO5jGrsDLUfEZUx5w1YAxtdf/E6JGTb6o0atYNZzFRbtB+5RSCzquiEzu2ywpFMxJJOji4MauMVuO0Wx+1G+tvCr8Rdw==</source>
+    <source>eJzdVm1v2zYQ/u5fcSuM+SWOFTcDNsSt46YJsgJZunXuhiFODUaiJSESKZCUHcP1f9+RlCxZtlb36wgkEcl7ee6eu2PeXCZB0nC63QZ0YSIIkxFRIWfg8jjhjDKlL1AGFlRIffFz/3V/cIan+mLsEkV9LlbwPpeflqxMJ6uEGrmEuM/Ep/AtOZKqgAsAeEcEOvuHC4+wFWHwhuiD/oqLsR+TMOojwJFRiUKXMommA6USeeE4y+Wy77O0z4XvZJfS8ZPo9Lx/1lcvCm7vPzu3v98tzo1+HhjcfphcwHiAQoNxZpk9g165ZT9UQfqkXTv3fEHjq1A54eAXhtJOo8FITCUGSiG/nOrL6TaVU1UKWWHIw0YjReQ3Ly5N9OHQbI/RLiUPjeT8UQxO24U55rCOzf8Lb9/Djo1F8IQKtapkhilMm2HQjYiUNov4Q5mHGx3gutHQfkyW9eqaY0hlyHwgEq6vbNZdHqUxgwWJUppJ5grjBREQ6vzbPXrTH0n6hJFC06i/hcFwz9N6HLKAilB53N3UaKPD0LPhvAUlUrpv5hrDhLyAKAjq05cEEqIUFUweAiuVwPAeHmt8emhwtjU4yy0hgAfr3ALYfu5j0GmXoAKiDAkkRO2ISn1EGZyDGxBBXLQqy0Y+CmB8R0NVRTKkerW+tNsPX6bJ+m7zeNL52u6vB73Xm06n2eqVUVZgGg8HgabMowILj3o4EwXB6o3CZ5QIwh0Eksd0VsjObIXVIJwuTy7bl6MZ/u2cNFvm5nGfwQ9zoBGNsQOL4JdBqOzI2Ramzh2ZY0qgNC6Q75gvdLUe0OB4q1LBYB4yEuFGppHSZe1GFBu4wL5bH0+cRzW1kaANKhZ0VnirLUwMy/opyYbSCNtC+A/oc8FjKIjyDFZ4ojj9sBmJG6Dad0I3WI7Bfc01pqJIYooD0Kt6S7CEYyBCkBU2uamju1Aq4PO8qnhho6qc0WK0t4cqEHwpiycju9iJYp4y19Du8XzU0XYZRMdIr4sWaJaKRfdwU1f06SgbjqcjG93paIu1nRkaFjZ01jHn0N41hoXUlDwVOpcj+LF82UEIUFoHLRgDEWF+qt8hawJdV3UtPeYK8QcqjmRC3ZBEeozImUdd7mWoe3BzP5n98fnj5OZP+Go2v05+u/vpbNAZ6nd832x37wypeF8p20MypUbPVzjX8dn0VortUEyWHRsV9pU/EzSJULbdcqbyxGn1oAX4y+ZkuKe+aRzebYowszLbYc0a2uxV/SfdjBT+rrZipeDt2wHNrBX1ujKfNXJ2YJn1Tn8e7J8CIcUuIthFdlTVtE2pyQ83R/ZqUuOx6JMMdC9D1SuVLN02TpnMHzI2D0y9KqElSw+Zn8dv8bqvUaJ5n0bMGD4RFxfHRlcOro71vzJbO/O1dmztUmtUPtE5RVhuPqJxCIfkKaLHjL+jebQVVoSazYnqqCsNGUNb3T8yeuxkmyqNmnXDWUyUG7RfObmg8yrvxE7ZZYWiOYkkHR7dmFVGq3GWWx+1G5t/AUw3Eik=</source>
   </file>
-  <file path="component\translation\method\Google.php" generated-path="component.translation.method.Google.html" hash="4fefefe14af1240e6d5ed23fd39c2c28" package="Component\Translation\Method">
+  <file path="component\translation\method\Google.php" generated-path="component.translation.method.Google.html" hash="84f8af620d21747610fc2fb09db5d8df" package="Component\Translation\Method">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -1840,7 +1840,7 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>eJzdV99v2zYQfvdfcSmMSQocK1kfNsSJ5zbdggJNUwzZw2AHBiPREhGZ1EjKiVH4f9+RkmhJlrtuj/NLKPJ+fvzueLn6JU/zQXh6OoBTeJCEq4xoJjhEYp0LTrk2BygDGyqVOfhp/OP44hx3zcEsIpomQm7hppZfNKws7qhORWwlcxI9k4TCP0uSApcSAN4RiQ7/FDImfEs4XBGzMd4KOUvWhGVjDHJqVTIWUa7QeKp1ri7D8OXlZZzwYixkElaHKkzy7Ozt+HysXzXcfv4jvP3yafPW6tfJwe3Hh0uYXaDQxayyzJ/B/GrLCdNp8WRch5/Fhq7fMx2yi585SoeDASdrqjBVCvXhwhwuHJwL3Uh6bZOeDAYFxn4rRJLRxU0minhxIyRd/Poa0dwKlmfue3KoUGNJ96ubjKHDUrYdjdoqTdcL6ux3LH9P7I3LwwQqBpUhOSJRKDMEsYKG7v+MPP+GImU2UuRU6m2n4Limr9rSKMqIUjWYuEl5rKBK8uvAuLJ4m5/DHPWVwL8kZ/BMt7BCFG4fKqFadrYhEpSWjCf1Frozi7x4wlRhiOpLVMcr7bj5OmM8pZLpWES7I8pIqKwwhbTMidZUcrgG7wrrgbvrp9dvuHgzHZ5fhWZ/6n2fJ5eApLpAuxvBYrenUyleFDgSVwet2FYFjyzOjDPtB/aohNL82Ar8E6YU1f5Qp0ydTSscgqAhZX7WF3D6snfne3eoipDWV2ErslEE7758NFcy9oKJs1UmtjtI/oMwhnSngLoo5ESSNRApyRaGhjYK3tkPU2j2U4u9kSMYWvX/BmIsXHZ+M4oaV5fmMCM8KbB0FVKhgrZi+tk0ofpTfewHk4aWpKrINKrMHxvbSGlKohT8hlWi9j66d2Vutcfnb1Ksa79+ANfXxy20vZbIGo9m1SfbCH5uhR7nzvajRQD3Jr1qJkLGC3p4uhu0v1qfVX5Ld9n3nLrkyohH+/xGdXQtJrplRYxKZlJTtMvRPbMd1wTPkHycQu3pW4ytKdvgbGWRPGWV0Y5i2bNQUdj9OkNELaZHfFQc+p2uqKQ8ojFg82PWA3osT1U3zG9XgWQbk7Urg37UmwUxMiGP4Ica9k7fGSpRSBwWemujzdN2efxVUKWXMSKGutah36KFh/3Gg+sptNvZqC1Uei/lynVHQBOJgVSGhDtrsCc8ZSsfToCuc731YRhJGuPzzEim5uBJC7704BECCNr10spijqJK31vMlffYn5QNKaUkxmnNxnRExso51yb2Y1EdqAatnWaVVBywkSd6GdnhCuM0TwF0Zi6/lVvz6jROO20YwhDrJxaXSOUCDeoUSZ0ikSN8P9t4RWnBn1UNzdJ+uhK/OD8PJp3OsJ8unJbfEdo3t8q66W522dfeek0u1xRJ0n8LLYVRv4gD82zqyuk90VFaxRQcXlI7h31/3EFkFMHvzMs4mXTTCU/bZrGr3X+4v4Q78oxNTCQJlaav4QqolEIq0zTqeWqv1GDFru+hagFmsDWjmWEkwwG8G9OQYzdDWLHZLSXNM/w34hDW8hr7pypvhONWNVcFh3B73uGeDWTuGRZ5j13yH7ymJ2WZ20APRiNrrn78SrOM5wXaxVdQC/v+GcWjt1e9N7u/AYPuLGk=</source>
+    <source>eJzdV99v2zYQfvdfcSmMSQocK1kfVsSJ5zTdggJNUxTZw2AbBiPREhGZ1EjKiVH4f9+RkmhJtrtuj/NLKPJ+fvzueLn6NU/zXnh62oNTeJSEq4xoJjhEYpULTrk2BygDayqVOfhl+PPw4hx3zcEkIpomQm7gtpafNazM7qlORWwlcxI9k4TCP0uSApcSAG6IRId/ChkTviEcrojZGG6EnCQrwrIhBjm2KhmLKFdoPNU6V5dh+PLyMkx4MRQyCatDFSZ5dvZ2eD7UrxruPv8R3n35tH5r9evk4O7j4yVMLlDoYlJZ5s9gfrXlhOm0eDKuw89iTVfvmQ7ZxTuO0mGvx8mKKkyVQn04M4czB+dMN5Je2aRHvV6Bsd8JkWR0dpuJIp7dCklnv71GNLeC5Zn7Hu0r1FjS3eo2Y+iwlG1HozZK09WMOvsdyz8Se+PyMIGKQWVIjkgUygxBLKGh+z8jz7+hSJmNFDmVetMpOK7pq7Y0ijKiVA0mblIeK6iS/NYzrize5ucwR30l8C/JGTzTDSwRhbvHSqiWnayJBKUl40m9he7MIi+eMFXoo/oC1fFKO26+TRhPqWQ6FtH2iDISKitMIS1yojWVHK7Bu8J64O766fUbLt6M++dXodkfez/mySUgqS7Q7lqw2O3pVIoXBY7E1UErtmXBI4sz40z7gT0qoTQ/tgT/hClFtd/XKVNn4wqHIGhImZ/1BZy+7Nz53j2qIqT1VdiKbBTBzZeP5kqGXjBytsrEtnvJfxDGkO4UUBeFnEiyAiIl2UDf0EbBjf0whWY/tdgZOYKhVf9vIMbCZec3o6hxdWn2M8KTAktXIRUqaCumn40Tqj/Vx34wamhJqopMo8p03thGSlMSpeA3rBK189G9K3OrB3z+LsWq9usHcH193ELba4ms8WhWh2QbwU+t0HzqbM8tArg32lPb7u2YeBkvaFt222t9Vrkt3EU/cOoSK6Md7HIb1JG1WOiWFSkqmVFNzy4/d6x2PBM8Q+JxCrWn77G1pmuDr5VF8pRVRjuKZb9CRWH36wwRo5ge8VHx5ytdUkl5RGPAxsesB/RYnqpumN+vAMnWJmtXAodRbxbDwIQ8gJ9q2Ds9p69EIXFQOFgXbY62S+Ovgiq9iBEx1LUO/RYtPOw1HlyPod3KBm2h0nspV647AppIDKQyJNxZgz3hKVv6cAJ0leuND/1I0hifZkYyNQVPWvClB3MIIGjXSiuLKYoq/WAxV978cFI2pJSSGCc1G9MRGSvnXJvYj0W1pxq0dppVUnHARp7oRWQHK4zTPAPQmbf8Vm7Nq9M46bRhCEOsn1hcIpULNKhTJHWKRI7w7WzjFaUFf1Y1NAv76Ur84vw8GHU6w26ycFp+R2jX2CrrprPZ5aHWdtDkYkWRJIdvoaUwOCziwDwbu3J6T3SUVjEF+5fU7YhuBZFRBL8zK+NU0k0nPG2bxa728OHhEu7JMzYxkSRUmr6GK6BSCqlM06hnqZ1SgxXbQ49UCzCDrRnLDCMZDt/dmPocuxnCis1uIWme4b8Q+7CW13h4ovIGOGpVM1WwD7fn7e/ZQKaeYZE375J/7yU9KcvcBro3Fllz9cNXmmU8L9AuvoBa2LfPKB69veq92f4NhGUr6Q==</source>
   </file>
   <file path="component\translation\method\Method.php" generated-path="component.translation.method.Method.html" hash="a6aff14517906f3d8828a7cbe3af0ef7" package="Component\Translation\Method">
     <docblock line="0">
@@ -3572,7 +3572,7 @@ Only on cli script</description>
     </class>
     <source>eJzdUk2P2jAQvedXzCESH1IS6B5aLbuUbbdClXZXPWwPFaDKG4YkIrEjewJEiP9e2zgQ6KHttT5E8bx5b+bN+O5jmZZe1O970IdXybjKGWWCQyyKUnDkZACdAxuUygDvw3fhcKCjBpjEjDARsobPTf68pTJ/RkrF0maWLF6zBOHPmazSvxIAHpjUBX8IuWS8ZhzumAmEtZCTpGBZHuomx5aSZzFypcVTolLdRtF2uw0TXoVCJpEDVZSUeXATDkLaEUxfvkfTb0+bG8tvzMH06+stTIY6aThxynwN5jTKSUZp9WZKRy9ig8WnjKJs+IHr7MjzOCtQaasIDTg34Pw0zjm1TBfW9MjzKt37l12MpQmP7PVv+K0BahG3xceqKGo4SoNYQYvwn23tX3ZzdCNFiZLqq5fOCXdk9xfnTCk3QR1DvlTgPO49z5SyQzanD/tJxlOUGS1FfGiCWsT8lNWbNgA+7uK8Mk/rZ8mIUHK4h84eA38Q4KEz+k3zUWQ8aa/MLdLhTZrei2QFMClZDb5pX8GDvZiF2yuJkwxesyVSpVux9FOQUim26vwMHXDhZ1Xx2Ha1FM0Isdvuomez3azM8XPGk0o/IaWd+5RmKhi7iQfjBOmpgbu9UYslUVU5acps0QqvhEQWp9B1lpkCf4013I+P5XvtypeEcxuG1NwMAa6Oqz3rKpJ6GT2rvJidOAtrRMcghE7Q0d8TNLoQO5x7af262bsqzpzGD78AURi6Aw==</source>
   </file>
-  <file path="component\translation\type\HTML.php" generated-path="component.translation.type.HTML.html" hash="a922782d7fa0b99b4f3a2b98f247f74b" package="Component\Translation\Type">
+  <file path="component\translation\type\HTML.php" generated-path="component.translation.type.HTML.html" hash="0f1846010046d69f62add04495e582a8" package="Component\Translation\Type">
     <docblock line="0">
       <description>Translation component
 php version 7.2.10</description>
@@ -3640,37 +3640,25 @@ All information about current node and child Text/Attr nodes</description>
         </docblock>
       </property>
       <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\type" line="62" package="Component\Translation\Type">
-        <name>$_html_parser</name>
-        <full_name>\NovemBit\i18n\component\translation\type\HTML::_html_parser</full_name>
-        <default></default>
-        <docblock line="62">
-          <description>Html parser</description>
-          <long-description></long-description>
-          <tag name="var" line="62" description="" type="\NovemBit\i18n\system\parsers\HTML" variable="">
-            <type>\NovemBit\i18n\system\parsers\HTML</type>
-          </tag>
-        </docblock>
-      </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\type" line="69" package="Component\Translation\Type">
         <name>$_to_translate</name>
         <full_name>\NovemBit\i18n\component\translation\type\HTML::_to_translate</full_name>
         <default>array()</default>
-        <docblock line="69">
+        <docblock line="62">
           <description>To translate</description>
           <long-description></long-description>
-          <tag name="var" line="69" description="" type="array" variable="">
+          <tag name="var" line="62" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\type" line="76" package="Component\Translation\Type">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\component\translation\type" line="69" package="Component\Translation\Type">
         <name>$_translations</name>
         <full_name>\NovemBit\i18n\component\translation\type\HTML::_translations</full_name>
         <default>array()</default>
-        <docblock line="76">
+        <docblock line="69">
           <description>Translated contents</description>
           <long-description></long-description>
-          <tag name="var" line="76" description="" type="array" variable="">
+          <tag name="var" line="69" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
@@ -3783,60 +3771,49 @@ All information about current node and child Text/Attr nodes</description>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="83" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="76" package="Component\Translation\Type">
         <name>init</name>
         <full_name>\NovemBit\i18n\component\translation\type\HTML::init()</full_name>
-        <docblock line="83">
+        <docblock line="76">
           <description>{@inheritdoc}</description>
           <long-description></long-description>
-          <tag name="return" line="83" description="" type="void">
+          <tag name="return" line="76" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="108" package="Component\Translation\Type">
-        <name>getHtmlParser</name>
-        <full_name>\NovemBit\i18n\component\translation\type\HTML::getHtmlParser()</full_name>
-        <docblock line="108">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\component\translation\type" line="88" package="Component\Translation\Type">
+        <name>_getHtmlParser</name>
+        <full_name>\NovemBit\i18n\component\translation\type\HTML::_getHtmlParser()</full_name>
+        <docblock line="88">
           <description>Get Html parser</description>
           <long-description></long-description>
-          <tag name="return" line="108" description="" type="\NovemBit\i18n\system\parsers\HTML">
-            <type>\NovemBit\i18n\system\parsers\HTML</type>
+          <tag name="param" line="88" description="&lt;p&gt;Html content&lt;/p&gt;" type="string" variable="$html">
+            <type>string</type>
           </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="120" package="Component\Translation\Type">
-        <name>setHtmlParser</name>
-        <full_name>\NovemBit\i18n\component\translation\type\HTML::setHtmlParser()</full_name>
-        <docblock line="120">
-          <description>Set Html Parser</description>
-          <long-description></long-description>
-          <tag name="param" line="120" description="&lt;p&gt;Html parser&lt;/p&gt;" type="\NovemBit\i18n\system\parsers\HTML" variable="$_html_parser">
+          <tag name="return" line="88" description="" type="\NovemBit\i18n\system\parsers\HTML">
             <type>\NovemBit\i18n\system\parsers\HTML</type>
-          </tag>
-          <tag name="return" line="120" description="" type="void">
-            <type>void</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
-          <name>$_html_parser</name>
+          <name>$html</name>
           <default></default>
-          <type>\NovemBit\i18n\system\parsers\HTML</type>
+          <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="133" package="Component\Translation\Type">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\component\translation\type" line="120" package="Component\Translation\Type">
         <name>doTranslate</name>
         <full_name>\NovemBit\i18n\component\translation\type\HTML::doTranslate()</full_name>
-        <docblock line="133">
+        <docblock line="120">
           <description>Doing translate method</description>
           <long-description></long-description>
-          <tag name="param" line="133" description="&lt;p&gt;list of translatable HTML strings&lt;/p&gt;" type="array" variable="$html_list">
+          <tag name="param" line="120" description="&lt;p&gt;list of translatable HTML strings&lt;/p&gt;" type="array" variable="$html_list">
             <type>array</type>
           </tag>
-          <tag name="return" line="133" description="" type="mixed">
+          <tag name="return" line="120" description="" type="mixed">
             <type>mixed</type>
           </tag>
-          <tag name="throws" line="133" description="" type="\Exception">
+          <tag name="throws" line="120" description="" type="\Exception">
             <type>\Exception</type>
           </tag>
         </docblock>
@@ -4393,7 +4370,7 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="Module.php" generated-path="Module.html" hash="5108fdaa5eafa4b57bb253eda62d92ae" package="Default">
     <docblock line="0">
@@ -6002,7 +5979,7 @@ Only on cli script</description>
     </parse_markers>
     <source>eJw9jDEKgDAMAPe8ol9wExQEJwd1csxSasSCTUMbRBH/bifHg7trO9kFANgGymIdmTmeFHqv6Kua0cUgkYkVNVnOh1UfGfUWQs9KaStJbsrgJzMs02joUuI1m6WY8AC8H9/hJZk=</source>
   </file>
-  <file path="component\languages\Languages.php" generated-path="component.languages.Languages.html" hash="801d1e4433ccad8386fe7a1842142229" package="Component">
+  <file path="component\languages\Languages.php" generated-path="component.languages.Languages.html" hash="af5131d5ed235177982a699f000a0f0c" package="Component">
     <docblock line="0">
       <description>Languages component
 php version 7.2.10</description>
@@ -6540,7 +6517,7 @@ Only on cli script</description>
         </docblock>
       </property>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="component\translation\type\Type.php" generated-path="component.translation.type.Type.html" hash="8d7a782cdc9073a74b536942af62379a" package="Component\Translation\Type">
     <docblock line="0">
@@ -7267,7 +7244,7 @@ php version 7.2.10</description>
     </class>
     <source>eJzVUj1v2zAU3PkrbgjgxIDFuBlaOK6rFnCNAklQoOlQwAstMRQRiRRIyh8o8t/7qK/EQ4eO5SLg7t493onLT3VRMz6dMkxxL7TB+pjJOmhrYJ+g5x9MZEiEvXQ+wu+Td8n8mtBIpJkIUll3wo+TD7LajuO+pWuRPQsl8RdaNKGwDsBn4cj6l3W5MCdhsBQRSE7WpaoSukwyW63akVJn0nhyLEKo/YLzw+GQKNMk1inek56rupzdJNdJOAZsHn7yzfe7/U07P8TA5tvjAumcRPO0dzbPiGdwVjoUzS6u5g92L6svOvC+Ec6YEZX0lE9iILeR3PouqRyS3rKzfkccWSm8/297/Le22qxv3pY8Bmlyj9cg7DeLbm1V8Uyxdo4yUck+Jq8kRcx7bpCkTobGGfjgtFE9yttv3ewoBZ4ak3Ubo9t9Z3Z51Uq6je1WLt8uG/GLbsorfMSkuw9ZUXSJCRJchEL72UrJcEfQ5RVBE9A/Pue+6nLYOBzSLbDcrc6F4+0iv+S7FbSHsQECe1HqHOsZPaESIs8dSSe3o2dfw3jdjnlhL4z9Acj7MgI=</source>
   </file>
-  <file path="system\parsers\HTML.php" generated-path="system.parsers.HTML.html" hash="3791cc64da78e0af4e9fcc1508bde6e3" package="System\Parsers">
+  <file path="system\parsers\HTML.php" generated-path="system.parsers.HTML.html" hash="cb49e6962adc66ff1e73d845eb3aca28" package="System\Parsers">
     <docblock line="0">
       <description>HTML parser
 php version 7.2.10</description>
@@ -7520,33 +7497,33 @@ Preserving tag that must be restored on save</description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="292" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="297" package="System\Parsers">
         <name>getTranslateFields</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::getTranslateFields()</full_name>
-        <docblock line="292">
+        <docblock line="297">
           <description>Getting translate fields set</description>
           <long-description></long-description>
-          <tag name="return" line="292" description="" type="array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;">
+          <tag name="return" line="297" description="" type="array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;">
             <type>array&lt;mixed,\NovemBit\i18n\system\parsers\html\Rule&gt;</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="306" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="311" package="System\Parsers">
         <name>addTranslateField</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::addTranslateField()</full_name>
-        <docblock line="306">
+        <docblock line="311">
           <description>Adding translate fields</description>
           <long-description></long-description>
-          <tag name="param" line="306" description="&lt;p&gt;Rule object&lt;/p&gt;" type="\NovemBit\i18n\system\parsers\html\Rule" variable="$rule">
+          <tag name="param" line="311" description="&lt;p&gt;Rule object&lt;/p&gt;" type="\NovemBit\i18n\system\parsers\html\Rule" variable="$rule">
             <type>\NovemBit\i18n\system\parsers\html\Rule</type>
           </tag>
-          <tag name="param" line="306" description="&lt;p&gt;Text node type to translate&lt;/p&gt;" type="string" variable="$text">
+          <tag name="param" line="311" description="&lt;p&gt;Text node type to translate&lt;/p&gt;" type="string" variable="$text">
             <type>string</type>
           </tag>
-          <tag name="param" line="306" description="&lt;p&gt;List of attributes that must be translated&lt;/p&gt;" type="array" variable="$attrs">
+          <tag name="param" line="311" description="&lt;p&gt;List of attributes that must be translated&lt;/p&gt;" type="array" variable="$attrs">
             <type>array</type>
           </tag>
-          <tag name="return" line="306" description="" type="void">
+          <tag name="return" line="311" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -7566,40 +7543,40 @@ Preserving tag that must be restored on save</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="320" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="325" package="System\Parsers">
         <name>getHtml</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::getHtml()</full_name>
-        <docblock line="320">
+        <docblock line="325">
           <description>Get HTML string</description>
           <long-description></long-description>
-          <tag name="return" line="320" description="" type="mixed">
+          <tag name="return" line="325" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="330" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="335" package="System\Parsers">
         <name>save</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::save()</full_name>
-        <docblock line="330">
+        <docblock line="335">
           <description>Save DomDocument final result as HTML</description>
           <long-description></long-description>
-          <tag name="return" line="330" description="" type="string|array&lt;mixed,string&gt;|null">
+          <tag name="return" line="335" description="" type="string|array&lt;mixed,string&gt;|null">
             <type>string</type>
             <type>array&lt;mixed,string&gt;</type>
             <type>null</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="344" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="349" package="System\Parsers">
         <name>setHtml</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::setHtml()</full_name>
-        <docblock line="344">
+        <docblock line="349">
           <description>Set HTML string</description>
           <long-description></long-description>
-          <tag name="param" line="344" description="&lt;p&gt;Initial HTML content&lt;/p&gt;" type="string" variable="$_html">
+          <tag name="param" line="349" description="&lt;p&gt;Initial HTML content&lt;/p&gt;" type="string" variable="$_html">
             <type>string</type>
           </tag>
-          <tag name="return" line="344" description="" type="void">
+          <tag name="return" line="349" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -7609,27 +7586,27 @@ Preserving tag that must be restored on save</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="354" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="359" package="System\Parsers">
         <name>getQuery</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::getQuery()</full_name>
-        <docblock line="354">
+        <docblock line="359">
           <description>Get Xpath query</description>
           <long-description></long-description>
-          <tag name="return" line="354" description="" type="string">
+          <tag name="return" line="359" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="366" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers" line="371" package="System\Parsers">
         <name>setQuery</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::setQuery()</full_name>
-        <docblock line="366">
+        <docblock line="371">
           <description>Set Xpath query</description>
           <long-description></long-description>
-          <tag name="param" line="366" description="&lt;p&gt;Query String&lt;/p&gt;" type="string" variable="$_query">
+          <tag name="param" line="371" description="&lt;p&gt;Query String&lt;/p&gt;" type="string" variable="$_query">
             <type>string</type>
           </tag>
-          <tag name="return" line="366" description="" type="void">
+          <tag name="return" line="371" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -7639,27 +7616,27 @@ Preserving tag that must be restored on save</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers" line="376" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers" line="381" package="System\Parsers">
         <name>_getXpath</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::_getXpath()</full_name>
-        <docblock line="376">
+        <docblock line="381">
           <description>Get Xpath instance</description>
           <long-description></long-description>
-          <tag name="return" line="376" description="" type="\NovemBit\i18n\system\parsers\DOMXpath">
+          <tag name="return" line="381" description="" type="\NovemBit\i18n\system\parsers\DOMXpath">
             <type>\NovemBit\i18n\system\parsers\DOMXpath</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers" line="388" package="System\Parsers">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers" line="393" package="System\Parsers">
         <name>_setXpath</name>
         <full_name>\NovemBit\i18n\system\parsers\HTML::_setXpath()</full_name>
-        <docblock line="388">
+        <docblock line="393">
           <description>Set Xpath instance</description>
           <long-description></long-description>
-          <tag name="param" line="388" description="&lt;p&gt;Xpath instance of DomDocument&lt;/p&gt;" type="\DOMXPath" variable="$xpath">
+          <tag name="param" line="393" description="&lt;p&gt;Xpath instance of DomDocument&lt;/p&gt;" type="\DOMXPath" variable="$xpath">
             <type>\DOMXPath</type>
           </tag>
-          <tag name="return" line="388" description="" type="void">
+          <tag name="return" line="393" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -7670,7 +7647,7 @@ Preserving tag that must be restored on save</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="component\translation\type\interfaces\JSON.php" generated-path="component.translation.type.interfaces.JSON.html" hash="e675ccd8dabdd8a9a024d4a848589bac" package="Default">
     <docblock line="0">
@@ -11199,7 +11176,7 @@ php version 7.2.10</description>
     </class>
     <source>eJzVVF1P2zAUfc+vuJOQKBVL6HjYVOhWtpbSqQtTKZMmIUUmvflYEzuynZaK8d9nOwkkFXRF2svy4sj33HN9zr326acsyiyn3bagDQMiCch1hhBhkiEHPyFC6IgCwRK5iBmF9/Y7u3OkdnWg7xOJIeNruFoLienNhck0Sf2M+AsSIjwXI7mMGAeAM8IV6U/G54SuCYVTojfsNeP9MCVxYvss/WhSkthHKhRdJGUmuo6zWq3skOY246FTBoUTZsnbY/vIlncSRu61M/o+WR6b/EoAjMazLvQ7CtTpl8x0AfqrmMNYRvmtLu24bInp51g6cecDVWjHsihJUShxCFXwRgdvRCGzME+cWJWvFzU3IVCq5yiRpzFF8BmVSKVxXfyHnr7OucIBPWYzpde6tyydqjwQEi5m3ybQg/1Ipsn+SS3w9erS1YFfgtFG4HpqEnLexF+7g+H52B0OVPDopChhGqG/NnyJ0F9AHICQPKYhxMKULsMVSvnMSVph9srVnLH438RzlDmncMtYUu45Zs3yW2WjSiJSLUFOfalnMBaaq1USHxjofZGovpKsKvumZ4pmniSheMwpND/sIlA5tZM+7ehWeWl8h/Pd9Cmuv8gL4kRdA29JeAU8hPPxZDacej/OJuPB2WzoKZbXCNWzspNSM1T/qJOa6yWpemi9OfpsjhuNqxnRMih1N6SHnDPeOoBezxzRG06nl1PPvXSHL9owwuL5ABY0FYHu56HhOdx9xq+KpXyYNrCxeqr25hiQPJEwKFdTvJCiM1cR0mJPNSSnC8pW9AWPFd3vxpG3Oh2i1M/G07A8nkTdD0yCbvfx6m+2QQ1Jq4A0B/Oghqk1pGSbTp5a9QCYCKzzNNq+lUgjtzE1noKtTBq5yfQ8vvKmhi7n58H6A5d/Uf8=</source>
   </file>
-  <file path="system\parsers\html\Rule.php" generated-path="system.parsers.html.Rule.html" hash="3f4d04c9050e5891cc8ac63c5b507268" package="System\Parsers\HTML">
+  <file path="system\parsers\html\Rule.php" generated-path="system.parsers.html.Rule.html" hash="59e21802b8c141f989ce4bbf92f97613" package="System\Parsers\HTML">
     <docblock line="0">
       <description>HTML parser
 php version 7.2.10</description>
@@ -11227,110 +11204,122 @@ Using PHP Dom parser</description>
         <tag name="license" line="29" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
         <tag name="link" line="29" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
       </docblock>
-      <constant namespace="NovemBit\i18n\system\parsers\html" line="35" package="System\Parsers\HTML">
+      <constant namespace="NovemBit\i18n\system\parsers\html" line="37" package="System\Parsers\HTML">
         <name>IN</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::IN</full_name>
         <value>'in'</value>
-        <docblock line="35">
+        <docblock line="37">
           <description>Check if tagName|attribute|text
 exists in array</description>
           <long-description></long-description>
+          <tag name="var" line="37" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </constant>
-      <constant namespace="NovemBit\i18n\system\parsers\html" line="40" package="System\Parsers\HTML">
+      <constant namespace="NovemBit\i18n\system\parsers\html" line="44" package="System\Parsers\HTML">
         <name>REGEX</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::REGEX</full_name>
         <value>'regex'</value>
-        <docblock line="40">
+        <docblock line="44">
           <description>Check tagName|attribute|text regex validation</description>
           <long-description></long-description>
+          <tag name="var" line="44" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </constant>
-      <constant namespace="NovemBit\i18n\system\parsers\html" line="45" package="System\Parsers\HTML">
+      <constant namespace="NovemBit\i18n\system\parsers\html" line="51" package="System\Parsers\HTML">
         <name>EQ</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::EQ</full_name>
         <value>'EQ'</value>
-        <docblock line="45">
+        <docblock line="51">
           <description>Check equality for tagName|attribute|text</description>
           <long-description></long-description>
+          <tag name="var" line="51" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </constant>
-      <constant namespace="NovemBit\i18n\system\parsers\html" line="50" package="System\Parsers\HTML">
+      <constant namespace="NovemBit\i18n\system\parsers\html" line="58" package="System\Parsers\HTML">
         <name>CONTAINS</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::CONTAINS</full_name>
         <value>'contains'</value>
-        <docblock line="50">
+        <docblock line="58">
           <description>Check tagName|attribute|text contains</description>
           <long-description></long-description>
+          <tag name="var" line="58" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </constant>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="57" package="System\Parsers\HTML">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="65" package="System\Parsers\HTML">
         <name>$_tags</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_tags</full_name>
         <default></default>
-        <docblock line="57">
+        <docblock line="65">
           <description>HTML tags</description>
           <long-description></long-description>
-          <tag name="var" line="57" description="" type="array" variable="">
+          <tag name="var" line="65" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="64" package="System\Parsers\HTML">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="72" package="System\Parsers\HTML">
         <name>$_attrs</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_attrs</full_name>
         <default></default>
-        <docblock line="64">
+        <docblock line="72">
           <description>Html attr nodes</description>
           <long-description></long-description>
-          <tag name="var" line="64" description="" type="array" variable="">
+          <tag name="var" line="72" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="71" package="System\Parsers\HTML">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="79" package="System\Parsers\HTML">
         <name>$_texts</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_texts</full_name>
         <default></default>
-        <docblock line="71">
+        <docblock line="79">
           <description>Html Text nodes</description>
           <long-description></long-description>
-          <tag name="var" line="71" description="" type="array" variable="">
+          <tag name="var" line="79" description="" type="array" variable="">
             <type>array</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="78" package="System\Parsers\HTML">
+      <property static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="86" package="System\Parsers\HTML">
         <name>$_mode</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_mode</full_name>
         <default></default>
-        <docblock line="78">
+        <docblock line="86">
           <description>Mode of rule join</description>
           <long-description></long-description>
-          <tag name="var" line="78" description="" type="string" variable="">
+          <tag name="var" line="86" description="" type="string" variable="">
             <type>string</type>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="88" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="96" package="System\Parsers\HTML">
         <name>__construct</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::__construct()</full_name>
-        <docblock line="88">
+        <docblock line="96">
           <description>Rule constructor.</description>
           <long-description></long-description>
-          <tag name="param" line="88" description="&lt;p&gt;Tags array&lt;/p&gt;" type="array|null" variable="$tags">
+          <tag name="param" line="96" description="&lt;p&gt;Tags array&lt;/p&gt;" type="array|null" variable="$tags">
             <type>array</type>
             <type>null</type>
           </tag>
-          <tag name="param" line="88" description="&lt;p&gt;Attributes array&lt;/p&gt;" type="array|null" variable="$attrs">
+          <tag name="param" line="96" description="&lt;p&gt;Attributes array&lt;/p&gt;" type="array|null" variable="$attrs">
             <type>array</type>
             <type>null</type>
           </tag>
-          <tag name="param" line="88" description="&lt;p&gt;Texts array&lt;/p&gt;" type="array|null" variable="$texts">
+          <tag name="param" line="96" description="&lt;p&gt;Texts array&lt;/p&gt;" type="array|null" variable="$texts">
             <type>array</type>
             <type>null</type>
           </tag>
-          <tag name="param" line="88" description="&lt;p&gt;Mode of join&lt;/p&gt;" type="string" variable="$mode">
+          <tag name="param" line="96" description="&lt;p&gt;Mode of join&lt;/p&gt;" type="string" variable="$mode">
             <type>string</type>
           </tag>
         </docblock>
@@ -11355,27 +11344,27 @@ exists in array</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="105" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="113" package="System\Parsers\HTML">
         <name>getTags</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::getTags()</full_name>
-        <docblock line="105">
+        <docblock line="113">
           <description>Get Tags</description>
           <long-description></long-description>
-          <tag name="return" line="105" description="" type="mixed">
+          <tag name="return" line="113" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="117" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="125" package="System\Parsers\HTML">
         <name>setTags</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::setTags()</full_name>
-        <docblock line="117">
+        <docblock line="125">
           <description>Set Tags</description>
           <long-description></long-description>
-          <tag name="param" line="117" description="&lt;p&gt;Tags array&lt;/p&gt;" type="array" variable="$_tags">
+          <tag name="param" line="125" description="&lt;p&gt;Tags array&lt;/p&gt;" type="array" variable="$_tags">
             <type>array</type>
           </tag>
-          <tag name="return" line="117" description="" type="void">
+          <tag name="return" line="125" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11385,27 +11374,27 @@ exists in array</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="127" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="135" package="System\Parsers\HTML">
         <name>getAttrs</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::getAttrs()</full_name>
-        <docblock line="127">
+        <docblock line="135">
           <description>Get attributes</description>
           <long-description></long-description>
-          <tag name="return" line="127" description="" type="array">
+          <tag name="return" line="135" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="139" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="147" package="System\Parsers\HTML">
         <name>setAttrs</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::setAttrs()</full_name>
-        <docblock line="139">
+        <docblock line="147">
           <description>Set attributes</description>
           <long-description></long-description>
-          <tag name="param" line="139" description="&lt;p&gt;Attributes array&lt;/p&gt;" type="array" variable="$_attrs">
+          <tag name="param" line="147" description="&lt;p&gt;Attributes array&lt;/p&gt;" type="array" variable="$_attrs">
             <type>array</type>
           </tag>
-          <tag name="return" line="139" description="" type="void">
+          <tag name="return" line="147" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11415,27 +11404,27 @@ exists in array</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="149" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="157" package="System\Parsers\HTML">
         <name>getTexts</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::getTexts()</full_name>
-        <docblock line="149">
+        <docblock line="157">
           <description>Get Texts</description>
           <long-description></long-description>
-          <tag name="return" line="149" description="" type="mixed">
+          <tag name="return" line="157" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="161" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="169" package="System\Parsers\HTML">
         <name>setTexts</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::setTexts()</full_name>
-        <docblock line="161">
+        <docblock line="169">
           <description>Set texts</description>
           <long-description></long-description>
-          <tag name="param" line="161" description="&lt;p&gt;Texts array&lt;/p&gt;" type="mixed" variable="$_texts">
+          <tag name="param" line="169" description="&lt;p&gt;Texts array&lt;/p&gt;" type="mixed" variable="$_texts">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="161" description="" type="void">
+          <tag name="return" line="169" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11445,16 +11434,16 @@ exists in array</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="173" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="181" package="System\Parsers\HTML">
         <name>_validateTag</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_validateTag()</full_name>
-        <docblock line="173">
+        <docblock line="181">
           <description>Validate Tag</description>
           <long-description></long-description>
-          <tag name="param" line="173" description="&lt;p&gt;Element Node&lt;/p&gt;" type="\DOMElement" variable="$node">
+          <tag name="param" line="181" description="&lt;p&gt;Element Node&lt;/p&gt;" type="\DOMElement" variable="$node">
             <type>\DOMElement</type>
           </tag>
-          <tag name="return" line="173" description="" type="boolean">
+          <tag name="return" line="181" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -11464,16 +11453,16 @@ exists in array</description>
           <type>\DOMElement</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="214" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="222" package="System\Parsers\HTML">
         <name>_validateAttrs</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_validateAttrs()</full_name>
-        <docblock line="214">
+        <docblock line="222">
           <description>Validate Attr Node</description>
           <long-description></long-description>
-          <tag name="param" line="214" description="&lt;p&gt;Attr tag&lt;/p&gt;" type="\DOMElement" variable="$node">
+          <tag name="param" line="222" description="&lt;p&gt;Attr tag&lt;/p&gt;" type="\DOMElement" variable="$node">
             <type>\DOMElement</type>
           </tag>
-          <tag name="return" line="214" description="" type="boolean">
+          <tag name="return" line="222" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -11483,16 +11472,16 @@ exists in array</description>
           <type>\DOMElement</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="273" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="NovemBit\i18n\system\parsers\html" line="281" package="System\Parsers\HTML">
         <name>_validateTexts</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::_validateTexts()</full_name>
-        <docblock line="273">
+        <docblock line="281">
           <description>Validate TextNodes of Node</description>
           <long-description></long-description>
-          <tag name="param" line="273" description="&lt;p&gt;Node element&lt;/p&gt;" type="\DOMElement" variable="$node">
+          <tag name="param" line="281" description="&lt;p&gt;Node element&lt;/p&gt;" type="\DOMElement" variable="$node">
             <type>\DOMElement</type>
           </tag>
-          <tag name="return" line="273" description="" type="boolean">
+          <tag name="return" line="281" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -11502,16 +11491,16 @@ exists in array</description>
           <type>\DOMElement</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="324" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="332" package="System\Parsers\HTML">
         <name>validate</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::validate()</full_name>
-        <docblock line="324">
+        <docblock line="332">
           <description>Main Validate Method</description>
           <long-description></long-description>
-          <tag name="param" line="324" description="&lt;p&gt;Node to validate&lt;/p&gt;" type="\DOMElement" variable="$node">
+          <tag name="param" line="332" description="&lt;p&gt;Node to validate&lt;/p&gt;" type="\DOMElement" variable="$node">
             <type>\DOMElement</type>
           </tag>
-          <tag name="return" line="324" description="" type="boolean">
+          <tag name="return" line="332" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -11521,27 +11510,27 @@ exists in array</description>
           <type>\DOMElement</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="356" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="364" package="System\Parsers\HTML">
         <name>getMode</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::getMode()</full_name>
-        <docblock line="356">
+        <docblock line="364">
           <description>Get mode of join</description>
           <long-description></long-description>
-          <tag name="return" line="356" description="" type="mixed">
+          <tag name="return" line="364" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="368" package="System\Parsers\HTML">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="NovemBit\i18n\system\parsers\html" line="376" package="System\Parsers\HTML">
         <name>setMode</name>
         <full_name>\NovemBit\i18n\system\parsers\html\Rule::setMode()</full_name>
-        <docblock line="368">
+        <docblock line="376">
           <description>Setting join mode</description>
           <long-description></long-description>
-          <tag name="param" line="368" description="&lt;p&gt;Join Mode&lt;/p&gt;" type="mixed" variable="$_mode">
+          <tag name="param" line="376" description="&lt;p&gt;Join Mode&lt;/p&gt;" type="mixed" variable="$_mode">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="368" description="" type="void">
+          <tag name="return" line="376" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -11552,7 +11541,7 @@ exists in array</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="system\component\DB.php" generated-path="system.component.DB.html" hash="7fdc83b47a9eb79eafe2e4d744574740" package="System\Components">
     <docblock line="0">

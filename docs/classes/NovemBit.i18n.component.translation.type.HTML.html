@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>NovemBit i18n - Internationalization library » \NovemBit\i18n\component\translation\Type\HTML</title>
+<title>NovemBit i18n - Internationalization library » \NovemBit\i18n\component\translation\type\HTML</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -83,7 +83,6 @@ Initialization of child components</span><pre>commonInit()</pre></a></li>
 <li class="method public inherited"><a href="#method_doTranslate" title="doTranslate() :: Abstract method that must be extended from
 Child methods to translate texts"><span class="description">Abstract method that must be extended from
 Child methods to translate texts</span><pre>doTranslate()</pre></a></li>
-<li class="method public "><a href="#method_getHtmlParser" title="getHtmlParser() :: Get Html parser"><span class="description">Get Html parser</span><pre>getHtmlParser()</pre></a></li>
 <li class="method public "><a href="#method_init" title="init() :: {@inheritdoc}"><span class="description">{@inheritdoc}</span><pre>init()</pre></a></li>
 <li class="method public inherited"><a href="#method_init" title="init() :: Component init method
 Running after child component initialization"><span class="description">Component init method
@@ -91,7 +90,6 @@ Running after child component initialization</span><pre>init()</pre></a></li>
 <li class="method public inherited"><a href="#method_reTranslate" title="reTranslate() :: Re Translate already translated texts, find sources of
 Bunch text strings"><span class="description">Re Translate already translated texts, find sources of
 Bunch text strings</span><pre>reTranslate()</pre></a></li>
-<li class="method public "><a href="#method_setHtmlParser" title="setHtmlParser() :: Set Html Parser"><span class="description">Set Html Parser</span><pre>setHtmlParser()</pre></a></li>
 <li class="method public inherited"><a href="#method_translate" title="translate() :: Method that must be used public for each time
 To make translations,
 Its using builtin caching system to
@@ -115,6 +113,7 @@ Save already translated texts on DB with Active data</span><pre>translate()</pre
 <li class="method private inherited"><a href="#method__fetchSavedTranslations" title="_fetchSavedTranslations() :: Fetching saved translates from DB
 Using \NovemBit\i18n\models\Translation model"><span class="description">Fetching saved translates from DB
 Using \NovemBit\i18n\models\Translation model</span><pre>_fetchSavedTranslations()</pre></a></li>
+<li class="method private "><a href="#method__getHtmlParser" title="_getHtmlParser() :: Get Html parser"><span class="description">Get Html parser</span><pre>_getHtmlParser()</pre></a></li>
 <li class="method private inherited"><a href="#method__initExclusions" title="_initExclusions() :: Initialization of exclusions array
 Sort exclusions by priority"><span class="description">Initialization of exclusions array
 Sort exclusions by priority</span><pre>_initExclusions()</pre></a></li>
@@ -140,7 +139,6 @@ All information about current node and child Text/Attr nodes"><span class="descr
 </li>
 <li class="nav-header private">» Private
                     <ul>
-<li class="property private "><a href="#property__html_parser" title="$_html_parser() :: Html parser"><span class="description"></span><pre>$_html_parser</pre></a></li>
 <li class="property private "><a href="#property__re_translate_original_texts" title="$_re_translate_original_texts() :: Keep originals to use for validation"><span class="description"></span><pre>$_re_translate_original_texts</pre></a></li>
 <li class="property private "><a href="#property__to_translate" title="$_to_translate() :: To translate"><span class="description"></span><pre>$_to_translate</pre></a></li>
 <li class="property private "><a href="#property__translate_original_texts" title="$_translate_original_texts() :: Keep originals to use for validation"><span class="description"></span><pre>$_translate_original_texts</pre></a></li>
@@ -150,7 +148,7 @@ All information about current node and child Text/Attr nodes"><span class="descr
 </ul>
 </div>
 <div class="span8">
-<a xmlns:php="http://php.net/xsl" id="\NovemBit\i18n\component\translation\Type\HTML"></a><ul xmlns:php="http://php.net/xsl" class="breadcrumb">
+<a xmlns:php="http://php.net/xsl" id="\NovemBit\i18n\component\translation\type\HTML"></a><ul xmlns:php="http://php.net/xsl" class="breadcrumb">
 <li>
 <a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -165,10 +163,10 @@ All information about current node and child Text/Attr nodes"><span class="descr
 <span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.html">translation</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.Type.html">Type</a>
+<span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.type.html">type</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/NovemBit.i18n.component.translation.Type.HTML.html">HTML</a>
+<span class="divider">\</span><a href="../classes/NovemBit.i18n.component.translation.type.HTML.html">HTML</a>
 </li>
 </ul>
 <div xmlns:php="http://php.net/xsl" class="element class">
@@ -199,7 +197,7 @@ Module class</p></div>
 </tr>
 <tr>
 <th>inherited_from</th>
-<td>\NovemBit\i18n\component\translation\Type\Type</td>
+<td>\NovemBit\i18n\component\translation\type\Type</td>
 </tr>
 </table>
 <h3>
@@ -333,7 +331,7 @@ Child methods to translate texts</h2>
 <div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
-<td>\NovemBit\i18n\component\translation\Interfaces\Translator::doTranslate()</td>
+<td>\NovemBit\i18n\component\translation\interfaces\Translator::doTranslate()</td>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
@@ -341,16 +339,6 @@ Child methods to translate texts</h2>
 <code>array</code><p>Texts array to translate</p></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
-</div></div>
-</div>
-<a id="method_getHtmlParser"></a><div class="element clickable method public method_getHtmlParser " data-toggle="collapse" data-target=".method_getHtmlParser .collapse" title="public">
-<h2>Get Html parser</h2>
-<pre>getHtmlParser() : \NovemBit\i18n\system\parsers\HTML</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>\NovemBit\i18n\system\parsers\HTML</code></div>
 </div></div>
 </div>
 <a id="method_init"></a><div class="element clickable method public method_init " data-toggle="collapse" data-target=".method_init .collapse" title="public">
@@ -386,18 +374,6 @@ Bunch text strings</h2>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a id="method_setHtmlParser"></a><div class="element clickable method public method_setHtmlParser " data-toggle="collapse" data-target=".method_setHtmlParser .collapse" title="public">
-<h2>Set Html Parser</h2>
-<pre>setHtmlParser(\NovemBit\i18n\system\parsers\HTML $_html_parser) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$_html_parser</h4>
-<code>\NovemBit\i18n\system\parsers\HTML</code><p>Html parser</p></div>
-</div></div>
-</div>
 <a id="method_translate"></a><div class="element clickable method public method_translate inherited" data-toggle="collapse" data-target=".method_translate .collapse" title="public">
 <h2>Method that must be used public for each time
 To make translations,
@@ -409,7 +385,7 @@ Save already translated texts on DB with Active data</h2>
 <div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
-<td>\NovemBit\i18n\component\translation\Interfaces\Translator::translate()</td>
+<td>\NovemBit\i18n\component\translation\interfaces\Translator::translate()</td>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
@@ -573,6 +549,20 @@ Using \NovemBit\i18n\models\Translation model</h2>
 </tr></table>
 </div></div>
 </div>
+<a id="method__getHtmlParser"></a><div class="element clickable method private method__getHtmlParser " data-toggle="collapse" data-target=".method__getHtmlParser .collapse" title="private">
+<h2>Get Html parser</h2>
+<pre>_getHtmlParser(string $html) : \NovemBit\i18n\system\parsers\HTML</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$html</h4>
+<code>string</code><p>Html content</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\NovemBit\i18n\system\parsers\HTML</code></div>
+</div></div>
+</div>
 <a id="method__initExclusions"></a><div class="element clickable method private method__initExclusions inherited" data-toggle="collapse" data-target=".method__initExclusions .collapse" title="private">
 <h2>Initialization of exclusions array
 Sort exclusions by priority</h2>
@@ -715,16 +705,6 @@ All information about current node and child Text/Attr nodes</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property__html_parser"> </a><div class="element clickable property private property__html_parser" data-toggle="collapse" data-target=".property__html_parser .collapse" title="private">
-<h2>Html parser</h2>
-<pre>$_html_parser : \NovemBit\i18n\system\parsers\HTML</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
 <a id="property__re_translate_original_texts"> </a><div class="element clickable property private property__re_translate_original_texts" data-toggle="collapse" data-target=".property__re_translate_original_texts .collapse" title="private">
 <h2>Keep originals to use for validation</h2>
 <pre>$_re_translate_original_texts : array</pre>
@@ -772,7 +752,7 @@ All information about current node and child Text/Attr nodes</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-04T14:53:30+04:00.<br></footer></div>
+            generated on 2019-10-14T11:46:38+04:00.<br></footer></div>
 </div>
 </body>
 </html>

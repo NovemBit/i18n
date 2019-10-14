@@ -33,13 +33,11 @@
         let req_parsed = parseURL(arguments[1]);
         let cur_parsed = parseURL(window.location.href);
         if(req_parsed.host === cur_parsed.host && valid_hosts.indexOf(req_parsed.host)){
-            console.log(arguments[1]);
             arguments[1] = addParameterToURL(
                 arguments[1],
                 window.novembit.i18n.language_query_key,
                 window.novembit.i18n.current_language
             );
-            console.log(arguments);
         }
         original_xhr.apply(this, arguments);
     }

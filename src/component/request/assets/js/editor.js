@@ -37,6 +37,13 @@
                 inspector = document.createElement('div');
                 inspector.classList.add('inspector');
 
+                let unexpand = document.createElement('div');
+                unexpand.classList.add('unexpand');
+                unexpand.onclick = function(e){
+                    e.stopPropagation();
+                    editor.unexpandSelector(selector);
+                };
+
                 let title = document.createElement('div');
                 title.classList.add('title');
 
@@ -45,6 +52,7 @@
                 description.innerText = "Texts: " + data.text.length + " | Attributes: " + Object.keys(data.attr).length;
 
                 title.innerText = node.nodeName;
+                inspector.appendChild(unexpand);
                 inspector.appendChild(title);
                 inspector.appendChild(description);
 
@@ -226,11 +234,11 @@
         expandSelector: function (selector) {
             let siblings = selector.parentElement.getElementsByClassName('expanded');
             for (let i = 0; i < siblings.length; i++) {
-                this.collapseSelector(siblings[i]);
+                this.unexpandSelector(siblings[i]);
             }
             selector.classList.add('expanded');
         },
-        collapseSelector: function (selector) {
+        unexpandSelector: function (selector) {
             selector.classList.remove('expanded');
         },
         initSelectors: function initSelectors() {

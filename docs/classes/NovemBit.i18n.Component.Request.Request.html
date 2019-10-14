@@ -76,6 +76,7 @@ Only on cli script</span><pre>cli()</pre></a></li>
 Initialization of child components"><span class="description">Common init method running before
 Initialization of child components</span><pre>commonInit()</pre></a></li>
 <li class="method public "><a href="#method_getDestination" title="getDestination() :: Get Request Destination"><span class="description">Get Request Destination</span><pre>getDestination()</pre></a></li>
+<li class="method public "><a href="#method_getFromLanguage" title="getFromLanguage() :: Get main content language"><span class="description">Get main content language</span><pre>getFromLanguage()</pre></a></li>
 <li class="method public "><a href="#method_getLanguage" title="getLanguage() :: Get Request current Language"><span class="description">Get Request current Language</span><pre>getLanguage()</pre></a></li>
 <li class="method public "><a href="#method_getReferer" title="getReferer() :: Get request referer"><span class="description">Get request referer</span><pre>getReferer()</pre></a></li>
 <li class="method public "><a href="#method_getRefererLanguage" title="getRefererLanguage() :: Get Referer language"><span class="description">Get Referer language</span><pre>getRefererLanguage()</pre></a></li>
@@ -87,6 +88,7 @@ Initialization of child components</span><pre>commonInit()</pre></a></li>
 <li class="method public inherited"><a href="#method_init" title="init() :: Component init method
 Running after child component initialization"><span class="description">Component init method
 Running after child component initialization</span><pre>init()</pre></a></li>
+<li class="method public "><a href="#method_setFromLanguage" title="setFromLanguage() :: Set main content language"><span class="description">Set main content language</span><pre>setFromLanguage()</pre></a></li>
 <li class="method public "><a href="#method_setReferer" title="setReferer() :: Set request referer"><span class="description">Set request referer</span><pre>setReferer()</pre></a></li>
 <li class="method public "><a href="#method_setRefererLanguage" title="setRefererLanguage() :: Set Referer Language"><span class="description">Set Referer Language</span><pre>setRefererLanguage()</pre></a></li>
 <li class="method public "><a href="#method_setRefererSourceUrl" title="setRefererSourceUrl() :: Set request referer source url"><span class="description">Set request referer source url</span><pre>setRefererSourceUrl()</pre></a></li>
@@ -159,6 +161,7 @@ Trigger when page not found"><span class="description"></span><pre>$on_page_not_
 <li class="nav-header private">» Private
                     <ul>
 <li class="property private "><a href="#property__destination" title="$_destination() :: Original Destination (REQUEST_URI)"><span class="description"></span><pre>$_destination</pre></a></li>
+<li class="property private "><a href="#property__from_language" title="$_from_language() :: Main content language"><span class="description"></span><pre>$_from_language</pre></a></li>
 <li class="property private "><a href="#property__language" title="$_language() :: Languages of URL"><span class="description"></span><pre>$_language</pre></a></li>
 <li class="property private "><a href="#property__referer" title="$_referer() :: Original Referer (HTTP_REFERER)"><span class="description"></span><pre>$_referer</pre></a></li>
 <li class="property private "><a href="#property__referer_language" title="$_referer_language() :: Language of Referer"><span class="description"></span><pre>$_referer_language</pre></a></li>
@@ -191,12 +194,15 @@ Trigger when page not found"><span class="description"></span><pre>$on_page_not_
 </li>
 </ul>
 <div xmlns:php="http://php.net/xsl" class="element class">
-<p class="short_description">Main Request class.</p>
+<p class="short_description">Request component main class.</p>
 <div class="details">
-<div class="long_description"><p>It make easy to make requests flexible.
+<div class="long_description"><h1>Meaning of Request component</h1>
+<p>It make easy to make requests flexible.
 Determine type of received request.
 Then provide translation for current type of content.</p>
-<p>Using Translation component to translate received buffer content.</p></div>
+<blockquote>
+<p>Using Translation component to translate received buffer content.</p>
+</blockquote></div>
 <table class="table table-bordered">
 <tr>
 <th>category</th>
@@ -281,6 +287,16 @@ Initialization of child components</h2>
 <a id="method_getDestination"></a><div class="element clickable method public method_getDestination " data-toggle="collapse" data-target=".method_getDestination .collapse" title="public">
 <h2>Get Request Destination</h2>
 <pre>getDestination() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getFromLanguage"></a><div class="element clickable method public method_getFromLanguage " data-toggle="collapse" data-target=".method_getFromLanguage .collapse" title="public">
+<h2>Get main content language</h2>
+<pre>getFromLanguage() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -375,6 +391,18 @@ Running after child component initialization</h2>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="method_setFromLanguage"></a><div class="element clickable method public method_setFromLanguage " data-toggle="collapse" data-target=".method_setFromLanguage .collapse" title="public">
+<h2>Set main content language</h2>
+<pre>setFromLanguage(string $from_language) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$from_language</h4>
+<code>string</code><p>Language code</p></div>
+</div></div>
+</div>
 <a id="method_setReferer"></a><div class="element clickable method public method_setReferer " data-toggle="collapse" data-target=".method_setReferer .collapse" title="public">
 <h2>Set request referer</h2>
 <pre>setReferer(string $_referer) : void</pre>
@@ -430,10 +458,16 @@ Running after child component initialization</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
+<table class="table table-bordered">
+<tr>
 <th><code>\NovemBit\i18n\system\exception\Exception</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\yii\db\Exception</code></th>
+<td></td>
+</tr>
+</table>
 </div></div>
 </div>
 <a id="method_translateBuffer"></a><div class="element clickable method public method_translateBuffer " data-toggle="collapse" data-target=".method_translateBuffer .collapse" title="public">
@@ -463,7 +497,7 @@ Running after child component initialization</h2>
 <div class="long_description"></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\yii\db\Exception</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
@@ -561,14 +595,12 @@ To add on HTML document &lt;head&gt;</h2>
 <a id="method__isExclusion"></a><div class="element clickable method private method__isExclusion " data-toggle="collapse" data-target=".method__isExclusion .collapse" title="private">
 <h2>Check exclusions array and expand
 Callbacks and variables</h2>
-<pre>_isExclusion() : boolean | mixed</pre>
+<pre>_isExclusion() : boolean</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response">
-<code>boolean</code><code>mixed</code>
-</div>
+<div class="subelement response"><code>boolean</code></div>
 </div></div>
 </div>
 <a id="method__prepare"></a><div class="element clickable method private method__prepare " data-toggle="collapse" data-target=".method__prepare .collapse" title="private">
@@ -872,6 +904,16 @@ Trigger when page not found</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="property__from_language"> </a><div class="element clickable property private property__from_language" data-toggle="collapse" data-target=".property__from_language .collapse" title="private">
+<h2>Main content language</h2>
+<pre>$_from_language : string</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property__language"> </a><div class="element clickable property private property__language" data-toggle="collapse" data-target=".property__language .collapse" title="private">
 <h2>Languages of URL</h2>
 <pre>$_language : string</pre>
@@ -959,7 +1001,7 @@ Trigger when page not found</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-04T14:53:30+04:00.<br></footer></div>
+            generated on 2019-10-14T11:46:38+04:00.<br></footer></div>
 </div>
 </body>
 </html>
