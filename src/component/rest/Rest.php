@@ -136,11 +136,20 @@ class Rest extends Component implements interfaces\Rest
     public function actionTranslate()
     {
 
-        if (isset($_POST['texts']) && isset($_POST['languages'])) {
+        if (isset($_POST['from_language'])
+            && isset($_POST['texts'])
+            && isset($_POST['languages'])
+        ) {
+
+            /**
+             * Set from language
+             * */
+            $this->context->languages->from_language = $_POST['from_language'];
 
             $translation = $this->context->translation
                 ->setLanguages($_POST['languages'])
                 ->method->translate($_POST['texts']);
+
             return $translation;
         }
 

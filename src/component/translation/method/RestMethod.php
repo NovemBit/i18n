@@ -89,10 +89,12 @@ class RestMethod extends Method
                 'query' => 'api_key=' . $this->api_key
             ]
         );
+
         $ch = curl_init($url);
 
         $data = http_build_query(
             [
+                'from_language'=>$this->context->context->languages->from_language,
                 'languages' => $this->context->getLanguages(),
                 'texts' => $texts
             ]
