@@ -63,6 +63,7 @@ class Module extends system\Component
 
         /*
          * Check if yii framework not initialized
+         * Then include yii2 layer class
          * */
         if (!class_exists("Yii")) {
             defined('YII_DEBUG') or define('YII_DEBUG', false);
