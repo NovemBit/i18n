@@ -1,18 +1,15 @@
-/*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.27-0ubuntu0.18.04.1 
-*********************************************************************
-*/
-/*!40101 SET NAMES utf8 */;
+-- DROP TABLE IF EXISTS `i18n_translations`;
 
-create table `i18n_translations` (
-	`id` int (11),
-	`type` int (11),
-	`from_language` varchar (6),
-	`to_language` varchar (6),
-	`source` blob ,
-	`translate` blob ,
-	`level` int (11),
-	`created_at` int (11),
-	`updated_at` int (11)
-); 
+CREATE TABLE `i18n_translations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) DEFAULT NULL,
+  `from_language` varchar(2) COLLATE utf8mb4_bin DEFAULT NULL,
+  `to_language` varchar(2) COLLATE utf8mb4_bin DEFAULT NULL,
+  `source` longtext COLLATE utf8mb4_bin,
+  `translate` longtext COLLATE utf8mb4_bin,
+  `level` int(11) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`,`from_language`,`to_language`,`source`(100),`level`)
+) ENGINE=InnoDB AUTO_INCREMENT=24988 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
