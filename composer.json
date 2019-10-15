@@ -17,11 +17,11 @@
     "ext-curl": "*",
     "ext-mbstring": "*",
     "yiisoft/yii2": "~2.0.14",
-    "novembit/active-data": "dev-master",
     "google/cloud-translate": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8"
+    "phpunit/phpunit": "^8",
+    "squizlabs/php_codesniffer": "*"
   },
   "autoload": {
     "psr-4": {
