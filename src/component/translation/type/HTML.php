@@ -35,6 +35,13 @@ use NovemBit\i18n\system\parsers\html\Rule;
 class HTML extends Type
 {
     /**
+     * Name of current type
+     *
+     * @var string
+     * */
+    const NAME = 'html';
+
+    /**
      * {@inheritdoc}
      * */
     public $type = 3;

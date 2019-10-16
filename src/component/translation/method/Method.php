@@ -33,6 +33,8 @@ use NovemBit\i18n\component\translation\Translator;
 abstract class Method extends Translator implements interfaces\Method
 {
 
+    const NAME = 'method';
+
     /**
      * Determine default type of Method always 0
      *

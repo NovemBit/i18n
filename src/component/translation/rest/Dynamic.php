@@ -12,13 +12,15 @@
  */
 
 
-namespace NovemBit\i18n\component\translation\method;
+namespace NovemBit\i18n\component\translation\rest;
 
 
 use Exception;
-use NovemBit\i18n\component\rest\Rest;
+use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\system\helpers\URL;
+use \NovemBit\i18n\component\translation\interfaces;
 
 /**
  * Rest Translate method of translation
@@ -31,8 +33,22 @@ use NovemBit\i18n\system\helpers\URL;
  *
  * @property Translation context
  */
-class RestMethod extends Method
+class Dynamic extends Translator implements interfaces\Rest
 {
+    /**
+     * Type of translation.
+     * Same as Method::name or JSON::name
+     *
+     * @example json
+     * @example html
+     * @example url
+     * @example text
+     * @example method
+     *
+     * @var string
+     * */
+    public $type = Method::NAME;
+
     /**
      * Version of REST API
      *
@@ -66,7 +82,7 @@ class RestMethod extends Method
      * Key of Remote REST api service
      *
      * @var string
-     * @see Rest::$api_keys
+     * @see \NovemBit\i18n\component\rest\Rest::$api_keys
      * */
     public $api_key;
 
@@ -94,8 +110,9 @@ class RestMethod extends Method
 
         $data = http_build_query(
             [
-                'from_language'=>$this->context->context->languages->from_language,
+                'from_language' => $this->context->context->languages->from_language,
                 'languages' => $this->context->getLanguages(),
+                'type' => $this->getType(),
                 'texts' => $texts
             ]
         );
@@ -112,6 +129,16 @@ class RestMethod extends Method
 
         return $result;
 
+    }
+
+    /**
+     * Get type of current translation
+     *
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
 }

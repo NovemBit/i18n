@@ -30,6 +30,12 @@ use NovemBit\i18n\component\translation\Translation;
  * */
 class URL extends Type
 {
+    /**
+     * Name of current type
+     *
+     * @var string
+     * */
+    const NAME = 'url';
 
     /**
      * {@inheritdoc}

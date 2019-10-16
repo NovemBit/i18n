@@ -31,6 +31,13 @@ use NovemBit\i18n\system\helpers\DataType;
 class JSON extends Type
 {
     /**
+     * Name of current type
+     *
+     * @var string
+     * */
+    const NAME = 'json';
+
+    /**
      * {@inheritdoc}
      * */
     public $type = 4;

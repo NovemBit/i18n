@@ -15,6 +15,11 @@ namespace NovemBit\i18n\component\rest;
 
 
 use Exception;
+use NovemBit\i18n\component\translation\method\Method;
+use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\JSON;
+use NovemBit\i18n\component\translation\type\Text;
+use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 
@@ -31,6 +36,19 @@ use NovemBit\i18n\system\Component;
  */
 class Rest extends Component implements interfaces\Rest
 {
+
+    /**
+     * Available types of rest method
+     *
+     * @var string[]
+     * */
+    public $available_types = [
+        Method::NAME,
+        Text::NAME,
+        URL::NAME,
+        HTML::NAME,
+        JSON::NAME
+    ];
 
     /**
      * Api keys list
@@ -139,8 +157,12 @@ class Rest extends Component implements interfaces\Rest
         if (isset($_POST['from_language'])
             && isset($_POST['texts'])
             && isset($_POST['languages'])
+            && isset($_POST['type'])
         ) {
 
+            if (!in_array($_POST['type'], $this->available_types)) {
+                return 0;
+            }
             /**
              * Set from language
              * */
@@ -148,7 +170,8 @@ class Rest extends Component implements interfaces\Rest
 
             $translation = $this->context->translation
                 ->setLanguages($_POST['languages'])
-                ->method->translate($_POST['texts']);
+                ->{$_POST['type']}
+                ->translate($_POST['texts']);
 
             return $translation;
         }

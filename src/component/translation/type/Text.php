@@ -29,6 +29,12 @@ use NovemBit\i18n\component\translation\Translation;
  */
 class Text extends Type
 {
+    /**
+     * Name of current type
+     *
+     * @var string
+     * */
+    const NAME = 'text';
 
     /**
      * Type using as DB type column value
