@@ -56,8 +56,9 @@ class Translation extends ActiveRecord implements interfaces\Translation
     public function rules()
     {
         return [
-            /*[['from_language', 'to_language'], 'required'],*/
-
+            /**
+             * Make unique bundle for multiple columns
+             * */
             [
                 ['from_language', 'to_language', 'type', 'source', 'level'],
                 'unique',
@@ -69,15 +70,14 @@ class Translation extends ActiveRecord implements interfaces\Translation
                     'level'
                 ]
             ],
-
             [['type', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
     /**
-     * Yii component behaviours
-     *  Using timestamp behaviour to set created and updated at
-     *  Column values.
+     * Yii2 component behaviours
+     * Using timestamp behaviour
+     * To set created and updated at columns values.
      *
      * @return array
      */
@@ -89,18 +89,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => time(),
-            ],
-            /*,
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'name_id',
-                ],
-                'value' => function ($event) {
-                    return FlyName::find()
-                        ->orderBy(new Expression('rand()'))->one()->id;
-                },
-            ],*/
+            ]
         ];
     }
 
@@ -169,6 +158,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param int    $type          Type of translations
      * @param array  $translations  Translations of texts
      * @param int    $level         Level of translation
+     * @param bool   $overwrite     If translation exists, then overwrite value
      *
      * @return void
      * @throws \yii\db\Exception
@@ -177,7 +167,8 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $from_language,
         $type,
         $translations,
-        $level = 0
+        $level = 0,
+        $overwrite = false
     ) {
 
         $transaction = self::getDb()->beginTransaction();
@@ -190,13 +181,17 @@ class Translation extends ActiveRecord implements interfaces\Translation
                     continue;
                 }
 
-                $model = self::find()
-                    ->where(['from_language' => $from_language])
-                    ->andWhere(['type' => $type])
-                    ->andWhere(['to_language' => $to_language])
-                    ->andWhere(['source' => $source])
-                    ->andWhere(['level' => $level])
-                    ->one();
+                $model = null;
+
+                if ($overwrite) {
+                    $model = self::find()
+                        ->where(['from_language' => $from_language])
+                        ->andWhere(['type' => $type])
+                        ->andWhere(['to_language' => $to_language])
+                        ->andWhere(['source' => $source])
+                        ->andWhere(['level' => $level])
+                        ->one();
+                }
 
                 if ($model == null) {
                     $model = new self();

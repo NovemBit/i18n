@@ -350,6 +350,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      * @throws Exception
+     * @throws \yii\db\Exception
      */
     private function _prepareSourceUrl()
     {
@@ -446,6 +447,7 @@ class Request extends Component implements interfaces\Request
      * @throws Exception
      *
      * @throws Exception
+     * @throws \yii\db\Exception
      */
     private function _prepare()
     {
@@ -671,11 +673,17 @@ class Request extends Component implements interfaces\Request
                 $result[$source][$this->getLanguage()] = $translate;
             }
 
+            /**
+             * Save translations
+             * With Level *1*
+             * And overwrite old values if exists
+             * */
             \NovemBit\i18n\models\Translation::saveTranslations(
                 $this->getFromLanguage(),
                 1,
                 $result,
-                1
+                1,
+                true
             );
 
             return true;

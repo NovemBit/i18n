@@ -176,6 +176,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      * @throws Exception
+     * @throws \yii\db\Exception
      */
     public function translate(array $texts)
     {
@@ -216,20 +217,23 @@ abstract class Translator extends Component implements interfaces\Translator
 
             $new_translations = $this->doTranslate($texts);
 
-
-            /*
+            /**
              * If save_translations is true
              * Then save new translations on DB
+             * With level *0*
+             * And without overwriting old values
              * */
             if ($this->save_translations) {
                 \NovemBit\i18n\models\Translation::saveTranslations(
                     $this->context->getFromLanguage(),
                     $this->type,
-                    $new_translations
+                    $new_translations,
+                    0,
+                    false
                 );
             }
 
-            /*
+            /**
              * Merge new and saved translations
              * */
             $translations = $translations + $new_translations;
