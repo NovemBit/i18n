@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">27</span></a></li>
+                <span class="label label-info">30</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -68,11 +68,11 @@
 <i title="Methods" class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method_attributeLabels" title="attributeLabels() :: Attribute values"><span class="description">Attribute values</span><pre>attributeLabels()</pre></a></li>
-<li class="method public "><a href="#method_behaviors" title="behaviors() :: Yii component behaviours
- Using timestamp behaviour to set created and updated at
- Column values."><span class="description">Yii component behaviours
- Using timestamp behaviour to set created and updated at
- Column values.</span><pre>behaviors()</pre></a></li>
+<li class="method public "><a href="#method_behaviors" title="behaviors() :: Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values."><span class="description">Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.</span><pre>behaviors()</pre></a></li>
 <li class="method public "><a href="#method_get" title="get() :: Main method to get translations from DB"><span class="description">Main method to get translations from DB</span><pre>get()</pre></a></li>
 <li class="method public inherited"><a href="#method_getDb" title="getDb() :: Get DB of main module instance"><span class="description">Get DB of main module instance</span><pre>getDb()</pre></a></li>
 <li class="method public "><a href="#method_rules" title="rules() :: {@inheritdoc}"><span class="description">{@inheritdoc}</span><pre>rules()</pre></a></li>
@@ -155,9 +155,9 @@
 </div></div>
 </div>
 <a id="method_behaviors"></a><div class="element clickable method public method_behaviors " data-toggle="collapse" data-target=".method_behaviors .collapse" title="public">
-<h2>Yii component behaviours
- Using timestamp behaviour to set created and updated at
- Column values.</h2>
+<h2>Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.</h2>
 <pre>behaviors() : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -220,7 +220,7 @@
 </div>
 <a id="method_saveTranslations"></a><div class="element clickable method public method_saveTranslations " data-toggle="collapse" data-target=".method_saveTranslations .collapse" title="public">
 <h2>Main method to save translations in DB</h2>
-<pre>saveTranslations(string $from_language, integer $type, array $translations, integer $level<code> = 0</code>) : void</pre>
+<pre>saveTranslations(string $from_language, integer $type, array $translations, integer $level<code> = 0</code>, boolean $overwrite<code> = false</code>) : void</pre>
 <div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -241,9 +241,12 @@
 <div class="subelement argument">
 <h4>$level</h4>
 <code>integer</code><p>Level of translation</p></div>
+<div class="subelement argument">
+<h4>$overwrite</h4>
+<code>boolean</code><p>If translation exists, then overwrite value</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\yii\db\Exception</code></th>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
 <td></td>
 </tr></table>
 </div></div>
@@ -465,7 +468,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-14T11:46:38+04:00.<br></footer></div>
+            generated on 2019-10-17T15:51:33+04:00.<br></footer></div>
 </div>
 </body>
 </html>

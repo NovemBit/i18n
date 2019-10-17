@@ -1,6 +1,6 @@
 <?php
 /**
- * Main Exception of i18n
+ * System Exception file
  * php version 7.2.10
  *
  * @category System\Exceptions
@@ -14,7 +14,7 @@
 namespace NovemBit\i18n\system\exception;
 
 /**
- * Main exception class
+ * System Exception class
  *
  * @category System\Exceptions
  * @package  System\Exceptions

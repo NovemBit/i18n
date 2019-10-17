@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">27</span></a></li>
+                <span class="label label-info">30</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -460,11 +460,19 @@ Running after child component initialization</h2>
 <h3>Exceptions</h3>
 <table class="table table-bordered">
 <tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
 </tr>
 <tr>
-<th><code>\yii\db\Exception</code></th>
+<th><code>\NovemBit\i18n\component\request\exceptions\RequestException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
 <td></td>
 </tr>
 </table>
@@ -482,7 +490,7 @@ Running after child component initialization</h2>
 <code>string</code><p>content of request buffer</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
@@ -497,7 +505,7 @@ Running after child component initialization</h2>
 <div class="long_description"></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\yii\db\Exception</code></th>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
@@ -563,10 +571,16 @@ Using ReTranslate method of Translation</h2>
 <h4>$to_language</h4>
 <code>string</code><p>Language of translated string</p></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>null</code></div>
 </div></div>
@@ -613,11 +627,19 @@ And to create response document</h2>
 <h3>Exceptions</h3>
 <table class="table table-bordered">
 <tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
 </tr>
 <tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\NovemBit\i18n\component\request\exceptions\RequestException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
 <td></td>
 </tr>
 </table>
@@ -642,16 +664,10 @@ And to create response document</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered">
-<tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered"><tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
-</tr>
-<tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
-<td></td>
-</tr>
-</table>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
@@ -664,10 +680,16 @@ To create response document</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
@@ -680,7 +702,7 @@ To create response document</h2>
 <div class="long_description"></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
@@ -695,10 +717,16 @@ To create response document</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
@@ -711,10 +739,24 @@ To create response document</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\request\exceptions\RequestException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
@@ -1001,7 +1043,7 @@ Trigger when page not found</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-14T11:46:38+04:00.<br></footer></div>
+            generated on 2019-10-17T15:51:34+04:00.<br></footer></div>
 </div>
 </body>
 </html>

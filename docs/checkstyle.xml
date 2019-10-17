@@ -3,11 +3,14 @@
   <file name="component\languages\interfaces\Languages.php">
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
   </file>
+  <file name="component\translation\method\exceptions\MethodException.php"/>
   <file name="component\rest\interfaces\Rest.php">
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\rest\interfaces\Rest" source="phpDocumentor.file.PPC:ERR-50009"/>
   </file>
+  <file name="component\translation\exceptions\TranslationException.php"/>
   <file name="models\ActiveRecord.php"/>
+  <file name="component\translation\rest\Dynamic.php"/>
   <file name="component\translation\type\Text.php"/>
   <file name="component\translation\method\Google.php"/>
   <file name="component\translation\method\Method.php"/>
@@ -25,6 +28,7 @@
   <file name="Module.php"/>
   <file name="system\helpers\URL.php"/>
   <file name="component\translation\type\JSON.php"/>
+  <file name="component\languages\exceptions\LanguageException.php"/>
   <file name="component\request\interfaces\Request.php">
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\request\interfaces\Request" source="phpDocumentor.file.PPC:ERR-50009"/>
@@ -38,6 +42,8 @@
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\type\interfaces\HTML" source="phpDocumentor.file.PPC:ERR-50009"/>
   </file>
+  <file name="models\exceptions\ActiveRecordException.php"/>
+  <file name="system\exception\FriendlyExceptionInterface.php"/>
   <file name="component\languages\Languages.php"/>
   <file name="component\translation\type\Type.php"/>
   <file name="system\exception\Exception.php"/>
@@ -60,13 +66,18 @@
     <error line="9" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\method\interfaces\Method" source="phpDocumentor.file.PPC:ERR-50009"/>
   </file>
   <file name="component\translation\Translator.php"/>
+  <file name="component\request\exceptions\RequestException.php"/>
   <file name="models\interfaces\Translation.php">
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
     <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\models\interfaces\Translation" source="phpDocumentor.file.PPC:ERR-50009"/>
   </file>
   <file name="models\Translation.php"/>
   <file name="component\rest\Rest.php"/>
-  <file name="component\translation\method\RestMethod.php"/>
+  <file name="component\translation\interfaces\Rest.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\interfaces\Rest" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="10" severity="error" message="No summary for method getType()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
   <file name="system\helpers\DataType.php"/>
   <file name="system\parsers\html\Rule.php"/>
   <file name="system\component\DB.php"/>

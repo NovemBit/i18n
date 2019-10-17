@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>NovemBit i18n - Internationalization library » \NovemBit\i18n\component\translation\method\RestMethod</title>
+<title>NovemBit i18n - Internationalization library » \NovemBit\i18n\component\translation\rest\Dynamic</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">27</span></a></li>
+                <span class="label label-info">30</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -83,6 +83,7 @@ Initialization of child components</span><pre>commonInit()</pre></a></li>
 <li class="method public inherited"><a href="#method_doTranslate" title="doTranslate() :: Abstract method that must be extended from
 Child methods to translate texts"><span class="description">Abstract method that must be extended from
 Child methods to translate texts</span><pre>doTranslate()</pre></a></li>
+<li class="method public "><a href="#method_getType" title="getType() :: Get type of current translation"><span class="description">Get type of current translation</span><pre>getType()</pre></a></li>
 <li class="method public inherited"><a href="#method_init" title="init() :: Component init method
 Running after child component initialization"><span class="description">Component init method
 Running after child component initialization</span><pre>init()</pre></a></li>
@@ -108,7 +109,6 @@ Save already translated texts on DB with Active data</span><pre>translate()</pre
 </li>
 <li class="nav-header private">» Private
                     <ul>
-<li class="method private inherited"><a href="#method__clarifyText" title="_clarifyText() :: Clarify string method"><span class="description">Clarify string method</span><pre>_clarifyText()</pre></a></li>
 <li class="method private inherited"><a href="#method__doExclusion" title="_doExclusion() :: Doing exclusion from text"><span class="description">Doing exclusion from text</span><pre>_doExclusion()</pre></a></li>
 <li class="method private inherited"><a href="#method__fetchSavedTranslations" title="_fetchSavedTranslations() :: Fetching saved translates from DB
 Using \NovemBit\i18n\models\Translation model"><span class="description">Fetching saved translates from DB
@@ -133,6 +133,7 @@ Sort exclusions by priority</span><pre>_initExclusions()</pre></a></li>
 <li class="property public "><a href="#property_remote_path" title="$remote_path() :: Remote path of API"><span class="description"></span><pre>$remote_path</pre></a></li>
 <li class="property public "><a href="#property_save_translations" title="$save_translations() :: If true then all translations saving on DB"><span class="description"></span><pre>$save_translations</pre></a></li>
 <li class="property public "><a href="#property_ssl" title="$ssl() :: Use SSL protocol"><span class="description"></span><pre>$ssl</pre></a></li>
+<li class="property public "><a href="#property_type" title="$type() :: Type of translation."><span class="description"></span><pre>$type</pre></a></li>
 <li class="property public "><a href="#property_type" title="$type() :: Type id. Using as column value to save on DB"><span class="description"></span><pre>$type</pre></a></li>
 <li class="property public "><a href="#property_validation" title="$validation() :: If true then methods before and after validation runes"><span class="description"></span><pre>$validation</pre></a></li>
 </ul>
@@ -146,7 +147,7 @@ Sort exclusions by priority</span><pre>_initExclusions()</pre></a></li>
 </ul>
 </div>
 <div class="span8">
-<a xmlns:php="http://php.net/xsl" id="\NovemBit\i18n\component\translation\method\RestMethod"></a><ul xmlns:php="http://php.net/xsl" class="breadcrumb">
+<a xmlns:php="http://php.net/xsl" id="\NovemBit\i18n\component\translation\rest\Dynamic"></a><ul xmlns:php="http://php.net/xsl" class="breadcrumb">
 <li>
 <a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -161,10 +162,10 @@ Sort exclusions by priority</span><pre>_initExclusions()</pre></a></li>
 <span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.html">translation</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.method.html">method</a>
+<span class="divider">\</span><a href="../namespaces/NovemBit.i18n.component.translation.rest.html">rest</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/NovemBit.i18n.component.translation.method.RestMethod.html">RestMethod</a>
+<span class="divider">\</span><a href="../classes/NovemBit.i18n.component.translation.rest.Dynamic.html">Dynamic</a>
 </li>
 </ul>
 <div xmlns:php="http://php.net/xsl" class="element class">
@@ -195,7 +196,7 @@ Module class</p></div>
 </tr>
 <tr>
 <th>inherited_from</th>
-<td>\NovemBit\i18n\component\translation\method\Method</td>
+<td>\NovemBit\i18n\component\translation\Translator</td>
 </tr>
 </table>
 <h3>
@@ -307,13 +308,17 @@ Initialization of child components</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\Translator::doTranslate()</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$texts</h4>
 <code>array</code><p>Array of texts to translate</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
-<th><code>\Exception</code></th>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
@@ -339,6 +344,20 @@ Child methods to translate texts</h2>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
+<a id="method_getType"></a><div class="element clickable method public method_getType " data-toggle="collapse" data-target=".method_getType .collapse" title="public">
+<h2>Get type of current translation</h2>
+<pre>getType() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Rest::getType()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a id="method_init"></a><div class="element clickable method public method_init inherited" data-toggle="collapse" data-target=".method_init .collapse" title="public">
 <h2>Component init method
 Running after child component initialization</h2>
@@ -358,10 +377,16 @@ Bunch text strings</h2>
 <h4>$texts</h4>
 <code>array</code><p>Array of texts</p></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
@@ -384,10 +409,20 @@ Save already translated texts on DB with Active data</h2>
 <h4>$texts</h4>
 <code>array</code><p>Texts array to translate</p></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
+<td></td>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
@@ -508,18 +543,6 @@ Save already translated texts on DB with Active data</h2>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
 </div>
-<a id="method__clarifyText"></a><div class="element clickable method private method__clarifyText inherited" data-toggle="collapse" data-target=".method__clarifyText .collapse" title="private">
-<h2>Clarify string method</h2>
-<pre>_clarifyText(string $string) : void</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$string</h4>
-<code>string</code><p>Referenced variable of initial string</p></div>
-</div></div>
-</div>
 <a id="method__doExclusion"></a><div class="element clickable method private method__doExclusion inherited" data-toggle="collapse" data-target=".method__doExclusion .collapse" title="private">
 <h2>Doing exclusion from text</h2>
 <pre>_doExclusion(string $text) : void</pre>
@@ -547,10 +570,16 @@ Using \NovemBit\i18n\models\Translation model</h2>
 <h4>$texts</h4>
 <code>array</code><p>Referenced variable of initial texts</p></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
-<th><code>\NovemBit\i18n\system\exception\Exception</code></th>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
-</tr></table>
+</tr>
+<tr>
+<th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
+<td></td>
+</tr>
+</table>
 </div></div>
 </div>
 <a id="method__initExclusions"></a><div class="element clickable method private method__initExclusions inherited" data-toggle="collapse" data-target=".method__initExclusions .collapse" title="private">
@@ -682,7 +711,7 @@ Sort exclusions by priority</h2>
 <div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>see</th>
-<td><a href="%5CNovemBit%5Ci18n%5Ccomponent%5Crest%5CRest::endpoint"></a></td>
+<td><a href="%5CNovemBit%5Ci18n%5Ccomponent%5Ctranslation%5Crest%5CRest::%24endpoint"></a></td>
 </tr></table>
 </div></div>
 </div>
@@ -705,6 +734,54 @@ Sort exclusions by priority</h2>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_type"> </a><div class="element clickable property public property_type" data-toggle="collapse" data-target=".property_type .collapse" title="public">
+<h2>Type of translation.</h2>
+<pre>$type : string</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>\NovemBit\i18n\component\translation\method\Method::NAME</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse">
+<div class="span4">
+<div class="long_description"><p>Same as Method::name or JSON::name</p></div>
+<table class="table table-bordered">
+<tr>
+<th>example</th>
+<td></td>
+</tr>
+<tr>
+<th>example</th>
+<td></td>
+</tr>
+<tr>
+<th>example</th>
+<td></td>
+</tr>
+<tr>
+<th>example</th>
+<td></td>
+</tr>
+<tr>
+<th>example</th>
+<td></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\Translator::type</td>
+</tr>
+</table>
+</div>
+<div class="span4">
+<h3>Examples</h3>
+<pre class="prettyprint linenums"></pre>
+<pre class="prettyprint linenums"></pre>
+<pre class="prettyprint linenums"></pre>
+<pre class="prettyprint linenums"></pre>
+<pre class="prettyprint linenums"></pre>
+</div>
+</div>
 </div>
 <a id="property_type"> </a><div class="element clickable property public property_type" data-toggle="collapse" data-target=".property_type .collapse" title="public">
 <h2>Type id. Using as column value to save on DB</h2>
@@ -753,7 +830,7 @@ Sort exclusions by priority</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-14T11:46:38+04:00.<br></footer></div>
+            generated on 2019-10-17T15:51:33+04:00.<br></footer></div>
 </div>
 </body>
 </html>

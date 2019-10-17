@@ -8,6 +8,7 @@
   "license": "GPL-3.0-or-later",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "type": "library",
   "require": {
     "php": ">=7.1",
     "ext-dom": "*",
