@@ -13,9 +13,9 @@
 
 namespace NovemBit\i18n\component\languages;
 
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
-use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\URL;
 
 /**
@@ -401,7 +401,7 @@ class Languages extends Component implements interfaces\Languages
      * @param string $language language code
      *
      * @return bool|mixed|string
-     * @throws Exception
+     * @throws LanguageException
      */
     public function addLanguageToUrl(string $url, string $language)
     {
@@ -590,14 +590,14 @@ class Languages extends Component implements interfaces\Languages
      * Get main from languages
      *
      * @return mixed
-     * @throws Exception
+     * @throws LanguageException
      */
     public function getFromLanguage() : string
     {
         if ($this->validateLanguage($this->from_language)) {
             return $this->from_language;
         } else {
-            throw new Exception('Unknown from language parameter.');
+            throw new LanguageException('Unknown from language parameter.');
         }
     }
 
@@ -605,7 +605,7 @@ class Languages extends Component implements interfaces\Languages
      * Get default language
      *
      * @return string
-     * @throws Exception
+     * @throws LanguageException
      */
     public function getDefaultLanguage(): string
     {
@@ -627,7 +627,7 @@ class Languages extends Component implements interfaces\Languages
         if ($this->validateLanguage($language)) {
             return $language;
         } else {
-            throw new Exception('Unknown default language parameter.');
+            throw new LanguageException('Unknown default language parameter.');
         }
     }
 

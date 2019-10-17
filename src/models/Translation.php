@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\models;
 
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Exception;
 
@@ -164,7 +165,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param bool   $overwrite     If translation exists, then overwrite value
      *
      * @return void
-     * @throws Exception
+     * @throws ActiveRecordException
      */
     public static function saveTranslations(
         $from_language,
@@ -213,7 +214,11 @@ class Translation extends ActiveRecord implements interfaces\Translation
             }
         }
 
-        $transaction->commit();
-
+        try {
+            $transaction->commit();
+        } catch (Exception $exception){
+            //$transaction->rollBack();
+            throw new ActiveRecordException($exception->getMessage());
+        }
     }
 }

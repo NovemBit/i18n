@@ -149,7 +149,6 @@ class Rest extends Component implements interfaces\Rest
      * Translate Action method
      *
      * @return array|int
-     * @throws Exception
      */
     public function actionTranslate()
     {

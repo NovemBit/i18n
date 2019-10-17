@@ -13,13 +13,16 @@
 
 namespace NovemBit\i18n\component\request;
 
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\request\exceptions\RequestException;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\system\helpers\DataType;
-use NovemBit\i18n\system\exception\Exception;
 
 /**
  * Request component main class.
@@ -218,7 +221,8 @@ class Request extends Component implements interfaces\Request
      * @param string $to_language Language of translated string
      *
      * @return null
-     * @throws Exception
+     * @throws TranslationException
+     * @throws LanguageException
      */
     private function _getSourceUrlFromTranslate($translate, $to_language)
     {
@@ -276,7 +280,8 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
      */
     private function _prepareReferer()
     {
@@ -302,7 +307,8 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
      */
     private function _prepareRefererSourceUrl()
     {
@@ -349,8 +355,10 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws Exception
-     * @throws \yii\db\Exception
+     * @throws TranslationException
+     * @throws LanguageException
+     * @throws RequestException
+     * @throws ActiveRecordException
      */
     private function _prepareSourceUrl()
     {
@@ -414,7 +422,7 @@ class Request extends Component implements interfaces\Request
                 return false;
 
             } else {
-                throw new Exception("404 Not Found", 404);
+                throw new  RequestException("404 Not Found", 404);
             }
         }
 
@@ -444,10 +452,11 @@ class Request extends Component implements interfaces\Request
      * And to create response document
      *
      * @return boolean
-     * @throws Exception
      *
-     * @throws Exception
-     * @throws \yii\db\Exception
+     * @throws LanguageException
+     * @throws RequestException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     private function _prepare()
     {
@@ -509,7 +518,7 @@ class Request extends Component implements interfaces\Request
      * Prepare Referer language
      *
      * @return boolean
-     * @throws Exception
+     * @throws LanguageException
      */
     private function _prepareRefererLanguage()
     {
@@ -546,9 +555,8 @@ class Request extends Component implements interfaces\Request
      * Prepare language
      *
      * @return boolean
-     * @throws Exception
      *
-     * @throws Exception
+     * @throws LanguageException
      */
     private function _prepareLanguage()
     {
@@ -615,7 +623,7 @@ class Request extends Component implements interfaces\Request
      * @param string $content content of request buffer
      *
      * @return string
-     * @throws Exception
+     * @throws TranslationException
      */
     public function translateBuffer($content)
     {
@@ -657,7 +665,7 @@ class Request extends Component implements interfaces\Request
      * Save Editor if request is POST and has parameter %prefix%-form
      *
      * @return bool
-     * @throws \yii\db\Exception
+     * @throws ActiveRecordException
      */
     private function _editorSave(): bool
     {
@@ -696,8 +704,10 @@ class Request extends Component implements interfaces\Request
      * Start request translation
      *
      * @return void
-     * @throws Exception
-     * @throws \yii\db\Exception
+     * @throws LanguageException
+     * @throws RequestException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     public function start()
     {

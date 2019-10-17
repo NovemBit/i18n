@@ -14,7 +14,10 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use Exception;
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 
 /**
  * Text type for Translation component
@@ -91,7 +94,9 @@ class Text extends Type
      * @param array $texts List of texts to translate
      *
      * @return array
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     public function doTranslate(array $texts)
     {

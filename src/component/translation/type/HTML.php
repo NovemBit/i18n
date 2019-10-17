@@ -17,6 +17,7 @@ use DOMAttr;
 use DOMElement;
 use DOMText;
 use Exception;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\system\parsers\html\Rule;
 
@@ -122,7 +123,7 @@ class HTML extends Type
      * @param array $html_list list of translatable HTML strings
      *
      * @return mixed
-     * @throws Exception
+     * @throws TranslationException
      */
     public function doTranslate(array $html_list)
     {

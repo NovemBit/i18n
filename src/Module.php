@@ -13,8 +13,6 @@
 
 namespace NovemBit\i18n;
 
-use Exception;
-
 /**
  * Module class
  *
@@ -76,9 +74,11 @@ class Module extends system\Component
     /**
      * Start request translation
      *
-     * @throws Exception
-     *
      * @return void
+     * @throws component\languages\exceptions\LanguageException
+     * @throws component\request\exceptions\RequestException
+     * @throws component\translation\exceptions\TranslationException
+     * @throws models\exceptions\ActiveRecordException
      */
     public function start()
     {

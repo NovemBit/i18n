@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use Exception;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\system\helpers\DataType;
 
@@ -60,7 +61,7 @@ class JSON extends Type
      * @param array $jsons Jsons string array
      *
      * @return array
-     * @throws Exception
+     * @throws TranslationException
      */
     public function doTranslate(array $jsons)
     {

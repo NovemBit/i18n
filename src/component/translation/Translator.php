@@ -14,7 +14,9 @@
 namespace NovemBit\i18n\component\translation;
 
 
-use NovemBit\i18n\system\exception\Exception;
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
 
 /**
@@ -127,7 +129,8 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $texts        Referenced variable of initial texts
      *
      * @return void
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
      */
     private function _fetchSavedTranslations(&$translations, &$texts)
     {
@@ -175,8 +178,9 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $texts Texts array to translate
      *
      * @return array
-     * @throws Exception
-     * @throws \yii\db\Exception
+     * @throws LanguageException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     public function translate(array $texts)
     {
@@ -254,13 +258,16 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $texts Array of texts
      *
      * @return array
-     * @throws Exception
+     * @throws exceptions\TranslationException
+     * @throws LanguageException
      */
     public function reTranslate(array $texts)
     {
 
         if (count($this->context->getLanguages()) != 1) {
-            throw new Exception("Language not set or set multiple languages.");
+            throw new TranslationException(
+                "Language not set or set multiple languages."
+            );
         }
 
         $language = $this->context->getLanguages()[0];

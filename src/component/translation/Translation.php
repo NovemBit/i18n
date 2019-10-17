@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\translation;
 
 
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\type\HTML;
 use NovemBit\i18n\component\translation\type\JSON;
@@ -85,7 +86,7 @@ class Translation extends Component implements interfaces\Translation
      * @param array|string $_languages list of languages
      *
      * @return Translation
-     * @throws Exception
+     * @throws TranslationException
      */
     public function setLanguages($_languages)
     {
@@ -98,7 +99,7 @@ class Translation extends Component implements interfaces\Translation
 
             return $this;
         } else {
-            throw new Exception('Language not supporting.');
+            throw new TranslationException('Language not supporting.');
         }
     }
 
@@ -106,14 +107,14 @@ class Translation extends Component implements interfaces\Translation
      * Get current language
      *
      * @return mixed
-     * @throws Exception
+     * @throws TranslationException
      */
     public function getLanguages()
     {
         if (isset($this->_languages)) {
             return $this->_languages;
         } else {
-            throw new Exception('Languages not set.');
+            throw new TranslationException('Languages not set.');
         }
     }
 
@@ -121,7 +122,7 @@ class Translation extends Component implements interfaces\Translation
      * Get from language from Languages component
      *
      * @return mixed
-     * @throws Exception
+     * @throws \NovemBit\i18n\component\languages\exceptions\LanguageException
      */
     public function getFromLanguage()
     {

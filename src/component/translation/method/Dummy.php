@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\translation\method;
 
 use Exception;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 
 /**
@@ -41,7 +42,7 @@ class Dummy extends Method
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws Exception
+     * @throws TranslationException
      */
     public function doTranslate(array $texts)
     {

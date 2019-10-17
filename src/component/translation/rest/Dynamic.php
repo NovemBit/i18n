@@ -15,6 +15,7 @@
 namespace NovemBit\i18n\component\translation\rest;
 
 
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Translator;
@@ -92,7 +93,7 @@ class Dynamic extends Translator implements interfaces\Rest
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws Exception
+     * @throws \NovemBit\i18n\component\translation\exceptions\TranslationException
      */
     public function doTranslate(array $texts)
     {
@@ -135,8 +136,8 @@ class Dynamic extends Translator implements interfaces\Rest
              *
              * @todo Split errors
              * */
-            throw new Exception(
-                "Dynamic hub unexpected error."
+            throw new TranslationException(
+                "Dynamic hub: response unexpected error."
             );
         }
 

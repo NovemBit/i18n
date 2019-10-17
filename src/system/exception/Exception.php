@@ -22,19 +22,8 @@ namespace NovemBit\i18n\system\exception;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class Exception extends \Exception
+class Exception extends \ErrorException implements FriendlyExceptionInterface
 {
-    /**
-     * Error message method
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        //error message
-        $errorMsg = 'Error on line ' . $this->getLine() . ' in ' . $this->getFile()
-            . ': <b>' . $this->getMessage() . '</b> is not a valid E-Mail address';
-        return $errorMsg;
-    }
+
 }
 

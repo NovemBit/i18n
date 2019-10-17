@@ -15,6 +15,9 @@ namespace NovemBit\i18n\component\translation\method;
 
 use Google\Cloud\Core\Exception\GoogleException;
 use Google\Cloud\Translate\TranslateClient;
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\component\translation\method\exceptions\MethodException;
 use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\component\translation\Translation;
 
@@ -47,12 +50,12 @@ class Google extends Method
      * {@inheritdoc}
      *
      * @return void
-     * @throws Exception
+     * @throws MethodException
      */
     public function init()
     {
         if (!isset($this->api_key)) {
-            throw new Exception('Missing Google Cloud Translate API key.');
+            throw new MethodException('Missing Google Cloud Translate API key.');
         }
     }
 
@@ -62,7 +65,8 @@ class Google extends Method
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
      */
     public function doTranslate(array $texts)
     {
@@ -93,9 +97,10 @@ class Google extends Method
      * @param string $to     Language code
      * @param array  $result Referenced variable of results
      *
-     * @throws Exception
+     * @throws LanguageException
+     * @return void
      */
-    private function _translateOneLanguage(array $texts, $to, &$result)
+    private function _translateOneLanguage(array $texts, $to, &$result) : void
     {
         $source = $this->context->getFromLanguage();
 
@@ -112,11 +117,11 @@ class Google extends Method
             );
         }*/
         $gt_client = new  TranslateClient($request_data);
+        $translations = [];
 
         try {
             // todo: count the character
             $chunks = array_chunk($texts, 100);
-            $translations = array();
             foreach ($chunks as $chunk) {
                 $translations = array_merge(
                     $translations,

@@ -13,8 +13,10 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use Exception;
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 
 /**
  * Url translation component
@@ -77,7 +79,9 @@ class URL extends Type
      * @param array $urls list of urls
      *
      * @return array
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     public function doTranslate(array $urls)
     {
@@ -111,7 +115,7 @@ class URL extends Type
      * @param array  $translates list of translated urls
      *
      * @return bool
-     * @throws \NovemBit\i18n\system\exception\Exception
+     * @throws LanguageException
      */
     public function validateAfterTranslate($before, $after, &$translates)
     {
@@ -245,7 +249,9 @@ class URL extends Type
      * @param array $paths paths to translate
      *
      * @return mixed
-     * @throws Exception
+     * @throws LanguageException
+     * @throws TranslationException
+     * @throws ActiveRecordException
      */
     private function _getPathPartTranslations(array $paths)
     {
