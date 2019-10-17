@@ -15,10 +15,10 @@
 namespace NovemBit\i18n\component\translation\rest;
 
 
-use Exception;
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Translator;
+use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\URL;
 use \NovemBit\i18n\component\translation\interfaces;
 
@@ -127,7 +127,18 @@ class Dynamic extends Translator implements interfaces\Rest
 
         $result = json_decode($result, true);
 
-        return $result;
+        if ($result['status'] == 1) {
+            return $result['translation'];
+        } else {
+            /**
+             * Throw exception
+             *
+             * @todo Split errors
+             * */
+            throw new Exception(
+                "Dynamic hub unexpected error."
+            );
+        }
 
     }
 

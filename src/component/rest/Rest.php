@@ -154,6 +154,7 @@ class Rest extends Component implements interfaces\Rest
     public function actionTranslate()
     {
 
+        $result = [];
         if (isset($_POST['from_language'])
             && isset($_POST['texts'])
             && isset($_POST['languages'])
@@ -161,19 +162,29 @@ class Rest extends Component implements interfaces\Rest
         ) {
 
             if (!in_array($_POST['type'], $this->available_types)) {
-                return 0;
+                $result['status']=0;
+                return $result;
             }
             /**
              * Set from language
              * */
             $this->context->languages->from_language = $_POST['from_language'];
 
-            $translation = $this->context->translation
-                ->setLanguages($_POST['languages'])
-                ->{$_POST['type']}
-                ->translate($_POST['texts']);
-
-            return $translation;
+            try {
+                $result=[
+                    'status'=>1,
+                    'translation'=>$this->context->translation
+                        ->setLanguages($_POST['languages'])
+                        ->{$_POST['type']}
+                        ->translate($_POST['texts'])
+                ];
+            } catch (\NovemBit\i18n\system\exception\Exception $exception){
+                $result = [
+                    'status'=>-1,
+                    'message'=>'Unexpected Error.'
+                ];
+            }
+            return $result;
         }
 
         return 0;

@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\db\Exception;
 
 
 /**
@@ -70,7 +71,9 @@ class Translation extends ActiveRecord implements interfaces\Translation
                     'level'
                 ]
             ],
-            [['type', 'created_at', 'updated_at'], 'integer'],
+            [['from_language', 'to_language'], 'string', 'max' => 2],
+            [['type', 'level'], 'integer', 'min' => 0, 'max' => 99],
+            [['created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -161,7 +164,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param bool   $overwrite     If translation exists, then overwrite value
      *
      * @return void
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public static function saveTranslations(
         $from_language,
@@ -183,7 +186,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
                 $model = null;
 
-                if ($overwrite) {
+                if ($overwrite === true) {
                     $model = self::find()
                         ->where(['from_language' => $from_language])
                         ->andWhere(['type' => $type])
