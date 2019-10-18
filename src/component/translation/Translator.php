@@ -456,7 +456,6 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public function validateAllBeforeTranslate(array &$texts)
     {
-
         foreach ($texts as $key => & $text) {
             $original = $text;
             if (!$this->validateBeforeTranslate($text)) {
@@ -498,14 +497,16 @@ abstract class Translator extends Component implements interfaces\Translator
             }
         }
 
-        /*
+        /**
          * Unset unnecessary keys from result
+         *
+         * @todo Discus and understand it this part is essential
          * */
-        foreach ($this->_translate_original_texts as $before => $after) {
+        /*foreach ($this->_translate_original_texts as $before => $after) {
             if ($before != $after) {
                 unset($translates[$after]);
             }
-        }
+        }*/
 
         $this->_translate_original_texts = [];
     }
