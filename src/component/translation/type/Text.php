@@ -13,11 +13,11 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use Exception;
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
+use NovemBit\i18n\system\helpers\DataType;
 
 /**
  * Text type for Translation component
@@ -72,23 +72,6 @@ class Text extends Type
     ];
 
     /**
-     * If element contains whitespace
-     * Then after translation removing whitespace
-     * To return final result as clean text
-     *
-     * @var bool
-     * */
-    public $preserve_whitespace = true;
-
-    /**
-     * If clean whitespace is true then removing whitespace
-     * from  translated text before caching
-     *
-     * @var bool
-     * */
-    public $clean_whitespace = true;
-
-    /**
      * Doing translate method
      *
      * @param array $texts List of texts to translate
@@ -106,13 +89,6 @@ class Text extends Type
         foreach ($translations as $source => &$translation) {
             foreach ($translation as $language => &$text) {
                 $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);
-
-                /**
-                 * Clean whitespace
-                 * */
-                if ($this->clean_whitespace) {
-                    $text = preg_replace('/\s+/', ' ', $text);
-                }
             }
         }
 
@@ -120,7 +96,7 @@ class Text extends Type
     }
 
     /**
-     * Remove Whitespace
+     * Reset whitespace
      *
      * @param string $before     Before
      * @param string $after      After
@@ -130,15 +106,26 @@ class Text extends Type
      */
     public function validateAfterTranslate($before, $after, &$translates)
     {
-        if (!$this->preserve_whitespace) {
-            $translates[$before] = preg_replace('/\s+/', ' ', $translates[$before]);
+        DataType::getStringsDifference(
+            $before,
+            $after,
+            $prefix,
+            $suffix
+        );
+
+        if ($before != $after && isset($translates[$before])) {
+            foreach ($translates[$before] as $language => &$translate) {
+                $translate = $prefix . $translate . $suffix;
+            }
         }
 
         return parent::validateAfterTranslate($before, $after, $translates);
     }
 
+
     /**
-     * Validate text before translate
+     * Using dont_translate_patterns to ignore texts
+     * Clearing whitespace
      *
      * @param string $text Referenced text variable to translate
      *
@@ -149,13 +136,14 @@ class Text extends Type
 
         foreach ($this->dont_translate_patterns as $pattern) {
             if (preg_match("/$pattern/", $text)) {
-
                 return false;
             }
         }
 
+        $text = preg_replace('/^\s+|\s+$/', '', $text);
+        $text = preg_replace('/\s+/', ' ', $text);
+
         return parent::validateBeforeTranslate($text);
     }
-
 
 }
