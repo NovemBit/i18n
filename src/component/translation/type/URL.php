@@ -17,6 +17,7 @@ use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
+use NovemBit\i18n\system\helpers\DataType;
 
 /**
  * Url translation component
@@ -119,7 +120,7 @@ class URL extends Type
      */
     public function validateAfterTranslate($before, $after, &$translates)
     {
-        self::_getStringsDifference($before, $after, $prefix, $suffix);
+        DataType::getStringsDifference($before, $after, $prefix, $suffix);
 
         $translates[$before] = $translates[$after];
         foreach ($translates[$before] as $language => &$translate) {
@@ -374,38 +375,6 @@ class URL extends Type
     }
 
     /**
-     * Get string difference
-     *
-     * @param string      $before Initial type of string
-     * @param string      $after  Final type of string
-     * @param string|null $prefix Referenced variable to receive difference prefix
-     * @param string|null $suffix Referenced variable to receive difference suffix
-     *
-     * @return void
-     */
-    private static function _getStringsDifference(
-        $before,
-        $after,
-        &$prefix = null,
-        &$suffix = null
-    ) {
-        $prefix = $before;
-        $suffix = '';
-
-        if ($after != '') {
-            $pos = strpos($before, $after);
-            $prefix = substr($before, 0, $pos);
-            $suffix = substr(
-                $before,
-                strlen($prefix) +
-                strlen($after),
-                strlen($before)
-            );
-        }
-
-    }
-
-    /**
      * Validate result after ReTranslate
      *  Remove language key from query variables
      *
@@ -417,7 +386,7 @@ class URL extends Type
      */
     public function validateAfterReTranslate($before, $after, &$result)
     {
-        self::_getStringsDifference($before, $after, $prefix, $suffix);
+        DataType::getStringsDifference($before, $after, $prefix, $suffix);
 
         if ($before != $after && isset($result[$after])) {
             $result[$before] = $prefix . $result[$after] . $suffix;
