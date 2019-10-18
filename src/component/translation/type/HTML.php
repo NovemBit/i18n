@@ -86,9 +86,11 @@ class HTML extends Type
     }
 
     /**
-     * Get Html parser
+     * Get Html parser. Create new instance of HTML parser
      *
      * @param string $html Html content
+     *
+     * @see \NovemBit\i18n\system\parsers\HTML
      *
      * @return \NovemBit\i18n\system\parsers\HTML
      */
@@ -118,8 +120,19 @@ class HTML extends Type
 
     /**
      * Doing translate method
+     * Getting node values from two type of DOMNode
+     *
+     * * DOMText - text content of parent node
+     * * DOMAttr - attrs values of parent node
+     *
+     * Then using callbacks for decode html entities
+     * And send to translation:
+     * Using custom type of translation for each type of node
      *
      * @param array $html_list list of translatable HTML strings
+     *
+     * @see DOMText
+     * @see DOMAttr
      *
      * @return mixed
      * @throws TranslationException
@@ -153,8 +166,6 @@ class HTML extends Type
                         ENT_QUOTES | ENT_HTML401
                     );
 
-//                    $node->data = preg_replace('/\s+/', ' ', $node->data);
-
                     $this->_to_translate[$type][] = $node->data;
                 },
                 function (&$node, $type) {
@@ -167,7 +178,6 @@ class HTML extends Type
                         $node->value,
                         ENT_QUOTES | ENT_HTML401
                     );
-
 
                     $this->_to_translate[$type][] = $node->value;
                 }
