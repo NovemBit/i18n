@@ -16,7 +16,6 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
-use Exception;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\system\parsers\html\Rule;
@@ -154,7 +153,7 @@ class HTML extends Type
                         ENT_QUOTES | ENT_HTML401
                     );
 
-                    $node->data = preg_replace('/\s+/', ' ', $node->data);
+//                    $node->data = preg_replace('/\s+/', ' ', $node->data);
 
                     $this->_to_translate[$type][] = $node->data;
                 },
@@ -169,7 +168,6 @@ class HTML extends Type
                         ENT_QUOTES | ENT_HTML401
                     );
 
-                    $node->value = preg_replace('/\s+/', ' ', $node->value);
 
                     $this->_to_translate[$type][] = $node->value;
                 }
@@ -189,7 +187,7 @@ class HTML extends Type
             foreach ($languages as $language) {
 
                 $_parsed_dom[$key]->fetch(
-                    function (&$node, $type) use ($language) {
+                    function (&$node, $type, $rule) use ($language) {
                         /**
                          * Callback for Text node
                          *
