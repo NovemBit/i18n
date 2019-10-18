@@ -18,7 +18,6 @@ use Google\Cloud\Translate\TranslateClient;
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\exceptions\MethodException;
-use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\component\translation\Translation;
 
 /**

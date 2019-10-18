@@ -212,7 +212,7 @@ class HTML
                             }
                             call_user_func_array(
                                 $text_callback,
-                                [&$child_node, $translate_field['text']]
+                                [&$child_node, $translate_field['text'], $rule]
                             );
                         }
                     }
@@ -230,7 +230,10 @@ class HTML
                          *
                          * @var DOMAttr $node
                          */
-                        call_user_func_array($attr_callback, [&$attr_node, $type]);
+                        call_user_func_array(
+                            $attr_callback,
+                            [&$attr_node, $type, $rule]
+                        );
                     }
                 }
 

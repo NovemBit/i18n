@@ -125,7 +125,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $to_languages,
         $reverse = false
     ): array {
-
         $result = [];
         $texts = array_values($texts);
         $to_languages = array_values($to_languages);

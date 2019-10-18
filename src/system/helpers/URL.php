@@ -29,8 +29,8 @@ class URL
     /**
      * Adding query parameters to URL
      *
-     * @param string $url Initial url
-     * @param string $paramName Parameter name (key)
+     * @param string $url        Initial url
+     * @param string $paramName  Parameter name (key)
      * @param string $paramValue Value of parameter
      *
      * @return string
@@ -54,7 +54,7 @@ class URL
     /**
      * Remove Query parameter from URL
      *
-     * @param string $url Initial url
+     * @param string $url       Initial url
      * @param string $paramName Parameter name (key)
      *
      * @return string

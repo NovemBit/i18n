@@ -24,10 +24,6 @@ namespace NovemBit\i18n\system\helpers;
  */
 class DataType
 {
-
-    const HTML = 'html';
-    const JSON = 'json';
-    const URL = 'url';
     const UNDEFINED = 0;
 
     /**
@@ -71,21 +67,53 @@ class DataType
      * Get type of string
      *  URL, JSON, HTML
      *
-     * @param string $string String content
-     * @param int $default Default type returning when type is unknown
+     * @param string $string  String content
+     * @param int    $default Default type returning when type is unknown
      *
-     * @return int|string
+     * @return int
      */
     public static function getType($string, $default = self::UNDEFINED)
     {
         if (self::isURL($string)) {
-            return self::URL;
+            return \NovemBit\i18n\component\translation\type\URL::NAME;
         } elseif (self::isJSON($string)) {
-            return self::JSON;
+            return \NovemBit\i18n\component\translation\type\JSON::NAME;
         } elseif (self::isHTML($string)) {
-            return self::HTML;
+            return \NovemBit\i18n\component\translation\type\HTML::NAME;
         } else {
             return $default;
         }
+    }
+
+    /**
+     * Get string difference
+     *
+     * @param string      $before Initial type of string
+     * @param string      $after  Final type of string
+     * @param string|null $prefix Referenced variable to receive difference prefix
+     * @param string|null $suffix Referenced variable to receive difference suffix
+     *
+     * @return void
+     */
+    public static function getStringsDifference(
+        $before,
+        $after,
+        &$prefix = null,
+        &$suffix = null
+    ) {
+        $prefix = $before;
+        $suffix = '';
+
+        if ($after != '') {
+            $pos = strpos($before, $after);
+            $prefix = substr($before, 0, $pos);
+            $suffix = substr(
+                $before,
+                strlen($prefix) +
+                strlen($after),
+                strlen($before)
+            );
+        }
+
     }
 }
