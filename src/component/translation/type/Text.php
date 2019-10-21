@@ -72,6 +72,16 @@ class Text extends Type
     ];
 
     /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return models\Text::class;
+    }
+
+    /**
      * Doing translate method
      *
      * @param array $texts List of texts to translate

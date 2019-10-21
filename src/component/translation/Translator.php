@@ -32,6 +32,7 @@ use NovemBit\i18n\system\Component;
  */
 abstract class Translator extends Component implements interfaces\Translator
 {
+
     /**
      * Type id. Using as column value to save on DB
      *
@@ -140,11 +141,13 @@ abstract class Translator extends Component implements interfaces\Translator
         /*
         * Find translations from DB with ActiveData
         * */
-        $models = \NovemBit\i18n\models\Translation::get(
-            $this->type,
-            $texts,
-            $this->context->getFromLanguage(),
-            $languages
+        $models = call_user_func_array(
+            [static::getModel(), 'get'],
+            [
+                $texts,
+                $this->context->getFromLanguage(),
+                $languages
+            ]
         );
 
         foreach ($models as $model) {
@@ -180,7 +183,6 @@ abstract class Translator extends Component implements interfaces\Translator
      * @return array
      * @throws LanguageException
      * @throws TranslationException
-     * @throws ActiveRecordException
      */
     public function translate(array $texts)
     {
@@ -228,12 +230,14 @@ abstract class Translator extends Component implements interfaces\Translator
              * And without overwriting old values
              * */
             if ($this->save_translations) {
-                \NovemBit\i18n\models\Translation::saveTranslations(
-                    $this->context->getFromLanguage(),
-                    $this->type,
-                    $new_translations,
-                    0,
-                    false
+                call_user_func_array(
+                    [static::getModel(), 'saveTranslations'],
+                    [
+                        $this->context->getFromLanguage(),
+                        $new_translations,
+                        0,
+                        false
+                    ]
                 );
             }
 
@@ -281,12 +285,14 @@ abstract class Translator extends Component implements interfaces\Translator
         foreach ($texts as $text) {
 
 
-            $model = \NovemBit\i18n\models\Translation::get(
-                $this->type,
-                [$text],
-                $from_language,
-                [$language],
-                true
+            $model = call_user_func_array(
+                [static::getModel(), 'get'],
+                [
+                    [$text],
+                    $from_language,
+                    [$language],
+                    true
+                ]
             );
 
             if (!isset($model[0]['source'])) {
@@ -561,6 +567,16 @@ abstract class Translator extends Component implements interfaces\Translator
     public function doTranslate(array $texts)
     {
         return [];
+    }
+
+    /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return \NovemBit\i18n\models\Translation::class;
     }
 
 }

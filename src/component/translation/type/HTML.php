@@ -34,6 +34,7 @@ use NovemBit\i18n\system\parsers\html\Rule;
  */
 class HTML extends Type
 {
+
     /**
      * Name of current type
      *
@@ -74,6 +75,16 @@ class HTML extends Type
      * @var array
      * */
     private $_translations = [];
+
+    /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return models\HTML::class;
+    }
 
     /**
      * {@inheritdoc}

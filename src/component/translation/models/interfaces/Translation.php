@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NovemBit\i18n\models\interfaces;
+namespace NovemBit\i18n\component\translation\models\interfaces;
 
 
 interface Translation
@@ -10,16 +10,14 @@ interface Translation
     /**
      * Main method to get translations from DB
      *
-     * @param int    $type          Type of translated string
-     * @param array  $texts         Texts array to translate
+     * @param array $texts Texts array to translate
      * @param string $from_language From language
-     * @param array  $to_languages  To languages list
-     * @param bool   $reverse       Use translate column as source (ReTranslate)
+     * @param array $to_languages To languages list
+     * @param bool $reverse Use translate column as source (ReTranslate)
      *
      * @return array
      */
     public static function get(
-        $type,
         $texts,
         $from_language,
         $to_languages,

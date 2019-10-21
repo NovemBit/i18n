@@ -34,6 +34,11 @@ use NovemBit\i18n\system\helpers\DataType;
 class URL extends Type
 {
     /**
+     * {@inheritdoc}
+     * */
+    public $model = \NovemBit\i18n\component\translation\type\models\URL::class;
+
+    /**
      * Name of current type
      *
      * @var string
@@ -73,6 +78,16 @@ class URL extends Type
      * @var array
      * */
     public $url_validation_rules = [];
+
+    /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return models\URL::class;
+    }
 
     /**
      * Doing translation method

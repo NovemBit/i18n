@@ -32,6 +32,11 @@ use NovemBit\i18n\system\helpers\DataType;
 class JSON extends Type
 {
     /**
+     * {@inheritdoc}
+     * */
+    public $model = \NovemBit\i18n\component\translation\type\models\JSON::class;
+
+    /**
      * Name of current type
      *
      * @var string
@@ -54,6 +59,16 @@ class JSON extends Type
      * @var array
      * */
     private $_objects = [];
+
+    /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return models\JSON::class;
+    }
 
     /**
      * Doing translate method

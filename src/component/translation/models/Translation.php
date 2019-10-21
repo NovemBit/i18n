@@ -11,8 +11,9 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\models;
+namespace NovemBit\i18n\component\translation\models;
 
+use NovemBit\i18n\models\ActiveRecord;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Exception;
@@ -39,6 +40,8 @@ use yii\db\Exception;
  * */
 class Translation extends ActiveRecord implements interfaces\Translation
 {
+
+    const TYPE = 0;
 
     /**
      * Table name in DB
@@ -79,6 +82,23 @@ class Translation extends ActiveRecord implements interfaces\Translation
     }
 
     /**
+     * Before save set type of node
+     *
+     * @param bool $insert if insert
+     *
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->type = static::TYPE;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Yii2 component behaviours
      * Using timestamp behaviour
      * To set created and updated at columns values.
@@ -110,7 +130,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
     /**
      * Main method to get translations from DB
      *
-     * @param int    $type          Type of translated string
      * @param array  $texts         Texts array to translate
      * @param string $from_language From language
      * @param array  $to_languages  To languages list
@@ -119,7 +138,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @return array
      */
     public static function get(
-        $type,
         $texts,
         $from_language,
         $to_languages,
@@ -143,7 +161,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $query = self::find();
         $query
             ->select(['source', 'to_language', 'translate'])
-            ->where(['type' => $type])
+            ->where(['type' => static::TYPE])
             ->andWhere(['from_language' => $from_language])
             ->andWhere(['in', 'to_language', $to_languages])
             ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts])
@@ -158,7 +176,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * Main method to save translations in DB
      *
      * @param string $from_language From language
-     * @param int    $type          Type of translations
      * @param array  $translations  Translations of texts
      * @param int    $level         Level of translation
      * @param bool   $overwrite     If translation exists, then overwrite value
@@ -168,7 +185,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
      */
     public static function saveTranslations(
         $from_language,
-        $type,
         $translations,
         $level = 0,
         $overwrite = false
@@ -189,7 +205,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 if ($overwrite === true) {
                     $model = self::find()
                         ->where(['from_language' => $from_language])
-                        ->andWhere(['type' => $type])
+                        ->andWhere(['type' => static::TYPE])
                         ->andWhere(['to_language' => $to_language])
                         ->andWhere(['source' => $source])
                         ->andWhere(['level' => $level])
@@ -202,7 +218,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                     $model->to_language = $to_language;
                     $model->source = $source;
                     $model->level = $level;
-                    $model->type = $type;
+                    $model->type = static::TYPE;
                 }
 
                 $model->translate = $translate;

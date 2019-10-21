@@ -41,4 +41,14 @@ abstract class Method extends Translator implements interfaces\Method
      * @var int
      * */
     public $type = 0;
+
+    /**
+     * Model class
+     *
+     * @return string
+     */
+    public static function getModel()
+    {
+        return models\Method::class;
+    }
 }
