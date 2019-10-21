@@ -11,4 +11,5 @@ interface Translator
 
     public function doTranslate(array $texts);
 
+    public static function getModel() : string;
 }

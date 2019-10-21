@@ -10,10 +10,10 @@ interface Translation
     /**
      * Main method to get translations from DB
      *
-     * @param array $texts Texts array to translate
+     * @param array  $texts         Texts array to translate
      * @param string $from_language From language
-     * @param array $to_languages To languages list
-     * @param bool $reverse Use translate column as source (ReTranslate)
+     * @param array  $to_languages  To languages list
+     * @param bool   $reverse       Use translate column as source (ReTranslate)
      *
      * @return array
      */
@@ -28,11 +28,17 @@ interface Translation
      * Main method to save translations in DB
      *
      * @param string $from_language From language
-     * @param int    $type          Type of translations
      * @param array  $translations  Translations of texts
+     * @param int    $level         Level of translation
+     * @param bool   $overwrite     Overwrite or not
      *
      * @return void
      */
-    public static function saveTranslations($from_language, $type, $translations);
+    public static function saveTranslations(
+        $from_language,
+        $translations,
+        $level = 0,
+        $overwrite = false
+    );
 
 }

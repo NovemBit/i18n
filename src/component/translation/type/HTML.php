@@ -81,7 +81,7 @@ class HTML extends Type
      *
      * @return string
      */
-    public static function getModel()
+    public static function getModel() : string
     {
         return models\HTML::class;
     }
@@ -269,7 +269,7 @@ class HTML extends Type
                         $translate = isset(
                             $this->_translations[$type][$node->value][$language]
                         ) ? $this->_translations[$type][$node->value][$language]
-                            : false;
+                            : null;
 
                         /**
                          * Enable helper attributes
@@ -290,7 +290,7 @@ class HTML extends Type
                             } else {
                                 $attr = [];
                             }
-                            if ($translate !== false) {
+                            if ($translate !== null) {
                                 $attr[$node->name] = [
                                     $node->value,
                                     $translate,

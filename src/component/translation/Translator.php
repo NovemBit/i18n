@@ -573,7 +573,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return string
      */
-    public static function getModel()
+    public static function getModel() : string
     {
         return \NovemBit\i18n\component\translation\models\Translation::class;
     }

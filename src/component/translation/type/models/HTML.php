@@ -27,5 +27,5 @@ use NovemBit\i18n\component\translation\models\Translation;
  * */
 class HTML extends Translation
 {
-    const TYPE = 2;
+    const TYPE = 3;
 }

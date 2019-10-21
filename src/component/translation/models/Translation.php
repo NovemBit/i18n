@@ -40,7 +40,6 @@ use yii\db\Exception;
  * */
 class Translation extends ActiveRecord implements interfaces\Translation
 {
-
     const TYPE = 0;
 
     /**
@@ -158,7 +157,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
             }
         }
 
-        $query = self::find();
+        $query = static::find();
         $query
             ->select(['source', 'to_language', 'translate'])
             ->where(['type' => static::TYPE])
@@ -190,7 +189,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $overwrite = false
     ) {
 
-        $transaction = self::getDb()->beginTransaction();
+        $transaction = static::getDb()->beginTransaction();
 
         foreach ($translations as $source => $haystack) {
 
@@ -203,7 +202,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 $model = null;
 
                 if ($overwrite === true) {
-                    $model = self::find()
+                    $model = static::find()
                         ->where(['from_language' => $from_language])
                         ->andWhere(['type' => static::TYPE])
                         ->andWhere(['to_language' => $to_language])
@@ -213,7 +212,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 }
 
                 if ($model == null) {
-                    $model = new self();
+                    $model = new static();
                     $model->from_language = $from_language;
                     $model->to_language = $to_language;
                     $model->source = $source;

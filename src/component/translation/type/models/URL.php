@@ -27,6 +27,7 @@ use NovemBit\i18n\component\translation\models\Translation;
  * */
 class URL extends Translation
 {
+    const TYPE = 2;
 
     /**
      * {@inheritdoc}
@@ -55,6 +56,5 @@ class URL extends Translation
         );
     }
 
-    const TYPE = 3;
 
 }

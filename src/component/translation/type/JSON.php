@@ -64,7 +64,7 @@ class JSON extends Type
      *
      * @return string
      */
-    public static function getModel()
+    public static function getModel() : string
     {
         return models\JSON::class;
     }
