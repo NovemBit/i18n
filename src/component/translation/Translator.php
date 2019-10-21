@@ -16,7 +16,6 @@ namespace NovemBit\i18n\component\translation;
 
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
 
 /**
@@ -576,7 +575,7 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public static function getModel()
     {
-        return \NovemBit\i18n\models\Translation::class;
+        return \NovemBit\i18n\component\translation\models\Translation::class;
     }
 
 }

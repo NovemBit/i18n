@@ -13,6 +13,8 @@
 
 namespace NovemBit\i18n\system\exception;
 
+use ErrorException;
+
 /**
  * System Exception class
  *
@@ -22,7 +24,7 @@ namespace NovemBit\i18n\system\exception;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class Exception extends \ErrorException implements FriendlyExceptionInterface
+class Exception extends ErrorException implements FriendlyExceptionInterface
 {
 
 }

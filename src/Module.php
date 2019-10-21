@@ -78,7 +78,6 @@ class Module extends system\Component
      * @throws component\languages\exceptions\LanguageException
      * @throws component\request\exceptions\RequestException
      * @throws component\translation\exceptions\TranslationException
-     * @throws models\exceptions\ActiveRecordException
      */
     public function start()
     {

@@ -13,6 +13,9 @@
 
 namespace NovemBit\i18n\system\helpers;
 
+use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\JSON;
+
 /**
  * Helper class for determine content types
  *
@@ -77,9 +80,9 @@ class DataType
         if (self::isURL($string)) {
             return \NovemBit\i18n\component\translation\type\URL::NAME;
         } elseif (self::isJSON($string)) {
-            return \NovemBit\i18n\component\translation\type\JSON::NAME;
+            return JSON::NAME;
         } elseif (self::isHTML($string)) {
-            return \NovemBit\i18n\component\translation\type\HTML::NAME;
+            return HTML::NAME;
         } else {
             return $default;
         }

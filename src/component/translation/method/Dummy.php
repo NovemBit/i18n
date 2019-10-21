@@ -13,7 +13,6 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use Exception;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 

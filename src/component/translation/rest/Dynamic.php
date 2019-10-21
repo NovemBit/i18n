@@ -19,7 +19,6 @@ use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Translator;
-use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\URL;
 use \NovemBit\i18n\component\translation\interfaces;
 
@@ -93,7 +92,7 @@ class Dynamic extends Translator implements interfaces\Rest
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws \NovemBit\i18n\component\translation\exceptions\TranslationException
+     * @throws TranslationException
      */
     public function doTranslate(array $texts)
     {

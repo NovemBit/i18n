@@ -14,7 +14,6 @@
 namespace NovemBit\i18n\component\rest;
 
 
-use Exception;
 use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\component\translation\type\HTML;
 use NovemBit\i18n\component\translation\type\JSON;
@@ -22,6 +21,7 @@ use NovemBit\i18n\component\translation\type\Text;
 use NovemBit\i18n\component\translation\type\URL;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\exception\Exception;
 
 /**
  * Rest component
@@ -177,7 +177,7 @@ class Rest extends Component implements interfaces\Rest
                         ->{$_POST['type']}
                         ->translate($_POST['texts'])
                 ];
-            } catch (\NovemBit\i18n\system\exception\Exception $exception){
+            } catch (Exception $exception){
                 $result = [
                     'status'=>-1,
                     'message'=>'Unexpected Error.'

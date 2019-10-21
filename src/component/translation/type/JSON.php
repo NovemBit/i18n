@@ -13,7 +13,6 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use Exception;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\system\helpers\DataType;
@@ -34,7 +33,7 @@ class JSON extends Type
     /**
      * {@inheritdoc}
      * */
-    public $model = \NovemBit\i18n\component\translation\type\models\JSON::class;
+    public $model = models\JSON::class;
 
     /**
      * Name of current type
