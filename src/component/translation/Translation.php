@@ -128,6 +128,4 @@ class Translation extends Component implements interfaces\Translation
     {
         return $this->context->languages->getFromLanguage();
     }
-
-
 }

@@ -168,6 +168,8 @@ class HTML extends Type
                     /**
                      * Callback for Text nodes
                      *
+                     * @todo Runtime debugging (important)
+                     *
                      * @var DOMText $node Text node
                      */
                     $node->data = htmlspecialchars_decode(
@@ -181,12 +183,14 @@ class HTML extends Type
                     /**
                      * Callback for Attribute nodes
                      *
+                     * @todo Runtime debugging (important)
+                     *
                      * @var DOMAttr $node
                      */
-                    $node->value = htmlspecialchars_decode(
+                    /*$node->value = htmlspecialchars_decode(
                         $node->value,
                         ENT_QUOTES | ENT_HTML401
-                    );
+                    );*/
 
                     $this->_to_translate[$type][] = $node->value;
                 }
@@ -212,11 +216,11 @@ class HTML extends Type
                          *
                          * @var DOMText $node
                          * @var DOMElement $parent
+                         * @var Rule $rule
                          */
-                        $translate = isset(
-                            $this->_translations[$type][$node->data][$language]
-                        ) ? $this->_translations[$type][$node->data][$language]
-                            : null;
+                        $translate =  $this->_translations
+                            [$type][$node->data][$language]
+                            ?? null;
 
                         /**
                          * Enable helper attributes
@@ -262,12 +266,12 @@ class HTML extends Type
                          *
                          * @var DOMAttr $node
                          * @var DOMElement $parent
+                         * @var Rule $rule
                          */
 
-                        $translate = isset(
-                            $this->_translations[$type][$node->value][$language]
-                        ) ? $this->_translations[$type][$node->value][$language]
-                            : null;
+                        $translate = $this->_translations
+                            [$type][$node->value][$language]
+                            ?? null;
 
                         /**
                          * Enable helper attributes
@@ -301,7 +305,7 @@ class HTML extends Type
                             }
                         }
 
-                        $node->value = $translate ?? $node->value;
+                        $node->value = htmlspecialchars($translate) ?? $node->value;
                     }
                 );
 
