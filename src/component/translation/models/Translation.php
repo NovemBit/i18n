@@ -178,6 +178,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * @param array  $translations  Translations of texts
      * @param int    $level         Level of translation
      * @param bool   $overwrite     If translation exists, then overwrite value
+     * @param array  $result        Result about saving
      *
      * @return void
      * @throws ActiveRecordException
@@ -186,7 +187,8 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $from_language,
         $translations,
         $level = 0,
-        $overwrite = false
+        $overwrite = false,
+        &$result = []
     ) {
 
         $transaction = static::getDb()->beginTransaction();
@@ -202,6 +204,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
                 $model = null;
 
                 if ($overwrite === true) {
+
                     $model = static::find()
                         ->where(['from_language' => $from_language])
                         ->andWhere(['type' => static::TYPE])
@@ -222,8 +225,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
                 $model->translate = $translate;
 
-                if ($model->validate()) {
-                    $model->save();
+                if ($model->validate() && $model->save()) {
+                    $result['success'][] = $model->id;
+                } else {
+                    $result['errors'][] = $model->errors;
                 }
             }
         }

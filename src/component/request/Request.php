@@ -688,8 +688,9 @@ class Request extends Component implements interfaces\Request
              * With Level *1*
              * And overwrite old values if exists
              * */
-            $this->context->translation->text->saveModels($result, 1, true);
+            $this->context->translation->text->saveModels($result, 1, true, $verbos);
 
+            echo json_encode($verbos);
 
             return true;
         }

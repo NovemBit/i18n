@@ -565,6 +565,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $translations Translations of texts
      * @param int   $level        Level of translation
      * @param bool  $overwrite    If translation exists, then overwrite value
+     * @param array $result       Result about saving
      *
      * @return void
      * @throws ActiveRecordException
@@ -573,14 +574,28 @@ abstract class Translator extends Component implements interfaces\Translator
     public function saveModels(
         $translations,
         $level = 0,
-        $overwrite = false
+        $overwrite = false,
+        &$result = []
     ): void {
         $this->model_class::saveTranslations(
             $this->context->getFromLanguage(),
             $translations,
             $level,
-            $overwrite
+            $overwrite,
+            $result
         );
+
+        /**
+         * To debug saving of models
+         *
+         * @todo Create method to write logs
+         *
+         * ```php
+         * if (isset($result['errors']) && count($result['errors']) > 0) {
+         *      // Something to log
+         * }
+         * ```
+         * */
     }
 
     /**
