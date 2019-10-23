@@ -10,6 +10,7 @@
     * [isURL](#isurl)
     * [isJSON](#isjson)
     * [getType](#gettype)
+    * [getStringsDifference](#getstringsdifference)
 * [DB](#db)
     * [__construct](#__construct)
     * [commonInit](#commoninit)
@@ -19,92 +20,15 @@
     * [getConnection](#getconnection)
     * [setConnection](#setconnection)
 * [Dummy](#dummy)
-    * [validateBeforeTranslate](#validatebeforetranslate)
-    * [validateAfterTranslate](#validateaftertranslate)
-    * [init](#init-1)
-    * [beforeTranslate](#beforetranslate)
-    * [afterTranslate](#aftertranslate)
-    * [translate](#translate)
-    * [reTranslate](#retranslate)
-    * [beforeReTranslate](#beforeretranslate)
-    * [afterReTranslate](#afterretranslate)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate)
-    * [validateAllAfterReTranslate](#validateallafterretranslate)
-    * [validateBeforeReTranslate](#validatebeforeretranslate)
-    * [validateAfterReTranslate](#validateafterretranslate)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate)
-    * [validateAllAfterTranslate](#validateallaftertranslate)
     * [doTranslate](#dotranslate)
-    * [__construct](#__construct-1)
-    * [commonInit](#commoninit-1)
-    * [cli](#cli-1)
-    * [cliInit](#cliinit-1)
 * [Dynamic](#dynamic)
-    * [init](#init-2)
-    * [beforeTranslate](#beforetranslate-1)
-    * [afterTranslate](#aftertranslate-1)
-    * [translate](#translate-1)
-    * [reTranslate](#retranslate-1)
-    * [beforeReTranslate](#beforeretranslate-1)
-    * [afterReTranslate](#afterretranslate-1)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-1)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-1)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-1)
-    * [validateAfterReTranslate](#validateafterretranslate-1)
-    * [validateBeforeTranslate](#validatebeforetranslate-1)
-    * [validateAfterTranslate](#validateaftertranslate-1)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-1)
-    * [validateAllAfterTranslate](#validateallaftertranslate-1)
     * [doTranslate](#dotranslate-1)
-    * [__construct](#__construct-2)
-    * [commonInit](#commoninit-2)
-    * [cli](#cli-2)
-    * [cliInit](#cliinit-2)
     * [getType](#gettype-1)
 * [Exception](#exception)
 * [Google](#google)
-    * [validateBeforeTranslate](#validatebeforetranslate-2)
-    * [validateAfterTranslate](#validateaftertranslate-2)
-    * [init](#init-3)
-    * [beforeTranslate](#beforetranslate-2)
-    * [afterTranslate](#aftertranslate-2)
-    * [translate](#translate-2)
-    * [reTranslate](#retranslate-2)
-    * [beforeReTranslate](#beforeretranslate-2)
-    * [afterReTranslate](#afterretranslate-2)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-2)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-2)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-2)
-    * [validateAfterReTranslate](#validateafterretranslate-2)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-2)
-    * [validateAllAfterTranslate](#validateallaftertranslate-2)
+    * [init](#init-1)
     * [doTranslate](#dotranslate-2)
-    * [__construct](#__construct-3)
-    * [commonInit](#commoninit-3)
-    * [cli](#cli-3)
-    * [cliInit](#cliinit-3)
 * [HTML](#html)
-    * [init](#init-4)
-    * [beforeTranslate](#beforetranslate-3)
-    * [afterTranslate](#aftertranslate-3)
-    * [translate](#translate-3)
-    * [reTranslate](#retranslate-3)
-    * [beforeReTranslate](#beforeretranslate-3)
-    * [afterReTranslate](#afterretranslate-3)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-3)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-3)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-3)
-    * [validateAfterReTranslate](#validateafterretranslate-3)
-    * [validateBeforeTranslate](#validatebeforetranslate-3)
-    * [validateAfterTranslate](#validateaftertranslate-3)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-3)
-    * [validateAllAfterTranslate](#validateallaftertranslate-3)
-    * [doTranslate](#dotranslate-3)
-    * [__construct](#__construct-4)
-    * [commonInit](#commoninit-4)
-    * [cli](#cli-4)
-    * [cliInit](#cliinit-4)
-* [HTML](#html-1)
     * [load](#load)
     * [fetch](#fetch)
     * [getDom](#getdom)
@@ -116,34 +40,37 @@
     * [setHtml](#sethtml)
     * [getQuery](#getquery)
     * [setQuery](#setquery)
+* [HTML](#html-1)
+    * [tableName](#tablename)
+    * [rules](#rules)
+    * [beforeSave](#beforesave)
+    * [behaviors](#behaviors)
+    * [attributeLabels](#attributelabels)
+    * [get](#get)
+    * [saveTranslations](#savetranslations)
+    * [getDb](#getdb-1)
+* [HTML](#html-2)
+    * [init](#init-2)
+    * [doTranslate](#dotranslate-3)
 * [JSON](#json)
-    * [init](#init-5)
-    * [beforeTranslate](#beforetranslate-4)
-    * [afterTranslate](#aftertranslate-4)
-    * [translate](#translate-4)
-    * [reTranslate](#retranslate-4)
-    * [beforeReTranslate](#beforeretranslate-4)
-    * [afterReTranslate](#afterretranslate-4)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-4)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-4)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-4)
-    * [validateAfterReTranslate](#validateafterretranslate-4)
-    * [validateBeforeTranslate](#validatebeforetranslate-4)
-    * [validateAfterTranslate](#validateaftertranslate-4)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-4)
-    * [validateAllAfterTranslate](#validateallaftertranslate-4)
     * [doTranslate](#dotranslate-4)
-    * [__construct](#__construct-5)
-    * [commonInit](#commoninit-5)
-    * [cli](#cli-5)
-    * [cliInit](#cliinit-5)
+    * [validateBeforeTranslate](#validatebeforetranslate)
+* [JSON](#json-1)
+    * [tableName](#tablename-1)
+    * [rules](#rules-1)
+    * [beforeSave](#beforesave-1)
+    * [behaviors](#behaviors-1)
+    * [attributeLabels](#attributelabels-1)
+    * [get](#get-1)
+    * [saveTranslations](#savetranslations-1)
+    * [getDb](#getdb-2)
 * [LanguageException](#languageexception)
 * [Languages](#languages)
-    * [__construct](#__construct-6)
-    * [commonInit](#commoninit-6)
-    * [init](#init-6)
-    * [cli](#cli-6)
-    * [cliInit](#cliinit-6)
+    * [__construct](#__construct-1)
+    * [commonInit](#commoninit-1)
+    * [init](#init-3)
+    * [cli](#cli-1)
+    * [cliInit](#cliinit-1)
     * [getLanguageFromUrl](#getlanguagefromurl)
     * [removeScriptNameFromUrl](#removescriptnamefromurl)
     * [addLanguageToUrl](#addlanguagetourl)
@@ -153,21 +80,30 @@
     * [getFromLanguage](#getfromlanguage)
     * [getDefaultLanguage](#getdefaultlanguage)
     * [getLanguageQueryKey](#getlanguagequerykey)
+* [Method](#method)
+    * [tableName](#tablename-2)
+    * [rules](#rules-2)
+    * [beforeSave](#beforesave-2)
+    * [behaviors](#behaviors-2)
+    * [attributeLabels](#attributelabels-2)
+    * [get](#get-2)
+    * [saveTranslations](#savetranslations-2)
+    * [getDb](#getdb-3)
 * [MethodException](#methodexception)
 * [Module](#module)
-    * [__construct](#__construct-7)
-    * [commonInit](#commoninit-7)
-    * [init](#init-7)
-    * [cli](#cli-7)
-    * [cliInit](#cliinit-7)
+    * [__construct](#__construct-2)
+    * [commonInit](#commoninit-2)
+    * [init](#init-4)
+    * [cli](#cli-2)
+    * [cliInit](#cliinit-2)
     * [start](#start)
     * [instance](#instance)
 * [Request](#request)
-    * [__construct](#__construct-8)
-    * [commonInit](#commoninit-8)
-    * [init](#init-8)
-    * [cli](#cli-8)
-    * [cliInit](#cliinit-8)
+    * [__construct](#__construct-3)
+    * [commonInit](#commoninit-3)
+    * [init](#init-5)
+    * [cli](#cli-3)
+    * [cliInit](#cliinit-3)
     * [getRefererSourceUrl](#getreferersourceurl)
     * [setRefererSourceUrl](#setreferersourceurl)
     * [getRefererTranslations](#getreferertranslations)
@@ -187,17 +123,17 @@
     * [setFromLanguage](#setfromlanguage)
 * [RequestException](#requestexception)
 * [Rest](#rest)
-    * [__construct](#__construct-9)
-    * [commonInit](#commoninit-9)
-    * [init](#init-9)
-    * [cli](#cli-9)
-    * [cliInit](#cliinit-9)
+    * [__construct](#__construct-4)
+    * [commonInit](#commoninit-4)
+    * [init](#init-6)
+    * [cli](#cli-4)
+    * [cliInit](#cliinit-4)
     * [start](#start-2)
     * [actionTranslate](#actiontranslate)
     * [actionIndex](#actionindex)
     * [actionRestrict](#actionrestrict)
 * [Rule](#rule)
-    * [__construct](#__construct-10)
+    * [__construct](#__construct-5)
     * [getTags](#gettags)
     * [setTags](#settags)
     * [getAttrs](#getattrs)
@@ -208,69 +144,56 @@
     * [getMode](#getmode)
     * [setMode](#setmode)
 * [Text](#text)
-    * [init](#init-10)
-    * [beforeTranslate](#beforetranslate-5)
-    * [afterTranslate](#aftertranslate-5)
-    * [translate](#translate-5)
-    * [reTranslate](#retranslate-5)
-    * [beforeReTranslate](#beforeretranslate-5)
-    * [afterReTranslate](#afterretranslate-5)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-5)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-5)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-5)
-    * [validateAfterReTranslate](#validateafterretranslate-5)
-    * [validateBeforeTranslate](#validatebeforetranslate-5)
-    * [validateAfterTranslate](#validateaftertranslate-5)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-5)
-    * [validateAllAfterTranslate](#validateallaftertranslate-5)
     * [doTranslate](#dotranslate-5)
-    * [__construct](#__construct-11)
-    * [commonInit](#commoninit-10)
-    * [cli](#cli-10)
-    * [cliInit](#cliinit-10)
+    * [validateAfterTranslate](#validateaftertranslate)
+    * [validateBeforeTranslate](#validatebeforetranslate-1)
+* [Text](#text-1)
+    * [tableName](#tablename-3)
+    * [rules](#rules-3)
+    * [beforeSave](#beforesave-3)
+    * [behaviors](#behaviors-3)
+    * [attributeLabels](#attributelabels-3)
+    * [get](#get-3)
+    * [saveTranslations](#savetranslations-3)
+    * [getDb](#getdb-4)
 * [Translation](#translation)
-    * [getDb](#getdb-1)
-    * [tableName](#tablename)
-    * [rules](#rules)
-    * [behaviors](#behaviors)
-    * [attributeLabels](#attributelabels)
-    * [get](#get)
-    * [saveTranslations](#savetranslations)
+    * [getDb](#getdb-5)
+    * [tableName](#tablename-4)
+    * [rules](#rules-4)
+    * [beforeSave](#beforesave-4)
+    * [behaviors](#behaviors-4)
+    * [attributeLabels](#attributelabels-4)
+    * [get](#get-4)
+    * [saveTranslations](#savetranslations-4)
 * [Translation](#translation-1)
-    * [__construct](#__construct-12)
-    * [commonInit](#commoninit-11)
-    * [init](#init-11)
-    * [cli](#cli-11)
-    * [cliInit](#cliinit-11)
+    * [__construct](#__construct-6)
+    * [commonInit](#commoninit-5)
+    * [init](#init-7)
+    * [cli](#cli-5)
+    * [cliInit](#cliinit-5)
     * [setLanguages](#setlanguages)
     * [getLanguages](#getlanguages)
     * [getFromLanguage](#getfromlanguage-2)
 * [TranslationException](#translationexception)
 * [URL](#url)
-    * [init](#init-12)
-    * [beforeTranslate](#beforetranslate-6)
-    * [afterTranslate](#aftertranslate-6)
-    * [translate](#translate-6)
-    * [reTranslate](#retranslate-6)
-    * [beforeReTranslate](#beforeretranslate-6)
-    * [afterReTranslate](#afterretranslate-6)
-    * [validateAllBeforeReTranslate](#validateallbeforeretranslate-6)
-    * [validateAllAfterReTranslate](#validateallafterretranslate-6)
-    * [validateBeforeReTranslate](#validatebeforeretranslate-6)
-    * [validateAfterReTranslate](#validateafterretranslate-6)
-    * [validateBeforeTranslate](#validatebeforetranslate-6)
-    * [validateAfterTranslate](#validateaftertranslate-6)
-    * [validateAllBeforeTranslate](#validateallbeforetranslate-6)
-    * [validateAllAfterTranslate](#validateallaftertranslate-6)
     * [doTranslate](#dotranslate-6)
-    * [__construct](#__construct-13)
-    * [commonInit](#commoninit-12)
-    * [cli](#cli-12)
-    * [cliInit](#cliinit-12)
+    * [validateAfterTranslate](#validateaftertranslate-1)
+    * [validateBeforeTranslate](#validatebeforetranslate-2)
+    * [validateBeforeReTranslate](#validatebeforeretranslate)
+    * [validateAfterReTranslate](#validateafterretranslate)
 * [URL](#url-1)
     * [addQueryVars](#addqueryvars)
     * [removeQueryVars](#removequeryvars)
     * [buildUrl](#buildurl)
+* [URL](#url-2)
+    * [tableName](#tablename-5)
+    * [rules](#rules-5)
+    * [beforeSave](#beforesave-5)
+    * [behaviors](#behaviors-5)
+    * [attributeLabels](#attributelabels-5)
+    * [get](#get-5)
+    * [saveTranslations](#savetranslations-5)
+    * [getDb](#getdb-6)
 
 ## ActiveRecord
 
@@ -398,7 +321,7 @@ Get type of string
  URL, JSON, HTML
 
 ```php
-DataType::getType( string $string, integer $default = self::UNDEFINED ): integer|string
+DataType::getType( string $string, integer $default = self::UNDEFINED ): integer
 ```
 
 
@@ -410,6 +333,31 @@ DataType::getType( string $string, integer $default = self::UNDEFINED ): integer
 |-----------|------|-------------|
 | `$string` | **string** | String content |
 | `$default` | **integer** | Default type returning when type is unknown |
+
+
+
+
+---
+
+### getStringsDifference
+
+Get string difference
+
+```php
+DataType::getStringsDifference( string $before, string $after, string|null &$prefix = null, string|null &$suffix = null ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$before` | **string** | Initial type of string |
+| `$after` | **string** | Final type of string |
+| `$prefix` | **string&#124;null** | Referenced variable to receive difference prefix |
+| `$suffix` | **string&#124;null** | Referenced variable to receive difference suffix |
 
 
 
@@ -576,8 +524,7 @@ DB::setConnection( \yii\db\Connection $_connection ): void
 
 Dummy method of translation
 
-Its simple but provides very useful functionality
-Module class
+
 
 * Full name: \NovemBit\i18n\component\translation\method\Dummy
 * Parent class: \NovemBit\i18n\component\translation\method\Method
@@ -585,339 +532,6 @@ Module class
 **See Also:**
 
 * https://github.com/NovemBit/i18n 
-
-### validateBeforeTranslate
-
-Validate before translate
-
-```php
-Dummy::validateBeforeTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Referenced text variable |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Validate after translate
-
-```php
-Dummy::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
-
-
-
-
----
-
-### init
-
-Component init method
-Running after child component initialization
-
-```php
-Dummy::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
-
-```php
-Dummy::beforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array |
-
-
-
-
----
-
-### afterTranslate
-
-After translate method
-
-```php
-Dummy::afterTranslate( array &$translations ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-Dummy::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-Dummy::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-Dummy::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-Dummy::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-Dummy::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-Dummy::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-Dummy::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-Dummy::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-Dummy::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-Dummy::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
 
 ### doTranslate
 
@@ -941,440 +555,19 @@ Dummy::doTranslate( array $texts ): array
 
 ---
 
-### __construct
-
-Component constructor.
-
-```php
-Dummy::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-Dummy::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-Dummy::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-Dummy::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
 ## Dynamic
 
 Rest Translate method of translation
 
-Its simple but provides very useful functionality
-Module class
+
 
 * Full name: \NovemBit\i18n\component\translation\rest\Dynamic
-* Parent class: \NovemBit\i18n\component\translation\Translator
+* Parent class: 
 * This class implements: \NovemBit\i18n\component\translation\interfaces\Rest
 
 **See Also:**
 
 * https://github.com/NovemBit/i18n 
-
-### init
-
-Component init method
-Running after child component initialization
-
-```php
-Dynamic::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
-
-```php
-Dynamic::beforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array |
-
-
-
-
----
-
-### afterTranslate
-
-After translate method
-
-```php
-Dynamic::afterTranslate( array &$translations ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-Dynamic::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-Dynamic::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-Dynamic::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-Dynamic::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-Dynamic::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-Dynamic::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-Dynamic::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-Dynamic::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeTranslate
-
-Validate before translate
-
-```php
-Dynamic::validateBeforeTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Referenced text variable |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Validate after translate
-
-```php
-Dynamic::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-Dynamic::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-Dynamic::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
 
 ### doTranslate
 
@@ -1392,93 +585,6 @@ Dynamic::doTranslate( array $texts ): array
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### __construct
-
-Component constructor.
-
-```php
-Dynamic::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-Dynamic::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-Dynamic::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-Dynamic::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
 
 
 
@@ -1519,8 +625,7 @@ System Exception class
 
 Google Translate method of translation
 
-Its simple but provides very useful functionality
-Module class
+
 
 * Full name: \NovemBit\i18n\component\translation\method\Google
 * Parent class: \NovemBit\i18n\component\translation\method\Method
@@ -1528,52 +633,6 @@ Module class
 **See Also:**
 
 * https://github.com/NovemBit/i18n 
-
-### validateBeforeTranslate
-
-Validate before translate
-
-```php
-Google::validateBeforeTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Referenced text variable |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Validate after translate
-
-```php
-Google::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
-
-
-
-
----
 
 ### init
 
@@ -1585,276 +644,6 @@ Google::init(  ): void
 
 
 
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
-
-```php
-Google::beforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array |
-
-
-
-
----
-
-### afterTranslate
-
-After translate method
-
-```php
-Google::afterTranslate( array &$translations ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-Google::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-Google::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-Google::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-Google::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-Google::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-Google::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-Google::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-Google::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-Google::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-Google::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
 
 
 
@@ -1877,548 +666,6 @@ Google::doTranslate( array $texts ): array
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### __construct
-
-Component constructor.
-
-```php
-Google::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-Google::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-Google::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-Google::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-## HTML
-
-HTML type for translation component
-
-Its simple but provides very useful functionality
-Module class
-
-* Full name: \NovemBit\i18n\component\translation\type\HTML
-* Parent class: \NovemBit\i18n\component\translation\type\Type
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### init
-
-{@inheritdoc}
-
-```php
-HTML::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
-
-```php
-HTML::beforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array |
-
-
-
-
----
-
-### afterTranslate
-
-After translate method
-
-```php
-HTML::afterTranslate( array &$translations ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-HTML::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-HTML::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-HTML::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-HTML::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-HTML::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-HTML::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-HTML::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-HTML::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeTranslate
-
-Validate before translate
-
-```php
-HTML::validateBeforeTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Referenced text variable |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Validate after translate
-
-```php
-HTML::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-HTML::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-HTML::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
-
-### doTranslate
-
-Doing translate method
-
-```php
-HTML::doTranslate( array $html_list ): mixed
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$html_list` | **array** | list of translatable HTML strings |
-
-
-
-
----
-
-### __construct
-
-Component constructor.
-
-```php
-HTML::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-HTML::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-HTML::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-HTML::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
 
 
 
@@ -2488,7 +735,7 @@ HTML::fetch( callable $text_callback, callable $attr_callback ): void
 Get Dom (DomDocument)
 
 ```php
-HTML::getDom(  ): \NovemBit\i18n\system\parsers\DomDocument
+HTML::getDom(  ): \DOMDocument
 ```
 
 
@@ -2566,7 +813,7 @@ HTML::addTranslateField( \NovemBit\i18n\system\parsers\html\Rule $rule, string $
 Get HTML string
 
 ```php
-HTML::getHtml(  ): mixed
+HTML::getHtml(  ): string
 ```
 
 
@@ -2582,7 +829,7 @@ HTML::getHtml(  ): mixed
 Save DomDocument final result as HTML
 
 ```php
-HTML::save(  ): string|array&lt;mixed,string&gt;|null
+HTML::save(  ): string
 ```
 
 
@@ -2653,14 +900,181 @@ HTML::setQuery( string $_query ): void
 
 ---
 
-## JSON
+## HTML
 
-JSON type for translation component
+ActiveRecord class. Child of Yii ActiveRecord library
 
-Its simple but provides very useful functionality
-Module class
 
-* Full name: \NovemBit\i18n\component\translation\type\JSON
+
+* Full name: \NovemBit\i18n\component\translation\type\models\HTML
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### tableName
+
+Table name in DB
+
+```php
+HTML::tableName(  ): string
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### rules
+
+{@inheritdoc}
+
+```php
+HTML::rules(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### beforeSave
+
+Before save set type of node
+
+```php
+HTML::beforeSave( boolean $insert ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$insert` | **boolean** | if insert |
+
+
+
+
+---
+
+### behaviors
+
+Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.
+
+```php
+HTML::behaviors(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+HTML::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+HTML::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+HTML::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
+
+
+
+
+---
+
+### getDb
+
+Get DB of main module instance
+
+```php
+HTML::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+## HTML
+
+HTML type for translation component
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\HTML
 * Parent class: \NovemBit\i18n\component\translation\type\Type
 
 **See Also:**
@@ -2669,11 +1083,10 @@ Module class
 
 ### init
 
-Component init method
-Running after child component initialization
+{@inheritdoc}
 
 ```php
-JSON::init(  ): void
+HTML::init(  ): void
 ```
 
 
@@ -2684,34 +1097,56 @@ JSON::init(  ): void
 
 ---
 
-### beforeTranslate
+### doTranslate
 
-Before translate method
+Doing translate method
+Getting node values from two type of DOMNode
 
 ```php
-JSON::beforeTranslate( array &$texts ): void
+HTML::doTranslate( array $html_list ): mixed
 ```
 
+* DOMText - text content of parent node
+* DOMAttr - attrs values of parent node
 
+Then using callbacks for decode html entities
+And send to translation:
+Using custom type of translation for each type of node
 
 
 **Parameters:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$texts` | **array** | Texts array |
+| `$html_list` | **array** | list of translatable HTML strings |
 
 
 
+**See Also:**
+
+* \NovemBit\i18n\component\translation\type\DOMText * \NovemBit\i18n\component\translation\type\DOMAttr 
 
 ---
 
-### afterTranslate
+## JSON
 
-After translate method
+JSON type for translation component
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\JSON
+* Parent class: \NovemBit\i18n\component\translation\type\Type
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### doTranslate
+
+Doing translate method
 
 ```php
-JSON::afterTranslate( array &$translations ): void
+JSON::doTranslate( array $jsons ): array
 ```
 
 
@@ -2721,189 +1156,7 @@ JSON::afterTranslate( array &$translations ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-JSON::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-JSON::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-JSON::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-JSON::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-JSON::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-JSON::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-JSON::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-JSON::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
+| `$jsons` | **array** | Jsons string array |
 
 
 
@@ -2932,126 +1185,41 @@ JSON::validateBeforeTranslate( string &$json ): boolean
 
 ---
 
-### validateAfterTranslate
+## JSON
 
-Validate after translate
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\models\JSON
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### tableName
+
+Table name in DB
 
 ```php
-JSON::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
+JSON::tableName(  ): string
 ```
 
 
 
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial value of string |
-| `$after` | **string** | final value of string |
-| `$translates` | **array** | Referenced variable of already translated values |
-
+* This method is **static**.
 
 
 
 ---
 
-### validateAllBeforeTranslate
+### rules
 
-Validate all before translate
-
-```php
-JSON::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
+{@inheritdoc}
 
 ```php
-JSON::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
-
-### doTranslate
-
-Doing translate method
-
-```php
-JSON::doTranslate( array $jsons ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$jsons` | **array** | Jsons string array |
-
-
-
-
----
-
-### __construct
-
-Component constructor.
-
-```php
-JSON::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-JSON::commonInit(  ): void
+JSON::rules(  ): array
 ```
 
 
@@ -3062,13 +1230,12 @@ JSON::commonInit(  ): void
 
 ---
 
-### cli
+### beforeSave
 
-Action that will run
-Only on cli script
+Before save set type of node
 
 ```php
-JSON::cli( array $argv, integer $argc ): void
+JSON::beforeSave( boolean $insert ): boolean
 ```
 
 
@@ -3078,32 +1245,109 @@ JSON::cli( array $argv, integer $argc ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
+| `$insert` | **boolean** | if insert |
 
 
 
 
 ---
 
-### cliInit
+### behaviors
 
-Init method only for CLI
+Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.
 
 ```php
-JSON::cliInit( array $argv, integer $argc ): void
+JSON::behaviors(  ): array
 ```
 
 
 
 
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+JSON::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+JSON::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
 **Parameters:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
 
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+JSON::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
+
+
+
+
+---
+
+### getDb
+
+Get DB of main module instance
+
+```php
+JSON::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
 
 
 
@@ -3429,6 +1673,174 @@ Languages::getLanguageQueryKey(  ): mixed
 
 
 
+
+
+
+---
+
+## Method
+
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\component\translation\method\models\Method
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### tableName
+
+Table name in DB
+
+```php
+Method::tableName(  ): string
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### rules
+
+{@inheritdoc}
+
+```php
+Method::rules(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### beforeSave
+
+Before save set type of node
+
+```php
+Method::beforeSave( boolean $insert ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$insert` | **boolean** | if insert |
+
+
+
+
+---
+
+### behaviors
+
+Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.
+
+```php
+Method::behaviors(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+Method::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+Method::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+Method::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
+
+
+
+
+---
+
+### getDb
+
+Get DB of main module instance
+
+```php
+Method::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
 
 
 
@@ -4447,8 +2859,7 @@ Rule::setMode( mixed $_mode ): void
 
 Text type for Translation component
 
-Its simple but provides very useful functionality
-Module class
+
 
 * Full name: \NovemBit\i18n\component\translation\type\Text
 * Parent class: \NovemBit\i18n\component\translation\type\Type
@@ -4456,339 +2867,6 @@ Module class
 **See Also:**
 
 * https://github.com/NovemBit/i18n 
-
-### init
-
-Component init method
-Running after child component initialization
-
-```php
-Text::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
-
-```php
-Text::beforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array |
-
-
-
-
----
-
-### afterTranslate
-
-After translate method
-
-```php
-Text::afterTranslate( array &$translations ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translations` | **array** | Translations array |
-
-
-
-
----
-
-### translate
-
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
-
-```php
-Text::translate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-Text::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-Text::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-Text::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-Text::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-Text::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeReTranslate
-
-Validate before ReTranslate
-
-```php
-Text::validateBeforeReTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Text to validate |
-
-
-
-
----
-
-### validateAfterReTranslate
-
-Validate after ReTranslate
-
-```php
-Text::validateAfterReTranslate( string $before, string $after, array &$result ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Initial value of string |
-| `$after` | **string** | final value of string |
-| `$result` | **array** | Referenced variable array of results |
-
-
-
-
----
-
-### validateBeforeTranslate
-
-Validate text before translate
-
-```php
-Text::validateBeforeTranslate( string &$text ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$text` | **string** | Referenced text variable to translate |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Remove Whitespace
-
-```php
-Text::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | Before |
-| `$after` | **string** | After |
-| `$translates` | **array** | Last result |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-Text::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-Text::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
 
 ### doTranslate
 
@@ -4812,12 +2890,12 @@ Text::doTranslate( array $texts ): array
 
 ---
 
-### __construct
+### validateAfterTranslate
 
-Component constructor.
+Reset whitespace
 
 ```php
-Text::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
+Text::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
 ```
 
 
@@ -4827,38 +2905,22 @@ Text::__construct( array $config = array(), null|\NovemBit\i18n\system\Component
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
+| `$before` | **string** | Before |
+| `$after` | **string** | After |
+| `$translates` | **array** | Last result |
 
 
 
 
 ---
 
-### commonInit
+### validateBeforeTranslate
 
-Common init method running before
-Initialization of child components
-
-```php
-Text::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
+Using dont_translate_patterns to ignore texts
+Clearing whitespace
 
 ```php
-Text::cli( array $argv, integer $argc ): void
+Text::validateBeforeTranslate( string &$text ): boolean
 ```
 
 
@@ -4868,20 +2930,64 @@ Text::cli( array $argv, integer $argc ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
+| `$text` | **string** | Referenced text variable to translate |
 
 
 
 
 ---
 
-### cliInit
+## Text
 
-Init method only for CLI
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\models\Text
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### tableName
+
+Table name in DB
 
 ```php
-Text::cliInit( array $argv, integer $argc ): void
+Text::tableName(  ): string
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### rules
+
+{@inheritdoc}
+
+```php
+Text::rules(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### beforeSave
+
+Before save set type of node
+
+```php
+Text::beforeSave( boolean $insert ): boolean
 ```
 
 
@@ -4891,9 +2997,109 @@ Text::cliInit( array $argv, integer $argc ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
+| `$insert` | **boolean** | if insert |
 
+
+
+
+---
+
+### behaviors
+
+Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.
+
+```php
+Text::behaviors(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+Text::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+Text::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+Text::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
+
+
+
+
+---
+
+### getDb
+
+Get DB of main module instance
+
+```php
+Text::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
 
 
 
@@ -4905,9 +3111,9 @@ ActiveRecord class. Child of Yii ActiveRecord library
 
 
 
-* Full name: \NovemBit\i18n\models\Translation
+* Full name: \NovemBit\i18n\component\translation\models\Translation
 * Parent class: \NovemBit\i18n\models\ActiveRecord
-* This class implements: \NovemBit\i18n\models\interfaces\Translation
+* This class implements: \NovemBit\i18n\component\translation\models\interfaces\Translation
 
 **See Also:**
 
@@ -4961,6 +3167,28 @@ Translation::rules(  ): array
 
 ---
 
+### beforeSave
+
+Before save set type of node
+
+```php
+Translation::beforeSave( boolean $insert ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$insert` | **boolean** | if insert |
+
+
+
+
+---
+
 ### behaviors
 
 Yii2 component behaviours
@@ -5000,7 +3228,7 @@ Translation::attributeLabels(  ): array
 Main method to get translations from DB
 
 ```php
-Translation::get( integer $type, array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+Translation::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
 ```
 
 
@@ -5010,7 +3238,6 @@ Translation::get( integer $type, array $texts, string $from_language, array $to_
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$type` | **integer** | Type of translated string |
 | `$texts` | **array** | Texts array to translate |
 | `$from_language` | **string** | From language |
 | `$to_languages` | **array** | To languages list |
@@ -5026,7 +3253,7 @@ Translation::get( integer $type, array $texts, string $from_language, array $to_
 Main method to save translations in DB
 
 ```php
-Translation::saveTranslations( string $from_language, integer $type, array $translations, integer $level, boolean $overwrite = false ): void
+Translation::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
 ```
 
 
@@ -5037,10 +3264,10 @@ Translation::saveTranslations( string $from_language, integer $type, array $tran
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `$from_language` | **string** | From language |
-| `$type` | **integer** | Type of translations |
 | `$translations` | **array** | Translations of texts |
 | `$level` | **integer** | Level of translation |
 | `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
 
 
 
@@ -5171,7 +3398,7 @@ Translation::cliInit( array $argv, integer $argc ): void
 Set languages for translation
 
 ```php
-Translation::setLanguages( array|string $_languages ): \NovemBit\i18n\component\translation\Translation
+Translation::setLanguages( array|string $_languages ): self
 ```
 
 
@@ -5209,7 +3436,7 @@ Translation::getLanguages(  ): mixed
 Get from language from Languages component
 
 ```php
-Translation::getFromLanguage(  ): mixed
+Translation::getFromLanguage(  ): string
 ```
 
 
@@ -5238,8 +3465,7 @@ Request Exception class
 Url translation component
 Translate urls paths and build fully working url
 
-Its simple but provides very useful functionality
-Module class
+
 
 * Full name: \NovemBit\i18n\component\translation\type\URL
 * Parent class: \NovemBit\i18n\component\translation\type\Type
@@ -5248,29 +3474,12 @@ Module class
 
 * https://github.com/NovemBit/i18n 
 
-### init
+### doTranslate
 
-Component init method
-Running after child component initialization
-
-```php
-URL::init(  ): void
-```
-
-
-
-
-
-
-
----
-
-### beforeTranslate
-
-Before translate method
+Doing translation method
 
 ```php
-URL::beforeTranslate( array &$texts ): void
+URL::doTranslate( array $urls ): array
 ```
 
 
@@ -5280,19 +3489,21 @@ URL::beforeTranslate( array &$texts ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$texts` | **array** | Texts array |
+| `$urls` | **array** | list of urls |
 
 
 
 
 ---
 
-### afterTranslate
+### validateAfterTranslate
 
-After translate method
+Validate after translate
+Concat prefix, body and suffix to avoid that
+Url is fully working
 
 ```php
-URL::afterTranslate( array &$translations ): void
+URL::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
 ```
 
 
@@ -5302,143 +3513,34 @@ URL::afterTranslate( array &$translations ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$translations` | **array** | Translations array |
+| `$before` | **string** | initial type of url |
+| `$after` | **string** | final type of url |
+| `$translates` | **array** | list of translated urls |
 
 
 
 
 ---
 
-### translate
+### validateBeforeTranslate
 
-Method that must be used public for each time
-To make translations,
-Its using builtin caching system to
-Save already translated texts on DB with Active data
+Validate before translate
+Take parts that must be preserved to concat
+after translate paths
 
 ```php
-URL::translate( array $texts ): array
+URL::validateBeforeTranslate( string &$url ): boolean
 ```
 
-
+Removing script name from url to make avoid
+ that translatable part of url is only working path
 
 
 **Parameters:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-
-
-
-
----
-
-### reTranslate
-
-Re Translate already translated texts, find sources of
-Bunch text strings
-
-```php
-URL::reTranslate( array $texts ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### beforeReTranslate
-
-Before Translate method
-
-```php
-URL::beforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### afterReTranslate
-
-After ReTranslate method
-
-```php
-URL::afterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced array of results |
-
-
-
-
----
-
-### validateAllBeforeReTranslate
-
-Validate all before ReTranslate method
-
-```php
-URL::validateAllBeforeReTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts |
-
-
-
-
----
-
-### validateAllAfterReTranslate
-
-Validate all after ReTranslate
-
-```php
-URL::validateAllAfterReTranslate( array &$result ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$result` | **array** | Referenced variable array of results |
+| `$url` | **string** | Translatable url |
 
 
 
@@ -5486,210 +3588,6 @@ URL::validateAfterReTranslate( string $before, string $after, array &$result ): 
 | `$before` | **string** | initial url |
 | `$after` | **string** | final url |
 | `$result` | **array** | Referenced variable to receive result |
-
-
-
-
----
-
-### validateBeforeTranslate
-
-Validate before translate
-Take parts that must be preserved to concat
-after translate paths
-
-```php
-URL::validateBeforeTranslate( string &$url ): boolean
-```
-
-Removing script name from url to make avoid
- that translatable part of url is only working path
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** | Translatable url |
-
-
-
-
----
-
-### validateAfterTranslate
-
-Validate after translate
-Concat prefix, body and suffix to avoid that
-Url is fully working
-
-```php
-URL::validateAfterTranslate( string $before, string $after, array &$translates ): boolean
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$before` | **string** | initial type of url |
-| `$after` | **string** | final type of url |
-| `$translates` | **array** | list of translated urls |
-
-
-
-
----
-
-### validateAllBeforeTranslate
-
-Validate all before translate
-
-```php
-URL::validateAllBeforeTranslate( array &$texts ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Array of texts to translate |
-
-
-
-
----
-
-### validateAllAfterTranslate
-
-Validate all after translate
-
-```php
-URL::validateAllAfterTranslate( array &$translates ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$translates` | **array** | Array of translations |
-
-
-
-
----
-
-### doTranslate
-
-Doing translation method
-
-```php
-URL::doTranslate( array $urls ): array
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$urls` | **array** | list of urls |
-
-
-
-
----
-
-### __construct
-
-Component constructor.
-
-```php
-URL::__construct( array $config = array(), null|\NovemBit\i18n\system\Component &$context = null )
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configuration array |
-| `$context` | **null&#124;\NovemBit\i18n\system\Component** | Context (parent) Component |
-
-
-
-
----
-
-### commonInit
-
-Common init method running before
-Initialization of child components
-
-```php
-URL::commonInit(  ): void
-```
-
-
-
-
-
-
-
----
-
-### cli
-
-Action that will run
-Only on cli script
-
-```php
-URL::cli( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
-
-
-
-
----
-
-### cliInit
-
-Init method only for CLI
-
-```php
-URL::cliInit( array $argv, integer $argc ): void
-```
-
-
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argv` | **array** | Array of cli arguments |
-| `$argc` | **integer** | Count of cli arguments |
 
 
 
@@ -5778,7 +3676,175 @@ URL::buildUrl( array $parts ): string
 
 ---
 
+## URL
+
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\models\URL
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### tableName
+
+Table name in DB
+
+```php
+URL::tableName(  ): string
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+### rules
+
+{@inheritdoc}
+
+```php
+URL::rules(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### beforeSave
+
+Before save set type of node
+
+```php
+URL::beforeSave( boolean $insert ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$insert` | **boolean** | if insert |
+
+
+
+
+---
+
+### behaviors
+
+Yii2 component behaviours
+Using timestamp behaviour
+To set created and updated at columns values.
+
+```php
+URL::behaviors(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### attributeLabels
+
+Attribute values
+
+```php
+URL::attributeLabels(  ): array
+```
+
+
+
+
+
+
+
+---
+
+### get
+
+Main method to get translations from DB
+
+```php
+URL::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+URL::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | If translation exists, then overwrite value |
+| `$result` | **array** | Result about saving |
+
+
+
+
+---
+
+### getDb
+
+Get DB of main module instance
+
+```php
+URL::getDb(  ): \yii\db\Connection
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
 
 
 --------
-> This document was automatically generated from source code comments on 2019-10-17 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2019-10-23 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

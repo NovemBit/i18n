@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">30</span></a></li>
+                <span class="label label-info">31</span></a></li>
 <li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -62,15 +62,10 @@
 <li class="nav-header">Navigation</li>
 <li><a href="#component%5Clanguages%5Cinterfaces%5CLanguages.php"><i class="icon-file"></i>component\languages\interfaces\Languages.php</a></li>
 <li><a href="#component%5Crest%5Cinterfaces%5CRest.php"><i class="icon-file"></i>component\rest\interfaces\Rest.php</a></li>
-<li><a href="#component%5Ctranslation%5Ctype%5Cinterfaces%5CText.php"><i class="icon-file"></i>component\translation\type\interfaces\Text.php</a></li>
-<li><a href="#component%5Ctranslation%5Ctype%5Cinterfaces%5CURL.php"><i class="icon-file"></i>component\translation\type\interfaces\URL.php</a></li>
+<li><a href="#component%5Ctranslation%5Cmodels%5Cinterfaces%5CTranslation.php"><i class="icon-file"></i>component\translation\models\interfaces\Translation.php</a></li>
 <li><a href="#component%5Crequest%5Cinterfaces%5CRequest.php"><i class="icon-file"></i>component\request\interfaces\Request.php</a></li>
-<li><a href="#component%5Ctranslation%5Ctype%5Cinterfaces%5CType.php"><i class="icon-file"></i>component\translation\type\interfaces\Type.php</a></li>
-<li><a href="#component%5Ctranslation%5Ctype%5Cinterfaces%5CHTML.php"><i class="icon-file"></i>component\translation\type\interfaces\HTML.php</a></li>
-<li><a href="#component%5Ctranslation%5Ctype%5Cinterfaces%5CJSON.php"><i class="icon-file"></i>component\translation\type\interfaces\JSON.php</a></li>
 <li><a href="#component%5Ctranslation%5Cinterfaces%5CTranslator.php"><i class="icon-file"></i>component\translation\interfaces\Translator.php</a></li>
-<li><a href="#component%5Ctranslation%5Cmethod%5Cinterfaces%5CMethod.php"><i class="icon-file"></i>component\translation\method\interfaces\Method.php</a></li>
-<li><a href="#models%5Cinterfaces%5CTranslation.php"><i class="icon-file"></i>models\interfaces\Translation.php</a></li>
+<li><a href="#component%5Ctranslation%5CTranslator.php"><i class="icon-file"></i>component\translation\Translator.php</a></li>
 <li><a href="#component%5Ctranslation%5Cinterfaces%5CRest.php"><i class="icon-file"></i>component\translation\interfaces\Rest.php</a></li>
 <li><a href="#component%5Ctranslation%5Cinterfaces%5CTranslation.php"><i class="icon-file"></i>component\translation\interfaces\Translation.php</a></li>
 </ul></div>
@@ -81,6 +76,7 @@
 </li>
 <li>Compilation Errors</li>
 </ul>
+<div class="package-contents"></div>
 <div class="package-contents">
 <a name="component%5Clanguages%5Cinterfaces%5CLanguages.php" id="component\languages\interfaces\Languages.php"></a><h3>
 <i class="icon-file"></i>component\languages\interfaces\Languages.php<small style="float: right;padding-right: 10px;">1</small>
@@ -127,11 +123,9 @@
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
-<div class="package-contents"></div>
-<div class="package-contents"></div>
 <div class="package-contents">
-<a name="component%5Ctranslation%5Ctype%5Cinterfaces%5CText.php" id="component\translation\type\interfaces\Text.php"></a><h3>
-<i class="icon-file"></i>component\translation\type\interfaces\Text.php<small style="float: right;padding-right: 10px;">2</small>
+<a name="component%5Ctranslation%5Cmodels%5Cinterfaces%5CTranslation.php" id="component\translation\models\interfaces\Translation.php"></a><h3>
+<i class="icon-file"></i>component\translation\models\interfaces\Translation.php<small style="float: right;padding-right: 10px;">2</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -148,35 +142,16 @@
 <tr class="error">
 <td>error</td>
 <td>7</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\type\interfaces\Text</td>
+<td>No summary for interface \NovemBit\i18n\component\translation\models\interfaces\Translation</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<div class="package-contents">
-<a name="component%5Ctranslation%5Ctype%5Cinterfaces%5CURL.php" id="component\translation\type\interfaces\URL.php"></a><h3>
-<i class="icon-file"></i>component\translation\type\interfaces\URL.php<small style="float: right;padding-right: 10px;">2</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>7</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\type\interfaces\URL</td>
-</tr>
-</tbody>
-</table></div>
-</div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
@@ -208,88 +183,20 @@
 </tbody>
 </table></div>
 </div>
-<div class="package-contents">
-<a name="component%5Ctranslation%5Ctype%5Cinterfaces%5CType.php" id="component\translation\type\interfaces\Type.php"></a><h3>
-<i class="icon-file"></i>component\translation\type\interfaces\Type.php<small style="float: right;padding-right: 10px;">2</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>9</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\type\interfaces\Type</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="package-contents"></div>
-<div class="package-contents">
-<a name="component%5Ctranslation%5Ctype%5Cinterfaces%5CHTML.php" id="component\translation\type\interfaces\HTML.php"></a><h3>
-<i class="icon-file"></i>component\translation\type\interfaces\HTML.php<small style="float: right;padding-right: 10px;">2</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>7</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\type\interfaces\HTML</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
-<div class="package-contents">
-<a name="component%5Ctranslation%5Ctype%5Cinterfaces%5CJSON.php" id="component\translation\type\interfaces\JSON.php"></a><h3>
-<i class="icon-file"></i>component\translation\type\interfaces\JSON.php<small style="float: right;padding-right: 10px;">2</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>7</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\type\interfaces\JSON</td>
-</tr>
-</tbody>
-</table></div>
-</div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
 <div class="package-contents">
 <a name="component%5Ctranslation%5Cinterfaces%5CTranslator.php" id="component\translation\interfaces\Translator.php"></a><h3>
-<i class="icon-file"></i>component\translation\interfaces\Translator.php<small style="float: right;padding-right: 10px;">6</small>
+<i class="icon-file"></i>component\translation\interfaces\Translator.php<small style="float: right;padding-right: 10px;">14</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -328,13 +235,54 @@
 <td>12</td>
 <td>No summary for method doTranslate()</td>
 </tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>Argument $translations is missing from the Docblock of saveModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>Argument $level is missing from the Docblock of saveModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>Argument $overwrite is missing from the Docblock of saveModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No summary for method saveModels()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>Argument $texts is missing from the Docblock of getModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>Argument $to_languages is missing from the Docblock of getModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>Argument $reverse is missing from the Docblock of getModels</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No summary for method getModels()</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <div class="package-contents"></div>
+<div class="package-contents"></div>
 <div class="package-contents">
-<a name="component%5Ctranslation%5Cmethod%5Cinterfaces%5CMethod.php" id="component\translation\method\interfaces\Method.php"></a><h3>
-<i class="icon-file"></i>component\translation\method\interfaces\Method.php<small style="float: right;padding-right: 10px;">2</small>
+<a name="component%5Ctranslation%5CTranslator.php" id="component\translation\Translator.php"></a><h3>
+<i class="icon-file"></i>component\translation\Translator.php<small style="float: right;padding-right: 10px;">1</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -342,44 +290,11 @@
 <th>Line</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr class="error">
+<tbody><tr class="error">
 <td>error</td>
 <td>0</td>
 <td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>9</td>
-<td>No summary for interface \NovemBit\i18n\component\translation\method\interfaces\Method</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="package-contents"></div>
-<div class="package-contents"></div>
-<div class="package-contents">
-<a name="models%5Cinterfaces%5CTranslation.php" id="models\interfaces\Translation.php"></a><h3>
-<i class="icon-file"></i>models\interfaces\Translation.php<small style="float: right;padding-right: 10px;">2</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No summary was found for this file</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>7</td>
-<td>No summary for interface \NovemBit\i18n\models\interfaces\Translation</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <div class="package-contents"></div>
@@ -416,9 +331,10 @@
 <div class="package-contents"></div>
 <div class="package-contents"></div>
 <div class="package-contents"></div>
+<div class="package-contents"></div>
 <div class="package-contents">
 <a name="component%5Ctranslation%5Cinterfaces%5CTranslation.php" id="component\translation\interfaces\Translation.php"></a><h3>
-<i class="icon-file"></i>component\translation\interfaces\Translation.php<small style="float: right;padding-right: 10px;">2</small>
+<i class="icon-file"></i>component\translation\interfaces\Translation.php<small style="float: right;padding-right: 10px;">6</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -434,19 +350,41 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>10</td>
+<td>7</td>
 <td>No summary for interface \NovemBit\i18n\component\translation\interfaces\Translation</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No summary for method getFromLanguage()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>11</td>
+<td>Argument $_languages is missing from the Docblock of setLanguages</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>11</td>
+<td>No summary for method setLanguages()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No summary for method getLanguages()</td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
 <div class="package-contents"></div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-17T15:51:34+04:00.<br></footer></div>
+            generated on 2019-10-23T18:09:24+04:00.<br></footer></div>
 </div>
 </body>
 </html>

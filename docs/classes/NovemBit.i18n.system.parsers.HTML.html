@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">30</span></a></li>
+                <span class="label label-info">31</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -106,6 +106,7 @@ Impossible to parser with DOM parser</span><pre>_preserveTag()</pre></a></li>
 <li class="property private "><a href="#property__preserved_data" title="$_preserved_data() :: Keeping preserved data"><span class="description"></span><pre>$_preserved_data</pre></a></li>
 <li class="property private "><a href="#property__query" title="$_query() :: Main query for Xpath"><span class="description"></span><pre>$_query</pre></a></li>
 <li class="property private "><a href="#property__translate_fields" title="$_translate_fields() :: Translate fields set"><span class="description"></span><pre>$_translate_fields</pre></a></li>
+<li class="property private "><a href="#property__xml_encoding_fixer" title="$_xml_encoding_fixer() :: Special encoding fixer string"><span class="description"></span><pre>$_xml_encoding_fixer</pre></a></li>
 <li class="property private "><a href="#property__xpath" title="$_xpath() :: Main xpath of dom"><span class="description"></span><pre>$_xpath</pre></a></li>
 </ul>
 </li>
@@ -194,22 +195,22 @@ Using PHP Dom parser</p>
 </div>
 <a id="method_getDom"></a><div class="element clickable method public method_getDom " data-toggle="collapse" data-target=".method_getDom .collapse" title="public">
 <h2>Get Dom (DomDocument)</h2>
-<pre>getDom() : \NovemBit\i18n\system\parsers\DomDocument</pre>
+<pre>getDom() : \DOMDocument</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>\NovemBit\i18n\system\parsers\DomDocument</code></div>
+<div class="subelement response"><code>\DOMDocument</code></div>
 </div></div>
 </div>
 <a id="method_getHtml"></a><div class="element clickable method public method_getHtml " data-toggle="collapse" data-target=".method_getHtml .collapse" title="public">
 <h2>Get HTML string</h2>
-<pre>getHtml() : mixed</pre>
+<pre>getHtml() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_getQuery"></a><div class="element clickable method public method_getQuery " data-toggle="collapse" data-target=".method_getQuery .collapse" title="public">
@@ -248,14 +249,12 @@ Using PHP Dom parser</p>
 </div>
 <a id="method_save"></a><div class="element clickable method public method_save " data-toggle="collapse" data-target=".method_save .collapse" title="public">
 <h2>Save DomDocument final result as HTML</h2>
-<pre>save() : string | array&lt;mixed,string&gt; | null</pre>
+<pre>save() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response">
-<code>string</code><code>array&lt;mixed,string&gt;</code><code>null</code>
-</div>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_setDom"></a><div class="element clickable method public method_setDom " data-toggle="collapse" data-target=".method_setDom .collapse" title="public">
@@ -427,6 +426,16 @@ Impossible to parser with DOM parser</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="property__xml_encoding_fixer"> </a><div class="element clickable property private property__xml_encoding_fixer" data-toggle="collapse" data-target=".property__xml_encoding_fixer .collapse" title="private">
+<h2>Special encoding fixer string</h2>
+<pre>$_xml_encoding_fixer : string</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>'<?xml encoding="utf-8"?>'</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property__xpath"> </a><div class="element clickable property private property__xpath" data-toggle="collapse" data-target=".property__xpath .collapse" title="private">
 <h2>Main xpath of dom</h2>
 <pre>$_xpath : \DOMXPath</pre>
@@ -444,7 +453,7 @@ Impossible to parser with DOM parser</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-17T15:51:33+04:00.<br></footer></div>
+            generated on 2019-10-23T18:09:24+04:00.<br></footer></div>
 </div>
 </body>
 </html>

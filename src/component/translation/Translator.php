@@ -159,13 +159,13 @@ abstract class Translator extends Component implements interfaces\Translator
 
         foreach ($models as $model) {
 
-            /*
+            /**
              * Adding saved translations on array
              * */
             $translations[$model['source']][$model['to_language']]
                 = $model['translate'];
 
-            /*
+            /**
              * Unset texts that already saved in cache
              * */
             if (count($translations[$model['source']]) == count($languages)) {

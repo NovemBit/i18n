@@ -16,11 +16,7 @@ namespace NovemBit\i18n\component\translation;
 
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\component\translation\method\Method;
-use NovemBit\i18n\component\translation\type\HTML;
-use NovemBit\i18n\component\translation\type\JSON;
-use NovemBit\i18n\component\translation\type\Text;
-use NovemBit\i18n\component\translation\type\URL;
+use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
 
@@ -48,28 +44,28 @@ class Translation extends Component implements interfaces\Translation
     /**
      * Text Translator
      *
-     * @var Text
+     * @var type\interfaces\Text
      * */
     public $text;
 
     /**
      * Url Translator
      *
-     * @var URL
+     * @var type\interfaces\URL
      * */
     public $url;
 
     /**
      * HTML Translator
      *
-     * @var HTML
+     * @var type\interfaces\HTML
      * */
     public $html;
 
     /**
      * JSON Translator
      *
-     * @var JSON
+     * @var type\interfaces\JSON
      * */
     public $json;
 
