@@ -115,18 +115,25 @@ class Request extends Component implements interfaces\Request
     private $_referer_translations;
 
     /**
+     * Editor status (enabled/disabled)
+     *
+     * @var bool
+     * */
+    private $_is_editor;
+
+    /**
+     * Allow to use editor
+     *
+     * @var bool
+     * */
+    public $allow_editor = true;
+
+    /**
      * Editor query argument key
      *
      * @var string
      * */
     public $editor_query_key = "editor";
-
-    /**
-     * Editor status (enabled/disabled)
-     *
-     * @var bool
-     * */
-    public $editor;
 
     /**
      * Callback exclusions
@@ -168,6 +175,16 @@ class Request extends Component implements interfaces\Request
      * @var callable
      * */
     public $on_page_not_found;
+
+    /**
+     * Custom translation level
+     * Priority of custom translation
+     * Min - 0
+     * Max - 999
+     *
+     * @var int
+     * */
+    public $custom_translation_level = 1;
 
     /**
      * Get request referer source url
@@ -472,11 +489,12 @@ class Request extends Component implements interfaces\Request
          * And current language is not equal from language
          * Then set editor status true to initialize editor JavaScript
          * */
-        if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
+        if ($this->allow_editor
+            && isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
             && $this->getLanguage() != $this->getFromLanguage()
         ) {
 
-            $this->editor = true;
+            $this->_is_editor = true;
 
             /**
              * Enable helper attributes to use for editor
@@ -672,7 +690,7 @@ class Request extends Component implements interfaces\Request
     private function _editorSave(): bool
     {
 
-        if ($this->editor == true
+        if ($this->_is_editor == true
             && isset($_POST[$this->context->prefix . '-form'])
         ) {
             $nodes = $_POST[$this->context->prefix . '-form'];
@@ -688,7 +706,12 @@ class Request extends Component implements interfaces\Request
              * With Level *1*
              * And overwrite old values if exists
              * */
-            $this->context->translation->text->saveModels($result, 1, true, $verbos);
+            $this->context->translation->text->saveModels(
+                $result,
+                $this->custom_translation_level,
+                true,
+                $verbos
+            );
 
             echo json_encode($verbos);
 
@@ -735,7 +758,7 @@ class Request extends Component implements interfaces\Request
 
         $tags .= $this->_getXHRManipulationJavaScriptTag();
 
-        if ($this->editor) {
+        if ($this->_is_editor) {
             $tags .= $this->_getEditorJavaScriptTag();
         }
 
