@@ -60,14 +60,11 @@ class JSON extends Type
     private $_objects = [];
 
     /**
-     * Model class
+     * Model class name of ActiveRecord
      *
-     * @return string
-     */
-    public static function getModel() : string
-    {
-        return models\JSON::class;
-    }
+     * @var \NovemBit\i18n\component\translation\models\Translation
+     * */
+    public $model_class = models\JSON::class;
 
     /**
      * Doing translate method
@@ -77,7 +74,7 @@ class JSON extends Type
      * @return array
      * @throws TranslationException
      */
-    public function doTranslate(array $jsons)
+    public function doTranslate(array $jsons) : array
     {
         $languages = $this->context->getLanguages();
 
@@ -130,7 +127,7 @@ class JSON extends Type
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$json)
+    public function validateBeforeTranslate(&$json) : bool
     {
         $this->_objects[$json] = json_decode($json, true);
         return (json_last_error() == JSON_ERROR_NONE);

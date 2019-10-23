@@ -43,12 +43,9 @@ abstract class Method extends Translator implements interfaces\Method
     public $type = 0;
 
     /**
-     * Model class
+     * Model class name of ActiveRecord
      *
-     * @return string
-     */
-    public static function getModel() : string
-    {
-        return models\Method::class;
-    }
+     * @var \NovemBit\i18n\component\translation\models\Translation
+     * */
+    public $model_class = models\Method::class;
 }

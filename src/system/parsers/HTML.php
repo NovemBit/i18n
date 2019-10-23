@@ -81,13 +81,20 @@ class HTML
     private $_preserved_data = [];
 
     /**
+     * Special encoding fixer string
+     *
+     * @var string
+     * */
+
+    private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
+    /**
      * HTML constructor.
      *
      * @param string $html initial HTML content
      *
      * @return HTML
      */
-    public function load($html)
+    public function load(string $html) : self
     {
         $this->setHtml($html);
 
@@ -107,7 +114,7 @@ class HTML
      * @return void
      * @see    _preserveTag
      */
-    private function _preserveTag(&$html, $tag)
+    private function _preserveTag(string &$html, string $tag) : void
     {
         preg_match_all(
             '/<' . $tag . '\b[^>]*>[\s\S]*?<\/' . $tag . '>/is',
@@ -137,7 +144,7 @@ class HTML
      * @return void
      * @see    _preserveTag
      */
-    private function _restorePreservedTag(&$html, $tag)
+    private function _restorePreservedTag(string &$html, string $tag) : void
     {
         $first = 0;
         $search = "<$tag></$tag>";
@@ -167,7 +174,7 @@ class HTML
      *
      * @return void
      */
-    public function fetch(callable $text_callback, callable $attr_callback)
+    public function fetch(callable $text_callback, callable $attr_callback) : void
     {
         $nodes = $this->_getXpath()->query($this->getQuery());
 
@@ -245,9 +252,9 @@ class HTML
     /**
      * Get Dom (DomDocument)
      *
-     * @return DomDocument
+     * @return DOMDocument
      */
-    public function getDom()
+    public function getDom() : DOMDocument
     {
         return $this->_dom;
     }
@@ -259,7 +266,7 @@ class HTML
      *
      * @return void
      */
-    public function setDom(DomDocument $_dom)
+    public function setDom(DomDocument $_dom) : void
     {
         $this->_dom = $_dom;
     }
@@ -270,7 +277,7 @@ class HTML
      *
      * @return void
      */
-    private function _initDom()
+    private function _initDom() : void
     {
         $html = $this->getHtml();
 
@@ -282,7 +289,7 @@ class HTML
          * Set encoding of document UTF-8
          * */
         @$this->getDom()->loadHTML(
-            '<?xml encoding="utf-8"?>'.$html,
+            $this->_xml_encoding_fixer.$html,
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
         $this->getDom()->encoding = 'utf-8';
@@ -297,7 +304,7 @@ class HTML
      *
      * @return Rule[]
      */
-    public function getTranslateFields()
+    public function getTranslateFields() : array
     {
         return $this->_translate_fields;
     }
@@ -311,7 +318,7 @@ class HTML
      *
      * @return void
      */
-    public function addTranslateField(Rule $rule, $text = 'text', $attrs = [])
+    public function addTranslateField(Rule $rule, string $text = 'text', $attrs = [])
     {
         $this->_translate_fields[] = [
             'rule' => $rule,
@@ -323,9 +330,9 @@ class HTML
     /**
      * Get HTML string
      *
-     * @return mixed
+     * @return string
      */
-    public function getHtml()
+    public function getHtml() : string
     {
         return $this->_html;
     }
@@ -333,12 +340,23 @@ class HTML
     /**
      * Save DomDocument final result as HTML
      *
-     * @return string|string[]|null
+     * @return string
      */
-    public function save()
+    public function save() : string
     {
         $html = $this->getDom()->saveHTML();
         $this->_restorePreservedTag($html, 'script');
+
+        /**
+         * Remove <?xml.. syntax string
+         * */
+        $html = preg_replace(
+            '/'.preg_quote($this->_xml_encoding_fixer).'/',
+            '',
+            $html,
+            1
+        );
+
         return $html;
     }
 
@@ -349,7 +367,7 @@ class HTML
      *
      * @return void
      */
-    public function setHtml($_html)
+    public function setHtml(string $_html) : void
     {
         $this->_html = $_html;
     }
@@ -371,7 +389,7 @@ class HTML
      *
      * @return void
      */
-    public function setQuery(string $_query)
+    public function setQuery(string $_query) : void
     {
         $this->_query = $_query;
     }
@@ -381,7 +399,7 @@ class HTML
      *
      * @return DOMXpath
      */
-    private function _getXpath()
+    private function _getXpath() : DOMXPath
     {
         return $this->_xpath;
     }
@@ -393,7 +411,7 @@ class HTML
      *
      * @return void
      */
-    private function _setXpath(DOMXpath $xpath)
+    private function _setXpath(DOMXpath $xpath) : void
     {
         $this->_xpath = $xpath;
     }

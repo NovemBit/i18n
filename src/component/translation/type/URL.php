@@ -16,6 +16,7 @@ namespace NovemBit\i18n\component\translation\type;
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\helpers\DataType;
 
 /**
@@ -79,14 +80,11 @@ class URL extends Type
     public $url_validation_rules = [];
 
     /**
-     * Model class
+     * Model class name of ActiveRecord
      *
-     * @return string
-     */
-    public static function getModel() : string
-    {
-        return models\URL::class;
-    }
+     * @var \NovemBit\i18n\component\translation\models\Translation
+     * */
+    public $model_class = models\URL::class;
 
     /**
      * Doing translation method
@@ -96,8 +94,9 @@ class URL extends Type
      * @return array
      * @throws LanguageException
      * @throws TranslationException
+     * @throws ActiveRecordException
      */
-    public function doTranslate(array $urls)
+    public function doTranslate(array $urls) : array
     {
 
         $languages = $this->context->getLanguages();
@@ -131,7 +130,7 @@ class URL extends Type
      * @return bool
      * @throws LanguageException
      */
-    public function validateAfterTranslate($before, $after, &$translates)
+    public function validateAfterTranslate($before, $after, &$translates) : bool
     {
         DataType::getStringsDifference($before, $after, $prefix, $suffix);
 
@@ -161,7 +160,7 @@ class URL extends Type
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$url)
+    public function validateBeforeTranslate(&$url) : bool
     {
         $url = trim($url, ' ');
 
@@ -265,6 +264,7 @@ class URL extends Type
      * @return mixed
      * @throws LanguageException
      * @throws TranslationException
+     * @throws ActiveRecordException
      */
     private function _getPathPartTranslations(array $paths)
     {
@@ -358,7 +358,7 @@ class URL extends Type
      *
      * @return bool
      */
-    public function validateBeforeReTranslate(&$url)
+    public function validateBeforeReTranslate(&$url) : bool
     {
         $url = trim($url, ' ');
 
@@ -396,7 +396,7 @@ class URL extends Type
      *
      * @return bool
      */
-    public function validateAfterReTranslate($before, $after, &$result)
+    public function validateAfterReTranslate($before, $after, &$result) : bool
     {
         DataType::getStringsDifference($before, $after, $prefix, $suffix);
 

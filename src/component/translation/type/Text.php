@@ -71,14 +71,11 @@ class Text extends Type
     ];
 
     /**
-     * Model class
+     * Model class name of ActiveRecord
      *
-     * @return string
-     */
-    public static function getModel() : string
-    {
-        return models\Text::class;
-    }
+     * @var \NovemBit\i18n\component\translation\models\Translation
+     * */
+    public $model_class = models\Text::class;
 
     /**
      * Doing translate method
@@ -88,8 +85,9 @@ class Text extends Type
      * @return array
      * @throws LanguageException
      * @throws TranslationException
+     * @throws \NovemBit\i18n\models\exceptions\ActiveRecordException
      */
-    public function doTranslate(array $texts)
+    public function doTranslate(array $texts) : array
     {
 
         $translations = $this->context->method->translate($texts);
@@ -112,7 +110,7 @@ class Text extends Type
      *
      * @return bool
      */
-    public function validateAfterTranslate($before, $after, &$translates)
+    public function validateAfterTranslate($before, $after, &$translates) : bool
     {
         DataType::getStringsDifference(
             $before,
@@ -139,7 +137,7 @@ class Text extends Type
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$text)
+    public function validateBeforeTranslate(&$text) : bool
     {
 
         foreach ($this->dont_translate_patterns as $pattern) {

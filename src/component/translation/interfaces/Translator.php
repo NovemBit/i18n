@@ -7,9 +7,19 @@ namespace NovemBit\i18n\component\translation\interfaces;
 interface Translator
 {
 
-    public function translate(array $texts);
+    public function translate(array $texts) : array;
 
-    public function doTranslate(array $texts);
+    public function doTranslate(array $texts) : array;
 
-    public static function getModel() : string;
+    public function saveModels(
+        $translations,
+        $level = 0,
+        $overwrite = false
+    ): void;
+
+    public function getModels(
+        $texts,
+        $to_languages,
+        $reverse = false
+    ): array;
 }

@@ -94,7 +94,7 @@ class Dynamic extends Translator implements interfaces\Rest
      * @return array
      * @throws TranslationException
      */
-    public function doTranslate(array $texts)
+    public function doTranslate(array $texts): array
     {
 
         $url = URL::buildUrl(

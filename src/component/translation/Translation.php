@@ -88,7 +88,7 @@ class Translation extends Component implements interfaces\Translation
      * @return Translation
      * @throws TranslationException
      */
-    public function setLanguages($_languages)
+    public function setLanguages($_languages) : void
     {
         if (is_string($_languages)) {
             $_languages = [$_languages];
@@ -109,7 +109,7 @@ class Translation extends Component implements interfaces\Translation
      * @return mixed
      * @throws TranslationException
      */
-    public function getLanguages()
+    public function getLanguages() : array
     {
         if (isset($this->_languages)) {
             return $this->_languages;
@@ -124,7 +124,7 @@ class Translation extends Component implements interfaces\Translation
      * @return mixed
      * @throws LanguageException
      */
-    public function getFromLanguage()
+    public function getFromLanguage() : string
     {
         return $this->context->languages->getFromLanguage();
     }

@@ -18,7 +18,7 @@ use NovemBit\i18n\component\request\exceptions\RequestException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\type\HTML;
-use NovemBit\i18n\component\translation\type\Text;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\URL;
@@ -358,6 +358,7 @@ class Request extends Component implements interfaces\Request
      * @throws TranslationException
      * @throws LanguageException
      * @throws RequestException
+     * @throws ActiveRecordException
      */
     private function _prepareSourceUrl()
     {
@@ -455,6 +456,7 @@ class Request extends Component implements interfaces\Request
      * @throws LanguageException
      * @throws RequestException
      * @throws TranslationException
+     * @throws ActiveRecordException
      */
     private function _prepare()
     {
@@ -488,6 +490,7 @@ class Request extends Component implements interfaces\Request
             && $this->_prepareDestination()
             && $this->_prepareSourceUrl()
             && $this->_prepareReferer();
+
     }
 
     /**
@@ -663,6 +666,8 @@ class Request extends Component implements interfaces\Request
      * Save Editor if request is POST and has parameter %prefix%-form
      *
      * @return bool
+     * @throws LanguageException
+     * @throws ActiveRecordException
      */
     private function _editorSave(): bool
     {
@@ -683,15 +688,7 @@ class Request extends Component implements interfaces\Request
              * With Level *1*
              * And overwrite old values if exists
              * */
-            call_user_func_array(
-                [Text::getModel(), 'saveTranslations'],
-                [
-                    $this->getFromLanguage(),
-                    $result,
-                    1,
-                    true
-                ]
-            );
+            $this->context->translation->text->saveModels($result, 1, true);
 
 
             return true;
@@ -707,6 +704,7 @@ class Request extends Component implements interfaces\Request
      * @throws LanguageException
      * @throws RequestException
      * @throws TranslationException
+     * @throws ActiveRecordException
      */
     public function start()
     {

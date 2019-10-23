@@ -16,6 +16,7 @@ namespace NovemBit\i18n\component\translation;
 
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
 
 /**
@@ -61,6 +62,13 @@ abstract class Translator extends Component implements interfaces\Translator
     public $exclusions = [];
 
     /**
+     * Model class name of ActiveRecord
+     *
+     * @var models\Translation
+     * */
+    public $model_class = models\Translation::class;
+
+    /**
      * Exclusion regex replacement pattern
      *
      * @var string
@@ -85,9 +93,16 @@ abstract class Translator extends Component implements interfaces\Translator
      * {@inheritdoc}
      *
      * @return void
+     * @throws TranslationException
      */
-    public function init()
+    public function init(): void
     {
+        if ($this->save_translations == true && !isset($this->model_class)) {
+            throw new TranslationException(
+                'Unknown configuration: Property "model_class" is required.'
+            );
+        }
+
         $this->_initExclusions();
     }
 
@@ -98,7 +113,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function beforeTranslate(array &$texts)
+    public function beforeTranslate(array &$texts): void
     {
 
         if ($this->validation == true) {
@@ -114,7 +129,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function afterTranslate(array &$translations)
+    public function afterTranslate(array &$translations): void
     {
         if ($this->validation == true) {
             $this->validateAllAfterTranslate($translations);
@@ -132,7 +147,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @throws LanguageException
      * @throws TranslationException
      */
-    private function _fetchSavedTranslations(&$translations, &$texts)
+    private function _fetchSavedTranslations(&$translations, &$texts): void
     {
 
         $languages = $this->context->getLanguages();
@@ -140,14 +155,7 @@ abstract class Translator extends Component implements interfaces\Translator
         /*
         * Find translations from DB with ActiveData
         * */
-        $models = call_user_func_array(
-            [static::getModel(), 'get'],
-            [
-                $texts,
-                $this->context->getFromLanguage(),
-                $languages
-            ]
-        );
+        $models = $this->getModels($texts, $languages);
 
         foreach ($models as $model) {
 
@@ -182,8 +190,9 @@ abstract class Translator extends Component implements interfaces\Translator
      * @return array
      * @throws LanguageException
      * @throws TranslationException
+     * @throws ActiveRecordException
      */
-    public function translate(array $texts)
+    public function translate(array $texts): array
     {
 
         $texts = array_filter($texts);
@@ -229,15 +238,7 @@ abstract class Translator extends Component implements interfaces\Translator
              * And without overwriting old values
              * */
             if ($this->save_translations) {
-                call_user_func_array(
-                    [static::getModel(), 'saveTranslations'],
-                    [
-                        $this->context->getFromLanguage(),
-                        $new_translations,
-                        0,
-                        false
-                    ]
-                );
+                $this->saveModels($new_translations, 0, false);
             }
 
             /**
@@ -264,7 +265,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @throws exceptions\TranslationException
      * @throws LanguageException
      */
-    public function reTranslate(array $texts)
+    public function reTranslate(array $texts): array
     {
 
         if (count($this->context->getLanguages()) != 1) {
@@ -277,22 +278,12 @@ abstract class Translator extends Component implements interfaces\Translator
 
         $result = [];
 
-        $from_language = $this->context->getFromLanguage();
-
         $this->beforeReTranslate($texts);
 
         foreach ($texts as $text) {
 
 
-            $model = call_user_func_array(
-                [static::getModel(), 'get'],
-                [
-                    [$text],
-                    $from_language,
-                    [$language],
-                    true
-                ]
-            );
+            $model = $this->getModels([$text], [$language], true);
 
             if (!isset($model[0]['source'])) {
                 continue;
@@ -316,7 +307,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function beforeReTranslate(&$texts)
+    public function beforeReTranslate(&$texts): void
     {
         if ($this->validation == true) {
             $this->validateAllBeforeReTranslate($texts);
@@ -330,7 +321,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function afterReTranslate(&$result)
+    public function afterReTranslate(&$result): void
     {
         if ($this->validation == true) {
             $this->validateAllAfterReTranslate($result);
@@ -344,7 +335,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function validateAllBeforeReTranslate(&$texts)
+    public function validateAllBeforeReTranslate(&$texts): void
     {
 
         foreach ($texts as $key => & $text) {
@@ -365,7 +356,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function validateAllAfterReTranslate(&$result)
+    public function validateAllAfterReTranslate(&$result): void
     {
 
         /*
@@ -406,7 +397,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return bool
      */
-    public function validateBeforeReTranslate(&$text)
+    public function validateBeforeReTranslate(&$text): bool
     {
         return true;
     }
@@ -420,7 +411,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return bool
      */
-    public function validateAfterReTranslate($before, $after, &$result)
+    public function validateAfterReTranslate($before, $after, &$result): bool
     {
         return true;
     }
@@ -433,7 +424,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$text)
+    public function validateBeforeTranslate(&$text): bool
     {
         return true;
     }
@@ -447,7 +438,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return bool
      */
-    public function validateAfterTranslate($before, $after, &$translates)
+    public function validateAfterTranslate($before, $after, &$translates): bool
     {
         return true;
     }
@@ -459,7 +450,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function validateAllBeforeTranslate(array &$texts)
+    public function validateAllBeforeTranslate(array &$texts): void
     {
         foreach ($texts as $key => & $text) {
             $original = $text;
@@ -480,7 +471,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function validateAllAfterTranslate(array &$translates)
+    public function validateAllAfterTranslate(array &$translates): void
     {
         /*
          * Restore translation keys
@@ -522,7 +513,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    private function _initExclusions()
+    private function _initExclusions(): void
     {
         usort(
             $this->exclusions, function ($a, $b) {
@@ -542,7 +533,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    private function _doExclusion(&$text)
+    private function _doExclusion(&$text): void
     {
         $text = preg_replace(
             array_map(
@@ -563,19 +554,56 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      */
-    public function doTranslate(array $texts)
+    public function doTranslate(array $texts): array
     {
         return [];
     }
 
     /**
-     * Model class
+     * Main method to save translations in DB
      *
-     * @return string
+     * @param array $translations Translations of texts
+     * @param int   $level        Level of translation
+     * @param bool  $overwrite    If translation exists, then overwrite value
+     *
+     * @return void
+     * @throws ActiveRecordException
+     * @throws LanguageException
      */
-    public static function getModel() : string
-    {
-        return \NovemBit\i18n\component\translation\models\Translation::class;
+    public function saveModels(
+        $translations,
+        $level = 0,
+        $overwrite = false
+    ): void {
+        $this->model_class::saveTranslations(
+            $this->context->getFromLanguage(),
+            $translations,
+            $level,
+            $overwrite
+        );
+    }
+
+    /**
+     * Main method to get translations from DB
+     *
+     * @param array $texts        Texts array to translate
+     * @param array $to_languages To languages list
+     * @param bool  $reverse      Use translate column as source (ReTranslate)
+     *
+     * @return array
+     * @throws LanguageException
+     */
+    public function getModels(
+        $texts,
+        $to_languages,
+        $reverse = false
+    ): array {
+        return $this->model_class::get(
+            $texts,
+            $this->context->getFromLanguage(),
+            $to_languages,
+            $reverse
+        );
     }
 
 }

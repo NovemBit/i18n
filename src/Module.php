@@ -56,7 +56,7 @@ class Module extends system\Component
      *
      * @return void
      */
-    public function commonInit()
+    public function commonInit() : void
     {
 
         /*

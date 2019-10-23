@@ -95,7 +95,7 @@ abstract class Component
      *
      * @return void
      */
-    public function commonInit()
+    public function commonInit() : void
     {
     }
 
@@ -105,7 +105,7 @@ abstract class Component
      *
      * @return void
      * */
-    public function init()
+    public function init() : void
     {
     }
 
@@ -131,7 +131,7 @@ abstract class Component
      *
      * @return void
      */
-    public function cliInit($argv, $argc)
+    public function cliInit($argv, $argc) : void
     {
     }
 
@@ -141,7 +141,7 @@ abstract class Component
      *
      * @return bool
      */
-    private function _isCli()
+    private function _isCli() : bool
     {
         return php_sapi_name() === 'cli';
     }

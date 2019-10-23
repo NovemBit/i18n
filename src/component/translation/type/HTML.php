@@ -77,21 +77,18 @@ class HTML extends Type
     private $_translations = [];
 
     /**
-     * Model class
+     * Model class name of ActiveRecord
      *
-     * @return string
-     */
-    public static function getModel() : string
-    {
-        return models\HTML::class;
-    }
+     * @var \NovemBit\i18n\component\translation\models\Translation
+     * */
+    public $model_class = models\HTML::class;
 
     /**
      * {@inheritdoc}
      *
      * @return void
      */
-    public function init()
+    public function init() : void
     {
 
     }
@@ -105,7 +102,8 @@ class HTML extends Type
      *
      * @return \NovemBit\i18n\system\parsers\HTML
      */
-    private function _getHtmlParser($html)
+    private function _getHtmlParser(string $html)
+    : \NovemBit\i18n\system\parsers\HTML
     {
         $parser = new \NovemBit\i18n\system\parsers\HTML();
 
@@ -148,7 +146,7 @@ class HTML extends Type
      * @return mixed
      * @throws TranslationException
      */
-    public function doTranslate(array $html_list)
+    public function doTranslate(array $html_list) : array
     {
         $languages = $this->context->getLanguages();
 
