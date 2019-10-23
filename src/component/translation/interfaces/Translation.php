@@ -8,7 +8,7 @@ interface Translation
 {
     public function getFromLanguage() : string;
 
-    public function setLanguages($_languages) : void;
+    public function setLanguages($_languages);
 
     public function getLanguages(): array;
 
