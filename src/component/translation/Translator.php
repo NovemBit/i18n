@@ -34,11 +34,11 @@ abstract class Translator extends Component implements interfaces\Translator
 {
 
     /**
-     * Type id. Using as column value to save on DB
+     * Name of public method
      *
-     * @var int
+     * @var string
      * */
-    public $type = 0;
+    public $name;
 
     /**
      * If true then all translations saving on DB

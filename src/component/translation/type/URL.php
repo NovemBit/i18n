@@ -36,19 +36,12 @@ class URL extends Type
     /**
      * {@inheritdoc}
      * */
-    public $model = models\URL::class;
-
-    /**
-     * Name of current type
-     *
-     * @var string
-     * */
-    const NAME = 'url';
+    public $name = 'url';
 
     /**
      * {@inheritdoc}
      * */
-    public $type = 2;
+    public $model = models\URL::class;
 
     /**
      * Path separator

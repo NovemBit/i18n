@@ -47,7 +47,7 @@ class Dynamic extends Translator implements interfaces\Rest
      *
      * @var string
      * */
-    public $type = Method::NAME;
+    public $type = 'method';
 
     /**
      * Version of REST API

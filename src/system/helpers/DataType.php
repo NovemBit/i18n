@@ -70,21 +70,20 @@ class DataType
      * Get type of string
      *  URL, JSON, HTML
      *
-     * @param string $string  String content
-     * @param int    $default Default type returning when type is unknown
+     * @param string $string String content
      *
-     * @return int
+     * @return string|null
      */
-    public static function getType($string, $default = self::UNDEFINED)
+    public static function getType(string $string) : ?string
     {
         if (self::isURL($string)) {
-            return \NovemBit\i18n\component\translation\type\URL::NAME;
+            return 'url';
         } elseif (self::isJSON($string)) {
-            return JSON::NAME;
+            return 'json';
         } elseif (self::isHTML($string)) {
-            return HTML::NAME;
+            return 'html';
         } else {
-            return $default;
+            return null;
         }
     }
 

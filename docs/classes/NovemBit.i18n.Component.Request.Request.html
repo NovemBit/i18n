@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">30</span></a></li>
+                <span class="label label-info">31</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -146,10 +146,14 @@ To create response document</span><pre>_prepareSourceUrl()</pre></a></li>
 <li class="nav-header">
 <i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul>
+<li class="property public "><a href="#property_allow_editor" title="$allow_editor() :: Allow to use editor"><span class="description"></span><pre>$allow_editor</pre></a></li>
 <li class="property public "><a href="#property_config" title="$config() :: Constructor configuration array"><span class="description"></span><pre>$config</pre></a></li>
 <li class="property public "><a href="#property_context" title="$context() :: Context (parent) component of current component"><span class="description"></span><pre>$context</pre></a></li>
 <li class="property public "><a href="#property_context" title="$context() :: "><span class="description"></span><pre>$context</pre></a></li>
-<li class="property public "><a href="#property_editor" title="$editor() :: Editor status (enabled/disabled)"><span class="description"></span><pre>$editor</pre></a></li>
+<li class="property public "><a href="#property_custom_translation_level" title="$custom_translation_level() :: Custom translation level
+Priority of custom translation
+Min - 0
+Max - 999"><span class="description"></span><pre>$custom_translation_level</pre></a></li>
 <li class="property public "><a href="#property_editor_query_key" title="$editor_query_key() :: Editor query argument key"><span class="description"></span><pre>$editor_query_key</pre></a></li>
 <li class="property public "><a href="#property_exclusions" title="$exclusions() :: Callback exclusions
 If Callback returns true then current page
@@ -162,6 +166,7 @@ Trigger when page not found"><span class="description"></span><pre>$on_page_not_
                     <ul>
 <li class="property private "><a href="#property__destination" title="$_destination() :: Original Destination (REQUEST_URI)"><span class="description"></span><pre>$_destination</pre></a></li>
 <li class="property private "><a href="#property__from_language" title="$_from_language() :: Main content language"><span class="description"></span><pre>$_from_language</pre></a></li>
+<li class="property private "><a href="#property__is_editor" title="$_is_editor() :: Editor status (enabled/disabled)"><span class="description"></span><pre>$_is_editor</pre></a></li>
 <li class="property private "><a href="#property__language" title="$_language() :: Languages of URL"><span class="description"></span><pre>$_language</pre></a></li>
 <li class="property private "><a href="#property__referer" title="$_referer() :: Original Referer (HTTP_REFERER)"><span class="description"></span><pre>$_referer</pre></a></li>
 <li class="property private "><a href="#property__referer_language" title="$_referer_language() :: Language of Referer"><span class="description"></span><pre>$_referer_language</pre></a></li>
@@ -504,10 +509,16 @@ Running after child component initialization</h2>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered"><tr>
+<table class="table table-bordered">
+<tr>
+<th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
+<td></td>
+</tr>
+<tr>
 <th><code>\NovemBit\i18n\models\exceptions\ActiveRecordException</code></th>
 <td></td>
-</tr></table>
+</tr>
+</table>
 <h3>Returns</h3>
 <div class="subelement response"><code>boolean</code></div>
 </div></div>
@@ -835,6 +846,16 @@ To create response document</h2>
 </div>
 <h3>
 <i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_allow_editor"> </a><div class="element clickable property public property_allow_editor" data-toggle="collapse" data-target=".property_allow_editor .collapse" title="public">
+<h2>Allow to use editor</h2>
+<pre>$allow_editor : boolean</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>true</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property_config"> </a><div class="element clickable property public property_config" data-toggle="collapse" data-target=".property_config .collapse" title="public">
 <h2>Constructor configuration array</h2>
 <pre>$config : array</pre>
@@ -877,12 +898,15 @@ To create response document</h2>
 </table>
 </div></div>
 </div>
-<a id="property_editor"> </a><div class="element clickable property public property_editor" data-toggle="collapse" data-target=".property_editor .collapse" title="public">
-<h2>Editor status (enabled/disabled)</h2>
-<pre>$editor : boolean</pre>
+<a id="property_custom_translation_level"> </a><div class="element clickable property public property_custom_translation_level" data-toggle="collapse" data-target=".property_custom_translation_level .collapse" title="public">
+<h2>Custom translation level
+Priority of custom translation
+Min - 0
+Max - 999</h2>
+<pre>$custom_translation_level : integer</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>1</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -949,6 +973,16 @@ Trigger when page not found</h2>
 <a id="property__from_language"> </a><div class="element clickable property private property__from_language" data-toggle="collapse" data-target=".property__from_language .collapse" title="private">
 <h2>Main content language</h2>
 <pre>$_from_language : string</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__is_editor"> </a><div class="element clickable property private property__is_editor" data-toggle="collapse" data-target=".property__is_editor .collapse" title="private">
+<h2>Editor status (enabled/disabled)</h2>
+<pre>$_is_editor : boolean</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1043,7 +1077,7 @@ Trigger when page not found</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-17T15:51:34+04:00.<br></footer></div>
+            generated on 2019-10-23T18:09:24+04:00.<br></footer></div>
 </div>
 </body>
 </html>

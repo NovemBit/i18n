@@ -110,14 +110,21 @@ class HTML
      *
      * @param string $html Referenced HTML content
      * @param string $tag  Tag that must be preserved
+     * @param string $attr Attributes string
      *
      * @return void
      * @see    _preserveTag
      */
-    private function _preserveTag(string &$html, string $tag) : void
-    {
+    private function _preserveTag(string &$html,
+        string $tag,
+        string $attr = ''
+    ) : void {
+
+        $atrr_pattern = !empty($attr) ? '('.$attr.')' : '';
+
         preg_match_all(
-            '/<' . $tag . '\b[^>]*>[\s\S]*?<\/' . $tag . '>/is',
+            /*(\stype="ld\+json")*/
+            '/<' . $tag . '\b'.$atrr_pattern.'[^>]*>[\s\S]*?<\/' . $tag . '>/is',
             $html,
             $this->_preserved_data[$tag]
         );
@@ -130,7 +137,7 @@ class HTML
 
         $html = str_replace(
             $this->_preserved_data[$tag],
-            '<script></script>',
+            "<__{$tag}__></__{$tag}__>",
             $html
         );
     }
@@ -146,8 +153,9 @@ class HTML
      */
     private function _restorePreservedTag(string &$html, string $tag) : void
     {
+
         $first = 0;
-        $search = "<$tag></$tag>";
+        $search = "<__{$tag}__></__{$tag}__>";
         $tags = $this->_preserved_data[$tag] ?? [];
         for ($i = 0; $i < count($tags); $i++) {
             $replace = $tags[$i];
@@ -206,7 +214,9 @@ class HTML
                      * @var DOMNode $child_node
                      */
                     foreach ($node->childNodes as $child_node) {
-                        if ($child_node->nodeType == XML_TEXT_NODE) {
+                        if ($child_node->nodeType == XML_TEXT_NODE
+                            || $child_node->nodeType == XML_CDATA_SECTION_NODE
+                        ) {
                             /**
                              * Checking if TextNode data length
                              * without whitespace in not null
@@ -281,7 +291,11 @@ class HTML
     {
         $html = $this->getHtml();
 
-        $this->_preserveTag($html, 'script');
+        $this->_preserveTag(
+            $html,
+            'script',
+            '(?!\stype="application\/ld\+json")+?'
+        );
 
         $this->setDom(new DomDocument());
 

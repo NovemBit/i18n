@@ -37,7 +37,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">30</span></a></li>
+                <span class="label label-info">31</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -211,17 +211,21 @@ Initialization of child components</h2>
 </div>
 <a id="method_getFromLanguage"></a><div class="element clickable method public method_getFromLanguage " data-toggle="collapse" data-target=".method_getFromLanguage .collapse" title="public">
 <h2>Get from language from Languages component</h2>
-<pre>getFromLanguage() : mixed</pre>
+<pre>getFromLanguage() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Translation::getFromLanguage()</td>
+</tr></table>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code>\NovemBit\i18n\component\languages\exceptions\LanguageException</code></th>
 <td></td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_getLanguages"></a><div class="element clickable method public method_getLanguages " data-toggle="collapse" data-target=".method_getLanguages .collapse" title="public">
@@ -230,6 +234,10 @@ Initialization of child components</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Translation::getLanguages()</td>
+</tr></table>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code>\NovemBit\i18n\component\translation\exceptions\TranslationException</code></th>
@@ -252,6 +260,16 @@ Running after child component initialization</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\NovemBit\i18n\component\translation\interfaces\Translation::setLanguages()</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$_languages</h4>
@@ -321,7 +339,7 @@ Running after child component initialization</h2>
 </div>
 <a id="property_html"> </a><div class="element clickable property public property_html" data-toggle="collapse" data-target=".property_html .collapse" title="public">
 <h2>HTML Translator</h2>
-<pre>$html : \NovemBit\i18n\component\translation\type\HTML</pre>
+<pre>$html : \NovemBit\i18n\component\translation\type\interfaces\HTML</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -331,7 +349,7 @@ Running after child component initialization</h2>
 </div>
 <a id="property_json"> </a><div class="element clickable property public property_json" data-toggle="collapse" data-target=".property_json .collapse" title="public">
 <h2>JSON Translator</h2>
-<pre>$json : \NovemBit\i18n\component\translation\type\JSON</pre>
+<pre>$json : \NovemBit\i18n\component\translation\type\interfaces\JSON</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -341,7 +359,7 @@ Running after child component initialization</h2>
 </div>
 <a id="property_method"> </a><div class="element clickable property public property_method" data-toggle="collapse" data-target=".property_method .collapse" title="public">
 <h2>Method Translator</h2>
-<pre>$method : \NovemBit\i18n\component\translation\method\Method</pre>
+<pre>$method : \NovemBit\i18n\component\translation\method\interfaces\Method</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -351,7 +369,7 @@ Running after child component initialization</h2>
 </div>
 <a id="property_text"> </a><div class="element clickable property public property_text" data-toggle="collapse" data-target=".property_text .collapse" title="public">
 <h2>Text Translator</h2>
-<pre>$text : \NovemBit\i18n\component\translation\type\Text</pre>
+<pre>$text : \NovemBit\i18n\component\translation\type\interfaces\Text</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -361,7 +379,7 @@ Running after child component initialization</h2>
 </div>
 <a id="property_url"> </a><div class="element clickable property public property_url" data-toggle="collapse" data-target=".property_url .collapse" title="public">
 <h2>Url Translator</h2>
-<pre>$url : \NovemBit\i18n\component\translation\type\URL</pre>
+<pre>$url : \NovemBit\i18n\component\translation\type\interfaces\URL</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -386,7 +404,7 @@ Running after child component initialization</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2019-10-17T15:51:33+04:00.<br></footer></div>
+            generated on 2019-10-23T18:09:24+04:00.<br></footer></div>
 </div>
 </body>
 </html>

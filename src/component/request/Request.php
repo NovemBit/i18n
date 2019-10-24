@@ -655,7 +655,7 @@ class Request extends Component implements interfaces\Request
 
             $type = DataType::getType($content);
 
-            if ($type !== 0) {
+            if ($type !== null) {
 
                 /*
                  * Translate content

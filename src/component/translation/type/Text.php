@@ -32,18 +32,9 @@ use NovemBit\i18n\system\helpers\DataType;
 class Text extends Type
 {
     /**
-     * Name of current type
-     *
-     * @var string
+     * {@inheritdoc}
      * */
-    const NAME = 'text';
-
-    /**
-     * Type using as DB type column value
-     *
-     * @var int
-     * */
-    public $type = 1;
+    public $name = 'text';
 
     /**
      * {@inheritdoc}

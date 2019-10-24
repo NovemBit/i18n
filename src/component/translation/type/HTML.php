@@ -34,21 +34,31 @@ use NovemBit\i18n\system\parsers\html\Rule;
  */
 class HTML extends Type
 {
-
-    /**
-     * Name of current type
-     *
-     * @var string
-     * */
-    const NAME = 'html';
-
     /**
      * {@inheritdoc}
      * */
-    public $type = 3;
+    public $name = 'html';
 
     /**
-     * Fetched fields to translate
+     * Fields to translate
+     *
+     * ```php
+     * [
+     *  ...
+     *  [
+     *   'rule' => ['tags' => ['a']],
+     *   'attrs' => [
+     *      'title' => Text::NAME,
+     *      'alt' => Text::NAME,
+     *      'href' => URL::NAME,
+     *      'data-tooltip' => Text::NAME,
+     *      'data-tip' => Text::NAME
+     *    ],
+     *    'text' => Text::NAME
+     *   ]
+     *  ...
+     * ]
+     * ```
      *
      * @var array
      * */

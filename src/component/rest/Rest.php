@@ -43,11 +43,11 @@ class Rest extends Component implements interfaces\Rest
      * @var string[]
      * */
     public $available_types = [
-        Method::NAME,
-        Text::NAME,
-        URL::NAME,
-        HTML::NAME,
-        JSON::NAME
+        'method',
+        'text',
+        'url',
+        'html',
+        'json'
     ];
 
     /**
