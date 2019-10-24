@@ -499,9 +499,9 @@ class Request extends Component implements interfaces\Request
             /**
              * Enable helper attributes to use for editor
              *
-             * @see HTML::$helper_attributes
+             * @see HTML::$_helper_attributes
              * */
-            $this->context->translation->html->helper_attributes = true;
+            $this->context->translation->html->setHelperAttributes(true);
         }
 
         return $this->_prepareLanguage()
