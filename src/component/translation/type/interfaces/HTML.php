@@ -25,4 +25,8 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
 interface HTML extends Type
 {
 
+    public function getHelperAttributes() : bool;
+
+    public function setHelperAttributes(bool $status) : void;
+
 }
