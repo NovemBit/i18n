@@ -159,7 +159,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
         $query = static::find();
         $query
-            ->select(['source', 'to_language', 'translate'])
+            ->select(['source', 'to_language', 'translate', 'level'])
             ->where(['type' => static::TYPE])
             ->andWhere(['from_language' => $from_language])
             ->andWhere(['in', 'to_language', $to_languages])
