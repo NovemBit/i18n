@@ -16,8 +16,11 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
+use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\Translator;
+use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\parsers\html\Rule;
 
 
@@ -32,7 +35,7 @@ use NovemBit\i18n\system\parsers\html\Rule;
  *
  * @property Translation context
  */
-class HTML extends Type
+class HTML extends Type implements interfaces\HTML
 {
     /**
      * {@inheritdoc}
@@ -70,7 +73,7 @@ class HTML extends Type
      *
      * @var bool
      * */
-    public $helper_attributes = false;
+    private $_helper_attributes = false;
 
     /**
      * To translate
@@ -87,6 +90,13 @@ class HTML extends Type
     private $_translations = [];
 
     /**
+     * Translated contents
+     *
+     * @var array
+     * */
+    private $_verbose = [];
+
+    /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
@@ -94,26 +104,14 @@ class HTML extends Type
     public $model_class = models\HTML::class;
 
     /**
-     * {@inheritdoc}
-     *
-     * @return void
-     */
-    public function init() : void
-    {
-
-    }
-
-    /**
      * Get Html parser. Create new instance of HTML parser
      *
      * @param string $html Html content
      *
-     * @see \NovemBit\i18n\system\parsers\HTML
-     *
      * @return \NovemBit\i18n\system\parsers\HTML
+     * @see    \NovemBit\i18n\system\parsers\HTML
      */
-    private function _getHtmlParser(string $html)
-    : \NovemBit\i18n\system\parsers\HTML
+    private function _getHtmlParser(string $html): \NovemBit\i18n\system\parsers\HTML
     {
         $parser = new \NovemBit\i18n\system\parsers\HTML();
 
@@ -150,13 +148,15 @@ class HTML extends Type
      *
      * @param array $html_list list of translatable HTML strings
      *
-     * @see DOMText
-     * @see DOMAttr
-     *
      * @return mixed
      * @throws TranslationException
+     * @throws LanguageException
+     * @throws ActiveRecordException
+     *
+     * @see DOMText
+     * @see DOMAttr
      */
-    public function doTranslate(array $html_list) : array
+    public function doTranslate(array $html_list): array
     {
         $languages = $this->context->getLanguages();
 
@@ -165,6 +165,8 @@ class HTML extends Type
         $this->_translations = [];
 
         $_parsed_dom = [];
+
+        $this->_verbose = [];
 
         /*
          * Finding translatable node values and attributes
@@ -208,9 +210,24 @@ class HTML extends Type
         }
 
         foreach ($this->_to_translate as $type => $texts) {
-            $this->_translations[$type] = $this->context->{$type}->translate($texts);
+            $this->_verbose[$type] = $this->getHelperAttributes() ? [] : null;
+
+            /**
+             * Translator method
+             *
+             * @var Translator $translator
+             */
+            $translator = $this->context->{$type};
+            $this->_translations[$type] = $translator->translate(
+                $texts,
+                $this->_verbose[$type]
+            );
         }
 
+        // Use it only for development mode. Don't forget delete after debug
+        $f=$_SERVER['DOCUMENT_ROOT'] . '/DEB.log';$c = json_decode(file_get_contents($f), true);$c[microtime(true).md5(rand(0,99999999))] =
+            [$this->_verbose];
+        file_put_contents($f,json_encode($c,JSON_PRETTY_PRINT));
         /**
          * Replace html node values to
          * Translated values
@@ -228,15 +245,20 @@ class HTML extends Type
                          * @var DOMElement $parent
                          * @var Rule $rule
                          */
-                        $translate =  $this->_translations
+                        $translate = $this->_translations
                             [$type][$node->data][$language]
                             ?? null;
 
                         /**
                          * Enable helper attributes
                          * */
-                        if ($this->helper_attributes == true) {
+                        if ($this->getHelperAttributes()) {
+
                             $parent = $node->parentNode;
+
+                            $verbose = $this->_verbose
+                                [$type][$node->data][$language] ?? null;
+
 
                             if ($parent->hasAttribute(
                                 $this->context->context->prefix . '-text'
@@ -256,7 +278,8 @@ class HTML extends Type
                                 $text[] = [
                                     $node->data,
                                     $translate,
-                                    $type
+                                    $type,
+                                    $verbose['level'] != null ? $verbose['level'] : "-"
                                 ];
                                 $parent->setAttribute(
                                     $this->context->context->prefix . '-text',
@@ -286,9 +309,13 @@ class HTML extends Type
                         /**
                          * Enable helper attributes
                          * */
-                        if ($this->helper_attributes == true) {
+                        if ($this->getHelperAttributes()) {
 
                             $parent = $node->parentNode;
+
+                            $verbose = $this->_verbose
+                                [$type][$node->value][$language] ?? null;
+
                             if ($parent->hasAttribute(
                                 $this->context->context->prefix . '-attr'
                             )
@@ -306,7 +333,8 @@ class HTML extends Type
                                 $attr[$node->name] = [
                                     $node->value,
                                     $translate,
-                                    $type
+                                    $type,
+                                    $verbose['level']
                                 ];
                                 $parent->setAttribute(
                                     $this->context->context->prefix . '-attr',
@@ -324,5 +352,28 @@ class HTML extends Type
         }
 
         return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return bool
+     * */
+    public function getHelperAttributes(): bool
+    {
+        return $this->_helper_attributes;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param bool $status If true then
+     *                     html translation including additional attributes
+     *
+     * @return void
+     * */
+    public function setHelperAttributes(bool $status): void
+    {
+        $this->_helper_attributes = $status;
     }
 }

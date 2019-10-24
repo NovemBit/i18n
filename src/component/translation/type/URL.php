@@ -85,9 +85,7 @@ class URL extends Type
      * @param array $urls list of urls
      *
      * @return array
-     * @throws LanguageException
      * @throws TranslationException
-     * @throws ActiveRecordException
      */
     public function doTranslate(array $urls) : array
     {
@@ -116,15 +114,20 @@ class URL extends Type
      * Concat prefix, body and suffix to avoid that
      * Url is fully working
      *
-     * @param string $before     initial type of url
-     * @param string $after      final type of url
-     * @param array  $translates list of translated urls
+     * @param string     $before     initial type of url
+     * @param string     $after      final type of url
+     * @param array      $translates list of translated urls
+     * @param array|null $verbose    Verbose
      *
      * @return bool
      * @throws LanguageException
      */
-    public function validateAfterTranslate($before, $after, &$translates) : bool
-    {
+    public function validateAfterTranslate(
+        $before,
+        $after,
+        &$translates,
+        ?array &$verbose
+    ) : bool {
         DataType::getStringsDifference($before, $after, $prefix, $suffix);
 
         $translates[$before] = $translates[$after];
@@ -137,7 +140,7 @@ class URL extends Type
         }
 
         return parent::validateAfterTranslate(
-            $before, $after, $translates
+            $before, $after, $translates, $verbose
         );
     }
 
@@ -217,11 +220,6 @@ class URL extends Type
                      * If translation found
                      * */
                     if (isset($translations[$part])) {
-
-                        /* if(!isset($translations[$part][$language])){
-                             var_dump('---');
-                             var_dump($translations[$part]);
-                         }*/
                         $part = isset($translations[$part][$language]) ?
                             $translations[$part][$language] :
                             $part;
@@ -255,9 +253,6 @@ class URL extends Type
      * @param array $paths paths to translate
      *
      * @return mixed
-     * @throws LanguageException
-     * @throws TranslationException
-     * @throws ActiveRecordException
      */
     private function _getPathPartTranslations(array $paths)
     {

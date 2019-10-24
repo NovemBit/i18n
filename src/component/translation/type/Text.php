@@ -101,8 +101,12 @@ class Text extends Type
      *
      * @return bool
      */
-    public function validateAfterTranslate($before, $after, &$translates) : bool
-    {
+    public function validateAfterTranslate(
+        $before,
+        $after,
+        &$translates,
+        ?array &$verbose
+    ) : bool {
         DataType::getStringsDifference(
             $before,
             $after,
@@ -116,7 +120,12 @@ class Text extends Type
             }
         }
 
-        return parent::validateAfterTranslate($before, $after, $translates);
+        return parent::validateAfterTranslate(
+            $before,
+            $after,
+            $translates,
+            $verbose
+        );
     }
 
 
