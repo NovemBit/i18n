@@ -1,19 +1,19 @@
-.i18n-active {
+.__PREFIX-active {
     outline: solid 1px;
     outline-offset: 5px;
     color: #ba0000 !important;
     visibility: visible;
 }
 
-.i18n-active > * {
+.__PREFIX-active > * {
     opacity: 0.5;
 }
 
-#i18n-editor-wrapper * {
+#__PREFIX-editor-wrapper * {
     all: unset;
 }
 
-#i18n-editor-wrapper > div {
+#__PREFIX-editor-wrapper > div {
     background: #c90000;
     opacity: 0.9;
     width: 10px !important;
@@ -28,37 +28,37 @@
     transition: 0.3s ease all;
 }
 
-#i18n-editor-wrapper > div.active {
+#__PREFIX-editor-wrapper > div.active {
     z-index: 1000002;
     opacity: 1;
 }
 
-#i18n-editor-wrapper > div.expanded {
+#__PREFIX-editor-wrapper > div.expanded {
     z-index: 1000001;
     opacity: 1;
 }
 
-#i18n-editor-wrapper > div.active.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.active.expanded > .inspector {
     border-color: #a90000;
     opacity: 1;
 }
 
-#i18n-editor-wrapper > div.active > .inspector {
+#__PREFIX-editor-wrapper > div.active > .inspector {
     border-color: #a90000;
     display: block;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.expanded > .inspector {
     display: block;
 }
 
-#i18n-editor-wrapper > div > .inspector {
+#__PREFIX-editor-wrapper > div > .inspector {
     transition: 0.5s cubic-bezier(0.43, 0.27, 0.21, 1.02) all;
     display: none;
 }
 
-#i18n-editor-wrapper > div > .inspector {
-    cursor:default;
+#__PREFIX-editor-wrapper > div > .inspector {
+    cursor: default;
     padding: 10px;
     border-radius: 15px 0 0;
     width: 300px;
@@ -75,7 +75,7 @@
     border-color: #9a9a9a;
 }
 
-#i18n-editor-wrapper > div > .inspector > .title {
+#__PREFIX-editor-wrapper > div > .inspector > .title {
     color: #ab0000;
     font-size: 18px;
     display: block;
@@ -84,7 +84,7 @@
     text-align: center;
 }
 
-#i18n-editor-wrapper > div > .inspector > .description {
+#__PREFIX-editor-wrapper > div > .inspector > .description {
     color: #fff;
     background: #616161;
     font-size: 14px;
@@ -94,61 +94,61 @@
     margin-top: 10px;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.expanded > .inspector {
     display: block;
     box-sizing: border-box;
     width: 90%;
     height: 90%;
-    min-height:300px;
+    min-height: 300px;
     max-width: 500px;
     max-height: 500px;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms {
+#__PREFIX-editor-wrapper > div > .inspector > .forms {
     display: none;
-    height: calc( 100% - 60px );
+    height: calc(100% - 60px);
     padding-bottom: 40px;
     box-sizing: border-box;
-    overflow:auto;
+    overflow: auto;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form {
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form {
     display: inline-block;
-    width:100%;
+    width: 100%;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form.saved{
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form.saved {
     background: #d6e6d6;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector > .forms {
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms {
     display: block;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector > .forms > form > .title {
-    display:block;
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .title {
+    display: block;
     margin-top: 20px;
     font-size: 20px;
     line-height: 1em;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > .hint{
-    display:block;
-    font-size:12px;
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .hint {
+    display: block;
+    font-size: 12px;
     color: #ff0000;
-    text-align:right;
+    text-align: right;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > .original{
-    display:block;
-    font-size:12px;
-    text-align:left;
-    color:#004e00;
-    margin-top:10px;
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .original {
+    display: block;
+    font-size: 12px;
+    text-align: left;
+    color: #004e00;
+    margin-top: 10px;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > label {
-    clear:both;
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label {
+    clear: both;
     display: block;
     box-sizing: border-box;
     margin-top: 10px;
@@ -158,13 +158,14 @@
     font-weight: bold;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > textarea[disabled]{
-    background:#e2e2e2;
-    color:#a6a6a6;
-    border-color:#999;
-    cursor:default;
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea[disabled] {
+    background: #e2e2e2;
+    color: #a6a6a6;
+    border-color: #999;
+    cursor: default;
 }
-#i18n-editor-wrapper > div > .inspector > .forms > form > label > textarea {
+
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea {
     background: #fff;
     border: solid 1px #900000;
     font-weight: normal;
@@ -177,31 +178,31 @@
     padding: 10px;
 }
 
-#i18n-editor-wrapper > div > .inspector > .forms > form > input[type=submit]{
-    font-size:16px;
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit] {
+    font-size: 16px;
     clear: both;
-    background:green;
-    color:#fff;
-    cursor:pointer;
-    float:right;
-    padding:10px;
-    margin-top:20px;
+    background: green;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    padding: 10px;
+    margin-top: 20px;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector > .unexpand {
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand {
     width: 20px;
     height: 20px;
-    float:right;
-    cursor:pointer;
-    color:#474747;
+    float: right;
+    cursor: pointer;
+    color: #474747;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector > .unexpand:before {
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
     content: "⇲";
-    font-size:20px;
-    display:inline-block;
+    font-size: 20px;
+    display: inline-block;
 }
 
-#i18n-editor-wrapper > div.expanded > .inspector > .unexpand:hover{
-    color:#b31a1a;
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:hover {
+    color: #b31a1a;
 }

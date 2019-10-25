@@ -187,6 +187,18 @@ class Request extends Component implements interfaces\Request
     public $custom_translation_level = 1;
 
     /**
+     * Custom colors for editor to mark each level of translation
+     *
+     * @var array
+     * */
+    public $custom_translation_level_colors = [
+        0 => 'red',
+        1 => 'green',
+        2 => 'blue',
+        3 => 'yellow'
+    ];
+
+    /**
      * Get request referer source url
      *
      * @return string
@@ -758,7 +770,7 @@ class Request extends Component implements interfaces\Request
         $tags .= $this->_getXHRManipulationJavaScriptTag();
 
         if ($this->_is_editor) {
-            $tags .= $this->_getEditorJavaScriptTag();
+            $tags .= $this->_getEditorAssetsTags();
         }
 
         $tags .= $this->_getAlternateLinkTags();
@@ -819,10 +831,22 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getEditorJavaScriptTag()
+    private function _getEditorAssetsTags()
     {
         $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
         $css = file_get_contents(__DIR__ . '/assets/css/editor.css');
+
+        $css = str_replace('__PREFIX', $this->context->prefix, $css);
+
+        foreach ($this->custom_translation_level_colors as $level => $color) {
+            $css .= sprintf(
+                "%s#%s-editor-wrapper > div.level-%d { background-color: %s; }",
+                PHP_EOL,
+                $this->context->prefix,
+                $level,
+                $color
+            );
+        }
 
         return implode(
             '', [
