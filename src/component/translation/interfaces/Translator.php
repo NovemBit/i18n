@@ -23,4 +23,8 @@ interface Translator
         $to_languages,
         $reverse = false
     ): array;
+
+    public function reTranslate(
+        array $texts
+    ): array;
 }

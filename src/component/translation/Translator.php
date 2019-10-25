@@ -130,7 +130,8 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param  array|null $verbose
      * @return void
      */
-    public function afterTranslate(array &$translations,
+    public function afterTranslate(
+        array &$translations,
         ?array &$verbose
     ): void {
         if ($this->validation == true) {
@@ -176,6 +177,10 @@ abstract class Translator extends Component implements interfaces\Translator
              * from model only if with_verbose variable is true
              * */
             if ($verbose !== null) {
+                $verbose[$model['source']][$model['to_language']]['id']
+                    = $model['id'];
+                $verbose[$model['source']][$model['to_language']]['translate']
+                    = $model['translate'];
                 $verbose[$model['source']][$model['to_language']]['level']
                     = $model['level'];
                 $verbose[$model['source']][$model['to_language']]['created_at']
@@ -464,6 +469,7 @@ abstract class Translator extends Component implements interfaces\Translator
         &$translates,
         ?array &$verbose
     ): bool {
+        $verbose[$before]['after'] = $after;
         return true;
     }
 

@@ -95,9 +95,10 @@ class Text extends Type
     /**
      * Reset whitespace
      *
-     * @param string $before     Before
-     * @param string $after      After
-     * @param array  $translates Last result
+     * @param string     $before     Before
+     * @param string     $after      After
+     * @param array      $translates Last result
+     * @param array|null $verbose    Verbose
      *
      * @return bool
      */
@@ -107,6 +108,7 @@ class Text extends Type
         &$translates,
         ?array &$verbose
     ) : bool {
+
         DataType::getStringsDifference(
             $before,
             $after,
@@ -114,10 +116,14 @@ class Text extends Type
             $suffix
         );
 
+        $verbose[$before]['prefix'] = $prefix;
+        $verbose[$before]['suffix'] = $suffix;
+
         if ($before != $after && isset($translates[$before])) {
             foreach ($translates[$before] as $language => &$translate) {
                 $translate = $prefix . $translate . $suffix;
             }
+
         }
 
         return parent::validateAfterTranslate(

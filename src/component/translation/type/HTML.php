@@ -224,10 +224,6 @@ class HTML extends Type implements interfaces\HTML
             );
         }
 
-        // Use it only for development mode. Don't forget delete after debug
-        $f=$_SERVER['DOCUMENT_ROOT'] . '/DEB.log';$c = json_decode(file_get_contents($f), true);$c[microtime(true).md5(rand(0,99999999))] =
-            [$this->_verbose];
-        file_put_contents($f,json_encode($c,JSON_PRETTY_PRINT));
         /**
          * Replace html node values to
          * Translated values
@@ -257,7 +253,7 @@ class HTML extends Type implements interfaces\HTML
                             $parent = $node->parentNode;
 
                             $verbose = $this->_verbose
-                                [$type][$node->data][$language] ?? null;
+                                [$type][$node->data] ?? null;
 
 
                             if ($parent->hasAttribute(
@@ -277,9 +273,11 @@ class HTML extends Type implements interfaces\HTML
                             if ($translate !== null) {
                                 $text[] = [
                                     $node->data,
-                                    $translate,
+                                    $verbose[$language]['translate'] ?? null,
                                     $type,
-                                    $verbose['level'] != null ? $verbose['level'] : "-"
+                                    $verbose[$language]['level'] ?? null,
+                                    $verbose['prefix'] ?? null,
+                                    $verbose['suffix'] ?? null
                                 ];
                                 $parent->setAttribute(
                                     $this->context->context->prefix . '-text',
@@ -314,7 +312,7 @@ class HTML extends Type implements interfaces\HTML
                             $parent = $node->parentNode;
 
                             $verbose = $this->_verbose
-                                [$type][$node->value][$language] ?? null;
+                                [$type][$node->value] ?? null;
 
                             if ($parent->hasAttribute(
                                 $this->context->context->prefix . '-attr'
@@ -332,9 +330,11 @@ class HTML extends Type implements interfaces\HTML
                             if ($translate !== null) {
                                 $attr[$node->name] = [
                                     $node->value,
-                                    $translate,
+                                    $verbose[$language]['translate'] ?? null,
                                     $type,
-                                    $verbose['level']
+                                    $verbose[$language]['level'] ?? null,
+                                    $verbose['prefix'] ?? null,
+                                    $verbose['suffix'] ?? null
                                 ];
                                 $parent->setAttribute(
                                     $this->context->context->prefix . '-attr',

@@ -239,7 +239,6 @@ class Request extends Component implements interfaces\Request
      *
      * @return null
      * @throws TranslationException
-     * @throws LanguageException
      */
     private function _getSourceUrlFromTranslate($translate, $to_language)
     {
