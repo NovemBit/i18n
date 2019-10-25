@@ -11,11 +11,16 @@
         node_num_attr: window.novembit.i18n.prefix + '-selector-num',
         active_node_class: window.novembit.i18n.prefix + '-active',
         last_node_index: 0,
-        updateNodeText: function (node, index, value) {
-            node.childNodes[index].nodeValue = value;
+        updateNodeText: function (node, index, value, prefix, suffix) {
+            if(node.childNodes[index].nodeType !== 3){
+                index++;
+                this.updateNodeText( node, index, value, prefix, suffix);
+            } else{
+                node.childNodes[index].nodeValue = prefix + value + suffix;
+            }
         },
-        updateNodeAttr: function (node, attr_key, value) {
-            node.setAttribute(attr_key, value);
+        updateNodeAttr: function (node, attr_key, value, prefix, suffix) {
+            node.setAttribute(attr_key, prefix+value+suffix);
         },
         submitForm: function (form) {
             let params = new FormData(form);
@@ -75,6 +80,11 @@
                 }
 
                 for (let i = 0; i < data.text.length; i++) {
+
+                    if(i===0){
+                        selector.classList.add('level-'+data.text[i][3]);
+                    }
+
                     let input = document.createElement('textarea');
                     let label = document.createElement('label');
                     label.innerText = "Text " + (i + 1);
@@ -82,7 +92,7 @@
                     input.name = window.novembit.i18n.prefix + "-form[" + data.text[i][0] + "]";
 
                     input.oninput = function () {
-                        editor.updateNodeText(node, i, this.value);
+                        editor.updateNodeText(node, i, this.value, data.text[i][4], data.text[i][5]);
                         if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
@@ -136,7 +146,7 @@
                     input.name = window.novembit.i18n.prefix + "-form[" + data.attr[attr_key][0] + "]";
                     input.value = data.attr[attr_key][1];
                     input.oninput = function () {
-                        editor.updateNodeAttr(node, attr_key, this.value);
+                        editor.updateNodeAttr(node, attr_key, this.value, data.text[i][4], data.text[i][5]);
                         if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
