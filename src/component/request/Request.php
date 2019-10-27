@@ -192,10 +192,10 @@ class Request extends Component implements interfaces\Request
      * @var array
      * */
     public $custom_translation_level_colors = [
-        0 => 'red',
-        1 => 'green',
-        2 => 'blue',
-        3 => 'yellow'
+        0 => 'orange',
+        1 => '#62c800',
+        2 => '#4fa000',
+        3 => '#2d5b00'
     ];
 
     /**
@@ -840,7 +840,14 @@ class Request extends Component implements interfaces\Request
 
         foreach ($this->custom_translation_level_colors as $level => $color) {
             $css .= sprintf(
-                "%s#%s-editor-wrapper > div.level-%d { background-color: %s; }",
+                "%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }",
+                PHP_EOL,
+                $this->context->prefix,
+                $level,
+                $color
+            );
+            $css .= sprintf(
+                "%s#%s-editor-wrapper .level-%d { color: %s; }",
                 PHP_EOL,
                 $this->context->prefix,
                 $level,

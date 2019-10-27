@@ -6,21 +6,22 @@
 
     window.novembit.i18n.editor = {
         wrapper: document.createElement('div'),
+        context_menu: document.createElement('menu'),
         text_node_selector: "[" + window.novembit.i18n.prefix + "-text]",
         attr_node_selector: "[" + window.novembit.i18n.prefix + "-attr]",
         node_num_attr: window.novembit.i18n.prefix + '-selector-num',
         active_node_class: window.novembit.i18n.prefix + '-active',
         last_node_index: 0,
         updateNodeText: function (node, index, value, prefix, suffix) {
-            if(node.childNodes[index].nodeType !== 3){
+            if (node.childNodes[index].nodeType !== 3) {
                 index++;
-                this.updateNodeText( node, index, value, prefix, suffix);
-            } else{
+                this.updateNodeText(node, index, value, prefix, suffix);
+            } else {
                 node.childNodes[index].nodeValue = prefix + value + suffix;
             }
         },
         updateNodeAttr: function (node, attr_key, value, prefix, suffix) {
-            node.setAttribute(attr_key, prefix+value+suffix);
+            node.setAttribute(attr_key, prefix + value + suffix);
         },
         submitForm: function (form) {
             let params = new FormData(form);
@@ -34,19 +35,19 @@
             };
             http.send(params);
         },
-        initNodeInspector: function (selector, node) {
+        initNodeInspector: function (node) {
             let editor = this;
-            let inspector = selector.querySelector('.inspector');
+            let inspector = node.selector.querySelector('.inspector');
             if (typeof inspector === 'undefined' || inspector === null) {
-                let data = editor.getNodeData(node);
+
                 inspector = document.createElement('div');
                 inspector.classList.add('inspector');
 
                 let unexpand = document.createElement('div');
                 unexpand.classList.add('unexpand');
-                unexpand.onclick = function(e){
+                unexpand.onclick = function (e) {
                     e.stopPropagation();
-                    editor.unexpandSelector(selector);
+                    editor.unexpandSelector(node);
                 };
 
                 let title = document.createElement('div');
@@ -54,7 +55,7 @@
 
                 let description = document.createElement('div');
                 description.classList.add('description');
-                description.innerText = "Texts: " + data.text.length + " | Attributes: " + Object.keys(data.attr).length;
+                description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
 
                 title.innerText = node.nodeName;
                 inspector.appendChild(unexpand);
@@ -72,27 +73,23 @@
                 /*
                 * Texts form
                 * */
-                if (Object.keys(data.text).length > 0) {
+                if (Object.keys(node.data.text).length > 0) {
                     let title = document.createElement('h4');
                     title.innerText = "Texts";
                     title.classList.add('title');
                     form.appendChild(title);
                 }
 
-                for (let i = 0; i < data.text.length; i++) {
-
-                    if(i===0){
-                        selector.classList.add('level-'+data.text[i][3]);
-                    }
+                for (let i = 0; i < node.data.text.length; i++) {
 
                     let input = document.createElement('textarea');
                     let label = document.createElement('label');
                     label.innerText = "Text " + (i + 1);
-                    input.value = data.text[i][1];
-                    input.name = window.novembit.i18n.prefix + "-form[" + data.text[i][0] + "]";
+                    input.value = node.data.text[i][1];
+                    input.name = window.novembit.i18n.prefix + "-form[" + node.data.text[i][0] + "]";
 
                     input.oninput = function () {
-                        editor.updateNodeText(node, i, this.value, data.text[i][4], data.text[i][5]);
+                        editor.updateNodeText(node, i, this.value, node.data.text[i][4], node.data.text[i][5]);
                         if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
@@ -100,11 +97,13 @@
 
                     let original = document.createElement('div');
                     original.classList.add('original');
-                    original.textContent = data.text[i][0];
+                    original.textContent = node.data.text[i][0];
+                    original.classList.add('level-' + node.data.text[i][3] + '');
+
 
                     label.appendChild(original);
 
-                    if (data.text[i][2] !== 'text') {
+                    if (node.data.text[i][2] !== 'text') {
                         input.disabled = true;
                         let hint = document.createElement('p');
                         hint.innerText = '* Is not text value.';
@@ -121,16 +120,16 @@
                 /*
                 * Attr form
                 * */
-                if (Object.keys(data.attr).length > 0) {
+                if (Object.keys(node.data.attr).length > 0) {
                     let title = document.createElement('div');
                     title.classList.add('title');
                     title.innerText = "Attributes";
                     form.appendChild(title);
                 }
 
-                for (let attr_key in data.attr) {
+                for (let attr_key in node.data.attr) {
 
-                    if (!data.attr.hasOwnProperty(attr_key)) continue;
+                    if (!node.data.attr.hasOwnProperty(attr_key)) continue;
 
                     let label = document.createElement('label');
                     label.classList.add('form-label');
@@ -138,21 +137,22 @@
 
                     let original = document.createElement('div');
                     original.classList.add('original');
-                    original.textContent = data.attr[attr_key][0];
+                    original.textContent = node.data.attr[attr_key][0];
+                    original.classList.add('level-' + node.data.attr[attr_key][3] + '');
 
                     label.appendChild(original);
 
                     let input = document.createElement('textarea');
-                    input.name = window.novembit.i18n.prefix + "-form[" + data.attr[attr_key][0] + "]";
-                    input.value = data.attr[attr_key][1];
+                    input.name = window.novembit.i18n.prefix + "-form[" + node.data.attr[attr_key][0] + "]";
+                    input.value = node.data.attr[attr_key][1];
                     input.oninput = function () {
-                        editor.updateNodeAttr(node, attr_key, this.value, data.text[i][4], data.text[i][5]);
+                        editor.updateNodeAttr(node, attr_key, this.value, node.data.attr[attr_key][4], node.data.attr[attr_key][5]);
                         if (this.form.classList.contains('saved')) {
                             this.form.classList.remove('saved');
                         }
                     };
 
-                    if (data.attr[attr_key][2] !== 'text') {
+                    if (node.data.attr[attr_key][2] !== 'text') {
                         input.disabled = true;
                         let hint = document.createElement('p');
                         hint.innerText = '* Is not text value.';
@@ -177,7 +177,7 @@
 
                 inspector.appendChild(forms);
 
-                selector.appendChild(inspector);
+                node.selector.appendChild(inspector);
 
             } else {
                 inspector.classList.add('visible');
@@ -231,82 +231,137 @@
                 text: this.getNodeText(node),
             };
         },
-        activeSelector: function (selector) {
-            let siblings = selector.parentElement.getElementsByClassName('active');
+        activeSelector: function (node) {
+            let siblings = node.selector.parentElement.getElementsByClassName('active');
             for (let i = 0; i < siblings.length; i++) {
                 siblings[i].classList.remove('active');
             }
-            selector.classList.add('active');
+            node.selector.classList.add('active');
         },
-        inactiveSelector: function (selector) {
-            selector.classList.remove('active');
+        inactiveSelector: function (node) {
+            node.selector.classList.remove('active');
         },
-        expandSelector: function (selector) {
-            let siblings = selector.parentElement.getElementsByClassName('expanded');
+        expandSelector: function (node) {
+            let siblings = node.selector.parentElement.getElementsByClassName('expanded');
             for (let i = 0; i < siblings.length; i++) {
-                this.unexpandSelector(siblings[i]);
+                siblings[i].classList.remove('expanded');
             }
-            selector.classList.add('expanded');
+            node.selector.classList.add('expanded');
         },
-        unexpandSelector: function (selector) {
-            selector.classList.remove('expanded');
+        unexpandSelector: function (node) {
+            node.selector.classList.remove('expanded');
         },
-        initSelectors: function initSelectors() {
+        showNodeContextMenu:function(node){
+            let editor = this;
+        },
+        initSelectors: function () {
             let editor = this;
             let nodes = document.body.querySelectorAll(this.text_node_selector + ',' + this.attr_node_selector);
             for (let i = 0; i < nodes.length; i++) {
                 this.last_node_index++;
                 let key = this.last_node_index;
-                let node = nodes[i], nodePos = this.getNodeOffset(node), selector = null;
+                let node = nodes[i], nodePos = this.getNodeOffset(node);
 
-                if (!node.hasAttribute(this.node_num_attr)) {
-                    let data = editor.getNodeData(node);
+                if (!node.hasOwnProperty('data')) {
 
-                    selector = document.createElement('div');
+                    node.data = editor.getNodeData(node);
+
+                    node.selector = document.createElement('div');
                     node.setAttribute(this.node_num_attr, key);
-                    selector.setAttribute('n', key);
+                    node.selector.setAttribute('n', key);
 
                     node.onmouseover = function () {
-                        editor.initNodeInspector(selector, node);
+                        editor.initNodeInspector(node);
                         editor.markNode(node);
                     };
                     node.onmouseout = function () {
                         editor.unMarkNode(node);
                     };
-                    selector.onclick = function () {
-                        editor.activeSelector(this);
-                        editor.expandSelector(selector);
+
+                    node.addEventListener("contextmenu", function (e) {
+                        e.preventDefault();
+                        let posX = (e.clientX + 150 > document.documentElement.clientWidth) ? e.clientX - 150 : e.clientX;
+                        let posY = (e.clientY + 140 + 55 > document.documentElement.clientHeight) ? e.clientY - 140 : e.clientY;
+                        editor.context_menu.style.top = posY + "px";
+                        editor.context_menu.style.left = posX + "px";
+                        editor.context_menu.classList.add("shown");
+                        editor.context_menu.querySelector('.translate').onclick = function(){
+                            editor.activeSelector(node);
+                            editor.expandSelector(node);
+                            editor.context_menu.classList.remove("shown");
+                        }
+                    });
+
+                    node.selector.onclick = function () {
+                        editor.activeSelector(node);
+                        editor.expandSelector(node);
                     };
                     /*
                     * On mouse hovered on selector
                     * */
-                    selector.onmouseover = function () {
-                        editor.activeSelector(this);
+                    node.selector.onmouseover = function () {
+                        editor.activeSelector(node);
                         editor.markNode(node);
-                        editor.initNodeInspector(selector, node);
+                        editor.initNodeInspector(node);
                     };
                     /*
                     * Mouse leave selector
                     * */
-                    selector.onmouseout = function () {
-                        editor.inactiveSelector(this);
+                    node.selector.onmouseout = function () {
+                        editor.inactiveSelector(node);
                         editor.unMarkNode(node);
                     };
 
-                    this.wrapper.appendChild(selector);
+                    if (typeof node.data.text[0] !== 'undefined' && typeof node.data.text[0][3] !== 'undefined') {
+                        node.selector.classList.add('level-' + node.data.text[0][3] + '-bg');
+                    }
+
+                    this.wrapper.appendChild(node.selector);
                 } else {
                     key = node.getAttribute(this.node_num_attr);
-                    selector = editor.wrapper.querySelector("[n=\"" + key + "\"]");
+                    node.selector = editor.wrapper.querySelector("[n=\"" + key + "\"]");
                 }
 
-                selector.style.position = this.isNodeFixed(node) ? 'fixed' : 'absolute';
-                selector.style.top = nodePos.top + "px";
-                selector.style.left = nodePos.left + "px";
+
+                node.selector.style.position = this.isNodeFixed(node) ? 'fixed' : 'absolute';
+                node.selector.style.top = nodePos.top + "px";
+                node.selector.style.left = nodePos.left + "px";
             }
+        },
+        initContextMenu : function(){
+            let editor = this;
+
+            this.context_menu.id = window.novembit.i18n.prefix + "-context-menu";
+
+            let item = document.createElement('a');
+            item.href = "javascript:;";
+            item.classList.add("title");
+            item.innerHTML = "<b>Menu</b>";
+
+            this.context_menu.appendChild(item);
+
+            item = document.createElement('a');
+            item.href = "javascript:;";
+            item.classList.add("translate");
+            item.innerText = "Translate";
+
+            this.context_menu.appendChild(item);
+            document.body.appendChild(this.context_menu);
+
+            document.addEventListener("click", function (e) {
+                let target = e.target;
+                while (target.nodeType !== Node.DOCUMENT_NODE) {
+                    if (target === editor.context_menu) return;
+                    else target = target.parentNode;
+                }
+                editor.context_menu.classList.remove("shown");
+
+            });
         },
         start: function () {
             document.body.appendChild(this.wrapper);
             this.wrapper.id = window.novembit.i18n.prefix + "-editor-wrapper";
+            this.initContextMenu();
             this.initSelectors();
         },
         update: function () {
@@ -327,12 +382,13 @@
         }
     }
 
+
     window.onload = function () {
         this.novembit.i18n.editor.start();
     };
 
     stopScroll(window, function () {
         window.novembit.i18n.editor.update();
-    })
+    });
 
 })();

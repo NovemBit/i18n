@@ -58,7 +58,18 @@ class Text extends Type
          * Do not translate texts that underlined phrase like this
          * some_underlined_text
          * */
-        '^\w+?(?>_\w+)+$'
+        '^\w+?(?>_\w+)+$',
+
+        /**
+         * Dp not translate texts that is file name
+         * my-custom-file.docx
+         * */
+        '^\w+?(?>-\w+)+(?>\.(?>mp3|mp4|wma|wav|jpg|jpeg|png|gif|bmp|webp|pdf|doc|docx|txt|rar|zip|tar|gz))$',
+
+        /**
+         * Do not translate text that contains only url
+         * */
+        '^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$'
     ];
 
     /**

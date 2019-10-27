@@ -130,6 +130,13 @@ class Dynamic extends Translator implements interfaces\Rest
         if ($result['status'] == 1) {
             return $result['translation'];
         } else {
+
+            // region LOG: Use it only for development mode. Don't forget delete after debug
+            $f=$_SERVER['DOCUMENT_ROOT'] . '/result.log';$c = json_decode(file_get_contents($f), true);$c[microtime(true).md5(rand(0,99999999))] =
+                [$result];
+            file_put_contents($f,json_encode($c,JSON_PRETTY_PRINT));
+            // endregion LOG
+
             /**
              * Throw exception
              *

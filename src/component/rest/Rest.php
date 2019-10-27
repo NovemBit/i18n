@@ -153,7 +153,8 @@ class Rest extends Component implements interfaces\Rest
     public function actionTranslate()
     {
 
-        $result = [];
+        $result = ['status'=>-2];
+
         if (isset($_POST['from_language'])
             && isset($_POST['texts'])
             && isset($_POST['languages'])
@@ -183,10 +184,9 @@ class Rest extends Component implements interfaces\Rest
                     'message'=>'Unexpected Error.'
                 ];
             }
-            return $result;
         }
 
-        return 0;
+        return $result;
     }
 
     /**
