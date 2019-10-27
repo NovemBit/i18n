@@ -97,6 +97,7 @@ class Dynamic extends Translator implements interfaces\Rest
     public function doTranslate(array $texts): array
     {
 
+        $translation = [];
         $url = URL::buildUrl(
             [
                 'scheme' => $this->ssl ? "https" : "http",
@@ -108,13 +109,15 @@ class Dynamic extends Translator implements interfaces\Rest
 
         $ch = curl_init($url);
 
+        $query = [
+            'from_language' => $this->context->context->languages->from_language,
+            'languages' => $this->context->getLanguages(),
+            'type' => $this->getType(),
+            'texts' => $texts
+        ];
+
         $data = http_build_query(
-            [
-                'from_language' => $this->context->context->languages->from_language,
-                'languages' => $this->context->getLanguages(),
-                'type' => $this->getType(),
-                'texts' => $texts
-            ]
+            $query
         );
 
         curl_setopt($ch, CURLOPT_POST, true);
@@ -123,30 +126,36 @@ class Dynamic extends Translator implements interfaces\Rest
 
         $result = curl_exec($ch);
 
+        if ($result === false) {
+
+            /**
+             * Error reporting for dynamic hub
+             *
+             * @todo log curl error
+             * */
+
+            throw new TranslationException(
+                "Dynamic hub: Cannot connect to dynamic hub."
+            );
+
+        }
+
         curl_close($ch);
 
         $result = json_decode($result, true);
 
         if ($result['status'] == 1) {
-            return $result['translation'];
+            $translation = $result['translation'];
         } else {
-
-            // region LOG: Use it only for development mode. Don't forget delete after debug
-            $f=$_SERVER['DOCUMENT_ROOT'] . '/result.log';$c = json_decode(file_get_contents($f), true);$c[microtime(true).md5(rand(0,99999999))] =
-                [$result];
-            file_put_contents($f,json_encode($c,JSON_PRETTY_PRINT));
-            // endregion LOG
 
             /**
              * Throw exception
              *
-             * @todo Split errors
+             * @todo Create error reporting
              * */
-            throw new TranslationException(
-                "Dynamic hub: response unexpected error."
-            );
         }
 
+        return $translation;
     }
 
     /**
