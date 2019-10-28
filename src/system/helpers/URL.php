@@ -29,13 +29,13 @@ class URL
     /**
      * Adding query parameters to URL
      *
-     * @param string $url        Initial url
-     * @param string $paramName  Parameter name (key)
-     * @param string $paramValue Value of parameter
+     * @param string $url   Initial url
+     * @param string $name  Parameter name (key)
+     * @param string $value Value of parameter
      *
      * @return string
      */
-    public static function addQueryVars($url, $paramName, $paramValue)
+    public static function addQueryVars($url, $name, $value)
     {
 
         $url_data = parse_url($url);
@@ -45,7 +45,7 @@ class URL
 
         $params = array();
         parse_str($url_data['query'], $params);
-        $params[$paramName] = $paramValue;
+        $params[$name] = $value;
         $url_data['query'] = http_build_query($params);
 
         return self::buildUrl($url_data);
