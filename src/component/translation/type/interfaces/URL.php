@@ -25,4 +25,5 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
 interface URL extends Type
 {
 
+    public function isPathTranslation(): bool;
 }
