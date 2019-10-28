@@ -13,9 +13,7 @@
 
 namespace NovemBit\i18n\component\request;
 
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\request\exceptions\RequestException;
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
@@ -256,7 +254,6 @@ class Request extends Component implements interfaces\Request
      * @param string $to_language Language of translated string
      *
      * @return string|null
-     * @throws TranslationException
      */
     private function _getSourceUrlFromTranslate(
         string $translate,
@@ -322,8 +319,6 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws LanguageException
-     * @throws TranslationException
      */
     private function _prepareReferer(): bool
     {
@@ -349,7 +344,6 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws TranslationException
      */
     private function _prepareRefererSourceUrl(): bool
     {
@@ -386,7 +380,6 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws TranslationException
      * @throws RequestException
      */
     private function _prepareSourceUrl(): bool
@@ -482,9 +475,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return boolean
      *
-     * @throws LanguageException
      * @throws RequestException
-     * @throws TranslationException
      */
     private function _prepare(): bool
     {
@@ -528,7 +519,6 @@ class Request extends Component implements interfaces\Request
      * Prepare Referer language
      *
      * @return bool
-     * @throws LanguageException
      */
     private function _prepareRefererLanguage(): bool
     {
@@ -565,8 +555,6 @@ class Request extends Component implements interfaces\Request
      * Prepare language
      *
      * @return bool
-     *
-     * @throws LanguageException
      */
     private function _prepareLanguage(): bool
     {
@@ -713,9 +701,7 @@ class Request extends Component implements interfaces\Request
      * Start request translation
      *
      * @return void
-     * @throws LanguageException
      * @throws RequestException
-     * @throws TranslationException
      */
     public function start(): void
     {
