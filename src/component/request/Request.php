@@ -108,6 +108,13 @@ class Request extends Component implements interfaces\Request
     private $_url_translations;
 
     /**
+     * Editor urls
+     *
+     * @var array
+     * */
+    private $_editor_url_translations;
+
+    /**
      * Translations of referer
      *
      * @var array
@@ -119,7 +126,7 @@ class Request extends Component implements interfaces\Request
      *
      * @var bool
      * */
-    private $_is_editor;
+    private $_is_editor = false;
 
     /**
      * Allow to use editor
@@ -276,6 +283,12 @@ class Request extends Component implements interfaces\Request
             $dest,
             $this->context->languages->getLanguageQueryKey()
         );
+
+        $dest = URL::removeQueryVars(
+            $dest,
+            $this->context->prefix."-".$this->editor_query_key
+        );
+
         $dest = urldecode($dest);
         $this->_setDestination($dest);
         return true;
@@ -384,9 +397,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      * @throws TranslationException
-     * @throws LanguageException
      * @throws RequestException
-     * @throws ActiveRecordException
      */
     private function _prepareSourceUrl()
     {
@@ -484,7 +495,6 @@ class Request extends Component implements interfaces\Request
      * @throws LanguageException
      * @throws RequestException
      * @throws TranslationException
-     * @throws ActiveRecordException
      */
     private function _prepare()
     {
@@ -494,26 +504,6 @@ class Request extends Component implements interfaces\Request
 
         $this->_setTranslation($this->context->translation);
         $this->setFromLanguage($this->context->languages->getFromLanguage());
-
-        /**
-         * If isset editor query key
-         * And current language is not equal from language
-         * Then set editor status true to initialize editor JavaScript
-         * */
-        if ($this->allow_editor
-            && isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
-            && $this->getLanguage() != $this->getFromLanguage()
-        ) {
-
-            $this->_is_editor = true;
-
-            /**
-             * Enable helper attributes to use for editor
-             *
-             * @see HTML::$_helper_attributes
-             * */
-            $this->context->translation->html->setHelperAttributes(true);
-        }
 
         return $this->_prepareLanguage()
             && $this->_prepareDestination()
@@ -597,7 +587,7 @@ class Request extends Component implements interfaces\Request
             return false;
         }
 
-        $_SERVER["ORIG_REQUEST_URI"] = $_SERVER["REQUEST_URI"];
+        $_SERVER['ORIG_REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
         /**
          * Taking language from current @REQUEST_URI
@@ -695,13 +685,11 @@ class Request extends Component implements interfaces\Request
      * Save Editor if request is POST and has parameter %prefix%-form
      *
      * @return bool
-     * @throws LanguageException
-     * @throws ActiveRecordException
      */
     private function _editorSave(): bool
     {
 
-        if ($this->_is_editor == true
+        if ($this->isEditor()
             && isset($_POST[$this->context->prefix . '-form'])
         ) {
             $nodes = $_POST[$this->context->prefix . '-form'];
@@ -748,8 +736,42 @@ class Request extends Component implements interfaces\Request
             return;
         }
 
-        if ($this->_editorSave()) {
-            die;
+        /**
+         * If isset editor query key
+         * And current language is not equal from language
+         * Then set editor status true to initialize editor JavaScript
+         * */
+        if ($this->allow_editor) {
+
+            /**
+             * Adding editor urls
+             * */
+            foreach ($this->getUrlTranslations() as $language => $url) {
+                if ($language != $this->getFromLanguage()) {
+                    $this->_editor_url_translations[$language] = URL::addQueryVars(
+                        $url,
+                        $this->context->prefix . '-' . $this->editor_query_key,
+                        true
+                    );
+                }
+            }
+
+            if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
+                && ($this->getLanguage() != $this->getFromLanguage())
+            ) {
+                $this->_is_editor = true;
+
+                /**
+                 * Enable helper attributes to use for editor
+                 *
+                 * @see HTML::$_helper_attributes
+                 * */
+                $this->context->translation->html->setHelperAttributes(true);
+            }
+
+            if ($this->_editorSave()) {
+                die;
+            }
         }
 
         ob_start([$this, 'translateBuffer']);
@@ -804,20 +826,34 @@ class Request extends Component implements interfaces\Request
         $config = json_encode(
             [
                 'i18n' => [
+
                     'current_language' => $this->getLanguage(),
+
                     'accept_languages' => $this->context->languages
-                        ->getAcceptLanguages(),
+                        ->getAcceptLanguages(true),
+
                     'language_query_key' => $this->context->languages
                         ->getLanguageQueryKey(),
-                    'editor_query_key' => $this->editor_query_key,
+
+                    'editor'=>[
+                        'is_editor'=>$this->isEditor(),
+                        'query_key' => $this->editor_query_key,
+                        'url_translations' => $this->getEditorUrlTranslations()
+                    ],
+
                     'prefix' => $this->context->prefix,
-                    'orig_uri' => $this->getDestination(),
+
+                    'orig_request_uri' => URL::removeQueryVars(
+                        $_SERVER['ORIG_REQUEST_URI'],
+                        $this->context->prefix.'-'.$this->editor_query_key
+                    ),
+
+                    'destination' => $this->getDestination(),
                     'uri' => $this->getSourceUrl(),
                     'orig_referer' => $this->getReferer(),
                     'referer' => $this->getRefererSourceUrl(),
                     'url_translations' => $this->getUrlTranslations(),
                     'referer_translations' => $this->getRefererTranslations(),
-
                 ]
             ]
         );
@@ -1005,5 +1041,21 @@ class Request extends Component implements interfaces\Request
     public function setFromLanguage(string $from_language)
     {
         $this->_from_language = $from_language;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditor(): bool
+    {
+        return $this->_is_editor;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEditorUrlTranslations(): array
+    {
+        return $this->_editor_url_translations;
     }
 }
