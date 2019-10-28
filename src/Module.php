@@ -80,9 +80,6 @@ class Module extends system\Component
      * Start request translation
      *
      * @return void
-     * @throws component\languages\exceptions\LanguageException
-     * @throws component\request\exceptions\RequestException
-     * @throws component\translation\exceptions\TranslationException
      */
     public function start()
     {
