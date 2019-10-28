@@ -16,13 +16,12 @@ namespace NovemBit\i18n\component\request;
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\request\exceptions\RequestException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\component\translation\Translation;
-use NovemBit\i18n\component\translation\type\HTML;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
-use NovemBit\i18n\Module;
-use NovemBit\i18n\system\Component;
-use NovemBit\i18n\system\helpers\URL;
+use NovemBit\i18n\component\translation\type\interfaces\HTML;
+use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\URL;
+use NovemBit\i18n\system\Component;
+use NovemBit\i18n\Module;
 
 /**
  * Request component main class.
@@ -210,7 +209,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getRefererSourceUrl(): string
+    public function getRefererSourceUrl(): ?string
     {
         return $this->_referer_source_url;
     }
@@ -222,7 +221,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererSourceUrl(string $_referer_source_url): void
+    public function setRefererSourceUrl(?string $_referer_source_url): void
     {
         $this->_referer_source_url = $_referer_source_url;
     }
@@ -253,10 +252,10 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
-     * @return null
+     * @return string|null
      * @throws TranslationException
      */
     private function _getSourceUrlFromTranslate(
@@ -301,7 +300,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getReferer(): string
+    public function getReferer(): ?string
     {
         return $this->_referer;
     }
@@ -313,7 +312,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setReferer($_referer): void
+    public function setReferer(string $_referer): void
     {
         $this->_referer = $_referer;
     }
@@ -360,18 +359,8 @@ class Request extends Component implements interfaces\Request
          * */
         if ($this->getRefererLanguage() == $this->getFromLanguage()) {
 
-            /**
-             * Temporary commented code to make sure this part is necessary
-             *
-             * @todo Adjust necessity for referer translations.
-             * */
-            /*$this->setRefererTranslations(
-                $this->getTranslation()
-                    ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->url->translate([$this->getReferer()])[$this->getReferer()]
-            );*/
-
             $this->setRefererSourceUrl($this->getReferer());
+
         } else {
             /*
             * Set referrer source origin URL
@@ -408,6 +397,7 @@ class Request extends Component implements interfaces\Request
          * */
         if ($this->getLanguage() == $this->getFromLanguage()
             || $this->getDestination() == '/'
+            || !$this->getTranslation()->url->isPathTranslation()
         ) {
 
             $this->_setUrlTranslations(
@@ -457,7 +447,6 @@ class Request extends Component implements interfaces\Request
             if (isset($this->on_page_not_found)
                 && is_callable($this->on_page_not_found)
             ) {
-
                 call_user_func($this->on_page_not_found, $this);
                 return false;
 
@@ -644,7 +633,6 @@ class Request extends Component implements interfaces\Request
      * @param string $content content of request buffer
      *
      * @return string
-     * @throws TranslationException
      */
     public function translateBuffer($content): string
     {
@@ -938,7 +926,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getSourceUrl(): string
+    public function getSourceUrl(): ?string
     {
         return $this->_source_url;
     }
@@ -950,7 +938,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setSourceUrl(string $source_url): void
+    private function _setSourceUrl(?string $source_url): void
     {
         $this->_source_url = $source_url;
     }
@@ -960,7 +948,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return array
      */
-    public function getUrlTranslations(): array
+    public function getUrlTranslations(): ?array
     {
         return $this->_url_translations;
     }
@@ -972,7 +960,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setUrlTranslations(array $url_translations): void
+    private function _setUrlTranslations(?array $url_translations): void
     {
         $this->_url_translations = $url_translations;
     }
