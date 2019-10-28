@@ -17,9 +17,9 @@ use NovemBit\i18n\component\translation\type\interfaces\URL;
  * */
 interface Translation
 {
-    public function getFromLanguage() : string;
+    public function getFromLanguage(): string;
 
-    public function setLanguages($_languages);
+    public function setLanguages($_languages): self;
 
     public function getLanguages(): array;
 

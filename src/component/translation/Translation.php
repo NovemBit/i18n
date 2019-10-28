@@ -14,7 +14,6 @@
 namespace NovemBit\i18n\component\translation;
 
 
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\system\Component;
@@ -84,7 +83,7 @@ class Translation extends Component implements interfaces\Translation
      * @return self
      * @throws TranslationException
      */
-    public function setLanguages($_languages)
+    public function setLanguages($_languages) : interfaces\Translation
     {
         if (is_string($_languages)) {
             $_languages = [$_languages];
@@ -118,7 +117,6 @@ class Translation extends Component implements interfaces\Translation
      * Get from language from Languages component
      *
      * @return string
-     * @throws LanguageException
      */
     public function getFromLanguage() : string
     {

@@ -14,7 +14,6 @@
 namespace NovemBit\i18n\component\translation;
 
 
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
@@ -125,9 +124,9 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * After translate method
      *
-     * @param array $translations Translations array
+     * @param array      $translations Translations array
+     * @param array|null $verbose      Verbose
      *
-     * @param array|null $verbose
      * @return void
      */
     public function afterTranslate(
@@ -144,11 +143,10 @@ abstract class Translator extends Component implements interfaces\Translator
      * Using \NovemBit\i18n\models\Translation model
      *
      * @param array $translations Referenced variable of translations
-     * @param array $texts Referenced variable of initial texts
-     * @param array $verbose Information about progress
+     * @param array $texts        Referenced variable of initial texts
+     * @param array $verbose      Information about progress
      *
      * @return void
-     * @throws LanguageException
      * @throws TranslationException
      */
     private function _fetchSavedTranslations(
@@ -208,12 +206,11 @@ abstract class Translator extends Component implements interfaces\Translator
      * To make translations, its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts Texts array to translate
+     * @param array $texts   Texts array to translate
      * @param array $verbose Information about translation progress
      *
      * @return array
      * @throws ActiveRecordException
-     * @throws LanguageException
      * @throws TranslationException
      */
     public function translate(array $texts, ?array &$verbose = null): array
@@ -287,7 +284,6 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      * @throws exceptions\TranslationException
-     * @throws LanguageException
      */
     public function reTranslate(array $texts): array
     {
@@ -434,8 +430,8 @@ abstract class Translator extends Component implements interfaces\Translator
      * Validate after ReTranslate
      *
      * @param string $before Initial value of string
-     * @param string $after final value of string
-     * @param array $result Referenced variable array of results
+     * @param string $after  final value of string
+     * @param array  $result Referenced variable array of results
      *
      * @return bool
      */
@@ -460,10 +456,10 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate after translate
      *
-     * @param string $before initial value of string
-     * @param string $after final value of string
-     * @param array $translates Referenced variable of already translated values
-     * @param array|null $verbose Verbose
+     * @param string     $before     initial value of string
+     * @param string     $after      final value of string
+     * @param array      $translates Referenced variable of already translated values
+     * @param array|null $verbose    Verbose
      *
      * @return bool
      */
@@ -501,8 +497,8 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate all after translate
      *
-     * @param array $translates Array of translations
-     * @param array|null $verbose Verbose
+     * @param array      $translates Array of translations
+     * @param array|null $verbose    Verbose
      *
      * @return void
      */
@@ -561,12 +557,12 @@ abstract class Translator extends Component implements interfaces\Translator
     {
         usort(
             $this->exclusions, function ($a, $b) {
-            if (strpos($a, $b) !== false) {
-                return false;
-            } else {
-                return true;
+                if (strpos($a, $b) !== false) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
-        }
         );
     }
 
@@ -607,13 +603,12 @@ abstract class Translator extends Component implements interfaces\Translator
      * Main method to save translations in DB
      *
      * @param array $translations Translations of texts
-     * @param int $level Level of translation
-     * @param bool $overwrite If translation exists, then overwrite value
-     * @param array $result Result about saving
+     * @param int   $level        Level of translation
+     * @param bool  $overwrite    If translation exists, then overwrite value
+     * @param array $result       Result about saving
      *
      * @return void
      * @throws ActiveRecordException
-     * @throws LanguageException
      */
     public function saveModels(
         $translations,
@@ -645,12 +640,11 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Main method to get translations from DB
      *
-     * @param array $texts Texts array to translate
+     * @param array $texts        Texts array to translate
      * @param array $to_languages To languages list
-     * @param bool $reverse Use translate column as source (ReTranslate)
+     * @param bool  $reverse      Use translate column as source (ReTranslate)
      *
      * @return array
-     * @throws LanguageException
      */
     public function getModels(
         $texts,

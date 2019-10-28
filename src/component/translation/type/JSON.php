@@ -107,10 +107,10 @@ class JSON extends Type
     /**
      * Recursive array walk with callback and route
      *
-     * @param array $arr Main array
-     * @param callable $callback Callback function with 3 params (key/val/route)
-     * @param string $route Parent route
-     * @param string $separator Route separator
+     * @param array    $arr       Main array
+     * @param callable $callback  Callback function with 3 params (key/val/route)
+     * @param string   $route     Parent route
+     * @param string   $separator Route separator
      *
      * @return void
      */

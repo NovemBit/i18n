@@ -16,7 +16,6 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Translator;
@@ -150,7 +149,6 @@ class HTML extends Type implements interfaces\HTML
      *
      * @return mixed
      * @throws TranslationException
-     * @throws LanguageException
      * @throws ActiveRecordException
      *
      * @see DOMText
