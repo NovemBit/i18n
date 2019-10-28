@@ -54,6 +54,15 @@ interface Languages
     public function getFromLanguage() : string;
 
     /**
+     * Set main from language
+     *
+     * @param string $from_language from language code
+     *
+     * @return void
+     */
+    public function setFromLanguage(string $from_language): void;
+
+    /**
      * Get default language
      *
      * @return string
@@ -75,5 +84,7 @@ interface Languages
      * @return string
      */
     public function getLanguageQueryKey() : string;
+
+    public function getAcceptLanguages($with_names = false) : array;
 
 }
