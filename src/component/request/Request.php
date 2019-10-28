@@ -210,7 +210,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getRefererSourceUrl()
+    public function getRefererSourceUrl(): string
     {
         return $this->_referer_source_url;
     }
@@ -222,7 +222,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererSourceUrl($_referer_source_url)
+    public function setRefererSourceUrl(string $_referer_source_url): void
     {
         $this->_referer_source_url = $_referer_source_url;
     }
@@ -232,7 +232,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return array
      */
-    public function getRefererTranslations()
+    public function getRefererTranslations(): ?array
     {
         return $this->_referer_translations;
     }
@@ -244,7 +244,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererTranslations($_referer_translations)
+    public function setRefererTranslations(array $_referer_translations): void
     {
         $this->_referer_translations = $_referer_translations;
     }
@@ -253,14 +253,16 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate   Translated url
+     * @param string $translate Translated url
      * @param string $to_language Language of translated string
      *
      * @return null
      * @throws TranslationException
      */
-    private function _getSourceUrlFromTranslate($translate, $to_language)
-    {
+    private function _getSourceUrlFromTranslate(
+        string $translate,
+        string $to_language
+    ): ?string {
 
         $re_translate = $this->context->translation
             ->setLanguages($to_language)->url->reTranslate([$translate]);
@@ -276,7 +278,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _prepareDestination()
+    private function _prepareDestination(): bool
     {
         $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars(
@@ -286,7 +288,7 @@ class Request extends Component implements interfaces\Request
 
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->prefix."-".$this->editor_query_key
+            $this->context->prefix . "-" . $this->editor_query_key
         );
 
         $dest = urldecode($dest);
@@ -299,7 +301,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getReferer()
+    public function getReferer(): string
     {
         return $this->_referer;
     }
@@ -311,7 +313,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setReferer($_referer)
+    public function setReferer($_referer): void
     {
         $this->_referer = $_referer;
     }
@@ -324,7 +326,7 @@ class Request extends Component implements interfaces\Request
      * @throws LanguageException
      * @throws TranslationException
      */
-    private function _prepareReferer()
+    private function _prepareReferer(): bool
     {
         if (isset($_SERVER['HTTP_REFERER'])) {
             $this->_prepareRefererLanguage();
@@ -348,10 +350,9 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
-     * @throws LanguageException
      * @throws TranslationException
      */
-    private function _prepareRefererSourceUrl()
+    private function _prepareRefererSourceUrl(): bool
     {
         /*
          * If current language is default language
@@ -399,7 +400,7 @@ class Request extends Component implements interfaces\Request
      * @throws TranslationException
      * @throws RequestException
      */
-    private function _prepareSourceUrl()
+    private function _prepareSourceUrl(): bool
     {
         /*
          * If current language is from_language
@@ -474,7 +475,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _isExclusion()
+    private function _isExclusion(): bool
     {
         foreach ($this->exclusions as $exclusion) {
             if (is_callable($exclusion)) {
@@ -496,7 +497,7 @@ class Request extends Component implements interfaces\Request
      * @throws RequestException
      * @throws TranslationException
      */
-    private function _prepare()
+    private function _prepare(): bool
     {
         if ($this->_isExclusion()) {
             return false;
@@ -517,7 +518,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getRefererLanguage()
+    public function getRefererLanguage(): string
     {
         return $this->_referer_language;
     }
@@ -525,11 +526,11 @@ class Request extends Component implements interfaces\Request
     /**
      * Set Referer Language
      *
-     * @param mixed $_referer_language Referer language
+     * @param string $_referer_language Referer language
      *
      * @return void
      */
-    public function setRefererLanguage($_referer_language)
+    public function setRefererLanguage(string $_referer_language): void
     {
         $this->_referer_language = $_referer_language;
     }
@@ -537,10 +538,10 @@ class Request extends Component implements interfaces\Request
     /**
      * Prepare Referer language
      *
-     * @return boolean
+     * @return bool
      * @throws LanguageException
      */
-    private function _prepareRefererLanguage()
+    private function _prepareRefererLanguage(): bool
     {
 
         $_SERVER["ORIG_HTTP_REFERER"] = $_SERVER["HTTP_REFERER"];
@@ -574,11 +575,11 @@ class Request extends Component implements interfaces\Request
     /**
      * Prepare language
      *
-     * @return boolean
+     * @return bool
      *
      * @throws LanguageException
      */
-    private function _prepareLanguage()
+    private function _prepareLanguage(): bool
     {
         /**
          * Check if tried to access from cli
@@ -622,7 +623,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _removeLanguageFromURI(&$uri)
+    private function _removeLanguageFromURI(&$uri): void
     {
         $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
@@ -645,7 +646,7 @@ class Request extends Component implements interfaces\Request
      * @return string
      * @throws TranslationException
      */
-    public function translateBuffer($content)
+    public function translateBuffer($content): string
     {
         $status = http_response_code();
 
@@ -727,9 +728,8 @@ class Request extends Component implements interfaces\Request
      * @throws LanguageException
      * @throws RequestException
      * @throws TranslationException
-     * @throws ActiveRecordException
      */
-    public function start()
+    public function start(): void
     {
 
         if (!$this->_prepare()) {
@@ -783,7 +783,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getHeadAdditionalTags()
+    private function _getHeadAdditionalTags(): string
     {
         $tags = '';
 
@@ -805,7 +805,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getAlternateLinkTags()
+    private function _getAlternateLinkTags(): string
     {
         $tags = '';
         foreach ($this->getUrlTranslations() as $language => $translate) {
@@ -821,7 +821,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getMainJavaScriptTag()
+    private function _getMainJavaScriptTag(): string
     {
         $config = json_encode(
             [
@@ -835,8 +835,8 @@ class Request extends Component implements interfaces\Request
                     'language_query_key' => $this->context->languages
                         ->getLanguageQueryKey(),
 
-                    'editor'=>[
-                        'is_editor'=>$this->isEditor(),
+                    'editor' => [
+                        'is_editor' => $this->isEditor(),
                         'query_key' => $this->editor_query_key,
                         'url_translations' => $this->getEditorUrlTranslations()
                     ],
@@ -845,7 +845,7 @@ class Request extends Component implements interfaces\Request
 
                     'orig_request_uri' => URL::removeQueryVars(
                         $_SERVER['ORIG_REQUEST_URI'],
-                        $this->context->prefix.'-'.$this->editor_query_key
+                        $this->context->prefix . '-' . $this->editor_query_key
                     ),
 
                     'destination' => $this->getDestination(),
@@ -867,7 +867,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getEditorAssetsTags()
+    private function _getEditorAssetsTags(): string
     {
         $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
         $css = file_get_contents(__DIR__ . '/assets/css/editor.css');
@@ -905,7 +905,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _getXHRManipulationJavaScriptTag()
+    private function _getXHRManipulationJavaScriptTag(): string
     {
         $script = file_get_contents(__DIR__ . '/assets/js/xhr.js');
         return "<script type=\"application/javascript\">{$script}</script>";
@@ -916,7 +916,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getDestination()
+    public function getDestination(): string
     {
         return $this->_destination;
     }
@@ -928,7 +928,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setDestination($destination)
+    private function _setDestination(string $destination): void
     {
         $this->_destination = $destination;
     }
@@ -938,7 +938,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getSourceUrl()
+    public function getSourceUrl(): string
     {
         return $this->_source_url;
     }
@@ -950,7 +950,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setSourceUrl($source_url)
+    private function _setSourceUrl(string $source_url): void
     {
         $this->_source_url = $source_url;
     }
@@ -960,7 +960,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return array
      */
-    public function getUrlTranslations()
+    public function getUrlTranslations(): array
     {
         return $this->_url_translations;
     }
@@ -972,7 +972,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setUrlTranslations($url_translations)
+    private function _setUrlTranslations(array $url_translations): void
     {
         $this->_url_translations = $url_translations;
     }
@@ -982,7 +982,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->_language;
     }
@@ -994,7 +994,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setLanguage($language)
+    private function _setLanguage($language): void
     {
         $this->_language = $language;
     }
@@ -1004,7 +1004,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return Translation
      */
-    public function getTranslation()
+    public function getTranslation(): Translation
     {
         return $this->_translation;
     }
@@ -1016,7 +1016,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setTranslation(Translation $translation)
+    private function _setTranslation(Translation $translation): void
     {
         $this->_translation = $translation;
     }
@@ -1038,12 +1038,14 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setFromLanguage(string $from_language)
+    public function setFromLanguage(string $from_language): void
     {
         $this->_from_language = $from_language;
     }
 
     /**
+     * If is editor mode
+     *
      * @return bool
      */
     public function isEditor(): bool
@@ -1052,6 +1054,8 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * Get editor urls on all allowed languages
+     *
      * @return array
      */
     public function getEditorUrlTranslations(): array
