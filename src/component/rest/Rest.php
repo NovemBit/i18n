@@ -120,6 +120,7 @@ class Rest extends Component implements interfaces\Rest
             }
 
             if ($actionMethod != '' && method_exists($this, $actionMethod)) {
+                header('Content-Type: application/json');
                 echo json_encode($this->{$actionMethod}());
                 die;
             }
