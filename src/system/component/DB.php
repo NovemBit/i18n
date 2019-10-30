@@ -53,7 +53,7 @@ class DB extends Component
      *
      * @return void
      */
-    public function init() : void
+    public function init(): void
     {
         $this->setConnection(
             new Connection($this->connection)
@@ -77,7 +77,7 @@ class DB extends Component
      *
      * @return void
      */
-    public function setConnection(Connection $_connection)
+    public function setConnection(Connection $_connection): void
     {
         $this->_connection = $_connection;
     }
