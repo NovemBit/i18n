@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n;
 
+
 use NovemBit\i18n\component\languages\interfaces\Languages;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
@@ -30,8 +31,8 @@ use NovemBit\i18n\component\translation\interfaces\Translation;
  * @property Translation translation
  * @property Languages languages
  * @property Request request
- * @property system\component\DB db
  * @property Rest rest
+ * @property system\component\DB db
  */
 class Module extends system\Component
 {

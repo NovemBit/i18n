@@ -317,9 +317,9 @@ class Languages extends Component implements interfaces\Languages
      *
      * @param string $url Simple url
      *
-     * @return string
+     * @return string|null
      */
-    private function _getLanguageFromUrlPath(string $url)
+    private function _getLanguageFromUrlPath(string $url): ?string
     {
         $url = $this->removeScriptNameFromUrl($url);
 
@@ -349,7 +349,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return string|null
      */
-    public function getLanguageFromUrl(string $url)
+    public function getLanguageFromUrl(string $url): ?string
     {
         $language = $this->_getLanguageFromUrlQuery($url);
 
@@ -365,9 +365,9 @@ class Languages extends Component implements interfaces\Languages
      *
      * @param string $url Simple url
      *
-     * @return mixed|string
+     * @return string
      */
-    public function removeScriptNameFromUrl(string $url) :string
+    public function removeScriptNameFromUrl(string $url): string
     {
         $url = ltrim($url, '/ ');
         $url = preg_replace(
@@ -498,7 +498,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return bool
      */
-    public function validateLanguage(string $language) : bool
+    public function validateLanguage(string $language): bool
     {
         if (in_array($language, $this->accept_languages)) {
             return true;
@@ -516,7 +516,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return bool
      */
-    public function validateLanguages(array $languages) : bool
+    public function validateLanguages(array $languages): bool
     {
         foreach ($languages as $language) {
             if (!$this->validateLanguage($language)) {
@@ -534,7 +534,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return array|null
      */
-    public function getAcceptLanguages($with_names = false) : array
+    public function getAcceptLanguages($with_names = false): array
     {
 
         if (!$with_names) {
@@ -591,7 +591,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return mixed
      */
-    public function getFromLanguage() : string
+    public function getFromLanguage(): string
     {
         return $this->from_language;
     }
@@ -631,7 +631,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return mixed
      */
-    public function getLanguageQueryKey() : string
+    public function getLanguageQueryKey(): string
     {
         return $this->language_query_key;
     }
