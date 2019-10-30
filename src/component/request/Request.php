@@ -109,7 +109,7 @@ class Request extends Component implements interfaces\Request
      *
      * @var array
      * */
-    private $_editor_url_translations;
+    private $_editor_url_translations = [];
 
     /**
      * Translations of referer
