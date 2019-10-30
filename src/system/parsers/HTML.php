@@ -200,14 +200,15 @@ class HTML
                  *
                  * @var Rule $rule
                  */
-                $rule = $translate_field['rule'];
+                $rule = $translate_field['rule'] ?? null;
 
-                if (!$rule->validate($node)) {
+                if ($rule === null || !$rule->validate($node)) {
                     continue;
                 }
 
+                $text = $translate_field['text'] ?? null;
 
-                if ($translate_field['text']) {
+                if ($text!=null) {
                     /**
                      * Fetching child nodes to find Text nodes
                      *
@@ -229,17 +230,19 @@ class HTML
                             }
                             call_user_func_array(
                                 $text_callback,
-                                [&$child_node, $translate_field['text'], $rule]
+                                [&$child_node, $text, $rule]
                             );
                         }
                     }
                 }
 
+                $attrs = $translate_field['attrs'] ?? [];
+
                 /**
                  * Fetching current set attrs and checking
                  * If node has attribute with this keys
                  * */
-                foreach ($translate_field['attrs'] as $attr => $type) {
+                foreach ($attrs as $attr => $type) {
                     if ($node->hasAttribute($attr)) {
                         $attr_node = $node->getAttributeNode($attr);
                         /**
@@ -316,7 +319,7 @@ class HTML
     /**
      * Getting translate fields set
      *
-     * @return Rule[]
+     * @return array[]
      */
     public function getTranslateFields() : array
     {
