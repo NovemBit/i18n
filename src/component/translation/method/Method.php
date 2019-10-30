@@ -14,7 +14,7 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 
 

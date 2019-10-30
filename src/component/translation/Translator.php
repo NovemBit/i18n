@@ -27,7 +27,7 @@ use NovemBit\i18n\system\Component;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property Translation context
+ * @property \NovemBit\i18n\component\translation\interfaces\Translation context
  */
 abstract class Translator extends Component implements interfaces\Translator
 {
@@ -147,7 +147,6 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $verbose      Information about progress
      *
      * @return void
-     * @throws TranslationException
      */
     private function _fetchSavedTranslations(
         array &$translations,
@@ -211,7 +210,6 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      * @throws ActiveRecordException
-     * @throws TranslationException
      */
     public function translate(array $texts, ?array &$verbose = null): array
     {
@@ -536,7 +534,7 @@ abstract class Translator extends Component implements interfaces\Translator
         /**
          * Unset unnecessary keys from result
          *
-         * @todo Discus and understand it this part is essential
+         * @todo Discus and understand if this part is essential
          * */
         /*foreach ($this->_translate_original_texts as $before => $after) {
             if ($before != $after) {

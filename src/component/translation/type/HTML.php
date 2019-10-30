@@ -17,7 +17,7 @@ use DOMAttr;
 use DOMElement;
 use DOMText;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\component\translation\Translation;
+use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\parsers\html\Rule;

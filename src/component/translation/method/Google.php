@@ -15,7 +15,6 @@ namespace NovemBit\i18n\component\translation\method;
 
 use Google\Cloud\Core\Exception\GoogleException;
 use Google\Cloud\Translate\TranslateClient;
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\exceptions\MethodException;
 use NovemBit\i18n\component\translation\Translation;
@@ -64,7 +63,6 @@ class Google extends Method
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws LanguageException
      * @throws TranslationException
      */
     public function doTranslate(array $texts) : array
@@ -96,7 +94,6 @@ class Google extends Method
      * @param string $to     Language code
      * @param array  $result Referenced variable of results
      *
-     * @throws LanguageException
      * @return void
      */
     private function _translateOneLanguage(array $texts, $to, &$result) : void

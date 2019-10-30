@@ -16,8 +16,6 @@ namespace NovemBit\i18n\component\translation\rest;
 
 
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\component\translation\method\Method;
-use NovemBit\i18n\component\translation\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\system\helpers\URL;
 use \NovemBit\i18n\component\translation\interfaces;
@@ -31,7 +29,7 @@ use \NovemBit\i18n\component\translation\interfaces;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property Translation context
+ * @property interfaces\Translation context
  */
 class Dynamic extends Translator implements interfaces\Rest
 {
@@ -110,7 +108,7 @@ class Dynamic extends Translator implements interfaces\Rest
         $ch = curl_init($url);
 
         $query = [
-            'from_language' => $this->context->context->languages->from_language,
+            'from_language' => $this->context->context->languages->getFromLanguage(),
             'languages' => $this->context->getLanguages(),
             'type' => $this->getType(),
             'texts' => $texts
