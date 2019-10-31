@@ -516,7 +516,7 @@ abstract class Translator extends Component implements interfaces\Translator
                 if ($before != $after) {
                     $translates[$before] = $translates[$after];
                     if ($verbose !== null) {
-                        $verbose[$before] = $verbose[$after];
+                        $verbose[$before] = $verbose[$after] ?? null;
                     }
                 }
 
