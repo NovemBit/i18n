@@ -63,6 +63,11 @@ class Request extends Component implements interfaces\Request
     private $_language;
 
     /**
+     * @var bool
+     * */
+    private $_is_ready = false;
+
+    /**
      * Language of Referer
      *
      * @var string
@@ -250,7 +255,7 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
      * @return string|null
@@ -645,11 +650,18 @@ class Request extends Component implements interfaces\Request
 
                 if ($type == "html") {
                     $content = preg_replace(
+                        '/(<html)(.*?)(lang=\")(.*?)(\")/is',
+                        '$1$2$3'.$this->getLanguage().'$5',
+                        $content
+                    );
+
+                    $content = preg_replace(
                         '/(<head.*?>)/is',
                         '$1' . PHP_EOL . $this->_getHeadAdditionalTags(),
                         $content,
                         1
                     );
+
                 }
 
             }
@@ -755,6 +767,8 @@ class Request extends Component implements interfaces\Request
                 die;
             }
         }
+
+        $this->setIsReady(true);
 
         ob_start([$this, 'translateBuffer']);
     }
@@ -1043,5 +1057,21 @@ class Request extends Component implements interfaces\Request
     public function getEditorUrlTranslations(): array
     {
         return $this->_editor_url_translations;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsReady(): bool
+    {
+        return $this->_is_ready;
+    }
+
+    /**
+     * @param bool $is_ready
+     */
+    public function setIsReady(bool $is_ready): void
+    {
+        $this->_is_ready = $is_ready;
     }
 }
