@@ -42,13 +42,14 @@ class URL extends Translation
                  * Make unique bundle for multiple columns
                  * */
                 [
-                    ['from_language', 'to_language', 'translate', 'level'],
+                    ['from_language', 'to_language', 'translate', 'level','type'],
                     'unique',
                     'targetAttribute' => [
                         'from_language',
                         'to_language',
                         'translate',
-                        'level'
+                        'level',
+                        'type'
                     ]
                 ],
             ],
