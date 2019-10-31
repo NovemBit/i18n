@@ -48,8 +48,6 @@
                     1
                 );
             }
-
-            console.log(arguments[1]);
         }
         original_xhr.apply(this, arguments);
     }
