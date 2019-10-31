@@ -424,6 +424,7 @@ class Languages extends Component implements interfaces\Languages
          * @notice Dont change this code if you not fully understanding method
          * */
         if ($this->language_on_domain
+            && isset($_SERVER['HTTP_HOST'])
             && isset($this->default_language[$_SERVER['HTTP_HOST']])
         ) {
             $parts = parse_url($url);
@@ -606,6 +607,7 @@ class Languages extends Component implements interfaces\Languages
     {
 
         if ($this->language_on_domain
+            && isset($_SERVER['HTTP_HOST'])
             && isset($this->default_language[$_SERVER['HTTP_HOST']])
         ) {
             $language = $this->default_language[$_SERVER['HTTP_HOST']];
