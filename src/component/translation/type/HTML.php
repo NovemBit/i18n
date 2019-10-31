@@ -16,7 +16,6 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
@@ -40,6 +39,13 @@ class HTML extends Type implements interfaces\HTML
      * {@inheritdoc}
      * */
     public $name = 'html';
+
+    /**
+     * Xpath Query for parser
+     *
+     * @var string
+     * */
+    public $parser_query;
 
     /**
      * Fields to translate
@@ -108,13 +114,13 @@ class HTML extends Type implements interfaces\HTML
      * @param string $html Html content
      *
      * @return \NovemBit\i18n\system\parsers\HTML
-     * @see    \NovemBit\i18n\system\parsers\HTML
      */
     private function _getHtmlParser(string $html): \NovemBit\i18n\system\parsers\HTML
     {
-        $parser = new \NovemBit\i18n\system\parsers\HTML();
+        $parser = new \NovemBit\i18n\system\parsers\HTML($html, $this->parser_query);
 
         foreach ($this->fields_to_translate as $field) {
+
             $text = isset($field['text']) ? $field['text'] : 'text';
             $attrs = isset($field['attrs']) ? $field['attrs'] : [];
 
@@ -127,8 +133,6 @@ class HTML extends Type implements interfaces\HTML
 
             $parser->addTranslateField($rule, $text, $attrs);
         }
-
-        $parser->load($html);
 
         return $parser;
     }
@@ -148,7 +152,6 @@ class HTML extends Type implements interfaces\HTML
      * @param array $html_list list of translatable HTML strings
      *
      * @return mixed
-     * @throws TranslationException
      * @throws ActiveRecordException
      *
      * @see DOMText
