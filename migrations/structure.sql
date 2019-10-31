@@ -11,4 +11,4 @@ CREATE TABLE `i18n_translations` (
   PRIMARY KEY (`id`),
   KEY `main_combo` (`type`,`from_language`,`to_language`,`source`(100),`level`),
   KEY `language` (`from_language`,`to_language`)
-) ENGINE=InnoDB AUTO_INCREMENT=8381113 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
