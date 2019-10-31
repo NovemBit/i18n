@@ -12,6 +12,8 @@ interface Request
 
     public function getFromLanguage(): string;
 
+    public function getLanguage() : string;
+
     public function setFromLanguage(string $from_language): void;
 
     public function getTranslation(): Translation;
