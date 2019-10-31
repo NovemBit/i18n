@@ -49,7 +49,6 @@ class HTML
      * */
     private $_translate_fields = [];
 
-
     /**
      * Main DomDocument
      *
@@ -69,13 +68,20 @@ class HTML
      *
      * @var string
      * */
-    private $_query = './/*[ @* or text()]';
+    private $_query = ".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
+
+    /**
+     * For script tags
+     *
+     * @var array[]
+     * */
+    private $_preserve_fields = [];
 
     /**
      * Keeping preserved data
      *
      * @var array
-     * @see _preserveTag
+     * @see _preserveField
      * @see _restorePreservedTag
      * */
     private $_preserved_data = [];
@@ -87,6 +93,21 @@ class HTML
      * */
 
     private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
+
+    /**
+     * HTML parser constructor.
+     *
+     * @param string      $html  Html content
+     * @param string|null $query Xpath Query
+     */
+    public function __construct(string $html, ?string $query = null)
+    {
+        if ($query !== null) {
+            $this->setQuery($query);
+        }
+        $this->load($html);
+    }
+
     /**
      * HTML constructor.
      *
@@ -94,7 +115,7 @@ class HTML
      *
      * @return HTML
      */
-    public function load(string $html) : self
+    public function load(string $html): self
     {
         $this->setHtml($html);
 
@@ -110,34 +131,33 @@ class HTML
      *
      * @param string $html Referenced HTML content
      * @param string $tag  Tag that must be preserved
-     * @param string $attr Attributes string
+     * @param string $attr Attributes pattern
      *
      * @return void
-     * @see    _preserveTag
+     * @see    _preserveField
      */
-    private function _preserveTag(string &$html,
+    private function _preserveField(
+        string &$html,
         string $tag,
         string $attr = ''
-    ) : void {
+    ): void {
 
-        $atrr_pattern = !empty($attr) ? '('.$attr.')' : '';
-
-        preg_match_all(
-            /*(\stype="ld\+json")*/
-            '/<' . $tag . '\b'.$atrr_pattern.'[^>]*>[\s\S]*?<\/' . $tag . '>/is',
-            $html,
-            $this->_preserved_data[$tag]
+        $new_tag = sprintf(
+            '<__%s__ attr="%2$s"></__%1$s__>',
+            $tag,
+            md5($attr)
         );
 
-        if (!empty($this->_preserved_data[$tag][0])) {
-            $this->_preserved_data[$tag] = $this->_preserved_data[$tag][0];
-        } else {
-            $this->_preserved_data[$tag] = [];
-        }
+        $attr = !empty($attr) ? '(' . $attr . ')' : '';
 
-        $html = str_replace(
-            $this->_preserved_data[$tag],
-            "<__{$tag}__></__{$tag}__>",
+        $pattern = '/<' . $tag . '\b' . $attr . '[^>]*>[\s\S]*?<\/' . $tag . '>/is';
+
+        $html = preg_replace_callback(
+            $pattern,
+            function ($matches) use ($new_tag) {
+                $this->_preserved_data[$new_tag][] = $matches[0];
+                return $new_tag;
+            },
             $html
         );
     }
@@ -147,21 +167,30 @@ class HTML
      *
      * @param string $html Referenced HTML content
      * @param string $tag  Tag That should be restored
+     * @param string $attr Attributes pattern
      *
      * @return void
-     * @see    _preserveTag
+     * @see    _preserveField
      */
-    private function _restorePreservedTag(string &$html, string $tag) : void
-    {
+    private function _restorePreservedTag(
+        string &$html,
+        string $tag,
+        string $attr
+    ): void {
 
         $first = 0;
-        $search = "<__{$tag}__></__{$tag}__>";
-        $tags = $this->_preserved_data[$tag] ?? [];
+        $newtag = sprintf(
+            '<__%s__ attr="%2$s"></__%1$s__>',
+            $tag,
+            md5($attr)
+        );
+
+        $tags = $this->_preserved_data[$newtag] ?? [];
         for ($i = 0; $i < count($tags); $i++) {
             $replace = $tags[$i];
             $first = strpos(
                 $html,
-                $search,
+                $newtag,
                 ($first == 0 ? 0 : $first + strlen($tags[$i - 1]))
             );
 
@@ -169,7 +198,7 @@ class HTML
                 continue;
             }
             $before = substr($html, 0, $first);
-            $after = substr($html, $first + strlen($search));
+            $after = substr($html, $first + strlen($newtag));
             $html = $before . $replace . $after;
         }
     }
@@ -182,7 +211,7 @@ class HTML
      *
      * @return void
      */
-    public function fetch(callable $text_callback, callable $attr_callback) : void
+    public function fetch(callable $text_callback, callable $attr_callback): void
     {
         $nodes = $this->_getXpath()->query($this->getQuery());
 
@@ -208,7 +237,7 @@ class HTML
 
                 $text = $translate_field['text'] ?? null;
 
-                if ($text!=null) {
+                if ($text != null) {
                     /**
                      * Fetching child nodes to find Text nodes
                      *
@@ -267,7 +296,7 @@ class HTML
      *
      * @return DOMDocument
      */
-    public function getDom() : DOMDocument
+    public function getDom(): DOMDocument
     {
         return $this->_dom;
     }
@@ -279,7 +308,7 @@ class HTML
      *
      * @return void
      */
-    public function setDom(DomDocument $_dom) : void
+    public function setDom(DomDocument $_dom): void
     {
         $this->_dom = $_dom;
     }
@@ -290,15 +319,20 @@ class HTML
      *
      * @return void
      */
-    private function _initDom() : void
+    private function _initDom(): void
     {
         $html = $this->getHtml();
 
-        $this->_preserveTag(
-            $html,
-            'script',
-            '(?!\stype="application\/ld\+json")+?'
-        );
+        $this->addPreserveField('script', '(?!\stype="application\/ld\+json")+?');
+
+        foreach ($this->getPreserveFields() as $field) {
+            $this->_preserveField(
+                $html,
+                $field[0],
+                $field[1]
+            );
+        }
+
 
         $this->setDom(new DomDocument());
 
@@ -306,7 +340,7 @@ class HTML
          * Set encoding of document UTF-8
          * */
         @$this->getDom()->loadHTML(
-            $this->_xml_encoding_fixer.$html,
+            $this->_xml_encoding_fixer . $html,
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
         $this->getDom()->encoding = 'utf-8';
@@ -321,7 +355,7 @@ class HTML
      *
      * @return array[]
      */
-    public function getTranslateFields() : array
+    public function getTranslateFields(): array
     {
         return $this->_translate_fields;
     }
@@ -349,7 +383,7 @@ class HTML
      *
      * @return string
      */
-    public function getHtml() : string
+    public function getHtml(): string
     {
         return $this->_html;
     }
@@ -359,16 +393,19 @@ class HTML
      *
      * @return string
      */
-    public function save() : string
+    public function save(): string
     {
         $html = $this->getDom()->saveHTML();
-        $this->_restorePreservedTag($html, 'script');
+
+        foreach ($this->getPreserveFields() as $field) {
+            $this->_restorePreservedTag($html, $field[0], $field[1]);
+        }
 
         /**
          * Remove <?xml.. syntax string
          * */
         $html = preg_replace(
-            '/'.preg_quote($this->_xml_encoding_fixer).'/',
+            '/' . preg_quote($this->_xml_encoding_fixer) . '/',
             '',
             $html,
             1
@@ -384,7 +421,7 @@ class HTML
      *
      * @return void
      */
-    public function setHtml(string $_html) : void
+    public function setHtml(string $_html): void
     {
         $this->_html = $_html;
     }
@@ -406,7 +443,7 @@ class HTML
      *
      * @return void
      */
-    public function setQuery(string $_query) : void
+    public function setQuery(string $_query): void
     {
         $this->_query = $_query;
     }
@@ -416,7 +453,7 @@ class HTML
      *
      * @return DOMXpath
      */
-    private function _getXpath() : DOMXPath
+    private function _getXpath(): DOMXPath
     {
         return $this->_xpath;
     }
@@ -428,8 +465,31 @@ class HTML
      *
      * @return void
      */
-    private function _setXpath(DOMXpath $xpath) : void
+    private function _setXpath(DOMXpath $xpath): void
     {
         $this->_xpath = $xpath;
+    }
+
+    /**
+     * Adding preserved fields
+     *
+     * @param string|null $tag  Html tag
+     * @param string|null $attr Html attribute
+     *
+     * @return void
+     */
+    public function addPreserveField(string $tag, ?string $attr): void
+    {
+        $this->_preserve_fields[] = [$tag, $attr];
+    }
+
+    /**
+     * Get all preserve fields
+     *
+     * @return array[]
+     */
+    public function getPreserveFields(): array
+    {
+        return $this->_preserve_fields;
     }
 }
