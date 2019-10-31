@@ -85,6 +85,9 @@ interface Languages
      */
     public function getLanguageQueryKey() : string;
 
-    public function getAcceptLanguages($with_names = false) : array;
+    public function getAcceptLanguages(
+        bool $with_names = false,
+        bool $with_flags = false
+    ) : array;
 
 }

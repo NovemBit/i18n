@@ -532,11 +532,14 @@ class Languages extends Component implements interfaces\Languages
      * Get accepted languages array
      *
      * @param bool $with_names return languages with assoc keys and names
+     * @param bool $with_flags return with flags
      *
      * @return array|null
      */
-    public function getAcceptLanguages($with_names = false): array
-    {
+    public function getAcceptLanguages(
+        bool $with_names = false,
+        bool $with_flags = false
+    ): array {
 
         if (!$with_names) {
             return $this->accept_languages;
@@ -545,7 +548,10 @@ class Languages extends Component implements interfaces\Languages
         $accept_languages = array_flip($this->accept_languages);
 
         foreach ($accept_languages as $key => &$language) {
-            $language = $this->_languages[$key];
+            $language = [
+                'name' => $this->_languages[$key],
+                'flag' => $this->getFlagByLanguage($key)
+            ];
         }
 
         return $accept_languages;
@@ -652,6 +658,26 @@ class Languages extends Component implements interfaces\Languages
             $this->from_language = $from_language;
         } else {
             throw new LanguageException('Unknown from language parameter.');
+        }
+    }
+
+    /**
+     * Get flag of language country
+     *
+     * @param string $language Language code
+     * @param bool   $html     return html <img src="..
+     *
+     * @return string
+     */
+    public function getFlagByLanguage(string $language, $html = false): string
+    {
+        $path = __DIR__ . '/assets/images/flags/4x3/' . $language . '.svg';
+        $data = file_get_contents($path);
+        $base64 = 'data:image/svg+xml;base64,' . base64_encode($data);
+        if ($html) {
+            return "<img alt=\"$language\" title=\"$language\" src=\"$base64\"/>";
+        } else {
+            return $base64;
         }
     }
 }

@@ -22,7 +22,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
-    "phan/phan": "*",
+    "phpmd/phpmd": "*",
     "squizlabs/php_codesniffer": "*"
   },
   "autoload": {

@@ -68,12 +68,13 @@
 }
 
 #__PREFIX-editor-wrapper > div > .inspector {
+    font-size: 16px;
+    line-height: 20px;
     cursor: default;
     padding: 10px;
     border-radius: 15px 0 0;
     width: 300px;
     height: 65px;
-    line-height: 1;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -87,7 +88,7 @@
 
 #__PREFIX-editor-wrapper > div > .inspector > .title {
     color: #ab0000;
-    font-size: 18px;
+    font-size: 1.2em;
     display: block;
     font-weight: bold;
     width: 100%;
@@ -97,7 +98,7 @@
 #__PREFIX-editor-wrapper > div > .inspector > .description {
     color: #fff;
     background: #616161;
-    font-size: 14px;
+    font-size: 0.8em;
     text-align: center;
     display: block;
     padding: 10px;
@@ -144,14 +145,15 @@
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .hint {
     display: block;
-    font-size: 12px;
+    font-size: 0.7em;
     color: #ff0000;
     text-align: right;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .original {
     display: block;
-    font-size: 12px;
+    font-size: 0.8em;
+    line-height: 1.3em;
     text-align: left;
     margin-top: 10px;
 }
@@ -162,7 +164,7 @@
     box-sizing: border-box;
     margin-top: 10px;
     padding: 0 0 0 20px;
-    font-size: 16px;
+    font-size: 1em;
     color: #8e0000;
     font-weight: bold;
 }
@@ -178,7 +180,8 @@
     background: #fff;
     border: solid 1px #900000;
     font-weight: normal;
-    margin-top: 10px;
+    margin-top: 0.7em;
+    font-size: 0.9em !important;
     color: #393939;
     width: 100%;
     cursor: text;
@@ -188,7 +191,7 @@
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit] {
-    font-size: 16px;
+    font-size: 1em;
     clear: both;
     background: green;
     color: #fff;
@@ -208,14 +211,13 @@
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
     content: "⇲";
-    font-size: 20px;
+    font-size: 1.4em;
     display: inline-block;
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:hover {
     color: #b31a1a;
 }
-
 
 #__PREFIX-context-menu {
     display: none;
