@@ -717,16 +717,22 @@ class Request extends Component implements interfaces\Request
          * */
         if ($this->allow_editor) {
 
-            /**
-             * Adding editor urls
-             * */
-            foreach ($this->getUrlTranslations() as $language => $url) {
-                if ($language != $this->getFromLanguage()) {
-                    $this->_editor_url_translations[$language] = URL::addQueryVars(
-                        $url,
-                        $this->context->prefix . '-' . $this->editor_query_key,
-                        true
-                    );
+            if ($this->getUrlTranslations() !== null) {
+                /**
+                 * Adding editor urls
+                 * */
+                foreach ($this->getUrlTranslations() as $language => $url) {
+                    if ($language != $this->getFromLanguage()) {
+                        $this->_editor_url_translations[$language] = URL::addQueryVars(
+                            $url,
+                            sprintf(
+                                "%s-%s",
+                                $this->context->prefix,
+                                $this->editor_query_key
+                            ),
+                            true
+                        );
+                    }
                 }
             }
 
