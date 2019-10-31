@@ -397,7 +397,7 @@ class Languages extends Component implements interfaces\Languages
      * Script name or directory path then adding only
      * Query parameter of language
      *
-     * @param string $url      Simple url
+     * @param string $url Simple url
      * @param string $language language code
      *
      * @return bool|mixed|string
@@ -427,6 +427,7 @@ class Languages extends Component implements interfaces\Languages
             && isset($_SERVER['HTTP_HOST'])
             && isset($this->default_language[$_SERVER['HTTP_HOST']])
         ) {
+
             $parts = parse_url($url);
             /**
              * Change host of url
@@ -440,14 +441,30 @@ class Languages extends Component implements interfaces\Languages
                     $parts['path'] = '';
                 }
 
-                $path_parts = explode('/', $parts['path']);
-                $path_parts = array_filter($path_parts);
+                $exclude = false;
+                foreach ($this->path_exclusion_patterns as $pattern) {
+                    if (preg_match("/$pattern/", $parts['path'])) {
+                        $exclude = true;
+                        break;
+                    }
+                }
 
-                if ((!empty($path_parts) || !empty($parts['query']))
-                    || (empty($path_parts) && !isset($parts['fragment']))
-                ) {
-                    array_unshift($path_parts, $language);
-                    $parts['path'] = '/' . implode('/', $path_parts);
+                if ($exclude) {
+                    return URL::addQueryVars(
+                        $url,
+                        $this->language_query_key,
+                        $language
+                    );
+                } else {
+                    $path_parts = explode('/', $parts['path']);
+                    $path_parts = array_filter($path_parts);
+
+                    if ((!empty($path_parts) || !empty($parts['query']))
+                        || (empty($path_parts) && !isset($parts['fragment']))
+                    ) {
+                        array_unshift($path_parts, $language);
+                        $parts['path'] = '/' . implode('/', $path_parts);
+                    }
                 }
 
             }
@@ -665,7 +682,7 @@ class Languages extends Component implements interfaces\Languages
      * Get flag of language country
      *
      * @param string $language Language code
-     * @param bool   $html     return html <img src="..
+     * @param bool $html return html <img src="..
      *
      * @return string
      */
