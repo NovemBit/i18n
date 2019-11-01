@@ -19,6 +19,6 @@ interface Request
     public function getTranslation(): Translation;
 
     public function start(): void;
-    public function isIsReady(): bool;
+    public function isReady(): bool;
 
 }
