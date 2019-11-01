@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\rest;
 
+use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\exception\Exception;
@@ -150,7 +151,7 @@ class Rest extends Component implements interfaces\Rest
 
         $result = ['status' => -1];
 
-        if (isset($_POST['from_language'])
+        if (isset($_POST['languages_config'])
             && isset($_POST['texts'])
             && isset($_POST['languages'])
             && isset($_POST['type'])
@@ -160,18 +161,33 @@ class Rest extends Component implements interfaces\Rest
                 $result['status'] = -2;
 
             } else {
+
                 /**
-                 * Set from language
+                 * Setting language component configuration
                  * */
-                $this->context->languages->setFromLanguage($_POST['from_language']);
+                $languages_config = $_POST['languages_config'] ?? [];
+                foreach ($languages_config as $key => $value) {
+                    $this->context->languages->{$key} = $value;
+                }
+
+                /**
+                 * Setting translator
+                 *
+                 * @var Translator $translator
+                 */
+                $translator = $this->context->translation
+                    ->setLanguages($_POST['languages'])
+                    ->{$_POST['type']};
+
+                $type_config = $_POST['type_config'] ?? [];
+                foreach ($type_config as $key => $value) {
+                    $translator->{$key} = $value;
+                }
 
                 try {
                     $result = [
                         'status' => 1,
-                        'translation' => $this->context->translation
-                            ->setLanguages($_POST['languages'])
-                            ->{$_POST['type']}
-                            ->translate($_POST['texts'])
+                        'translation' => $translator->translate($_POST['texts'])
                     ];
                 } catch (Exception $exception) {
                     $result = [
