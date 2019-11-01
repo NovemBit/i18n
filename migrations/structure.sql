@@ -1,5 +1,5 @@
 CREATE TABLE `i18n_translations` (
-  `id` mediumint(8) NOT NULL AUTO_INCREMENT,
+  `id` mediumint(11) NOT NULL AUTO_INCREMENT,
   `type` int(3) NOT NULL,
   `from_language` char(2) COLLATE utf8mb4_bin NOT NULL,
   `to_language` char(2) COLLATE utf8mb4_bin NOT NULL,
