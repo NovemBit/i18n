@@ -95,31 +95,60 @@ class HTML
     private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
 
     /**
+     * @var callable
+     * */
+    private $_before_translate_callback = null;
+
+    /**
+     * @var callable
+     * */
+    private $_after_translate_callback = null;
+
+    /**
      * HTML parser constructor.
      *
-     * @param string      $html  Html content
+     * @param string $html Html content
      * @param string|null $query Xpath Query
+     * @param callable|null $before_translate_callback Before init callback
+     * @param callable|null $after_translate_callback After init callback
      */
-    public function __construct(string $html, ?string $query = null)
-    {
+    public function __construct(
+        string $html,
+        ?string $query = null,
+        callable $before_translate_callback = null,
+        callable $after_translate_callback = null
+    ) {
         if ($query !== null) {
             $this->setQuery($query);
         }
+        $this->setBeforeTranslateCallback($before_translate_callback);
+        $this->setAfterTranslateCallback($after_translate_callback);
+
         $this->load($html);
     }
+
 
     /**
      * HTML constructor.
      *
      * @param string $html initial HTML content
-     *
+     * @param callable|null $callback
      * @return HTML
      */
-    public function load(string $html): self
-    {
+    public function load(
+        string $html,
+        ?callable $callback = null
+    ): self {
         $this->setHtml($html);
 
         $this->_initDom();
+
+        if ($this->getBeforeTranslateCallback() !== null) {
+            call_user_func_array(
+                $this->getBeforeTranslateCallback(),
+                [&$this->_xpath, &$this->_dom]
+            );
+        }
 
         return $this;
     }
@@ -130,7 +159,7 @@ class HTML
      * Impossible to parser with DOM parser
      *
      * @param string $html Referenced HTML content
-     * @param string $tag  Tag that must be preserved
+     * @param string $tag Tag that must be preserved
      * @param string $attr Attributes pattern
      *
      * @return void
@@ -166,7 +195,7 @@ class HTML
      * Restoring preserved tags on HTML
      *
      * @param string $html Referenced HTML content
-     * @param string $tag  Tag That should be restored
+     * @param string $tag Tag That should be restored
      * @param string $attr Attributes pattern
      *
      * @return void
@@ -296,7 +325,7 @@ class HTML
      *
      * @return DOMDocument
      */
-    public function getDom(): DOMDocument
+    private function _getDom(): DOMDocument
     {
         return $this->_dom;
     }
@@ -308,7 +337,7 @@ class HTML
      *
      * @return void
      */
-    public function setDom(DomDocument $_dom): void
+    private function _setDom(DomDocument $_dom): void
     {
         $this->_dom = $_dom;
     }
@@ -334,16 +363,16 @@ class HTML
         }
 
 
-        $this->setDom(new DomDocument());
+        $this->_setDom(new DomDocument());
 
         /**
          * Set encoding of document UTF-8
          * */
-        @$this->getDom()->loadHTML(
+        @$this->_getDom()->loadHTML(
             $this->_xml_encoding_fixer . $html,
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
-        $this->getDom()->encoding = 'utf-8';
+        $this->_getDom()->encoding = 'utf-8';
 
 
         $this->_setXpath(new DOMXpath($this->_dom));
@@ -363,9 +392,9 @@ class HTML
     /**
      * Adding translate fields
      *
-     * @param Rule   $rule  Rule object
-     * @param string $text  Text node type to translate
-     * @param array  $attrs List of attributes that must be translated
+     * @param Rule $rule Rule object
+     * @param string $text Text node type to translate
+     * @param array $attrs List of attributes that must be translated
      *
      * @return void
      */
@@ -395,7 +424,14 @@ class HTML
      */
     public function save(): string
     {
-        $html = $this->getDom()->saveHTML();
+        if ($this->getAfterTranslateCallback() !== null) {
+            call_user_func_array(
+                $this->getAfterTranslateCallback(),
+                [&$this->_xpath, &$this->_dom]
+            );
+        }
+
+        $html = $this->_getDom()->saveHTML();
 
         foreach ($this->getPreserveFields() as $field) {
             $this->_restorePreservedTag($html, $field[0], $field[1]);
@@ -473,7 +509,7 @@ class HTML
     /**
      * Adding preserved fields
      *
-     * @param string|null $tag  Html tag
+     * @param string|null $tag Html tag
      * @param string|null $attr Html attribute
      *
      * @return void
@@ -491,5 +527,39 @@ class HTML
     public function getPreserveFields(): array
     {
         return $this->_preserve_fields;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getBeforeTranslateCallback(): ?callable
+    {
+        return $this->_before_translate_callback;
+    }
+
+    /**
+     * @param callable $before_translate_callback
+     */
+    public function setBeforeTranslateCallback(
+        ?callable $before_translate_callback
+    ): void {
+        $this->_before_translate_callback = $before_translate_callback;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getAfterTranslateCallback(): ?callable
+    {
+        return $this->_after_translate_callback;
+    }
+
+    /**
+     * @param callable $after_translate_callback
+     */
+    public function setAfterTranslateCallback(
+        ?callable $after_translate_callback
+    ): void {
+        $this->_after_translate_callback = $after_translate_callback;
     }
 }
