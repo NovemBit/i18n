@@ -48,6 +48,13 @@ class Dynamic extends Translator implements interfaces\Rest
     public $type = 'method';
 
     /**
+     * Method configuration for remote API
+     *
+     * @var array
+     * */
+    public $type_config = [];
+
+    /**
      * Version of REST API
      *
      * @var string
@@ -108,10 +115,11 @@ class Dynamic extends Translator implements interfaces\Rest
         $ch = curl_init($url);
 
         $query = [
-            'from_language' => $this->context->context->languages->getFromLanguage(),
-            'languages' => $this->context->getLanguages(),
             'type' => $this->getType(),
-            'texts' => $texts
+            'languages' => $this->context->getLanguages(),
+            'languages_config' => $this->getLanguagesConfig(),
+            'type_config' => $this->getTypeConfig(),
+            'texts' => $texts,
         ];
 
         $data = http_build_query(
@@ -164,6 +172,35 @@ class Dynamic extends Translator implements interfaces\Rest
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * Get type configuration
+     *
+     * @return array
+     */
+    public function getTypeConfig(): array
+    {
+        return $this->type_config;
+    }
+
+    /**
+     * Get languages configuration from main module instance `$config`
+     *
+     * @return array
+     * @throws TranslationException
+     */
+    public function getLanguagesConfig(): array
+    {
+        $config = $this->context->context->config['languages'] ?? null;
+
+        if ($config == null) {
+            throw new TranslationException("Languages config not found.");
+        }
+
+        unset($config['class']);
+
+        return $config;
     }
 
 }
