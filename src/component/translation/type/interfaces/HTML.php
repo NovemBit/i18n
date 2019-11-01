@@ -29,4 +29,10 @@ interface HTML extends Type
 
     public function setHelperAttributes(bool $status) : void;
 
+    public function addBeforeParseCallback(callable $callback):void;
+
+    public function addAfterParseCallback(callable $callback):void;
+
+
+
 }
