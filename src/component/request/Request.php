@@ -537,10 +537,12 @@ class Request extends Component implements interfaces\Request
             ->getLanguageFromUrl($_SERVER["HTTP_REFERER"]);
 
         /**
-         * If language does not exists in @URL
+         * If language does not exists in *url*
          * */
         if ($language == null) {
-            $language = $this->context->languages->getDefaultLanguage();
+            $language = $this->context->languages->getDefaultLanguage(
+                $_SERVER['HTTP_HOST']
+            );
         }
 
         /*
