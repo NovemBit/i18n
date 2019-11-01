@@ -33,19 +33,6 @@ class Rest extends Component implements interfaces\Rest
 {
 
     /**
-     * Available types of rest method
-     *
-     * @var string[]
-     * */
-    public $available_types = [
-        'method',
-        'text',
-        'url',
-        'html',
-        'json'
-    ];
-
-    /**
      * Api keys list
      *
      * @var string[]
@@ -79,7 +66,6 @@ class Rest extends Component implements interfaces\Rest
      * @var string
      * */
     public $restrictAction = 'restrict';
-
 
     /**
      * Current api key
@@ -154,48 +140,32 @@ class Rest extends Component implements interfaces\Rest
         if (isset($_POST['languages_config'])
             && isset($_POST['texts'])
             && isset($_POST['languages'])
-            && isset($_POST['type'])
         ) {
 
-            if (!in_array($_POST['type'], $this->available_types)) {
-                $result['status'] = -2;
-
-            } else {
-
-                /**
-                 * Setting language component configuration
-                 * */
-                $languages_config = $_POST['languages_config'] ?? [];
-                foreach ($languages_config as $key => $value) {
-                    $this->context->languages->{$key} = $value;
-                }
-
-                /**
-                 * Setting translator
-                 *
-                 * @var Translator $translator
-                 */
-                $translator = $this->context->translation
-                    ->setLanguages($_POST['languages'])
-                    ->{$_POST['type']};
-
-                $type_config = $_POST['type_config'] ?? [];
-                foreach ($type_config as $key => $value) {
-                    $translator->{$key} = $value;
-                }
-
-                try {
-                    $result = [
-                        'status' => 1,
-                        'translation' => $translator->translate($_POST['texts'])
-                    ];
-                } catch (Exception $exception) {
-                    $result = [
-                        'status' => -3,
-                        'message' => 'Unexpected Error.'
-                    ];
-                }
+            /**
+             * Setting language component configuration
+             * */
+            $languages_config = $_POST['languages_config'] ?? [];
+            foreach ($languages_config as $key => $value) {
+                $this->context->languages->{$key} = $value;
             }
+
+            try {
+                $result = [
+                    'status' => 1,
+                    'translation' => $this->context
+                        ->translation
+                        ->setLanguages($_POST['languages'])
+                        ->method
+                        ->translate($_POST['texts'])
+                ];
+            } catch (Exception $exception) {
+                $result = [
+                    'status' => -3,
+                    'message' => 'Unexpected Error.'
+                ];
+            }
+
         }
 
         return $result;

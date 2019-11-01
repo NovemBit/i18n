@@ -43,4 +43,9 @@ abstract class Method extends Translator implements interfaces\Method
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
     public $model_class = models\Method::class;
+
+    /**
+     * {@inheritdoc}
+     * */
+    public $validation = false;
 }
