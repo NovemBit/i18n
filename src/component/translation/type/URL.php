@@ -84,17 +84,31 @@ class URL extends Type implements interfaces\URL
      * */
     public $path_translation = true;
 
+
+    /**
+     * Base domain name
+     * Default value is $_SERVER['HTTP_HOST']
+     *
+     * @var string|null
+     * */
+    public $base_domain = null;
+
     /**
      * {@inheritDoc}
      *
-     * @throws TranslationException
      * @return void
+     * @throws TranslationException
      */
     public function init(): void
     {
         if ($this->path_translation === false) {
             $this->save_translations = false;
         }
+
+        if ($this->base_domain === null && isset($_SERVER['HTTP_HOST'])) {
+            $this->base_domain = $_SERVER['HTTP_HOST'];
+        }
+
         parent::init();
     }
 
@@ -153,8 +167,12 @@ class URL extends Type implements interfaces\URL
         foreach ($translates[$before] as $language => &$translate) {
 
             $translate = $prefix . $translate . $suffix;
-            $translate = $this->context->context
-                ->languages->addLanguageToUrl($translate, $language);
+            $translate = $this->context->context->languages
+                ->addLanguageToUrl(
+                    $translate,
+                    $language,
+                    $this->base_domain
+                );
 
         }
 
