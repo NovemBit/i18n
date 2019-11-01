@@ -16,6 +16,7 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
+use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
@@ -108,6 +109,10 @@ class HTML extends Type implements interfaces\HTML
      * */
     public $model_class = models\HTML::class;
 
+    private $_before_parse_callbacks = [];
+    private $_after_parse_callbacks = [];
+
+
     /**
      * Get Html parser. Create new instance of HTML parser
      *
@@ -115,9 +120,40 @@ class HTML extends Type implements interfaces\HTML
      *
      * @return \NovemBit\i18n\system\parsers\HTML
      */
-    private function _getHtmlParser(string $html): \NovemBit\i18n\system\parsers\HTML
-    {
-        $parser = new \NovemBit\i18n\system\parsers\HTML($html, $this->parser_query);
+    private function _getHtmlParser(
+        string $html,
+        string $language
+    ): \NovemBit\i18n\system\parsers\HTML {
+
+        $parser = new \NovemBit\i18n\system\parsers\HTML(
+            $html,
+            $this->parser_query,
+            function ($xpath, $dom) {
+                foreach ($this->getBeforeParseCallbacks() as $callback) {
+                    call_user_func_array($callback, [$xpath, $dom]);
+                }
+            },
+            function ($xpath, $dom) use ($language) {
+                foreach ($this->getAfterParseCallbacks() as $callback) {
+                    call_user_func_array($callback, [$xpath, $dom]);
+                }
+            }
+        );
+
+        $this->addAfterParseCallback(
+            function ($xpath) use ($language) {
+                /**
+                 * Setting var types
+                 *
+                 * @var DOMXPath $xpath
+                 * @var DOMAttr $lang
+                 */
+                $lang = $xpath->query('//html/@lang')->item(0);
+                if ($lang !== null) {
+                    $lang->value = $language;
+                }
+            }
+        );
 
         foreach ($this->fields_to_translate as $field) {
 
@@ -174,40 +210,46 @@ class HTML extends Type implements interfaces\HTML
          * */
         foreach ($html_list as $key => $html) {
 
-            $_parsed_dom[$key] = $this->_getHtmlParser($html);
+            foreach ($languages as $language) {
 
-            $_parsed_dom[$key]->fetch(
-                function (&$node, $type) {
-                    /**
-                     * Callback for Text nodes
-                     *
-                     * @todo Runtime debugging (important)
-                     *
-                     * @var DOMText $node Text node
-                     */
-                    $node->data = htmlspecialchars_decode(
-                        $node->data,
-                        ENT_QUOTES | ENT_HTML401
-                    );
+                $_parsed_dom[$key][$language] = $this->_getHtmlParser(
+                    $html,
+                    $language
+                );
 
-                    $this->_to_translate[$type][] = $node->data;
-                },
-                function (&$node, $type) {
-                    /**
-                     * Callback for Attribute nodes
-                     *
-                     * @todo Runtime debugging (important)
-                     *
-                     * @var DOMAttr $node
-                     */
-                    /*$node->value = htmlspecialchars_decode(
-                        $node->value,
-                        ENT_QUOTES | ENT_HTML401
-                    );*/
+                $_parsed_dom[$key][$language]->fetch(
+                    function (&$node, $type) {
+                        /**
+                         * Callback for Text nodes
+                         *
+                         * @todo Runtime debugging (important)
+                         *
+                         * @var DOMText $node Text node
+                         */
+                        $node->data = htmlspecialchars_decode(
+                            $node->data,
+                            ENT_QUOTES | ENT_HTML401
+                        );
 
-                    $this->_to_translate[$type][] = $node->value;
-                }
-            );
+                        $this->_to_translate[$type][] = $node->data;
+                    },
+                    function (&$node, $type) {
+                        /**
+                         * Callback for Attribute nodes
+                         *
+                         * @todo Runtime debugging (important)
+                         *
+                         * @var DOMAttr $node
+                         */
+                        /*$node->value = htmlspecialchars_decode(
+                            $node->value,
+                            ENT_QUOTES | ENT_HTML401
+                        );*/
+
+                        $this->_to_translate[$type][] = $node->value;
+                    }
+                );
+            }
         }
 
         foreach ($this->_to_translate as $type => $texts) {
@@ -233,7 +275,7 @@ class HTML extends Type implements interfaces\HTML
 
             foreach ($languages as $language) {
 
-                $_parsed_dom[$key]->fetch(
+                $_parsed_dom[$key][$language]->fetch(
                     function (&$node, $type, $rule) use ($language) {
                         /**
                          * Callback for Text node
@@ -348,7 +390,7 @@ class HTML extends Type implements interfaces\HTML
                     }
                 );
 
-                $result[$html][$language] = $_parsed_dom[$key]->save();
+                $result[$html][$language] = $_parsed_dom[$key][$language]->save();
             }
         }
 
@@ -376,5 +418,31 @@ class HTML extends Type implements interfaces\HTML
     public function setHelperAttributes(bool $status): void
     {
         $this->_helper_attributes = $status;
+    }
+
+    public function addBeforeParseCallback(callable $callback): void
+    {
+        $this->_before_parse_callbacks[] = $callback;
+    }
+
+    public function addAfterParseCallback(callable $callback): void
+    {
+        $this->_after_parse_callbacks[] = $callback;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBeforeParseCallbacks(): array
+    {
+        return $this->_before_parse_callbacks;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAfterParseCallbacks(): array
+    {
+        return $this->_after_parse_callbacks;
     }
 }
