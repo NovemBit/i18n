@@ -13,7 +13,12 @@
 
 namespace NovemBit\i18n\component\request;
 
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMXPath;
 use NovemBit\i18n\component\request\exceptions\RequestException;
+use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
@@ -65,7 +70,7 @@ class Request extends Component implements interfaces\Request
     /**
      * @var bool
      * */
-    private $_is_ready = false;
+    private $_ready = false;
 
     /**
      * Language of Referer
@@ -642,29 +647,40 @@ class Request extends Component implements interfaces\Request
 
             if ($type !== null) {
 
-                /*
-                 * Translate content
-                 * */
-                $content = $this
+                /**
+                 * Define type of translator
+                 *
+                 * @var Translator $translator
+                 */
+                $translator = $this
                     ->getTranslation()->setLanguages($this->getLanguage())
-                    ->{$type}
-                    ->translate([$content])[$content][$this->getLanguage()];
-
+                    ->{$type};
                 if ($type == "html") {
-                    $content = preg_replace(
-                        '/(<html)(.*?)(lang=\")(.*?)(\")/is',
-                        '$1$2$3'.$this->getLanguage().'$5',
-                        $content
-                    );
 
-                    $content = preg_replace(
-                        '/(<head.*?>)/is',
-                        '$1' . PHP_EOL . $this->_getHeadAdditionalTags(),
-                        $content,
-                        1
+                    /**
+                     * Define type of HTML translator
+                     *
+                     * @var HTML $translator
+                     */
+
+                    $translator->addAfterParseCallback(
+                        function (DOMXPath $xpath, DOMDocument $dom) {
+
+                            $head = $xpath->query('//html/head')->item(0);
+                            $this->_addMainJavaScriptNode($dom, $head);
+                            $this->_addXHRManipulationJavaScript($dom, $head);
+                            $this->_addEditorAssets($dom, $head);
+                            $this->_addAlternateLinkNodes($dom, $head);
+
+                        }
                     );
 
                 }
+                /*
+                 * Translate content
+                 * */
+                $content = $translator
+                    ->translate([$content])[$content][$this->getLanguage()];
 
             }
         }
@@ -770,57 +786,46 @@ class Request extends Component implements interfaces\Request
             }
         }
 
-        $this->setIsReady(true);
+        $this->setReady(true);
 
         ob_start([$this, 'translateBuffer']);
     }
 
-    /**
-     * Get in <head> additional tags
-     * Scripts, Styles, Metas and Links
-     *
-     * @return string
-     */
-    private function _getHeadAdditionalTags(): string
-    {
-        $tags = '';
-
-        $tags .= $this->_getMainJavaScriptTag();
-
-        $tags .= $this->_getXHRManipulationJavaScriptTag();
-
-        if ($this->_is_editor) {
-            $tags .= $this->_getEditorAssetsTags();
-        }
-
-        $tags .= $this->_getAlternateLinkTags();
-        return $tags;
-    }
 
     /**
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @return string
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
+     *
+     * @return void
      */
-    private function _getAlternateLinkTags(): string
+    private function _addAlternateLinkNodes(DOMDocument $dom, DOMNode $parent): void
     {
-        $tags = '';
         foreach ($this->getUrlTranslations() as $language => $translate) {
-            $tags .= "<link rel=\"alternate\"";
-            $tags .= " hreflang=\"{$language}\" href=\"{$translate}\">";
+            $node = $dom->createElement('link');
+            $node->setAttribute('rel', 'alternate');
+            $node->setAttribute('hreflang', $language);
+            $node->setAttribute('href', $translate);
+            $parent->appendChild($node);
         }
-        return $tags;
     }
 
     /**
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @return string
+     * @param DOMDocument $dom     Document object
+     * @param DOMNode     $parent Parent element
+     *
+     * @return void
      */
-    private function _getMainJavaScriptTag(): string
-    {
+    private function _addMainJavaScriptNode(
+        DOMDocument &$dom,
+        DOMNode $parent
+    ): void {
+
         $config = json_encode(
             [
                 'i18n' => [
@@ -856,22 +861,34 @@ class Request extends Component implements interfaces\Request
             ]
         );
         $script = "(function() {window.novembit={$config}})()";
-        return "<script type=\"application/javascript\">{$script}</script>";
+
+        $node = $dom->createElement('script');
+        $node->appendChild($dom->createTextNode($script));
+        $node->setAttribute('type', 'application/javascript');
+        $parent->appendChild($node);
+
     }
 
     /**
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @return string
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
+     *
+     * @return void
      */
-    private function _getEditorAssetsTags(): string
+    private function _addEditorAssets(DOMDocument $dom, DOMNode $parent): void
     {
         $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
+        $scriptNode = $dom->createElement('script');
+        $scriptNode->appendChild($dom->createTextNode($script));
+        $scriptNode->setAttribute('type', 'application/javascript');
+
+        $parent->appendChild($scriptNode);
+
         $css = file_get_contents(__DIR__ . '/assets/css/editor.css');
-
         $css = str_replace('__PREFIX', $this->context->prefix, $css);
-
         foreach ($this->custom_translation_level_colors as $level => $color) {
             $css .= sprintf(
                 "%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }",
@@ -889,24 +906,31 @@ class Request extends Component implements interfaces\Request
             );
         }
 
-        return implode(
-            '', [
-                "<script type=\"application/javascript\">{$script}</script>",
-                '<style type="text/css">' . $css . '</style>'
-            ]
-        );
+        $styleNode = $dom->createElement('style');
+        $styleNode->appendChild($dom->createTextNode($css));
+        $styleNode->setAttribute('type', 'text/css');
+        $parent->appendChild($styleNode);
+
     }
 
     /**
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @return string
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
+     *
+     * @return void
      */
-    private function _getXHRManipulationJavaScriptTag(): string
-    {
+    private function _addXHRManipulationJavaScript(
+        DOMDocument $dom,
+        DOMNode $parent
+    ): void {
         $script = file_get_contents(__DIR__ . '/assets/js/xhr.js');
-        return "<script type=\"application/javascript\">{$script}</script>";
+        $node = $dom->createElement('script');
+        $node->appendChild($dom->createTextNode($script));
+        $node->setAttribute('type', 'application/javascript');
+        $parent->appendChild($node);
     }
 
     /**
@@ -1064,16 +1088,16 @@ class Request extends Component implements interfaces\Request
     /**
      * @return bool
      */
-    public function isIsReady(): bool
+    public function isReady(): bool
     {
-        return $this->_is_ready;
+        return $this->_ready;
     }
 
     /**
-     * @param bool $is_ready
+     * @param bool $ready
      */
-    public function setIsReady(bool $is_ready): void
+    public function setReady(bool $ready): void
     {
-        $this->_is_ready = $is_ready;
+        $this->_ready = $ready;
     }
 }
