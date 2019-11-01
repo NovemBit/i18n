@@ -60,13 +60,17 @@ class Languages extends Component implements interfaces\Languages
      * Add language code on url path
      *
      * @example https://novembit.com/fr/my/post/url
+     *
+     * @var bool
      * */
     public $language_on_path = true;
 
     /**
-     * If @default_domain parameter is array and contain
+     * If `$default_domain` parameter is array and contain
      * Host names with specific language
      * Then take language from domain name
+     *
+     * @var bool
      * */
     public $language_on_domain = true;
 
@@ -74,6 +78,8 @@ class Languages extends Component implements interfaces\Languages
      * Language query variable key
      *
      * @example https://novembit.com/my/post/url?language=fr
+     *
+     * @var string
      * */
     public $language_query_key = 'language';
 
@@ -85,16 +91,22 @@ class Languages extends Component implements interfaces\Languages
      *
      * To exclude wp-admin in wordpress
      *  '^wp-admin(\/|$)'
+     *
+     * @var string[]
      * */
     public $path_exclusion_patterns = [];
 
     /**
      * Current script path in url
+     *
+     * @var string
      * */
     private static $_script_url;
 
     /**
      * ISO 639-1 languages list
+     *
+     * @var array
      * */
     private $_languages = [
         'ab' => 'Abkhazian',
@@ -290,7 +302,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return string|null
      */
-    private function _getLanguageFromUrlQuery(string $url)
+    private function _getLanguageFromUrlQuery(string $url) : ?string
     {
         $parts = parse_url($url);
 
@@ -390,27 +402,32 @@ class Languages extends Component implements interfaces\Languages
      * Adding language code to
      * Already translated URL
      *
-     * If @language_on_path is true then adding
-     * Language code to beginning of @URL path
+     * If `$language_on_path` is true then adding
+     * Language code to beginning of url path
      *
-     * If @language_on_path is false or @URL contains
+     * If `$language_on_path` is false or url contains
      * Script name or directory path then adding only
      * Query parameter of language
      *
-     * @param string $url Simple url
-     * @param string $language language code
+     * @param string      $url         Simple url
+     * @param string      $language    language code
+     * @param string|null $base_domain Base domain name
      *
-     * @return bool|mixed|string
+     * @return null|string
      * @throws LanguageException
      */
-    public function addLanguageToUrl(string $url, string $language)
-    {
+    public function addLanguageToUrl(
+        string $url,
+        string $language,
+        ?string $base_domain = null
+    ) : ?string {
+
 
         /**
-         * Make sure @language is valid
+         * Make sure language is valid
          * */
         if (!$this->validateLanguage($language)) {
-            return false;
+            return null;
         }
 
         /**
@@ -420,12 +437,13 @@ class Languages extends Component implements interfaces\Languages
          * Then change host of url
          * and add language code if necessary
          *
-         * @notice This is hard logic.
-         * @notice Dont change this code if you not fully understanding method
+         * # Notice
+         * > This is hard logic.
+         * > Notice Dont change this code if you not fully understanding method
          * */
         if ($this->language_on_domain
-            && isset($_SERVER['HTTP_HOST'])
-            && isset($this->default_language[$_SERVER['HTTP_HOST']])
+            && isset($base_domain)
+            && isset($this->default_language[$base_domain])
         ) {
 
             $parts = parse_url($url);
@@ -433,10 +451,10 @@ class Languages extends Component implements interfaces\Languages
              * Change host of url
              * */
             if (isset($parts['host'])) {
-                $parts['host'] = $_SERVER['HTTP_HOST'];
+                $parts['host'] = $base_domain;
             }
 
-            if ($this->getDefaultLanguage() != $language) {
+            if ($this->getDefaultLanguage($base_domain) != $language) {
                 if (!isset($parts['path'])) {
                     $parts['path'] = '';
                 }
@@ -476,7 +494,7 @@ class Languages extends Component implements interfaces\Languages
         ) {
             /**
              * Add language code to url path
-             * If @language_on_path is true
+             * If $language_on_path is true
              * */
             $url = $this->removeScriptNameFromUrl($url);
 
@@ -500,7 +518,7 @@ class Languages extends Component implements interfaces\Languages
 
         } else {
             /**
-             * Adding query @language variable
+             * Adding query language variable
              * */
             $url = URL::addQueryVars($url, $this->language_query_key, $language);
         }
@@ -510,7 +528,7 @@ class Languages extends Component implements interfaces\Languages
 
     /**
      * Validate one language
-     * Check if language exists in @accepted_languages array
+     * Check if language exists in `$accepted_languages` array
      *
      * @param string $language language code
      *
@@ -578,9 +596,9 @@ class Languages extends Component implements interfaces\Languages
      * Get script url
      * F.e. /path/to/my/dir/index.php or /path/to/my/dir
      *
-     * @return mixed|string|null
+     * @return string|null
      */
-    private static function _getScriptUrl()
+    private static function _getScriptUrl(): ?string
     {
 
         if (isset(self::$_script_url)) {
@@ -623,17 +641,20 @@ class Languages extends Component implements interfaces\Languages
     /**
      * Get default language
      *
+     * @param string|null $base_domain Base domain name
+     *                                 (usually $_SERVER['HTTP_HOST'])
+     *
      * @return string
      * @throws LanguageException
      */
-    public function getDefaultLanguage(): string
+    public function getDefaultLanguage(?string $base_domain = null): string
     {
 
         if ($this->language_on_domain
-            && isset($_SERVER['HTTP_HOST'])
-            && isset($this->default_language[$_SERVER['HTTP_HOST']])
+            && isset($base_domain)
+            && isset($this->default_language[$base_domain])
         ) {
-            $language = $this->default_language[$_SERVER['HTTP_HOST']];
+            $language = $this->default_language[$base_domain];
         } elseif (isset($this->default_language['default'])) {
             $language = $this->default_language['default'];
         } elseif (isset($this->default_language)
@@ -682,7 +703,7 @@ class Languages extends Component implements interfaces\Languages
      * Get flag of language country
      *
      * @param string $language Language code
-     * @param bool $html return html <img src="..
+     * @param bool   $html     return html <img src="..
      *
      * @return string
      */

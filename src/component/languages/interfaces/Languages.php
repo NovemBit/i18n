@@ -21,12 +21,17 @@ interface Languages
     /**
      * Add language
      *
-     * @param string $url      Initial Url
-     * @param string $language Language code
+     * @param string      $url         Initial Url
+     * @param string      $language    Language code
+     * @param string|null $base_domain Base domain
      *
      * @return string
      */
-    public function addLanguageToUrl(string $url, string $language);
+    public function addLanguageToUrl(
+        string $url,
+        string $language,
+        ?string $base_domain = null
+    );
 
     /**
      * Validate language code
@@ -35,7 +40,7 @@ interface Languages
      *
      * @return mixed
      */
-    public function validateLanguage(string $language) : bool;
+    public function validateLanguage(string $language): bool;
 
     /**
      * Validate multiple languages
@@ -44,14 +49,14 @@ interface Languages
      *
      * @return bool
      */
-    public function validateLanguages(array $languages) : bool;
+    public function validateLanguages(array $languages): bool;
 
     /**
      * Get main content (from) language
      *
      * @return string
      */
-    public function getFromLanguage() : string;
+    public function getFromLanguage(): string;
 
     /**
      * Set main from language
@@ -65,9 +70,11 @@ interface Languages
     /**
      * Get default language
      *
+     * @param string|null $base_domain Base domain
+     *
      * @return string
      */
-    public function getDefaultLanguage() : string;
+    public function getDefaultLanguage(?string $base_domain = null): string;
 
     /**
      * Remove string name from url
@@ -76,18 +83,26 @@ interface Languages
      *
      * @return string
      */
-    public function removeScriptNameFromUrl(string $url) : string;
+    public function removeScriptNameFromUrl(string $url): string;
 
     /**
      * Get language query key
      *
      * @return string
      */
-    public function getLanguageQueryKey() : string;
+    public function getLanguageQueryKey(): string;
 
+    /**
+     * Get accept languages
+     *
+     * @param bool $with_names With names
+     * @param bool $with_flags With flags
+     *
+     * @return array
+     */
     public function getAcceptLanguages(
         bool $with_names = false,
         bool $with_flags = false
-    ) : array;
+    ): array;
 
 }
