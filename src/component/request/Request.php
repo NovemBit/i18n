@@ -1086,6 +1086,8 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * If request component ready to use
+     *
      * @return bool
      */
     public function isReady(): bool
@@ -1094,7 +1096,11 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
-     * @param bool $ready
+     * Set ready status
+     *
+     * @param bool $ready Ready status
+     *
+     * @return void
      */
     public function setReady(bool $ready): void
     {
