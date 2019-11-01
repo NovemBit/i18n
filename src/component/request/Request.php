@@ -14,7 +14,6 @@
 namespace NovemBit\i18n\component\request;
 
 use DOMDocument;
-use DOMElement;
 use DOMNode;
 use DOMXPath;
 use NovemBit\i18n\component\request\exceptions\RequestException;
@@ -68,6 +67,8 @@ class Request extends Component implements interfaces\Request
     private $_language;
 
     /**
+     * Ready status
+     *
      * @var bool
      * */
     private $_ready = false;
@@ -816,7 +817,7 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom     Document object
+     * @param DOMDocument $dom    Document object
      * @param DOMNode     $parent Parent element
      *
      * @return void

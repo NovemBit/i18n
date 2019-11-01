@@ -95,11 +95,15 @@ class HTML
     private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
 
     /**
+     * Before translate callback
+     *
      * @var callable
      * */
     private $_before_translate_callback = null;
 
     /**
+     * After translate callback
+     *
      * @var callable
      * */
     private $_after_translate_callback = null;
@@ -107,10 +111,10 @@ class HTML
     /**
      * HTML parser constructor.
      *
-     * @param string $html Html content
-     * @param string|null $query Xpath Query
+     * @param string        $html                      Html content
+     * @param string|null   $query                     Xpath Query
      * @param callable|null $before_translate_callback Before init callback
-     * @param callable|null $after_translate_callback After init callback
+     * @param callable|null $after_translate_callback  After init callback
      */
     public function __construct(
         string $html,
@@ -132,13 +136,11 @@ class HTML
      * HTML constructor.
      *
      * @param string $html initial HTML content
-     * @param callable|null $callback
+     *
      * @return HTML
      */
-    public function load(
-        string $html,
-        ?callable $callback = null
-    ): self {
+    public function load(string $html): self
+    {
         $this->setHtml($html);
 
         $this->_initDom();
@@ -159,7 +161,7 @@ class HTML
      * Impossible to parser with DOM parser
      *
      * @param string $html Referenced HTML content
-     * @param string $tag Tag that must be preserved
+     * @param string $tag  Tag that must be preserved
      * @param string $attr Attributes pattern
      *
      * @return void
@@ -195,7 +197,7 @@ class HTML
      * Restoring preserved tags on HTML
      *
      * @param string $html Referenced HTML content
-     * @param string $tag Tag That should be restored
+     * @param string $tag  Tag That should be restored
      * @param string $attr Attributes pattern
      *
      * @return void
@@ -392,9 +394,9 @@ class HTML
     /**
      * Adding translate fields
      *
-     * @param Rule $rule Rule object
-     * @param string $text Text node type to translate
-     * @param array $attrs List of attributes that must be translated
+     * @param Rule   $rule  Rule object
+     * @param string $text  Text node type to translate
+     * @param array  $attrs List of attributes that must be translated
      *
      * @return void
      */
@@ -509,7 +511,7 @@ class HTML
     /**
      * Adding preserved fields
      *
-     * @param string|null $tag Html tag
+     * @param string|null $tag  Html tag
      * @param string|null $attr Html attribute
      *
      * @return void
@@ -530,6 +532,8 @@ class HTML
     }
 
     /**
+     * Get before translate callback
+     *
      * @return callable
      */
     public function getBeforeTranslateCallback(): ?callable
@@ -538,7 +542,11 @@ class HTML
     }
 
     /**
-     * @param callable $before_translate_callback
+     * Set before translate callback
+     *
+     * @param callable $before_translate_callback Callback
+     *
+     * @return void
      */
     public function setBeforeTranslateCallback(
         ?callable $before_translate_callback
@@ -547,6 +555,8 @@ class HTML
     }
 
     /**
+     * Get after translate callback
+     *
      * @return callable
      */
     public function getAfterTranslateCallback(): ?callable
@@ -555,7 +565,11 @@ class HTML
     }
 
     /**
-     * @param callable $after_translate_callback
+     * Set before translate callback
+     *
+     * @param callable $after_translate_callback Callback
+     *
+     * @return void
      */
     public function setAfterTranslateCallback(
         ?callable $after_translate_callback

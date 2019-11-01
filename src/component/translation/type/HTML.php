@@ -116,7 +116,8 @@ class HTML extends Type implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $html Html content
+     * @param string $html     Html content
+     * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\HTML
      */
