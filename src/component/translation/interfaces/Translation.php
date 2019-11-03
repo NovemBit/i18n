@@ -21,8 +21,12 @@ interface Translation
 {
     public function getFromLanguage(): string;
 
-    public function setLanguages($_languages): self;
+    public function setLanguages(array $_languages): self;
+
+    public function setCountry(string $_country): self;
 
     public function getLanguages(): array;
+
+    public function getCountry(): string;
 
 }
