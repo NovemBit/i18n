@@ -49,6 +49,20 @@ class HTML extends Type implements interfaces\HTML
     public $parser_query;
 
     /**
+     * Language in title
+     *
+     * @var bool
+     * */
+    public $language_in_title = true;
+
+    /**
+     * Country name in title
+     *
+     * @var bool
+     * */
+    public $country_in_title = true;
+
+    /**
      * Fields to translate
      *
      * ```php
@@ -112,7 +126,6 @@ class HTML extends Type implements interfaces\HTML
     private $_before_parse_callbacks = [];
     private $_after_parse_callbacks = [];
 
-
     /**
      * Get Html parser. Create new instance of HTML parser
      *
@@ -126,21 +139,6 @@ class HTML extends Type implements interfaces\HTML
         string $language
     ): \NovemBit\i18n\system\parsers\HTML {
 
-        $parser = new \NovemBit\i18n\system\parsers\HTML(
-            $html,
-            $this->parser_query,
-            function ($xpath, $dom) {
-                foreach ($this->getBeforeParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
-                }
-            },
-            function ($xpath, $dom) use ($language) {
-                foreach ($this->getAfterParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
-                }
-            }
-        );
-
         $this->addAfterParseCallback(
             function ($xpath) use ($language) {
                 /**
@@ -152,6 +150,50 @@ class HTML extends Type implements interfaces\HTML
                 $lang = $xpath->query('//html/@lang')->item(0);
                 if ($lang !== null) {
                     $lang->value = $language;
+                }
+            }
+        );
+
+        $this->addBeforeParseCallback(
+            function (DOMXPath $xpath, \DOMDocument $dom) use ($language) {
+                /**
+                 * Setting var types
+                 *
+                 * @var DOMXPath $xpath
+                 * @var DOMText $title
+                 */
+                $title = $xpath->query('//html/head/title/text()')->item(0);
+                if ($title !== null) {
+                    if ($this->language_in_title || $this->country_in_title) {
+                        $title->data .= ' |';
+                    }
+                    if ($this->language_in_title) {
+                        $title->data .= " " . $this->context->context
+                            ->languages
+                            ->getAcceptLanguages(true)
+                            [$language]['name'];
+                    }
+
+                    if ($this->country_in_title) {
+                        $title->data .= ", " . $this->context->getCountry();
+                    }
+                }
+
+
+            }
+        );
+
+        $parser = new \NovemBit\i18n\system\parsers\HTML(
+            $html,
+            $this->parser_query,
+            function ($xpath, $dom) {
+                foreach ($this->getBeforeParseCallbacks() as $callback) {
+                    call_user_func_array($callback, [$xpath, $dom]);
+                }
+            },
+            function ($xpath, $dom) use ($language) {
+                foreach ($this->getAfterParseCallbacks() as $callback) {
+                    call_user_func_array($callback, [$xpath, $dom]);
                 }
             }
         );
