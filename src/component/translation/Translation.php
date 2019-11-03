@@ -76,6 +76,13 @@ class Translation extends Component implements interfaces\Translation
     private $_languages;
 
     /**
+     * Country name
+     *
+     * @var string
+     * */
+    private $_country;
+
+    /**
      * Set languages for translation
      *
      * @param array|string $_languages list of languages
@@ -83,19 +90,23 @@ class Translation extends Component implements interfaces\Translation
      * @return self
      * @throws TranslationException
      */
-    public function setLanguages($_languages) : interfaces\Translation
+    public function setLanguages(array $_languages) : interfaces\Translation
     {
-        if (is_string($_languages)) {
-            $_languages = [$_languages];
-        }
-
         if ($this->context->languages->validateLanguages($_languages)) {
             $this->_languages = $_languages;
-
             return $this;
         } else {
             throw new TranslationException('Language not supporting.');
         }
+    }
+
+    public function setCountry(string $_country): interfaces\Translation{
+        $this->_country = $_country;
+        return $this;
+    }
+
+    public function getCountry():string {
+        return $this->_country;
     }
 
     /**
