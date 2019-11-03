@@ -77,6 +77,15 @@ interface Languages
     public function getDefaultLanguage(?string $base_domain = null): string;
 
     /**
+     * Get default country
+     *
+     * @param string|null $base_domain Base domain
+     *
+     * @return string
+     * */
+    public function getDefaultCountry(?string $base_domain = null): string;
+
+    /**
      * Remove string name from url
      *
      * @param string $url Initial URL
