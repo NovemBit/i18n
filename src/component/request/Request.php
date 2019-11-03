@@ -67,6 +67,13 @@ class Request extends Component implements interfaces\Request
     private $_language;
 
     /**
+     * Country name
+     *
+     * @var string
+     * */
+    private $_country;
+
+    /**
      * Ready status
      *
      * @var bool
@@ -263,16 +270,21 @@ class Request extends Component implements interfaces\Request
      *
      * @param string $translate   Translated url
      * @param string $to_language Language of translated string
+     * @param string $country     Country name
      *
      * @return string|null
      */
     private function _getSourceUrlFromTranslate(
         string $translate,
-        string $to_language
+        string $to_language,
+        string $country
     ): ?string {
 
         $re_translate = $this->context->translation
-            ->setLanguages($to_language)->url->reTranslate([$translate]);
+            ->setLanguages([$to_language])
+            ->setCountry($country)
+            ->url
+            ->reTranslate([$translate]);
         if (isset($re_translate[$translate])) {
             return $re_translate[$translate];
         }
@@ -373,7 +385,8 @@ class Request extends Component implements interfaces\Request
             $this->setRefererSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
-                    $this->getRefererLanguage()
+                    $this->getRefererLanguage(),
+                    $this->getCountry()
                 )
             );
         }
@@ -407,6 +420,7 @@ class Request extends Component implements interfaces\Request
             $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->setCountry($this->getCountry())
                     ->url->translate([$this->getDestination()])
                 [$this->getDestination()]
             );
@@ -422,7 +436,8 @@ class Request extends Component implements interfaces\Request
             $this->_setSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getDestination(),
-                    $this->getLanguage()
+                    $this->getLanguage(),
+                    $this->getCountry()
                 )
             );
 
@@ -432,6 +447,7 @@ class Request extends Component implements interfaces\Request
             $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->setCountry($this->getCountry())
                     ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
                 ?? null
             );
@@ -498,6 +514,7 @@ class Request extends Component implements interfaces\Request
         $this->setFromLanguage($this->context->languages->getFromLanguage());
 
         return $this->_prepareLanguage()
+            && $this->_prepareCountry()
             && $this->_prepareDestination()
             && $this->_prepareSourceUrl()
             && $this->_prepareReferer();
@@ -590,7 +607,9 @@ class Request extends Component implements interfaces\Request
          * If language does not exists in @URL
          * */
         if ($language == null) {
-            $language = $this->context->languages->getDefaultLanguage();
+            $language = $this->context
+                ->languages
+                ->getDefaultLanguage($_SERVER['HTTP_HOST']);
         }
 
         /*
@@ -603,6 +622,42 @@ class Request extends Component implements interfaces\Request
          * */
         $this->_removeLanguageFromURI($_SERVER['REQUEST_URI']);
 
+        return true;
+    }
+
+    /**
+     * Get current country
+     *
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->_country;
+    }
+
+    /**
+     * Set current country
+     *
+     * @param mixed $country Country name
+     *
+     * @return void
+     */
+    private function _setCountry($country): void
+    {
+        $this->_country = $country;
+    }
+
+    /**
+     * Prepare country
+     *
+     * @return bool
+     */
+    private function _prepareCountry(): bool
+    {
+        $country = $this->context
+            ->languages
+            ->getDefaultCountry($_SERVER['HTTP_HOST']);
+        $this->_setCountry($country);
         return true;
     }
 
@@ -654,7 +709,9 @@ class Request extends Component implements interfaces\Request
                  * @var Translator $translator
                  */
                 $translator = $this
-                    ->getTranslation()->setLanguages($this->getLanguage())
+                    ->getTranslation()
+                    ->setLanguages([$this->getLanguage()])
+                    ->setCountry($this->getCountry())
                     ->{$type};
                 if ($type == "html") {
 
@@ -670,8 +727,10 @@ class Request extends Component implements interfaces\Request
                             $head = $xpath->query('//html/head')->item(0);
                             $this->_addMainJavaScriptNode($dom, $head);
                             $this->_addXHRManipulationJavaScript($dom, $head);
-                            $this->_addEditorAssets($dom, $head);
                             $this->_addAlternateLinkNodes($dom, $head);
+                            if ($this->allow_editor) {
+                                $this->_addEditorAssets($dom, $head);
+                            }
 
                         }
                     );
