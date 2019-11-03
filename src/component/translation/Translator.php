@@ -659,4 +659,8 @@ abstract class Translator extends Component implements interfaces\Translator
         );
     }
 
+    public function getTranslation(){
+        return $this->context;
+    }
+
 }
