@@ -47,7 +47,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @var array[string][string]
      * */
-    public $default_language;
+    public $localization_config;
 
     /**
      * Accepted languages
@@ -64,15 +64,6 @@ class Languages extends Component implements interfaces\Languages
      * @var bool
      * */
     public $language_on_path = true;
-
-    /**
-     * If `$default_domain` parameter is array and contain
-     * Host names with specific language
-     * Then take language from domain name
-     *
-     * @var bool
-     * */
-    public $language_on_domain = true;
 
     /**
      * Language query variable key
@@ -302,7 +293,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @return string|null
      */
-    private function _getLanguageFromUrlQuery(string $url) : ?string
+    private function _getLanguageFromUrlQuery(string $url): ?string
     {
         $parts = parse_url($url);
 
@@ -420,7 +411,7 @@ class Languages extends Component implements interfaces\Languages
         string $url,
         string $language,
         ?string $base_domain = null
-    ) : ?string {
+    ): ?string {
 
 
         /**
@@ -431,19 +422,12 @@ class Languages extends Component implements interfaces\Languages
         }
 
         /**
-         * If language_on_domain is enabled and current host exists on
-         * "default_language" array and if current language
-         *
-         * Then change host of url
-         * and add language code if necessary
-         *
          * # Notice
          * > This is hard logic.
          * > Notice Dont change this code if you not fully understanding method
          * */
-        if ($this->language_on_domain
-            && isset($base_domain)
-            && isset($this->default_language[$base_domain])
+        if (isset($base_domain)
+            && isset($this->localization_config[$base_domain])
         ) {
 
             $parts = parse_url($url);
@@ -638,6 +622,18 @@ class Languages extends Component implements interfaces\Languages
         return $this->from_language;
     }
 
+    public function getDefaultLanguageConfig(?string $base_domain = null): array
+    {
+        if ($base_domain !== null
+            && isset($this->localization_config[$base_domain])
+        ) {
+            return $this->localization_config[$base_domain];
+        } elseif (isset($this->localization_config['default'])) {
+            return $this->localization_config['default'];
+        }
+        return [];
+    }
+
     /**
      * Get default language
      *
@@ -649,27 +645,25 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
+        $config = $this->getDefaultLanguageConfig($base_domain);
 
-        if ($this->language_on_domain
-            && isset($base_domain)
-            && isset($this->default_language[$base_domain])
-        ) {
-            $language = $this->default_language[$base_domain];
-        } elseif (isset($this->default_language['default'])) {
-            $language = $this->default_language['default'];
-        } elseif (isset($this->default_language)
-            && is_string($this->default_language)
-        ) {
-            $language = $this->default_language;
+        if (isset($config['language'])) {
+            $language = $config['language'];
         } else {
-            return $this->getFromLanguage();
+            $language = $this->getFromLanguage();
         }
 
         if ($this->validateLanguage($language)) {
             return $language;
         } else {
-            throw new LanguageException('Unknown default language parameter.');
+            throw new LanguageException('Invalid default language parameter.');
         }
+    }
+
+    public function getDefaultCountry(?string $base_domain = null): string
+    {
+        $config = $this->getDefaultLanguageConfig($base_domain);
+        return $config['country'] ?? "US";
     }
 
     /**
