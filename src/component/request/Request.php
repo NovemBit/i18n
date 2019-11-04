@@ -275,21 +275,24 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
-     * @param string $to_language Language of translated string
-     * @param string $country Country name
+     * @param string      $translate   Translated url
+     * @param string      $to_language Language of translated string
+     * @param string      $country     Country name
+     * @param string|null $region      Region
      *
      * @return string|null
      */
     private function _getSourceUrlFromTranslate(
         string $translate,
         string $to_language,
-        string $country
+        ?string $country,
+        ?string $region
     ): ?string {
 
         $re_translate = $this->context->translation
             ->setLanguages([$to_language])
             ->setCountry($country)
+            ->setRegion($region)
             ->url
             ->reTranslate([$translate]);
         if (isset($re_translate[$translate])) {
@@ -393,7 +396,8 @@ class Request extends Component implements interfaces\Request
                 $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
                     $this->getRefererLanguage(),
-                    $this->getCountry()
+                    $this->getCountry(),
+                    $this->getRegion()
                 )
             );
         }
@@ -444,7 +448,8 @@ class Request extends Component implements interfaces\Request
                 $this->_getSourceUrlFromTranslate(
                     $this->getDestination(),
                     $this->getLanguage(),
-                    $this->getCountry()
+                    $this->getCountry(),
+                    $this->getRegion()
                 )
             );
 
@@ -521,6 +526,7 @@ class Request extends Component implements interfaces\Request
         $this->setFromLanguage($this->context->languages->getFromLanguage());
 
         return $this->_prepareLanguage()
+            && $this->_prepareRegion()
             && $this->_prepareCountry()
             && $this->_prepareDestination()
             && $this->_prepareSourceUrl()
@@ -635,7 +641,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Get current country
      *
-     * @return mixed
+     * @return string|null
      */
     public function getCountry(): ?string
     {
@@ -649,7 +655,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setCountry(string $country): void
+    private function _setCountry(?string $country): void
     {
         $this->_country = $country;
     }
@@ -657,11 +663,11 @@ class Request extends Component implements interfaces\Request
     /**
      * Set current region
      *
-     * @param mixed $region Region name
+     * @param string|null $region Region name
      *
      * @return void
      */
-    private function _setRegion(string $region): void
+    private function _setRegion(?string $region): void
     {
         $this->_region = $region;
     }
@@ -669,9 +675,9 @@ class Request extends Component implements interfaces\Request
     /**
      * Get current region
      *
-     * @return string
+     * @return string|null
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->_region;
     }
@@ -687,6 +693,20 @@ class Request extends Component implements interfaces\Request
             ->languages
             ->getDefaultCountry($_SERVER['HTTP_HOST']);
         $this->_setCountry($country);
+        return true;
+    }
+
+    /**
+     * Prepare country
+     *
+     * @return bool
+     */
+    private function _prepareRegion(): bool
+    {
+        $country = $this->context
+            ->languages
+            ->getDefaultRegion($_SERVER['HTTP_HOST']);
+        $this->_setRegion($country);
         return true;
     }
 
@@ -740,6 +760,7 @@ class Request extends Component implements interfaces\Request
                 $translator = $this
                     ->getTranslation()
                     ->setLanguages([$this->getLanguage()])
+                    ->setRegion($this->getRegion())
                     ->setCountry($this->getCountry())
                     ->{$type};
                 if ($type == "html") {
@@ -885,8 +906,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -905,8 +926,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -962,8 +983,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1006,8 +1027,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
