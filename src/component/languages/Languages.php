@@ -428,8 +428,8 @@ class Languages extends Component implements interfaces\Languages
     /**
      * {@inheritDoc}
      *
-     * @param string      $url         Simple url
-     * @param string      $language    language code
+     * @param string $url Simple url
+     * @param string $language language code
      * @param string|null $base_domain Base domain name
      *
      * @return null|string
@@ -620,13 +620,17 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getDefaultConfig(?string $base_domain = null): array
     {
-        if ($base_domain !== null
-            && isset($this->localization_config[$base_domain])
-        ) {
-            return $this->localization_config[$base_domain];
-        } elseif (isset($this->localization_config['default'])) {
+
+        foreach ($this->localization_config as $domain_pattern => $_config) {
+            if (preg_match("/$domain_pattern/", $base_domain)) {
+                return $_config;
+                break;
+            }
+        }
+        if (!isset($config) && isset($this->localization_config['default'])) {
             return $this->localization_config['default'];
         }
+
         return [];
     }
 
@@ -672,6 +676,19 @@ class Languages extends Component implements interfaces\Languages
     /**
      * {@inheritDoc}
      *
+     * @param string|null $base_domain Base domain
+     *
+     * @return string
+     */
+    public function getDefaultRegion(?string $base_domain = null): string
+    {
+        $config = $this->getDefaultConfig($base_domain);
+        return $config['region'] ?? "US";
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @return mixed
      */
     public function getLanguageQueryKey(): string
@@ -700,7 +717,7 @@ class Languages extends Component implements interfaces\Languages
      * {@inheritDoc}
      *
      * @param string $language Language code
-     * @param bool   $html     return html <img src="..
+     * @param bool $html return html <img src="..
      *
      * @return string
      */
