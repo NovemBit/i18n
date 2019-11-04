@@ -83,6 +83,13 @@ class Translation extends Component implements interfaces\Translation
     private $_country;
 
     /**
+     * Region name
+     *
+     * @var string
+     * */
+    private $_region;
+
+    /**
      * Set languages for translation
      *
      * @param array|string $_languages list of languages
@@ -107,6 +114,15 @@ class Translation extends Component implements interfaces\Translation
 
     public function getCountry():string {
         return $this->_country;
+    }
+
+    public function setRegion(string $_region): interfaces\Translation{
+        $this->_region = $_region;
+        return $this;
+    }
+
+    public function getRegion():string {
+        return $this->_region;
     }
 
     /**
