@@ -49,18 +49,12 @@ class HTML extends Type implements interfaces\HTML
     public $parser_query;
 
     /**
-     * Language in title
+     * Title tag template
+     * Callable function params $translate, $language, $country, $region
      *
-     * @var bool
+     * @var string|callable
      * */
-    public $language_in_title = true;
-
-    /**
-     * Country name in title
-     *
-     * @var bool
-     * */
-    public $country_in_title = true;
+    public $title_tag_template = "{translate} | {country}, {language_name}";
 
     /**
      * Fields to translate
@@ -129,7 +123,7 @@ class HTML extends Type implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $html     Html content
+     * @param string $html Html content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\HTML
@@ -164,18 +158,31 @@ class HTML extends Type implements interfaces\HTML
                  */
                 $title = $xpath->query('//html/head/title/text()')->item(0);
                 if ($title !== null) {
-                    if ($this->language_in_title || $this->country_in_title) {
-                        $title->data .= ' |';
-                    }
-                    if ($this->language_in_title) {
-                        $title->data .= " " . $this->context->context
-                            ->languages
-                            ->getAcceptLanguages(true)
-                            [$language]['name'];
-                    }
 
-                    if ($this->country_in_title) {
-                        $title->data .= ", " . $this->context->getCountry();
+                    $language_name = $this->context->context->languages
+                        ->getAcceptLanguages(true)[$language]['name'];
+
+                    if (is_callable($this->title_tag_template)) {
+                        $title->data = call_user_func(
+                            $this->title_tag_template,
+                            [
+                                'translate'=>$title->data,
+                                'language_code'=>$language,
+                                'language_name'=>$language_name,
+                                'country'=>$this->context->getCountry(),
+                                'region'=>$this->context->getRegion()
+                            ]
+                        );
+                    } else {
+                        $title->data = strtr(
+                            $this->title_tag_template, [
+                                '{translate}' => $title->data,
+                                '{language_name}' =>$language_name,
+                                '{language_code}' => $language,
+                                '{country}' => $this->context->getCountry(),
+                                '{region}' => $this->context->getRegion()
+                            ]
+                        );
                     }
                 }
 
