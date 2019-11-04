@@ -107,21 +107,49 @@ class Translation extends Component implements interfaces\Translation
         }
     }
 
-    public function setCountry(string $_country): interfaces\Translation{
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $_country Country
+     *
+     * @return interfaces\Translation
+     */
+    public function setCountry(?string $_country): interfaces\Translation
+    {
         $this->_country = $_country;
         return $this;
     }
 
-    public function getCountry():string {
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    public function getCountry():?string
+    {
         return $this->_country;
     }
 
-    public function setRegion(string $_region): interfaces\Translation{
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $_region Region
+     *
+     * @return interfaces\Translation
+     */
+    public function setRegion(?string $_region): interfaces\Translation
+    {
         $this->_region = $_region;
         return $this;
     }
 
-    public function getRegion():string {
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    public function getRegion():?string
+    {
         return $this->_region;
     }
 
