@@ -670,7 +670,7 @@ class Languages extends Component implements interfaces\Languages
     public function getDefaultCountry(?string $base_domain = null): string
     {
         $config = $this->getDefaultConfig($base_domain);
-        return $config['country'] ?? "US";
+        return $config['country'] ?? "United States";
     }
 
     /**

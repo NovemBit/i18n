@@ -74,6 +74,13 @@ class Request extends Component implements interfaces\Request
     private $_country;
 
     /**
+     * Region name
+     *
+     * @var string
+     * */
+    private $_region;
+
+    /**
      * Ready status
      *
      * @var bool
@@ -268,9 +275,9 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate   Translated url
+     * @param string $translate Translated url
      * @param string $to_language Language of translated string
-     * @param string $country     Country name
+     * @param string $country Country name
      *
      * @return string|null
      */
@@ -630,7 +637,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return mixed
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->_country;
     }
@@ -642,9 +649,31 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setCountry($country): void
+    private function _setCountry(string $country): void
     {
         $this->_country = $country;
+    }
+
+    /**
+     * Set current region
+     *
+     * @param mixed $region Region name
+     *
+     * @return void
+     */
+    private function _setRegion(string $region): void
+    {
+        $this->_region = $region;
+    }
+
+    /**
+     * Get current region
+     *
+     * @return string
+     */
+    public function getRegion(): string
+    {
+        return $this->_region;
     }
 
     /**
@@ -856,8 +885,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -876,8 +905,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -933,8 +962,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -977,8 +1006,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
