@@ -94,7 +94,7 @@ interface Languages
      *
      * @return string
      * */
-    public function getDefaultCountry(?string $base_domain = null): string;
+    public function getDefaultCountry(?string $base_domain = null): ?string;
 
     /**
      * Get default country
@@ -103,7 +103,7 @@ interface Languages
      *
      * @return string
      * */
-    public function getDefaultRegion(?string $base_domain = null): string;
+    public function getDefaultRegion(?string $base_domain = null): ?string;
 
     /**
      * Remove executable file from url path
