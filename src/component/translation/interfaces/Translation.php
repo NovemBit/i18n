@@ -25,8 +25,12 @@ interface Translation
 
     public function setCountry(string $_country): self;
 
+    public function setRegion(string $_region): self;
+
     public function getLanguages(): array;
 
     public function getCountry(): string;
+
+    public function getRegion(): string;
 
 }
