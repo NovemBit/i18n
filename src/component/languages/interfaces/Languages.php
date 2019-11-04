@@ -19,7 +19,15 @@ interface Languages
     public function getLanguageFromUrl(string $url);
 
     /**
-     * Add language
+     * Adding language code to
+     * Already translated URL
+     *
+     * If `$language_on_path` is true then adding
+     * Language code to beginning of url path
+     *
+     * If `$language_on_path` is false or url contains
+     * Script name or directory path then adding only
+     * Query parameter of language
      *
      * @param string      $url         Initial Url
      * @param string      $language    Language code
@@ -34,7 +42,8 @@ interface Languages
     );
 
     /**
-     * Validate language code
+     * Validate one language
+     * Check if language exists in `$accepted_languages` array
      *
      * @param string $language Language code
      *
@@ -43,9 +52,11 @@ interface Languages
     public function validateLanguage(string $language): bool;
 
     /**
-     * Validate multiple languages
+     * Validate list of Languages
+     * Check if each language code exists on
+     * Accepted languages list
      *
-     * @param array $languages Languages list
+     * @param string[] $languages language codes
      *
      * @return bool
      */
@@ -86,7 +97,7 @@ interface Languages
     public function getDefaultCountry(?string $base_domain = null): string;
 
     /**
-     * Remove string name from url
+     * Remove executable file from url path
      *
      * @param string $url Initial URL
      *
@@ -114,4 +125,22 @@ interface Languages
         bool $with_flags = false
     ): array;
 
+    /**
+     * Get default config by `$base_domain` name
+     *
+     * @param string|null $base_domain base domain name
+     *
+     * @return array
+     */
+    public function getDefaultConfig(?string $base_domain = null): array;
+
+    /**
+     * Get flag of language country
+     *
+     * @param string $language Language code
+     * @param bool   $html     return html <img src="..
+     *
+     * @return string
+     */
+    public function getFlagByLanguage(string $language, $html = false): string;
 }

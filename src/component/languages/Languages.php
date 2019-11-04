@@ -346,7 +346,43 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Get language code from url
+     * Get script url
+     * F.e. /path/to/my/dir/index.php or /path/to/my/dir
+     *
+     * @return string|null
+     */
+    private static function _getScriptUrl(): ?string
+    {
+
+        if (isset(self::$_script_url)) {
+            return self::$_script_url;
+        }
+
+        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
+            return null;
+        }
+
+        $request_uri = $_SERVER['REQUEST_URI'];
+        $script_name = $_SERVER['SCRIPT_NAME'];
+
+        if (strpos($request_uri, $script_name) === 0) {
+            $str = $script_name;
+        } else {
+            $paths = explode('/', $_SERVER['SCRIPT_NAME']);
+
+            unset($paths[count($paths) - 1]);
+            $str = implode('/', $paths);
+        }
+
+        $str = trim($str, '/');
+
+        self::$_script_url = $str;
+
+        return self::$_script_url;
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @param string|null $url Simple URL
      *
@@ -364,7 +400,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Remove executable file from url path
+     * {@inheritDoc}
      *
      * @param string $url Simple url
      *
@@ -390,15 +426,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Adding language code to
-     * Already translated URL
-     *
-     * If `$language_on_path` is true then adding
-     * Language code to beginning of url path
-     *
-     * If `$language_on_path` is false or url contains
-     * Script name or directory path then adding only
-     * Query parameter of language
+     * {@inheritDoc}
      *
      * @param string      $url         Simple url
      * @param string      $language    language code
@@ -511,8 +539,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Validate one language
-     * Check if language exists in `$accepted_languages` array
+     * {@inheritDoc}
      *
      * @param string $language language code
      *
@@ -528,9 +555,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Validate list of Languages
-     * Check if each language code exists on
-     * Accepted languages list
+     * {@inheritDoc}
      *
      * @param string[] $languages language codes
      *
@@ -548,7 +573,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Get accepted languages array
+     * {@inheritDoc}
      *
      * @param bool $with_names return languages with assoc keys and names
      * @param bool $with_flags return with flags
@@ -577,43 +602,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Get script url
-     * F.e. /path/to/my/dir/index.php or /path/to/my/dir
-     *
-     * @return string|null
-     */
-    private static function _getScriptUrl(): ?string
-    {
-
-        if (isset(self::$_script_url)) {
-            return self::$_script_url;
-        }
-
-        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
-            return null;
-        }
-
-        $request_uri = $_SERVER['REQUEST_URI'];
-        $script_name = $_SERVER['SCRIPT_NAME'];
-
-        if (strpos($request_uri, $script_name) === 0) {
-            $str = $script_name;
-        } else {
-            $paths = explode('/', $_SERVER['SCRIPT_NAME']);
-
-            unset($paths[count($paths) - 1]);
-            $str = implode('/', $paths);
-        }
-
-        $str = trim($str, '/');
-
-        self::$_script_url = $str;
-
-        return self::$_script_url;
-    }
-
-    /**
-     * Get main from languages
+     * {@inheritDoc}
      *
      * @return mixed
      */
@@ -622,7 +611,14 @@ class Languages extends Component implements interfaces\Languages
         return $this->from_language;
     }
 
-    public function getDefaultLanguageConfig(?string $base_domain = null): array
+    /**
+     * {@inheritDoc}
+     *
+     * @param string|null $base_domain Base domain
+     *
+     * @return array
+     */
+    public function getDefaultConfig(?string $base_domain = null): array
     {
         if ($base_domain !== null
             && isset($this->localization_config[$base_domain])
@@ -635,7 +631,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Get default language
+     * {@inheritDoc}
      *
      * @param string|null $base_domain Base domain name
      *                                 (usually $_SERVER['HTTP_HOST'])
@@ -645,7 +641,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
-        $config = $this->getDefaultLanguageConfig($base_domain);
+        $config = $this->getDefaultConfig($base_domain);
 
         if (isset($config['language'])) {
             $language = $config['language'];
@@ -660,14 +656,21 @@ class Languages extends Component implements interfaces\Languages
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param string|null $base_domain Base domain
+     *
+     * @return string
+     */
     public function getDefaultCountry(?string $base_domain = null): string
     {
-        $config = $this->getDefaultLanguageConfig($base_domain);
+        $config = $this->getDefaultConfig($base_domain);
         return $config['country'] ?? "US";
     }
 
     /**
-     * Get language query key
+     * {@inheritDoc}
      *
      * @return mixed
      */
@@ -694,7 +697,7 @@ class Languages extends Component implements interfaces\Languages
     }
 
     /**
-     * Get flag of language country
+     * {@inheritDoc}
      *
      * @param string $language Language code
      * @param bool   $html     return html <img src="..
