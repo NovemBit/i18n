@@ -367,6 +367,9 @@ class HTML
 
         $this->_setDom(new DomDocument());
 
+        $this->_getDom()->preserveWhiteSpace = false;
+        $this->_getDom()->formatOutput = true;
+
         /**
          * Set encoding of document UTF-8
          * */
