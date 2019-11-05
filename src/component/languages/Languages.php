@@ -579,6 +579,7 @@ class Languages extends Component implements interfaces\Languages
      * @param bool $with_flags return with flags
      *
      * @return array|null
+     * @throws LanguageException
      */
     public function getAcceptLanguages(
         bool $with_names = false,
@@ -593,8 +594,8 @@ class Languages extends Component implements interfaces\Languages
 
         foreach ($accept_languages as $key => &$language) {
             $language = [
-                'name' => $this->_languages[$key]['name'],
-                'flag' => $this->getFlagByLanguage($key)
+                'name' => $this->getNameByLanguageCode($key),
+                'flag' => $this->getFlagByLanguageCode($key)
             ];
         }
 
@@ -716,23 +717,55 @@ class Languages extends Component implements interfaces\Languages
     /**
      * {@inheritDoc}
      *
-     * @param string $language Language code
-     * @param bool   $html     return html <img src="..
+     * @param string $code Language code
+     *
+     * @return mixed|null
+     * @throws LanguageException
+     */
+    public function getNameByLanguageCode(string $code):string
+    {
+        $name = $this->_languages[$code]['name'] ?? null;
+
+        if ($name === null) {
+            throw new LanguageException("Language name property not found!");
+        }
+        return $name;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $code      Language code
+     * @param bool   $rectangle Rectangle format image
+     * @param bool   $html      Return html <img src="..
      *
      * @return string
+     * @throws LanguageException
      */
-    public function getFlagByLanguage(string $language, $html = false): string
-    {
-        $flag = $this->_languages[$language]['flag'];
-        $name = $this->_languages[$language]['name'];
+    public function getFlagByLanguageCode(
+        string $code,
+        $rectangle = true,
+        $html = false
+    ): string {
 
-        $path = __DIR__ . '/assets/images/flags/4x3/' . $flag . '.svg';
-        $data = file_get_contents($path);
-        $base64 = 'data:image/svg+xml;base64,' . base64_encode($data);
-        if ($html) {
-            return "<img alt=\"$name\" title=\"$name\" src=\"$base64\"/>";
-        } else {
-            return $base64;
+        $flag = $this->_languages[$code]['flag'] ?? null;
+
+        if ($flag === null) {
+            throw new LanguageException("Language flag property not found!");
         }
+
+        $name = $this->getNameByLanguageCode($code);
+
+        $size = $rectangle ? "4x3" : "1x1";
+        $path = __DIR__ . '/assets/images/flags/' . $size . '/' . $flag . '.svg';
+
+        $base64 = sprintf(
+            "data:image/svg+xml;base64,%s",
+            base64_encode(file_get_contents($path))
+        );
+
+        return $html
+            ? "<img alt=\"$name\" title=\"$name\" src=\"$base64\"/>"
+            : $base64;
     }
 }

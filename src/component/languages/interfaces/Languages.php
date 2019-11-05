@@ -146,10 +146,12 @@ interface Languages
     /**
      * Get flag of language country
      *
-     * @param string $language Language code
+     * @param string $code Language code
      * @param bool   $html     return html <img src="..
      *
      * @return string
      */
-    public function getFlagByLanguage(string $language, $html = false): string;
+    public function getFlagByLanguageCode(string $code, $html = false): string;
+
+    public function getNameByLanguageCode(string $code):string;
 }
