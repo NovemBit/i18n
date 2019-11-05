@@ -97,6 +97,8 @@ class Languages extends Component implements interfaces\Languages
     /**
      * ISO 639-1 languages list
      *
+     * @todo Correct iso-639-1 to iso 3366
+     *
      * @var array
      * */
     private $_languages = [
