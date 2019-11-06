@@ -41,6 +41,12 @@ class DataType
         return $string != strip_tags($string);
     }
 
+    public static function isXML($string): bool
+    {
+        $doc = @simplexml_load_string($string);
+        return $doc ? true : false;
+    }
+
     /**
      * Check if string is URL
      *
@@ -74,15 +80,17 @@ class DataType
      *
      * @return string|null
      */
-    public static function getType(string $string) : ?string
+    public static function getType(string $string): ?string
     {
         if (self::isURL($string)) {
             return 'url';
         } elseif (self::isJSON($string)) {
             return 'json';
+        } elseif (self::isXML($string)) {
+            return 'xml';
         } elseif (self::isHTML($string)) {
             return 'html';
-        } else {
+        }  else {
             return null;
         }
     }
@@ -90,8 +98,8 @@ class DataType
     /**
      * Get string difference
      *
-     * @param string      $before Initial type of string
-     * @param string      $after  Final type of string
+     * @param string $before Initial type of string
+     * @param string $after Final type of string
      * @param string|null $prefix Referenced variable to receive difference prefix
      * @param string|null $suffix Referenced variable to receive difference suffix
      *
