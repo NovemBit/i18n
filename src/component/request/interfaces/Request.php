@@ -21,4 +21,5 @@ interface Request
     public function start(): void;
     public function isReady(): bool;
 
+    public function getUrlTranslations(): ?array;
 }

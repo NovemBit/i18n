@@ -118,7 +118,6 @@ class URL extends Type implements interfaces\URL
      * @param array $urls list of urls
      *
      * @return array
-     * @throws TranslationException
      */
     public function doTranslate(array $urls): array
     {
