@@ -457,7 +457,7 @@ class Languages extends Component implements interfaces\Languages
          * > Notice Dont change this code if you not fully understanding method
          * */
         if (isset($base_domain)
-            && isset($this->localization_config[$base_domain])
+            && !isset($this->getDefaultConfig($base_domain)['is_default'])
         ) {
 
             $parts = parse_url($url);
@@ -623,18 +623,20 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getDefaultConfig(?string $base_domain = null): array
     {
+        $config = [];
 
         foreach ($this->localization_config as $domain_pattern => $_config) {
             if (preg_match("/$domain_pattern/", $base_domain)) {
-                return $_config;
+                $config = $_config;
                 break;
             }
         }
         if (!isset($config) && isset($this->localization_config['default'])) {
-            return $this->localization_config['default'];
+            $config = $this->localization_config['default'];
+            $config['is_default'] = true;
         }
 
-        return [];
+        return $config;
     }
 
     /**
