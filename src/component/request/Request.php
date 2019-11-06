@@ -275,10 +275,10 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string      $translate   Translated url
-     * @param string      $to_language Language of translated string
-     * @param string      $country     Country name
-     * @param string|null $region      Region
+     * @param string $translate Translated url
+     * @param string $to_language Language of translated string
+     * @param string $country Country name
+     * @param string|null $region Region
      *
      * @return string|null
      */
@@ -322,6 +322,7 @@ class Request extends Component implements interfaces\Request
 
         $dest = urldecode($dest);
         $this->_setDestination($dest);
+
         return true;
     }
 
@@ -732,6 +733,22 @@ class Request extends Component implements interfaces\Request
         }
     }
 
+    public $source_type_map = [
+        '/sitemap.xml/is' => 'sitemap_xml'
+    ];
+
+    private function _getType($source, $content)
+    {
+
+        foreach ($this->source_type_map as $pattern => $type) {
+            if (preg_match($pattern, $source)) {
+                return $type;
+            }
+        }
+
+        return DataType::getType($content);
+    }
+
     /**
      * Translate buffer of request content
      *
@@ -748,10 +765,9 @@ class Request extends Component implements interfaces\Request
          * */
         if (in_array($status, range(200, 299))) {
 
-            $type = DataType::getType($content);
+            $type = $this->_getType($this->getSourceUrl(), $content);
 
             if ($type !== null) {
-
                 /**
                  * Define type of translator
                  *
@@ -850,6 +866,7 @@ class Request extends Component implements interfaces\Request
             return;
         }
 
+
         /**
          * If isset editor query key
          * And current language is not equal from language
@@ -906,8 +923,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -926,8 +943,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -983,8 +1000,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1027,8 +1044,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
