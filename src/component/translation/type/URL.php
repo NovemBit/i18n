@@ -358,7 +358,7 @@ class URL extends Type implements interfaces\URL
          * Replace all non-alphanumeric characters to whitespace
          * To make url SEO friendly
          * */
-        $url = preg_replace('/(?:\W|_)+/u', $this->path_separator, $url);
+        $url = preg_replace('/(?:(?!\.)\W|_)+/u', $this->path_separator, $url);
 
         /**
          * Remove "-" symbol from start and end of string
