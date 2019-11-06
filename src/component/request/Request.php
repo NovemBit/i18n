@@ -275,10 +275,10 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string      $translate   Translated url
-     * @param string      $to_language Language of translated string
-     * @param string      $country     Country name
-     * @param string|null $region      Region
+     * @param string $translate Translated url
+     * @param string $to_language Language of translated string
+     * @param string $country Country name
+     * @param string|null $region Region
      *
      * @return string|null
      */
@@ -789,13 +789,14 @@ class Request extends Component implements interfaces\Request
                         function (DOMXPath $xpath, DOMDocument $dom) {
 
                             $head = $xpath->query('//html/head')->item(0);
-                            $this->_addMainJavaScriptNode($dom, $head);
-                            $this->_addXHRManipulationJavaScript($dom, $head);
-                            $this->_addAlternateLinkNodes($dom, $head);
-                            if ($this->allow_editor) {
-                                $this->_addEditorAssets($dom, $head);
+                            if ($head !== null) {
+                                $this->_addMainJavaScriptNode($dom, $head);
+                                $this->_addXHRManipulationJavaScript($dom, $head);
+                                $this->_addAlternateLinkNodes($dom, $head);
+                                if ($this->allow_editor) {
+                                    $this->_addEditorAssets($dom, $head);
+                                }
                             }
-
                         }
                     );
 
@@ -921,8 +922,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -941,8 +942,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -998,8 +999,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1042,8 +1043,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
