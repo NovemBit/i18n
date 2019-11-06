@@ -462,7 +462,7 @@ class XML
             /**
              * Remove <?xml.. syntax string
              * */
-            $html = preg_replace(
+            $xml = preg_replace(
                 '/' . preg_quote($this->_xml_encoding_fixer) . '/',
                 '',
                 $xml,

@@ -733,9 +733,7 @@ class Request extends Component implements interfaces\Request
         }
     }
 
-    public $source_type_map = [
-        '/sitemap.xml/is' => 'sitemap_xml'
-    ];
+    public $source_type_map = [];
 
     private function _getType($source, $content)
     {

@@ -13,7 +13,6 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
 
@@ -83,6 +82,7 @@ class JSON extends Type
      */
     private function _getFieldType(string $value, string $route): ?string
     {
+
         $type = $this->_getFieldTypeByRoute($route);
 
         if ($this->type_autodetect === true && $type === null) {
@@ -167,6 +167,7 @@ class JSON extends Type
             self::_arrayWalkWithRoute(
                 $object,
                 function ($key, &$val, $route) use (&$to_translate) {
+
                     $type = $this->_getFieldType($val, $route);
 
                     if ($type !== null) {
