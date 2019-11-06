@@ -16,7 +16,6 @@ namespace NovemBit\i18n\component\translation\type;
 use DOMAttr;
 use DOMElement;
 use DOMText;
-use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
@@ -117,7 +116,7 @@ class XML extends Type implements interfaces\XML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml     XML content
+     * @param string $xml      XML content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
