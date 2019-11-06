@@ -254,7 +254,7 @@ class Languages extends Component implements interfaces\Languages
         'su' => ['name' => 'Sundanese', 'flag' => 'su'],
         'sw' => ['name' => 'Swahili', 'flag' => 'sw'],
         'ss' => ['name' => 'Swati', 'flag' => 'ss'],
-        'sv' => ['name' => 'Swedish', 'flag' => 'sv'],
+        'sv' => ['name' => 'Swedish', 'flag' => 'se'],
         'tl' => ['name' => 'Tagalog', 'flag' => 'tl'],
         'ty' => ['name' => 'Tahitian', 'flag' => 'ty'],
         'tg' => ['name' => 'Tajik', 'flag' => 'tg'],
