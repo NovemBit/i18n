@@ -11,7 +11,7 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\system\parsers\html;
+namespace NovemBit\i18n\system\parsers\xml;
 
 use DOMElement;
 use DOMText;
