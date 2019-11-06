@@ -18,7 +18,8 @@
     "ext-curl": "*",
     "ext-mbstring": "*",
     "yiisoft/yii2": "~2.0.14",
-    "google/cloud-translate": "*"
+    "google/cloud-translate": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
