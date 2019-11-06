@@ -116,7 +116,7 @@ class DataType
         $suffix = '';
 
         if ($after != '') {
-            $pos = strpos($before, $after);
+            $pos = strrpos($before, $after);
             $prefix = substr($before, 0, $pos);
             $suffix = substr(
                 $before,
