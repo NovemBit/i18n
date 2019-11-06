@@ -20,7 +20,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use DOMXPath;
-use NovemBit\i18n\system\parsers\html\Rule;
+use NovemBit\i18n\system\parsers\xml\Rule;
 
 /**
  * HTML parser with callback function
@@ -32,7 +32,7 @@ use NovemBit\i18n\system\parsers\html\Rule;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class HTML
+class XML
 {
 
     /**
@@ -40,35 +40,35 @@ class HTML
      *
      * @var string
      * */
-    private $_html;
+    protected $xml;
 
     /**
      * Translate fields set
      *
      * @var array
      * */
-    private $_translate_fields = [];
+    protected $translate_fields = [];
 
     /**
      * Main DomDocument
      *
      * @var DomDocument
      * */
-    private $_dom;
+    protected $dom;
 
     /**
      * Main xpath of dom
      *
      * @var DOMXPath
      * */
-    private $_xpath;
+    protected $xpath;
 
     /**
      * Main query for Xpath
      *
      * @var string
      * */
-    private $_query = ".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
+    private $_query;
 
     /**
      * For script tags
@@ -81,18 +81,10 @@ class HTML
      * Keeping preserved data
      *
      * @var array
-     * @see _preserveField
-     * @see _restorePreservedTag
+     * @see preserveField
+     * @see restorePreservedTag
      * */
     private $_preserved_data = [];
-
-    /**
-     * Special encoding fixer string
-     *
-     * @var string
-     * */
-
-    private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
 
     /**
      * Before translate callback
@@ -109,46 +101,59 @@ class HTML
     private $_after_translate_callback = null;
 
     /**
+     * Special encoding fixer string
+     *
+     * @var string
+     * */
+    private $_xml_encoding_fixer = '<?xml encoding="utf-8"?>';
+
+    private $_type = self::XML;
+
+    const XML = 1;
+    const HTML = 2;
+
+    /**
      * HTML parser constructor.
      *
-     * @param string        $html                      Html content
-     * @param string|null   $query                     Xpath Query
+     * @param string        $xml                       XML content
+     * @param string        $query                     Xpath Query
+     * @param int           $type                      XML or HTML
      * @param callable|null $before_translate_callback Before init callback
      * @param callable|null $after_translate_callback  After init callback
      */
     public function __construct(
-        string $html,
-        ?string $query = null,
+        string $xml,
+        string $query,
+        int $type = self::XML,
         callable $before_translate_callback = null,
         callable $after_translate_callback = null
     ) {
-        if ($query !== null) {
-            $this->setQuery($query);
-        }
+        $this->setQuery($query);
+        $this->setType($type);
         $this->setBeforeTranslateCallback($before_translate_callback);
         $this->setAfterTranslateCallback($after_translate_callback);
 
-        $this->load($html);
+        $this->load($xml);
     }
 
 
     /**
      * HTML constructor.
      *
-     * @param string $html initial HTML content
+     * @param string $xml initial HTML content
      *
-     * @return HTML
+     * @return XML
      */
-    public function load(string $html): self
+    public function load(string $xml): self
     {
-        $this->setHtml($html);
+        $this->setXml($xml);
 
-        $this->_initDom();
+        $this->initDom();
 
         if ($this->getBeforeTranslateCallback() !== null) {
             call_user_func_array(
                 $this->getBeforeTranslateCallback(),
-                [&$this->_xpath, &$this->_dom]
+                [&$this->xpath, &$this->dom]
             );
         }
 
@@ -160,15 +165,15 @@ class HTML
      * Actually using it for preserve script tags that
      * Impossible to parser with DOM parser
      *
-     * @param string $html Referenced HTML content
+     * @param string $xml  Referenced HTML content
      * @param string $tag  Tag that must be preserved
      * @param string $attr Attributes pattern
      *
      * @return void
-     * @see    _preserveField
+     * @see    preserveField
      */
-    private function _preserveField(
-        string &$html,
+    protected function preserveField(
+        string &$xml,
         string $tag,
         string $attr = ''
     ): void {
@@ -183,28 +188,28 @@ class HTML
 
         $pattern = '/<' . $tag . '\b' . $attr . '[^>]*>[\s\S]*?<\/' . $tag . '>/is';
 
-        $html = preg_replace_callback(
+        $xml = preg_replace_callback(
             $pattern,
             function ($matches) use ($new_tag) {
                 $this->_preserved_data[$new_tag][] = $matches[0];
                 return $new_tag;
             },
-            $html
+            $xml
         );
     }
 
     /**
      * Restoring preserved tags on HTML
      *
-     * @param string $html Referenced HTML content
+     * @param string $xml  Referenced HTML content
      * @param string $tag  Tag That should be restored
      * @param string $attr Attributes pattern
      *
      * @return void
-     * @see    _preserveField
+     * @see    preserveField
      */
-    private function _restorePreservedTag(
-        string &$html,
+    protected function restorePreservedTag(
+        string &$xml,
         string $tag,
         string $attr
     ): void {
@@ -220,7 +225,7 @@ class HTML
         for ($i = 0; $i < count($tags); $i++) {
             $replace = $tags[$i];
             $first = strpos(
-                $html,
+                $xml,
                 $newtag,
                 ($first == 0 ? 0 : $first + strlen($tags[$i - 1]))
             );
@@ -228,9 +233,9 @@ class HTML
             if ($first === false) {
                 continue;
             }
-            $before = substr($html, 0, $first);
-            $after = substr($html, $first + strlen($newtag));
-            $html = $before . $replace . $after;
+            $before = substr($xml, 0, $first);
+            $after = substr($xml, $first + strlen($newtag));
+            $xml = $before . $replace . $after;
         }
     }
 
@@ -327,21 +332,21 @@ class HTML
      *
      * @return DOMDocument
      */
-    private function _getDom(): DOMDocument
+    protected function getDom(): DOMDocument
     {
-        return $this->_dom;
+        return $this->dom;
     }
 
     /**
      * Set Dom (DomDocument)
      *
-     * @param DomDocument $_dom Dom Document instance
+     * @param DomDocument $dom Dom Document instance
      *
      * @return void
      */
-    private function _setDom(DomDocument $_dom): void
+    protected function setDom(DomDocument $dom): void
     {
-        $this->_dom = $_dom;
+        $this->dom = $dom;
     }
 
     /**
@@ -350,37 +355,44 @@ class HTML
      *
      * @return void
      */
-    private function _initDom(): void
+    protected function initDom(): void
     {
-        $html = $this->getHtml();
+        $xml = $this->getXml();
 
-        $this->addPreserveField('script', '(?!\stype="application\/ld\+json")+?');
-
+        if ($this->getType() === self::HTML) {
+            $this->addPreserveField(
+                'script',
+                '(?!\stype="application\/ld\+json")+?'
+            );
+        }
         foreach ($this->getPreserveFields() as $field) {
-            $this->_preserveField(
-                $html,
+            $this->preserveField(
+                $xml,
                 $field[0],
                 $field[1]
             );
         }
 
+        $this->setDom(new DomDocument());
 
-        $this->_setDom(new DomDocument());
+        if ($this->getType() === self::HTML) {
+            $this->getDom()->preserveWhiteSpace = false;
+            $this->getDom()->formatOutput = true;
+            /**
+             * Set encoding of document UTF-8
+             * */
+            @$this->getDom()->loadHTML(
+                $this->_xml_encoding_fixer . $xml,
+                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+            );
+            $this->getDom()->encoding = 'utf-8';
 
-        $this->_getDom()->preserveWhiteSpace = false;
-        $this->_getDom()->formatOutput = true;
+        } elseif ($this->getType() == self::XML) {
 
-        /**
-         * Set encoding of document UTF-8
-         * */
-        @$this->_getDom()->loadHTML(
-            $this->_xml_encoding_fixer . $html,
-            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-        );
-        $this->_getDom()->encoding = 'utf-8';
+            @$this->getDom()->loadXML($xml);
+        }
 
-
-        $this->_setXpath(new DOMXpath($this->_dom));
+        $this->setXpath(new DOMXpath($this->getDom()));
 
     }
 
@@ -391,7 +403,7 @@ class HTML
      */
     public function getTranslateFields(): array
     {
-        return $this->_translate_fields;
+        return $this->translate_fields;
     }
 
     /**
@@ -405,7 +417,7 @@ class HTML
      */
     public function addTranslateField(Rule $rule, string $text = 'text', $attrs = [])
     {
-        $this->_translate_fields[] = [
+        $this->translate_fields[] = [
             'rule' => $rule,
             'text' => $text,
             'attrs' => $attrs
@@ -417,9 +429,9 @@ class HTML
      *
      * @return string
      */
-    public function getHtml(): string
+    public function getXml(): string
     {
-        return $this->_html;
+        return $this->xml;
     }
 
     /**
@@ -432,39 +444,46 @@ class HTML
         if ($this->getAfterTranslateCallback() !== null) {
             call_user_func_array(
                 $this->getAfterTranslateCallback(),
-                [&$this->_xpath, &$this->_dom]
+                [&$this->xpath, &$this->dom]
             );
         }
 
-        $html = $this->_getDom()->saveHTML();
-
-        foreach ($this->getPreserveFields() as $field) {
-            $this->_restorePreservedTag($html, $field[0], $field[1]);
+        if ($this->getType() === self::HTML) {
+            $xml = $this->getDom()->saveHTML();
+        } else {
+            $xml = $this->getDom()->saveXML();
         }
 
-        /**
-         * Remove <?xml.. syntax string
-         * */
-        $html = preg_replace(
-            '/' . preg_quote($this->_xml_encoding_fixer) . '/',
-            '',
-            $html,
-            1
-        );
+        foreach ($this->getPreserveFields() as $field) {
+            $this->restorePreservedTag($xml, $field[0], $field[1]);
+        }
 
-        return $html;
+        if ($this->getType() === self::HTML) {
+            /**
+             * Remove <?xml.. syntax string
+             * */
+            $html = preg_replace(
+                '/' . preg_quote($this->_xml_encoding_fixer) . '/',
+                '',
+                $xml,
+                1
+            );
+        }
+
+
+        return $xml;
     }
 
     /**
      * Set HTML string
      *
-     * @param string $_html Initial HTML content
+     * @param string $xml Initial HTML content
      *
      * @return void
      */
-    public function setHtml(string $_html): void
+    public function setXml(string $xml): void
     {
-        $this->_html = $_html;
+        $this->xml = $xml;
     }
 
     /**
@@ -496,7 +515,7 @@ class HTML
      */
     private function _getXpath(): DOMXPath
     {
-        return $this->_xpath;
+        return $this->xpath;
     }
 
     /**
@@ -506,9 +525,9 @@ class HTML
      *
      * @return void
      */
-    private function _setXpath(DOMXpath $xpath): void
+    protected function setXpath(DOMXpath $xpath): void
     {
-        $this->_xpath = $xpath;
+        $this->xpath = $xpath;
     }
 
     /**
@@ -578,5 +597,21 @@ class HTML
         ?callable $after_translate_callback
     ): void {
         $this->_after_translate_callback = $after_translate_callback;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->_type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setType(int $type): void
+    {
+        $this->_type = $type;
     }
 }
