@@ -84,7 +84,6 @@ class URL extends Type implements interfaces\URL
      * */
     public $path_translation = true;
 
-
     /**
      * Base domain name
      * Default value is $_SERVER['HTTP_HOST']

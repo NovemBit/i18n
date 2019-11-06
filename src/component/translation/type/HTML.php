@@ -71,7 +71,7 @@ class HTML extends XML implements interfaces\HTML
      * @param string $xml      Html content
      * @param string $language Language code
      *
-     * @return \NovemBit\i18n\system\parsers\HTML
+     * @return \NovemBit\i18n\system\parsers\XML
      */
     protected function getParser(
         string $xml,

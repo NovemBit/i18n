@@ -317,7 +317,9 @@ class XML extends Type implements interfaces\XML
                             }
                         }
 
-                        $node->data = $translate ?? $node->data;
+                        $node->data = !empty($translate)
+                            ? $translate
+                            : $node->data;
                     },
                     /*
                      * Callback for Attribute nodes
@@ -374,7 +376,9 @@ class XML extends Type implements interfaces\XML
                             }
                         }
 
-                        $node->value = htmlspecialchars($translate) ?? $node->value;
+                        $node->value = !empty($translate)
+                            ? htmlspecialchars($translate)
+                            : $node->value;
                     }
                 );
 
