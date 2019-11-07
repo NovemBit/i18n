@@ -434,7 +434,7 @@ class Request extends Component implements interfaces\Request
                     ->setLanguages($this->context->languages->getAcceptLanguages())
                     ->setCountry($this->getCountry())
                     ->url->translate([$this->getDestination()])
-                [$this->getDestination()]
+                [$this->getDestination()] ?? null
             );
 
             /*
@@ -929,12 +929,14 @@ class Request extends Component implements interfaces\Request
      */
     private function _addAlternateLinkNodes(DOMDocument $dom, DOMNode $parent): void
     {
-        foreach ($this->getUrlTranslations() as $language => $translate) {
-            $node = $dom->createElement('link');
-            $node->setAttribute('rel', 'alternate');
-            $node->setAttribute('hreflang', $language);
-            $node->setAttribute('href', $translate);
-            $parent->appendChild($node);
+        if($this->getUrlTranslations() !==null) {
+            foreach ($this->getUrlTranslations() as $language => $translate) {
+                $node = $dom->createElement('link');
+                $node->setAttribute('rel', 'alternate');
+                $node->setAttribute('hreflang', $language);
+                $node->setAttribute('href', $translate);
+                $parent->appendChild($node);
+            }
         }
     }
 
