@@ -12,13 +12,18 @@ interface Request
 
     public function getFromLanguage(): string;
 
-    public function getLanguage() : string;
+    public function getLanguage(): string;
 
     public function setFromLanguage(string $from_language): void;
 
     public function getTranslation(): Translation;
 
+    public function getSourceUrl(): ?string;
+
+    public function getDestination(): string;
+
     public function start(): void;
+
     public function isReady(): bool;
 
     public function getUrlTranslations(): ?array;

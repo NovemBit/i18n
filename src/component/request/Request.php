@@ -297,6 +297,7 @@ class Request extends Component implements interfaces\Request
             ->setRegion($region)
             ->url
             ->reTranslate([$translate]);
+
         if (isset($re_translate[$translate])) {
             return $re_translate[$translate];
         }
@@ -455,6 +456,7 @@ class Request extends Component implements interfaces\Request
                     $this->getRegion()
                 )
             );
+
 
             /*
              * Set current url all translations

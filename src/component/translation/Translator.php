@@ -651,6 +651,7 @@ abstract class Translator extends Component implements interfaces\Translator
         $to_languages,
         $reverse = false
     ): array {
+
         return $this->model_class::get(
             $texts,
             $this->context->getFromLanguage(),
