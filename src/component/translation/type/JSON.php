@@ -80,10 +80,13 @@ class JSON extends Type
      *
      * @return string|null
      */
-    private function _getFieldType(string $value, string $route): ?string
+    private function _getFieldType(?string $value, ?string $route): ?string
     {
+        $type = null;
 
-        $type = $this->_getFieldTypeByRoute($route);
+        if ($route !== null) {
+            $type = $this->_getFieldTypeByRoute($route);
+        }
 
         if ($this->type_autodetect === true && $type === null) {
             $type = $this->_getFieldTypeAutomatically($value);
@@ -99,18 +102,22 @@ class JSON extends Type
      *
      * @return string|null
      */
-    private function _getFieldTypeAutomatically(string $str): ?string
+    private function _getFieldTypeAutomatically(?string $str): ?string
     {
+        if ($str == null) {
+            return null;
+        }
+
         return DataType::getType($str);
     }
 
     /**
      * Recursive array walk with callback and route
      *
-     * @param array    $arr       Main array
-     * @param callable $callback  Callback function with 3 params (key/val/route)
-     * @param string   $route     Parent route
-     * @param string   $separator Route separator
+     * @param array $arr Main array
+     * @param callable $callback Callback function with 3 params (key/val/route)
+     * @param string $route Parent route
+     * @param string $separator Route separator
      *
      * @return void
      */
