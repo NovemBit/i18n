@@ -236,7 +236,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
         try {
             $transaction->commit();
         } catch (Exception $exception) {
-            //$transaction->rollBack();
             throw new ActiveRecordException($exception->getMessage());
         }
     }

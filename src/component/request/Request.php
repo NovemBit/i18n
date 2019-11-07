@@ -20,10 +20,12 @@ use NovemBit\i18n\component\request\exceptions\RequestException;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\models\ActiveRecord;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
+use yii\db\Transaction;
 
 /**
  * Request component main class.
@@ -275,10 +277,10 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
-     * @param string $to_language Language of translated string
-     * @param string $country Country name
-     * @param string|null $region Region
+     * @param string      $translate   Translated url
+     * @param string      $to_language Language of translated string
+     * @param string      $country     Country name
+     * @param string|null $region      Region
      *
      * @return string|null
      */
@@ -476,6 +478,8 @@ class Request extends Component implements interfaces\Request
          * Running page_not_found callable
          * */
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
+
+            $this->getDbTransaction()->rollBack();
 
             if (isset($this->on_page_not_found)
                 && is_callable($this->on_page_not_found)
@@ -805,9 +809,16 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                    ->translate([$content])[$content][$this->getLanguage()] ?? $content;
+                    ->translate([$content])[$content][$this->getLanguage()]
+                    ?? $content;
 
             }
+        }
+
+        try {
+            $this->getDbTransaction()->commit();
+        } catch (\yii\db\Exception $exception){
+            $verbose['error'] = $exception->getMessage();
         }
 
         return $content;
@@ -841,16 +852,29 @@ class Request extends Component implements interfaces\Request
                 $result,
                 $this->custom_translation_level,
                 true,
-                $verbos
+                $verbose
             );
 
-            echo json_encode($verbos);
+            try {
+                $this->getDbTransaction()->commit();
+            } catch (\yii\db\Exception $exception) {
+                $verbose['error'] = $exception->getMessage();
+            }
+            echo json_encode($verbose);
 
             return true;
         }
 
         return false;
     }
+
+
+    /**
+     * DB transaction
+     *
+     * @var Transaction
+     * */
+    private $_db_transaction;
 
     /**
      * Start request translation
@@ -861,10 +885,11 @@ class Request extends Component implements interfaces\Request
     public function start(): void
     {
 
+        $this->setDbTransaction(ActiveRecord::getDb()->beginTransaction());
+
         if (!$this->_prepare()) {
             return;
         }
-
 
         /**
          * If isset editor query key
@@ -922,14 +947,14 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
     private function _addAlternateLinkNodes(DOMDocument $dom, DOMNode $parent): void
     {
-        if($this->getUrlTranslations() !==null) {
+        if ($this->getUrlTranslations() !== null) {
             foreach ($this->getUrlTranslations() as $language => $translate) {
                 $node = $dom->createElement('link');
                 $node->setAttribute('rel', 'alternate');
@@ -944,8 +969,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1001,8 +1026,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1045,8 +1070,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1233,5 +1258,21 @@ class Request extends Component implements interfaces\Request
     public function setReady(bool $ready): void
     {
         $this->_ready = $ready;
+    }
+
+    /**
+     * @return Transaction
+     */
+    public function getDbTransaction(): Transaction
+    {
+        return $this->_db_transaction;
+    }
+
+    /**
+     * @param Transaction $db_transaction
+     */
+    public function setDbTransaction(Transaction $db_transaction): void
+    {
+        $this->_db_transaction = $db_transaction;
     }
 }
