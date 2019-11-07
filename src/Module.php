@@ -18,6 +18,8 @@ use NovemBit\i18n\component\languages\interfaces\Languages;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use yii\base\InvalidConfigException;
+use yii\web\Application;
 
 /**
  * Module class
@@ -61,7 +63,7 @@ class Module extends system\Component
      * Allowed to use standalone
      *
      * @return void
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function commonInit(): void
     {
@@ -75,7 +77,7 @@ class Module extends system\Component
             defined('YII_ENV') or define('YII_ENV', 'prod');
             include __DIR__ . '/../../../yiisoft/yii2/Yii.php';
 
-            new \yii\web\Application(
+            new Application(
                 [
                     'id' => 'i18n',
                     'basePath' => dirname(__DIR__),
