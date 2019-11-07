@@ -805,7 +805,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                    ->translate([$content])[$content][$this->getLanguage()];
+                    ->translate([$content])[$content][$this->getLanguage()] ?? $content;
 
             }
         }
