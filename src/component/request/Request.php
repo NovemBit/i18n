@@ -754,7 +754,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function translateBuffer($content): string
+    public function translateBuffer(?string $content): ?string
     {
         $status = http_response_code();
 
