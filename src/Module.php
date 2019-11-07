@@ -79,7 +79,7 @@ class Module extends system\Component
                 [
                     'id' => 'i18n',
                     'basePath' => dirname(__DIR__),
-                    'bootstrap' => ['log'],
+                    //'bootstrap' => ['log'],
                     'components' => [
                         'cache' => [
                             'class' => 'yii\caching\FileCache',
