@@ -46,7 +46,7 @@ class HTML extends XML implements interfaces\HTML
      *
      * @var string
      * */
-    public $parser_query=".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
+    public $parser_query = ".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
 
     /**
      * Title tag template
@@ -54,7 +54,7 @@ class HTML extends XML implements interfaces\HTML
      *
      * @var string|callable
      * */
-    public $title_tag_template = "{translate} | {country}, {language_name}";
+    public $title_tag_template = "{translate} | {language_name}, {country}";
 
     /**
      * Model class name of ActiveRecord
@@ -68,7 +68,7 @@ class HTML extends XML implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml      Html content
+     * @param string $xml Html content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -93,7 +93,7 @@ class HTML extends XML implements interfaces\HTML
             }
         );
 
-        $this->addBeforeParseCallback(
+        $this->addAfterParseCallback(
             function (DOMXPath $xpath, \DOMDocument $dom) use ($language) {
                 /**
                  * Setting var types
@@ -106,23 +106,27 @@ class HTML extends XML implements interfaces\HTML
 
                     $language_name = $this->context->context->languages
                         ->getAcceptLanguages(true)[$language]['name'];
+                    $language_native_name = $this->context->context->languages
+                        ->getAcceptLanguages(true)[$language]['native'];
 
                     if (is_callable($this->title_tag_template)) {
                         $title->data = call_user_func(
                             $this->title_tag_template,
                             [
-                                'translate'=>$title->data,
-                                'language_code'=>$language,
-                                'language_name'=>$language_name,
-                                'country'=>$this->context->getCountry(),
-                                'region'=>$this->context->getRegion()
+                                'translate' => $title->data,
+                                'language_code' => $language,
+                                'language_name' => $language_name,
+                                'language_native' => $language_native_name,
+                                'country' => $this->context->getCountry(),
+                                'region' => $this->context->getRegion()
                             ]
                         );
                     } else {
                         $title->data = strtr(
                             $this->title_tag_template, [
                                 '{translate}' => $title->data,
-                                '{language_name}' =>$language_name,
+                                '{language_name}' => $language_name,
+                                '{language_native}' => $language_native_name,
                                 '{language_code}' => $language,
                                 '{country}' => $this->context->getCountry(),
                                 '{region}' => $this->context->getRegion()
@@ -130,7 +134,6 @@ class HTML extends XML implements interfaces\HTML
                         );
                     }
                 }
-
 
             }
         );
