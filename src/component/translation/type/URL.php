@@ -144,7 +144,7 @@ class URL extends Type implements interfaces\URL
     /**
      * Validate after translate
      * Concat prefix, body and suffix to avoid that
-     * Url is fully working
+     * Final url is fully like origin url
      *
      * @param string     $before     initial type of url
      * @param string     $after      final type of url
@@ -159,11 +159,12 @@ class URL extends Type implements interfaces\URL
         &$translates,
         ?array &$verbose
     ): bool {
+
         DataType::getStringsDifference($before, $after, $prefix, $suffix);
 
         $translates[$before] = $translates[$after];
-        foreach ($translates[$before] as $language => &$translate) {
 
+        foreach ($translates[$before] as $language => &$translate) {
             $translate = $prefix . $translate . $suffix;
             $translate = $this->context->context->languages
                 ->addLanguageToUrl(
@@ -171,7 +172,6 @@ class URL extends Type implements interfaces\URL
                     $language,
                     $this->base_domain
                 );
-
         }
 
         return parent::validateAfterTranslate(

@@ -578,7 +578,7 @@ class Request extends Component implements interfaces\Request
          * */
         if ($language == null) {
             $language = $this->context->languages->getDefaultLanguage(
-                $_SERVER['HTTP_HOST']
+                $_SERVER['HTTP_HOST'] ?? null
             );
         }
 
@@ -623,7 +623,7 @@ class Request extends Component implements interfaces\Request
         if ($language == null) {
             $language = $this->context
                 ->languages
-                ->getDefaultLanguage($_SERVER['HTTP_HOST']);
+                ->getDefaultLanguage($_SERVER['HTTP_HOST'] ?? null);
         }
 
         /*
@@ -692,7 +692,7 @@ class Request extends Component implements interfaces\Request
     {
         $country = $this->context
             ->languages
-            ->getDefaultCountry($_SERVER['HTTP_HOST']);
+            ->getDefaultCountry($_SERVER['HTTP_HOST'] ?? null);
         $this->_setCountry($country);
         return true;
     }
@@ -706,7 +706,7 @@ class Request extends Component implements interfaces\Request
     {
         $country = $this->context
             ->languages
-            ->getDefaultRegion($_SERVER['HTTP_HOST']);
+            ->getDefaultRegion($_SERVER['HTTP_HOST'] ?? null);
         $this->_setRegion($country);
         return true;
     }
