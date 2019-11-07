@@ -129,10 +129,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
     /**
      * Main method to get translations from DB
      *
-     * @param array  $texts         Texts array to translate
+     * @param array $texts Texts array to translate
      * @param string $from_language From language
-     * @param array  $to_languages  To languages list
-     * @param bool   $reverse       Use translate column as source (ReTranslate)
+     * @param array $to_languages To languages list
+     * @param bool $reverse Use translate column as source (ReTranslate)
      *
      * @return array
      */
@@ -159,12 +159,12 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
         $query = static::find();
         $query
-            ->select(['id','source', 'to_language', 'translate', 'level'])
+            ->select(['id', 'source', 'to_language', 'translate', 'level'])
             ->where(['type' => static::TYPE])
             ->andWhere(['from_language' => $from_language])
             ->andWhere(['in', 'to_language', $to_languages])
             ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts])
-            ->orderBy(['level' => SORT_ASC]);
+            ->orderBy(['id' => SORT_DESC, 'level' => SORT_ASC]);
 
         $result = array_merge($result, $query->asArray()->all());
 
@@ -175,10 +175,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * Main method to save translations in DB
      *
      * @param string $from_language From language
-     * @param array  $translations  Translations of texts
-     * @param int    $level         Level of translation
-     * @param bool   $overwrite     If translation exists, then overwrite value
-     * @param array  $result        Result about saving
+     * @param array $translations Translations of texts
+     * @param int $level Level of translation
+     * @param bool $overwrite If translation exists, then overwrite value
+     * @param array $result Result about saving
      *
      * @return void
      * @throws ActiveRecordException
@@ -235,7 +235,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
         try {
             $transaction->commit();
-        } catch (Exception $exception){
+        } catch (Exception $exception) {
             //$transaction->rollBack();
             throw new ActiveRecordException($exception->getMessage());
         }
