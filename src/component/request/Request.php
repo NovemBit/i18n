@@ -554,19 +554,6 @@ class Request extends Component implements interfaces\Request
             return null;
         }
 
-        $parsed = parse_url($url);
-        if (!isset($parsed['host']) && isset($_SERVER['HTTP_HOST'])) {
-            $parsed['host'] = $_SERVER['HTTP_HOST'];
-        }
-
-        if (!isset($parsed['scheme'])) {
-            $parsed['scheme'] = isset($_SERVER['HTTPS'])
-            && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-        }
-
-        $url = URL::buildUrl($parsed);
-
-
         return $url;
     }
 
