@@ -205,14 +205,18 @@ abstract class Translator extends Component implements interfaces\Translator
      * To make translations, its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts   Texts array to translate
-     * @param array $verbose Information about translation progress
+     * @param array $texts      Texts array to translate
+     * @param array $verbose    Information about translation progress
+     * @param bool  $only_cache Dont make new translate and return only cached
      *
      * @return array
      * @throws ActiveRecordException
      */
-    public function translate(array $texts, ?array &$verbose = null): array
-    {
+    public function translate(
+        array $texts,
+        ?array &$verbose = null,
+        bool $only_cache = false
+    ): array {
 
         $texts = array_filter($texts);
 
@@ -246,7 +250,7 @@ abstract class Translator extends Component implements interfaces\Translator
          * If $texts array not empty then
          * Make new translates
          * */
-        if (!empty($texts)) {
+        if (!$only_cache && !empty($texts)) {
 
             $new_translations = $this->doTranslate($texts);
 
@@ -660,7 +664,8 @@ abstract class Translator extends Component implements interfaces\Translator
         );
     }
 
-    public function getTranslation(){
+    public function getTranslation()
+    {
         return $this->context;
     }
 

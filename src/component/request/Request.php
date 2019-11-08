@@ -287,7 +287,7 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
      * @return string|null
@@ -530,8 +530,8 @@ class Request extends Component implements interfaces\Request
     /**
      * Restore non translated urls
      *
-     * @param string|null $url Url
-     * @param string $language Language
+     * @param string|null $url      Url
+     * @param string      $language Language
      *
      * @return string|null
      */
@@ -543,17 +543,22 @@ class Request extends Component implements interfaces\Request
         /**
          * Get translation from source
          * */
-        $url = $this->getTranslation()
-            ->setLanguages([$language])
-            ->url
-            ->translate([$url])
-        [$url][$language];
+        $url = $this->getTranslation()->setLanguages([$language])->url
+            ->translate(
+                [$url],
+                $verbose,
+                true
+            )[$url][$language] ?? null;
 
+        if ($url == null) {
+            return null;
+        }
 
         $parsed = parse_url($url);
         if (!isset($parsed['host']) && isset($_SERVER['HTTP_HOST'])) {
             $parsed['host'] = $_SERVER['HTTP_HOST'];
         }
+
         if (!isset($parsed['scheme'])) {
             $parsed['scheme'] = isset($_SERVER['HTTPS'])
             && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
@@ -561,12 +566,8 @@ class Request extends Component implements interfaces\Request
 
         $url = URL::buildUrl($parsed);
 
-        if (self::_isWorkingUrl($url)) {
 
-            return $url;
-        }
-
-        return null;
+        return $url;
     }
 
     /**
@@ -575,6 +576,8 @@ class Request extends Component implements interfaces\Request
      * @param string $url Url
      *
      * @return bool
+     *
+     * @deprecated
      */
     private static function _isWorkingUrl(string $url): bool
     {
@@ -916,7 +919,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                        ->translate([$content])[$content][$this->getLanguage()]
+                    ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -1054,8 +1057,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1076,8 +1079,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1133,8 +1136,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1177,8 +1180,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
