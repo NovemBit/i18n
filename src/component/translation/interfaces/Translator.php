@@ -7,7 +7,11 @@ namespace NovemBit\i18n\component\translation\interfaces;
 interface Translator
 {
 
-    public function translate(array $texts, ?array &$verbose = null): array;
+    public function translate(
+        array $texts,
+        ?array &$verbose = null,
+        bool $only_cache = false
+    ): array;
 
     public function doTranslate(array $texts): array;
 
