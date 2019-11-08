@@ -230,6 +230,16 @@ class Request extends Component implements interfaces\Request
     ];
 
     /**
+     * If true then redirect non translated urls to translated url
+     *
+     * @example https://test.com/fr/shop redirect to https://test.com/fr/boutique
+     * @example https://test.fr/shop redirect to https://test.fr/boutique
+     *
+     * @var bool
+     * */
+    public $restore_non_translated_urls = true;
+
+    /**
      * Get request referer source url
      *
      * @return string
@@ -277,24 +287,18 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string      $translate   Translated url
-     * @param string      $to_language Language of translated string
-     * @param string      $country     Country name
-     * @param string|null $region      Region
+     * @param string $translate Translated url
+     * @param string $to_language Language of translated string
      *
      * @return string|null
      */
     private function _getSourceUrlFromTranslate(
         string $translate,
-        string $to_language,
-        ?string $country,
-        ?string $region
+        string $to_language
     ): ?string {
 
-        $re_translate = $this->context->translation
+        $re_translate = $this->getTranslation()
             ->setLanguages([$to_language])
-            ->setCountry($country)
-            ->setRegion($region)
             ->url
             ->reTranslate([$translate]);
 
@@ -399,9 +403,7 @@ class Request extends Component implements interfaces\Request
             $this->setRefererSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
-                    $this->getRefererLanguage(),
-                    $this->getCountry(),
-                    $this->getRegion()
+                    $this->getRefererLanguage()
                 )
             );
         }
@@ -416,14 +418,14 @@ class Request extends Component implements interfaces\Request
 
     /**
      * Prepare Source url
-     * To create response document
+     * Set original urls that already translated and cached on DB
      *
      * @return bool
      * @throws RequestException
      */
     private function _prepareSourceUrl(): bool
     {
-        /*
+        /**
          * If current language is from_language
          * Then translate current url for all languages
          * */
@@ -435,36 +437,32 @@ class Request extends Component implements interfaces\Request
             $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->setCountry($this->getCountry())
                     ->url->translate([$this->getDestination()])
                 [$this->getDestination()] ?? null
             );
 
-            /*
+            /**
              * Set source origin URL
              * */
             $this->_setSourceUrl($this->getDestination());
         } else {
-            /*
-            * Set source origin URL
-            * */
+            /**
+             * Set source origin URL
+             * */
             $this->_setSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getDestination(),
-                    $this->getLanguage(),
-                    $this->getCountry(),
-                    $this->getRegion()
+                    $this->getLanguage()
                 )
             );
 
 
-            /*
+            /**
              * Set current url all translations
              * */
             $this->_setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->context->languages->getAcceptLanguages())
-                    ->setCountry($this->getCountry())
                     ->url->translate([$this->getSourceUrl()])[$this->getSourceUrl()]
                 ?? null
             );
@@ -481,6 +479,25 @@ class Request extends Component implements interfaces\Request
          * */
         if ($this->getDestination() != null && $this->getSourceUrl() == null) {
 
+            if ($this->restore_non_translated_urls === true) {
+
+                $restored_url = $this->_restoreNonTranslatedUrl(
+                    $this->getDestination(),
+                    $this->getLanguage()
+                );
+
+                if ($restored_url !== null) {
+
+                    try {
+                        $this->getDbTransaction()->commit();
+                    } catch (\yii\db\Exception $exception) {
+                        throw new RequestException('Cannot commit db.');
+                    }
+
+                    $this->_redirect($restored_url);
+                }
+            }
+
             $this->getDbTransaction()->rollBack();
 
             if (isset($this->on_page_not_found)
@@ -495,6 +512,88 @@ class Request extends Component implements interfaces\Request
         }
 
         return true;
+    }
+
+    /**
+     * Redirect url
+     *
+     * @param string $url Url to redirect
+     *
+     * @return void
+     */
+    private function _redirect(string $url)
+    {
+        header("Location: " . $url);
+        exit;
+    }
+
+    /**
+     * Restore non translated urls
+     *
+     * @param string|null $url Url
+     * @param string $language Language
+     *
+     * @return string|null
+     */
+    private function _restoreNonTranslatedUrl(
+        ?string $url,
+        string $language
+    ): ?string {
+
+        /**
+         * Get translation from source
+         * */
+        $url = $this->getTranslation()
+            ->setLanguages([$language])
+            ->url
+            ->translate([$url])
+        [$url][$language];
+
+
+        $parsed = parse_url($url);
+        if (!isset($parsed['host']) && isset($_SERVER['HTTP_HOST'])) {
+            $parsed['host'] = $_SERVER['HTTP_HOST'];
+        }
+        if (!isset($parsed['scheme'])) {
+            $parsed['scheme'] = isset($_SERVER['HTTPS'])
+            && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        }
+
+        $url = URL::buildUrl($parsed);
+
+        if (self::_isWorkingUrl($url)) {
+
+            return $url;
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if url is working
+     *
+     * @param string $url Url
+     *
+     * @return bool
+     */
+    private static function _isWorkingUrl(string $url): bool
+    {
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        $result = curl_exec($curl);
+
+        if ($result !== false) {
+
+            // Use curl_getinfo() to get information
+            // regarding a specific transfer
+            $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            if (in_array($statusCode, [200, 201, 202, 203])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -699,7 +798,11 @@ class Request extends Component implements interfaces\Request
         $country = $this->context
             ->languages
             ->getDefaultCountry($_SERVER['HTTP_HOST'] ?? null);
+
         $this->_setCountry($country);
+
+        $this->getTranslation()->setCountry($this->getCountry());
+
         return true;
     }
 
@@ -713,7 +816,11 @@ class Request extends Component implements interfaces\Request
         $country = $this->context
             ->languages
             ->getDefaultRegion($_SERVER['HTTP_HOST'] ?? null);
+
         $this->_setRegion($country);
+
+        $this->getTranslation()->setRegion($this->getRegion());
+
         return true;
     }
 
@@ -780,8 +887,6 @@ class Request extends Component implements interfaces\Request
                 $translator = $this
                     ->getTranslation()
                     ->setLanguages([$this->getLanguage()])
-                    ->setRegion($this->getRegion())
-                    ->setCountry($this->getCountry())
                     ->{$type};
                 if ($type == "html") {
 
@@ -811,7 +916,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                    ->translate([$content])[$content][$this->getLanguage()]
+                        ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -819,7 +924,7 @@ class Request extends Component implements interfaces\Request
 
         try {
             $this->getDbTransaction()->commit();
-        } catch (\yii\db\Exception $exception){
+        } catch (\yii\db\Exception $exception) {
             $verbose['error'] = $exception->getMessage();
         }
 
@@ -949,8 +1054,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -971,8 +1076,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1028,8 +1133,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1072,8 +1177,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
