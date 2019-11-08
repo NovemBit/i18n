@@ -237,7 +237,7 @@ class Request extends Component implements interfaces\Request
      *
      * @var bool
      * */
-    public $restore_non_translated_urls = true;
+    public $restore_non_translated_urls = false;
 
     /**
      * Get request referer source url
