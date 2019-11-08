@@ -408,7 +408,7 @@ abstract class Translator extends Component implements interfaces\Translator
             }
         }
 
-        unset($this->_re_translate_original_texts);
+        $this->_re_translate_original_texts = [];
 
     }
 
