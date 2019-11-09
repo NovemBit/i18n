@@ -78,9 +78,9 @@ class JSON extends Type
      * @param string $value Value of field
      * @param string $route Route of field
      *
-     * @return string|null
+     * @return string|callable|null
      */
-    private function _getFieldType(?string $value, ?string $route): ?string
+    private function _getFieldType(?string $value, ?string $route)
     {
         $type = null;
 
@@ -142,9 +142,9 @@ class JSON extends Type
      *
      * @param string $route Route of object element
      *
-     * @return string|null
+     * @return string|callable|null
      */
-    private function _getFieldTypeByRoute(string $route): ?string
+    private function _getFieldTypeByRoute(string $route)
     {
         foreach ($this->fields_to_translate as $pattern => $type) {
             if (preg_match($pattern, $route)) {
@@ -177,10 +177,11 @@ class JSON extends Type
 
                     $type = $this->_getFieldType($val, $route);
 
-                    if ($type !== null) {
-                        $to_translate[$type][] = $val;
+                    if (is_string($type)) {
+                        if ($type !== null) {
+                            $to_translate[$type][] = $val;
+                        }
                     }
-
                 }
             );
 
@@ -201,9 +202,13 @@ class JSON extends Type
                         $type = $this->_getFieldType($val, $route);
 
                         if ($type !== null) {
-                            $val = isset($translations[$type][$val][$language])
-                                ? $translations[$type][$val][$language] :
-                                $val;
+                            if (is_string($type)) {
+                                $val = isset($translations[$type][$val][$language])
+                                    ? $translations[$type][$val][$language] :
+                                    $val;
+                            } elseif (is_callable($type)) {
+                                $val = call_user_func($type, $val, $language);
+                            }
                         }
                     }
                 );
