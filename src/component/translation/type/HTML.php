@@ -114,13 +114,13 @@ class HTML extends XML implements interfaces\HTML
                         ->text
                         ->translate([$language_name, $country_name, $region_name]);
 
-                    $language_native_name = $_translations[$language_name]
+                    $language_native_name = $_translations[$language_name][$language]
                         ?? $language_name;
 
-                    $country_native_name = $_translations[$country_name]
+                    $country_native_name = $_translations[$country_name][$language]
                         ?? $country_name;
 
-                    $region_native_name = $_translations[$region_name]
+                    $region_native_name = $_translations[$region_name][$language]
                         ?? $country_name;
 
                     if (is_callable($this->title_tag_template)) {
