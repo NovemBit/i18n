@@ -29,8 +29,8 @@ interface Languages
      * Script name or directory path then adding only
      * Query parameter of language
      *
-     * @param string      $url         Initial Url
-     * @param string      $language    Language code
+     * @param string $url Initial Url
+     * @param string $language Language code
      * @param string|null $base_domain Base domain
      *
      * @return string
@@ -124,15 +124,11 @@ interface Languages
     /**
      * Get accept languages
      *
-     * @param bool $with_names With names
-     * @param bool $with_flags With flags
+     * @param bool $assoc Return assoc with whole data
      *
      * @return array
      */
-    public function getAcceptLanguages(
-        bool $with_names = false,
-        bool $with_flags = false
-    ): array;
+    public function getAcceptLanguages(bool $assoc = false): array;
 
     /**
      * Get default config by `$base_domain` name
@@ -147,11 +143,11 @@ interface Languages
      * Get flag of language country
      *
      * @param string $code Language code
-     * @param bool   $html     return html <img src="..
+     * @param bool $html return html <img src="..
      *
      * @return string
      */
-    public function getFlagByLanguageCode(string $code, $html = false): string;
+    public function getLanguageFlagByCode(string $code, $html = false): string;
 
-    public function getNameByLanguageCode(string $code):string;
+    public function getLanguageNameByCode(string $code): string;
 }
