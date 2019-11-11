@@ -121,7 +121,7 @@ class HTML extends XML implements interfaces\HTML
                         ?? $country_name;
 
                     $region_native_name = $_translations[$region_name][$language]
-                        ?? $country_name;
+                        ?? $region_name;
 
                     if (is_callable($this->title_tag_template)) {
                         $title->data = call_user_func(
