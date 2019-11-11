@@ -169,6 +169,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
 
         $result = array_merge($result, $query->asArray()->all());
 
+
         return $result;
     }
 

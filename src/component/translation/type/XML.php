@@ -254,6 +254,7 @@ class XML extends Type implements interfaces\XML
             );
         }
 
+
         /**
          * Replace html node values to
          * Translated values
