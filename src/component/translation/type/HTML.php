@@ -68,7 +68,7 @@ class HTML extends XML implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml Html content
+     * @param string $xml      Html content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -105,9 +105,23 @@ class HTML extends XML implements interfaces\HTML
                 if ($title !== null) {
 
                     $language_name = $this->context->context->languages
-                        ->getAcceptLanguages(true)[$language]['name'];
-                    $language_native_name = $this->context->context->languages
-                        ->getAcceptLanguages(true)[$language]['native'];
+                        ->getLanguageNameByCode($language);
+                    $country_name = $this->context->getCountry();
+                    $region_name = $this->context->getRegion();
+
+                    $_translations =  $this
+                        ->getTranslation()
+                        ->text
+                        ->translate([$language_name, $country_name, $region_name]);
+
+                    $language_native_name = $_translations[$language_name]
+                        ?? $language_name;
+
+                    $country_native_name = $_translations[$country_name]
+                        ?? $country_name;
+
+                    $region_native_name = $_translations[$region_name]
+                        ?? $country_name;
 
                     if (is_callable($this->title_tag_template)) {
                         $title->data = call_user_func(
@@ -117,19 +131,23 @@ class HTML extends XML implements interfaces\HTML
                                 'language_code' => $language,
                                 'language_name' => $language_name,
                                 'language_native' => $language_native_name,
-                                'country' => $this->context->getCountry(),
-                                'region' => $this->context->getRegion()
+                                'country' => $country_name,
+                                'country_native' => $country_native_name,
+                                'region' => $region_name,
+                                'region_native' => $region_native_name
                             ]
                         );
                     } else {
                         $title->data = strtr(
                             $this->title_tag_template, [
                                 '{translate}' => $title->data,
+                                '{language_code}' => $language,
                                 '{language_name}' => $language_name,
                                 '{language_native}' => $language_native_name,
-                                '{language_code}' => $language,
-                                '{country}' => $this->context->getCountry(),
-                                '{region}' => $this->context->getRegion()
+                                '{country}' => $country_name,
+                                '{country_native}' => $country_native_name,
+                                '{region}' => $region_name,
+                                '{region_native}' => $region_native_name
                             ]
                         );
                     }
