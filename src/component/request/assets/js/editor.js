@@ -314,6 +314,19 @@
                             editor.unMarkNode(node);
                         };
 
+
+                        if(node.data.hasOwnProperty('attr')){
+                            for (let _attr in node.data.attr){
+                                if(node.data.attr.hasOwnProperty(_attr)){
+                                    if(node.data.attr[_attr][2] === 'url'){
+                                        let url = node.getAttribute(_attr);
+                                        url = this.addParameterToURL(url,window.novembit.i18n.prefix+'-'+this.query_key,'1');
+                                        node.setAttribute(_attr,url);
+                                    }
+                                }
+                            }
+                        }
+
                         if (typeof node.data.text[0] !== 'undefined' && typeof node.data.text[0][3] !== 'undefined') {
                             node.selector.classList.add('level-' + node.data.text[0][3] + '-bg');
                         }
@@ -329,6 +342,10 @@
                     node.selector.style.top = nodePos.top + "px";
                     node.selector.style.left = nodePos.left + "px";
                 }
+            },
+            addParameterToURL:function (url, key, value) {
+                url += (url.split('?')[1] ? '&' : '?') + key + '=' + value;
+                return url;
             },
             initContextMenu : function(){
                 let editor = this;

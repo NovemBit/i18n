@@ -202,16 +202,18 @@
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand {
-    width: 20px;
+    width: 70px;
     height: 20px;
     float: right;
     cursor: pointer;
     color: #474747;
+    text-align: right;
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
-    content: "⇲";
-    font-size: 1.4em;
+    content: "close";
+    font-size: 1.1em;
+    font-weight: bold;
     display: inline-block;
 }
 
