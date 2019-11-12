@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\Arrays;
 
 /**
  * JSON type for translation component
@@ -112,32 +113,6 @@ class JSON extends Type
     }
 
     /**
-     * Recursive array walk with callback and route
-     *
-     * @param array $arr Main array
-     * @param callable $callback Callback function with 3 params (key/val/route)
-     * @param string $route Parent route
-     * @param string $separator Route separator
-     *
-     * @return void
-     */
-    private static function _arrayWalkWithRoute(
-        array &$arr,
-        callable $callback,
-        string $route = '',
-        string $separator = '>'
-    ): void {
-        foreach ($arr as $key => &$val) {
-            $_route = $route == '' ? $key : $route . $separator . $key;
-            if (is_array($val)) {
-                self::_arrayWalkWithRoute($val, $callback, $_route, $separator);
-            } else {
-                $callback($key, $val, $_route);
-            }
-        }
-    }
-
-    /**
      * Get field type by route
      *
      * @param string $route Route of object element
@@ -171,7 +146,7 @@ class JSON extends Type
 
         foreach ($jsons as $json) {
             $object = $this->_objects[$json];
-            self::_arrayWalkWithRoute(
+            Arrays::arrayWalkWithRoute(
                 $object,
                 function ($key, &$val, $route) use (&$to_translate) {
 
@@ -195,7 +170,7 @@ class JSON extends Type
             foreach ($languages as $language) {
                 $object = $this->_objects[$json];
 
-                self::_arrayWalkWithRoute(
+                Arrays::arrayWalkWithRoute(
                     $object,
                     function ($key, &$val, $route) use ($translations, $language) {
 

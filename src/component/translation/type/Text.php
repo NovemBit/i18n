@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\Strings;
 
 /**
  * Text type for Translation component
@@ -115,7 +116,7 @@ class Text extends Type
         ?array &$verbose
     ) : bool {
 
-        DataType::getStringsDifference(
+        Strings::getStringsDifference(
             $before,
             $after,
             $prefix,

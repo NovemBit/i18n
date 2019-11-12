@@ -16,6 +16,7 @@ namespace NovemBit\i18n\component\translation\type;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\Strings;
 
 /**
  * Url translation component
@@ -160,7 +161,7 @@ class URL extends Type implements interfaces\URL
         ?array &$verbose
     ): bool {
 
-        DataType::getStringsDifference($before, $after, $prefix, $suffix);
+        Strings::getStringsDifference($before, $after, $prefix, $suffix);
 
         $translates[$before] = $translates[$after];
 
@@ -421,7 +422,7 @@ class URL extends Type implements interfaces\URL
      */
     public function validateAfterReTranslate($before, $after, &$result): bool
     {
-        DataType::getStringsDifference($before, $after, $prefix, $suffix);
+        Strings::getStringsDifference($before, $after, $prefix, $suffix);
 
         if ($before != $after && isset($result[$after])) {
             $result[$before] = $prefix . $result[$after] . $suffix;
