@@ -287,7 +287,7 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate   Translated url
+     * @param string $translate Translated url
      * @param string $to_language Language of translated string
      *
      * @return string|null
@@ -316,6 +316,10 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepareDestination(): bool
     {
+        if (!isset($_SERVER['REQUEST_URI'])) {
+            return false;
+        }
+
         $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
         $dest = URL::removeQueryVars(
             $dest,
@@ -530,8 +534,8 @@ class Request extends Component implements interfaces\Request
     /**
      * Restore non translated urls
      *
-     * @param string|null $url      Url
-     * @param string      $language Language
+     * @param string|null $url Url
+     * @param string $language Language
      *
      * @return string|null
      */
@@ -544,11 +548,11 @@ class Request extends Component implements interfaces\Request
          * Get translation from source
          * */
         $url = $this->getTranslation()->setLanguages([$language])->url
-            ->translate(
-                [$url],
-                $verbose,
-                true
-            )[$url][$language] ?? null;
+                ->translate(
+                    [$url],
+                    $verbose,
+                    true
+                )[$url][$language] ?? null;
 
         if ($url == null) {
             return null;
@@ -617,7 +621,6 @@ class Request extends Component implements interfaces\Request
         if ($this->_isExclusion()) {
             return false;
         }
-
         $this->_setTranslation($this->context->translation);
         $this->setFromLanguage($this->context->languages->getFromLanguage());
 
@@ -700,17 +703,17 @@ class Request extends Component implements interfaces\Request
         /**
          * Check if tried to access from cli
          * */
-        if (!isset($_SERVER['REQUEST_URI'])) {
-            return false;
-        }
+        $request_uri = $_SERVER['REQUEST_URI'] ?? null;
 
-        $_SERVER['ORIG_REQUEST_URI'] = $_SERVER['REQUEST_URI'];
+        if ($request_uri !== null) {
+            $_SERVER['ORIG_REQUEST_URI'] = $request_uri;
+        }
 
         /**
          * Taking language from current @REQUEST_URI
          * */
         $language = $this->context->languages
-            ->getLanguageFromUrl($_SERVER['REQUEST_URI']);
+            ->getLanguageFromUrl($request_uri);
 
         /**
          * If language does not exists in @URL
@@ -718,7 +721,7 @@ class Request extends Component implements interfaces\Request
         if ($language == null) {
             $language = $this->context
                 ->languages
-                ->getDefaultLanguage($_SERVER['HTTP_HOST'] ?? null);
+                ->getDefaultLanguage($request_uri);
         }
 
         /*
@@ -906,7 +909,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                    ->translate([$content])[$content][$this->getLanguage()]
+                        ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -1044,8 +1047,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1066,8 +1069,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1123,8 +1126,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1167,8 +1170,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1266,7 +1269,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setLanguage($language): void
+    private function _setLanguage(string $language): void
     {
         $this->_language = $language;
     }
