@@ -721,7 +721,7 @@ class Request extends Component implements interfaces\Request
         if ($language == null) {
             $language = $this->context
                 ->languages
-                ->getDefaultLanguage($request_uri);
+                ->getDefaultLanguage($_SERVER['HTTP_HOST'] ?? null);
         }
 
         /*
