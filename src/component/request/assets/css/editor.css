@@ -12,17 +12,19 @@
 #__PREFIX-editor-wrapper * {
     all: unset;
 }
+
 #__PREFIX-editor-wrapper > div:before {
     content: "";
-    border-radius:100%;
-    border:solid 2px #fff;
-    width:8px;
-    height:8px;
-    position:absolute;
-    left: calc( (100% - 8px ) / 2 );
-    top: calc( (100% - 8px ) / 2 );
-    display:inline-block;
+    border-radius: 100%;
+    border: solid 2px #fff;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: calc((100% - 8px) / 2);
+    top: calc((100% - 8px) / 2);
+    display: inline-block;
 }
+
 #__PREFIX-editor-wrapper > div {
     background: #898989;
     opacity: 0.9;
@@ -211,9 +213,8 @@
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
-    content: "close";
-    font-size: 1.1em;
-    font-weight: bold;
+    content: "\21F2";
+    font-size: 1.4em;
     display: inline-block;
 }
 
@@ -226,14 +227,18 @@
     min-width: 150px;
     position: fixed;
     z-index: 99999999999999;
-    padding:5px 0;
+    padding: 5px 0;
     background: #fff;
     border: 1px solid #CCC;
     border-radius: 5px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, .4);
     font-weight: normal;
 }
-#__PREFIX-context-menu.shown { display:block; }
+
+#__PREFIX-context-menu.shown {
+    display: block;
+}
+
 #__PREFIX-context-menu a {
     display: block;
     padding: 3px 16px;
@@ -247,14 +252,22 @@
     color: #333;
     cursor: default;
 }
-#__PREFIX-context-menu a.bold { font-weight:bold; }
-#__PREFIX-context-menu a.disabled { color:#B7B7B7; }
+
+#__PREFIX-context-menu a.bold {
+    font-weight: bold;
+}
+
+#__PREFIX-context-menu a.disabled {
+    color: #B7B7B7;
+}
+
 #__PREFIX-context-menu a:not(.disabled):hover {
     color: #FFF;
-    background-color:#1D5DF3;
-    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#5f87f8), color-stop(100%,#1d5df3));
-    background-image:linear-gradient(to bottom, #5f87f8 0%,#1d5df3 100%);
+    background-color: #1D5DF3;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5f87f8), color-stop(100%, #1d5df3));
+    background-image: linear-gradient(to bottom, #5f87f8 0%, #1d5df3 100%);
 }
+
 #__PREFIX-context-menu a > img {
     float: left;
     margin-right: 5px;
@@ -262,6 +275,7 @@
     height: 16px;
     overflow: hidden;
 }
+
 #__PREFIX-context-menu hr {
     border: 0;
     height: 1px;

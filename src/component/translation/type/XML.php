@@ -239,6 +239,7 @@ class XML extends Type implements interfaces\XML
             }
         }
 
+
         foreach ($this->_to_translate as $type => $texts) {
             $this->_verbose[$type] = $this->getHelperAttributes() ? [] : null;
 
@@ -321,12 +322,9 @@ class XML extends Type implements interfaces\XML
                             ? $translate
                             : $node->data;
                     },
-                    /*
-                     * Callback for Attribute nodes
-                     * */
-                    function (&$node, $type) use ($language) {
+                    function (&$node, $type, $rule) use ($language) {
                         /**
-                         * Callback for Text node
+                         * Callback for Attribute nodes
                          *
                          * @var DOMAttr $node
                          * @var DOMElement $parent

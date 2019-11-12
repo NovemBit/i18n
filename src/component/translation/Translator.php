@@ -172,7 +172,9 @@ abstract class Translator extends Component implements interfaces\Translator
              * Take level/created_at/updated_at
              * from model only if with_verbose variable is true
              * */
-            if ($verbose !== null) {
+            if ($verbose !== null
+                && !isset($verbose[$model['source']][$model['to_language']]['id'])
+            ) {
                 $verbose[$model['source']][$model['to_language']]['id']
                     = $model['id'];
                 $verbose[$model['source']][$model['to_language']]['translate']

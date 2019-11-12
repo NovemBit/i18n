@@ -152,7 +152,7 @@ class Rule
     /**
      * Get Texts
      *
-     * @return mixed
+     * @return array
      */
     public function getTexts()
     {
