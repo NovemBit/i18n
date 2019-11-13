@@ -136,7 +136,7 @@ class JSON extends Type
      *
      * @return array
      */
-    public function doTranslate(array $jsons): array
+    protected function doTranslate(array $jsons): array
     {
         $languages = $this->context->getLanguages();
 
@@ -202,7 +202,7 @@ class JSON extends Type
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$json): bool
+    protected function validateBeforeTranslate(&$json): bool
     {
         $obj = json_decode($json, true);
         if (is_array($obj)) {

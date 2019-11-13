@@ -79,7 +79,7 @@ class Rest extends Method
      * @return array
      * @throws TranslationException
      */
-    public function doTranslate(array $texts): array
+    protected function doTranslate(array $texts): array
     {
 
         $translation = [];

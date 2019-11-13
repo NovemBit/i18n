@@ -180,7 +180,7 @@ class XML extends Type implements interfaces\XML
      * @see DOMText
      * @see DOMAttr
      */
-    public function doTranslate(array $xml_list): array
+    protected function doTranslate(array $xml_list): array
     {
         $languages = $this->context->getLanguages();
 

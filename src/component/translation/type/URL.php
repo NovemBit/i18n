@@ -119,7 +119,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return array
      */
-    public function doTranslate(array $urls): array
+    protected function doTranslate(array $urls): array
     {
 
         $languages = $this->context->getLanguages();
@@ -154,7 +154,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    public function validateAfterTranslate(
+    protected function validateAfterTranslate(
         $before,
         $after,
         &$translates,
@@ -192,7 +192,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$url): bool
+    protected function validateBeforeTranslate(&$url): bool
     {
         $url = trim($url, ' ');
 
@@ -382,7 +382,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    public function validateBeforeReTranslate(&$url): bool
+    protected function validateBeforeReTranslate(&$url): bool
     {
         $url = trim($url, ' ');
 
@@ -420,7 +420,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    public function validateAfterReTranslate($before, $after, &$result): bool
+    protected function validateAfterReTranslate($before, $after, &$result): bool
     {
         Strings::getStringsDifference($before, $after, $prefix, $suffix);
 

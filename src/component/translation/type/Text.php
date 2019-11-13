@@ -85,7 +85,7 @@ class Text extends Type
      *
      * @return array
      */
-    public function doTranslate(array $texts) : array
+    protected function doTranslate(array $texts) : array
     {
 
         $translations = $this->context->method->translate($texts);
@@ -109,7 +109,7 @@ class Text extends Type
      *
      * @return bool
      */
-    public function validateAfterTranslate(
+    protected function validateAfterTranslate(
         $before,
         $after,
         &$translates,
@@ -150,7 +150,7 @@ class Text extends Type
      *
      * @return bool
      */
-    public function validateBeforeTranslate(&$text) : bool
+    protected function validateBeforeTranslate(&$text) : bool
     {
 
         foreach ($this->dont_translate_patterns as $pattern) {

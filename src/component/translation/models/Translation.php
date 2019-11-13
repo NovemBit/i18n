@@ -129,10 +129,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
     /**
      * Main method to get translations from DB
      *
-     * @param array $texts Texts array to translate
+     * @param array  $texts         Texts array to translate
      * @param string $from_language From language
-     * @param array $to_languages To languages list
-     * @param bool $reverse Use translate column as source (ReTranslate)
+     * @param array  $to_languages  To languages list
+     * @param bool   $reverse       Use translate column as source (ReTranslate)
      *
      * @return array
      */
@@ -177,10 +177,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
      * Main method to save translations in DB
      *
      * @param string $from_language From language
-     * @param array $translations Translations of texts
-     * @param int $level Level of translation
-     * @param bool $overwrite If translation exists, then overwrite value
-     * @param array $result Result about saving
+     * @param array  $translations  Translations of texts
+     * @param int    $level         Level of translation
+     * @param bool   $overwrite     If translation exists, then overwrite value
+     * @param array  $result        Result about saving
      *
      * @return void
      * @throws ActiveRecordException
