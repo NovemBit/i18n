@@ -22,6 +22,7 @@ use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\models\ActiveRecord;
 use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
@@ -287,7 +288,7 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
      * @return string|null
@@ -316,11 +317,12 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepareDestination(): bool
     {
-        if (!isset($_SERVER['REQUEST_URI'])) {
+        $request_uri = Environment::server('REQUEST_URI');
+        if ($request_uri === null) {
             return false;
         }
 
-        $dest = '/' . trim($_SERVER['REQUEST_URI'], '/');
+        $dest = '/' . trim($request_uri, '/');
         $dest = URL::removeQueryVars(
             $dest,
             $this->context->languages->getLanguageQueryKey()
@@ -367,15 +369,18 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepareReferer(): bool
     {
-        if (isset($_SERVER['HTTP_REFERER'])) {
+        $http_referer = Environment::server('HTTP_REFERER');
+        if ($http_referer !== null) {
             $this->_prepareRefererLanguage();
 
-            $referer = trim($_SERVER['HTTP_REFERER'], '/');
+            $referer = trim($http_referer, '/');
             $referer = URL::removeQueryVars(
                 $referer,
                 $this->context->languages->getLanguageQueryKey()
             );
+
             $referer = urldecode($referer);
+
             $this->setReferer($referer);
 
             $this->_prepareRefererSourceUrl();
@@ -415,7 +420,7 @@ class Request extends Component implements interfaces\Request
         /**
          * Setting source url as @REQUEST_URI
          * */
-        $_SERVER['HTTP_REFERER'] = $this->getRefererSourceUrl();
+        Environment::server('HTTP_REFERER', $this->getRefererSourceUrl());
 
         return true;
     }
@@ -475,7 +480,7 @@ class Request extends Component implements interfaces\Request
         /**
          * Setting source url as @REQUEST_URI
          * */
-        $_SERVER['REQUEST_URI'] = $this->getSourceUrl() ?? '/';
+        Environment::server('REQUEST_URI', $this->getSourceUrl() ?? '/');
 
         /**
          * Handling 404 action page
@@ -534,8 +539,8 @@ class Request extends Component implements interfaces\Request
     /**
      * Restore non translated urls
      *
-     * @param string|null $url Url
-     * @param string $language Language
+     * @param string|null $url      Url
+     * @param string      $language Language
      *
      * @return string|null
      */
@@ -548,46 +553,17 @@ class Request extends Component implements interfaces\Request
          * Get translation from source
          * */
         $url = $this->getTranslation()->setLanguages([$language])->url
-                ->translate(
-                    [$url],
-                    $verbose,
-                    true
-                )[$url][$language] ?? null;
+            ->translate(
+                [$url],
+                $verbose,
+                true
+            )[$url][$language] ?? null;
 
         if ($url == null) {
             return null;
         }
 
         return $url;
-    }
-
-    /**
-     * Check if url is working
-     *
-     * @param string $url Url
-     *
-     * @return bool
-     *
-     * @deprecated
-     */
-    private static function _isWorkingUrl(string $url): bool
-    {
-        $curl = curl_init($url);
-
-        curl_setopt($curl, CURLOPT_NOBODY, true);
-        $result = curl_exec($curl);
-
-        if ($result !== false) {
-
-            // Use curl_getinfo() to get information
-            // regarding a specific transfer
-            $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            if (in_array($statusCode, [200, 201, 202, 203])) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -662,22 +638,31 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepareRefererLanguage(): bool
     {
-
-        $_SERVER["ORIG_HTTP_REFERER"] = $_SERVER["HTTP_REFERER"];
+        $http_referer = Environment::server('HTTP_REFERER');
 
         /**
-         * Taking language from current @REQUEST_URI
+         * Set origin referer
+         * */
+        Environment::server(
+            'ORIG_HTTP_REFERER',
+            $http_referer
+        );
+
+        /**
+         * Taking language from current `$_SERVER['REQUEST_URI']`
          * */
         $language = $this->context->languages
-            ->getLanguageFromUrl($_SERVER["HTTP_REFERER"]);
+            ->getLanguageFromUrl($http_referer);
 
         /**
-         * If language does not exists in *url*
+         * If language does not exists in `$http_referer`
          * */
         if ($language == null) {
-            $language = $this->context->languages->getDefaultLanguage(
-                $_SERVER['HTTP_HOST'] ?? null
-            );
+            $language = $this->context
+                ->languages
+                ->getDefaultLanguage(
+                    Environment::server('HTTP_HOST')
+                );
         }
 
         /*
@@ -688,7 +673,12 @@ class Request extends Component implements interfaces\Request
         /*
          * Remove Language from URI
          * */
-        $this->_removeLanguageFromURI($_SERVER['HTTP_REFERER']);
+        $this->_removeLanguageFromURI($http_referer);
+
+        /**
+         * Change HTTP_REFERER value
+         * */
+        Environment::server('HTTP_REFERER', $http_referer);
 
         return true;
     }
@@ -703,10 +693,10 @@ class Request extends Component implements interfaces\Request
         /**
          * Check if tried to access from cli
          * */
-        $request_uri = $_SERVER['REQUEST_URI'] ?? null;
+        $request_uri = Environment::server('REQUEST_URI');
 
         if ($request_uri !== null) {
-            $_SERVER['ORIG_REQUEST_URI'] = $request_uri;
+            Environment::server('ORIG_REQUEST_URI', $request_uri);
         }
 
         /**
@@ -721,7 +711,7 @@ class Request extends Component implements interfaces\Request
         if ($language == null) {
             $language = $this->context
                 ->languages
-                ->getDefaultLanguage($_SERVER['HTTP_HOST'] ?? null);
+                ->getDefaultLanguage(Environment::server('HTTP_HOST'));
         }
 
         /*
@@ -729,10 +719,13 @@ class Request extends Component implements interfaces\Request
          * */
         $this->_setLanguage($language);
 
+        $url = Environment::server('REQUEST_URI');
         /*
          * Remove Language from URI
          * */
-        $this->_removeLanguageFromURI($_SERVER['REQUEST_URI']);
+        $this->_removeLanguageFromURI($url);
+
+        $url = Environment::server('REQUEST_URI', $url);
 
         return true;
     }
@@ -790,7 +783,7 @@ class Request extends Component implements interfaces\Request
     {
         $country = $this->context
             ->languages
-            ->getDefaultCountry($_SERVER['HTTP_HOST'] ?? null);
+            ->getDefaultCountry(Environment::server('HTTP_HOST'));
 
         $this->_setCountry($country);
 
@@ -808,7 +801,7 @@ class Request extends Component implements interfaces\Request
     {
         $country = $this->context
             ->languages
-            ->getDefaultRegion($_SERVER['HTTP_HOST'] ?? null);
+            ->getDefaultRegion(Environment::server('HTTP_HOST') ?? null);
 
         $this->_setRegion($country);
 
@@ -909,7 +902,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                        ->translate([$content])[$content][$this->getLanguage()]
+                    ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -1047,8 +1040,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1069,8 +1062,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1100,7 +1093,7 @@ class Request extends Component implements interfaces\Request
                     'prefix' => $this->context->prefix,
 
                     'orig_request_uri' => URL::removeQueryVars(
-                        $_SERVER['ORIG_REQUEST_URI'],
+                        Environment::server('ORIG_REQUEST_URI'),
                         $this->context->prefix . '-' . $this->editor_query_key
                     ),
 
@@ -1126,8 +1119,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1170,8 +1163,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
