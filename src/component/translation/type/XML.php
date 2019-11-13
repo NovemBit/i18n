@@ -331,7 +331,7 @@ class XML extends Type implements interfaces\XML
                          * @var Rule $rule
                          */
 
-                        $translate = $this->_translations
+                        @$translate = $this->_translations
                             [$type][$node->value][$language]
                             ?? null;
 
@@ -374,7 +374,7 @@ class XML extends Type implements interfaces\XML
                             }
                         }
 
-                        $node->value = !empty($translate)
+                        @$node->value = !empty($translate)
                             ? htmlspecialchars($translate)
                             : $node->value;
                     }
