@@ -13,7 +13,6 @@ interface Translator
         bool $only_cache = false
     ): array;
 
-    public function doTranslate(array $texts): array;
 
     public function saveModels(
         $translations,
