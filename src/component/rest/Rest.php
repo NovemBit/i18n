@@ -17,6 +17,7 @@ use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\exception\Exception;
+use NovemBit\i18n\system\helpers\Environment;
 
 /**
  * Rest component
@@ -81,7 +82,8 @@ class Rest extends Component implements interfaces\Rest
      */
     public function start(): void
     {
-        $endpoint = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        $endpoint = parse_url(Environment::server('REQUEST_URI'), PHP_URL_PATH);
 
         $endpoint = trim($endpoint, '/');
         $re = '/^' . preg_quote($this->endpoint, '/') . "(.*)$/";
