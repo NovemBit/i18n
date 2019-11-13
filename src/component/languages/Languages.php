@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\languages;
 
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\component\languages\exceptions\LanguageException;
 
@@ -169,17 +170,17 @@ class Languages extends Component implements interfaces\Languages
             return self::$_script_url;
         }
 
-        if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
+        $request_uri = Environment::server('REQUEST_URI');
+        $script_name = Environment::server('SCRIPT_NAME');
+
+        if ($request_uri === null || $script_name === null) {
             return null;
         }
-
-        $request_uri = $_SERVER['REQUEST_URI'];
-        $script_name = $_SERVER['SCRIPT_NAME'];
 
         if (strpos($request_uri, $script_name) === 0) {
             $str = $script_name;
         } else {
-            $paths = explode('/', $_SERVER['SCRIPT_NAME']);
+            $paths = explode('/', $script_name);
 
             unset($paths[count($paths) - 1]);
             $str = implode('/', $paths);
