@@ -108,6 +108,13 @@ class Rest extends Method
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+        //Tell cURL that it should only spend 10 seconds
+        //trying to connect to the URL in question.
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+
+        //A given cURL operation should only take
+        //30 seconds max.
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         $result = curl_exec($ch);
 
         if ($result === false) {
@@ -118,10 +125,11 @@ class Rest extends Method
              * @todo log curl error
              * */
 
-            throw new TranslationException(
+            /*throw new TranslationException(
                 "Dynamic hub: Cannot connect to dynamic hub."
-            );
+            );*/
 
+            return [];
         }
 
         curl_close($ch);
