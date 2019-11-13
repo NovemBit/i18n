@@ -17,6 +17,7 @@ namespace NovemBit\i18n\component\translation;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
+use NovemBit\i18n\system\helpers\Arrays;
 
 /**
  * Translation abstract method
@@ -267,8 +268,13 @@ abstract class Translator extends Component implements interfaces\Translator
             /**
              * Merge new and saved translations
              * */
-            $translations = $translations + $new_translations;
+            //$translations = $translations + $new_translations;
+            $translations = Arrays::arrayMergeRecursiveDistinct(
+                $translations,
+                $new_translations
+            );
         }
+
 
         /*
          * Event after translate
