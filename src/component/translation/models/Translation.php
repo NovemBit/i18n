@@ -15,9 +15,7 @@ namespace NovemBit\i18n\component\translation\models;
 
 use NovemBit\i18n\models\ActiveRecord;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\Exception;
-
 
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
@@ -32,8 +30,6 @@ use yii\db\Exception;
  * @property string $from_language
  * @property string $to_language
  * @property int $type
- * @property int $created_at
- * @property int $updated_at
  * @property string $source
  * @property string $translate
  * @property int $level
@@ -76,7 +72,6 @@ class Translation extends ActiveRecord implements interfaces\Translation
             ],
             [['from_language', 'to_language'], 'string', 'max' => 2],
             [['type', 'level'], 'integer', 'min' => 0, 'max' => 99],
-            [['created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -107,12 +102,7 @@ class Translation extends ActiveRecord implements interfaces\Translation
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => time(),
-            ]
+
         ];
     }
 
