@@ -19,7 +19,8 @@
     "ext-mbstring": "*",
     "yiisoft/yii2": "~2.0.14",
     "google/cloud-translate": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "masterminds/html5": "^2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
