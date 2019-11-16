@@ -20,7 +20,6 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use DOMXPath;
-use NovemBit\i18n\system\parsers\xml\Rule;
 
 /**
  * HTML parser with callback function
@@ -32,7 +31,7 @@ use NovemBit\i18n\system\parsers\xml\Rule;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class XML
+class XML2
 {
 
     /**
@@ -47,7 +46,7 @@ class XML
      *
      * @var array
      * */
-    protected $translate_fields = [];
+    protected $query_map = [];
 
     /**
      * Main DomDocument
@@ -62,13 +61,6 @@ class XML
      * @var DOMXPath
      * */
     protected $xpath;
-
-    /**
-     * Main query for Xpath
-     *
-     * @var string
-     * */
-    private $_query;
 
     /**
      * For script tags
@@ -116,20 +108,21 @@ class XML
      * HTML parser constructor.
      *
      * @param string $xml XML content
-     * @param string $query Xpath Query
+     * @param array $query_map Xpath Query
      * @param int $type XML or HTML
      * @param callable|null $before_translate_callback Before init callback
      * @param callable|null $after_translate_callback After init callback
      */
     public function __construct(
         string $xml,
-        string $query,
+        array $query_map,
         int $type = self::XML,
         callable $before_translate_callback = null,
         callable $after_translate_callback = null
     ) {
-        $this->_setQuery($query);
+
         $this->_setType($type);
+        $this->_setQueryMap($query_map);
         $this->_setBeforeTranslateCallback($before_translate_callback);
         $this->_setAfterTranslateCallback($after_translate_callback);
 
@@ -144,7 +137,7 @@ class XML
      *
      * @return XML
      */
-    public function load(string $xml): interfaces\XML
+    public function load(string $xml): self
     {
         $this->_setXml($xml);
 
@@ -239,90 +232,29 @@ class XML
         }
     }
 
-    /**
-     * Fetch current DOM document XPATH
-     *
-     * @param callable $text_callback Callback function for Text Nodes
-     * @param callable $attr_callback Callback function for Attr Nodes
-     *
-     * @return void
-     */
-    public function fetch(callable $text_callback, callable $attr_callback): void
+    public function fetch(callable $callback): void
     {
-        $nodes = $this->_getXpath()->query($this->_getQuery());
+        $accept_queries = $this->_getQueryMap()['accept'] ?? [];
 
-        /**
-         * Fetching nodes to get each node in DomDocument
-         *
-         * @var DOMElement $node
-         */
-        foreach ($nodes as $node) {
-            foreach ($this->_getTranslateFields() as $translate_field) {
+        $ignore_queries = $this->_getQueryMap()['ignore'] ?? [];
 
-                /**
-                 * Getting Rule for current set of field
-                 * Then validating node with this rule
-                 *
-                 * @var Rule $rule
-                 */
-                $rule = $translate_field['rule'] ?? null;
+        $ignore_queries = !empty($ignore_queries)
+            ? '[not('.implode(' or ',$ignore_queries).')]' : '';
 
-                if ($rule === null || !$rule->validate($node)) {
-                    continue;
-                }
 
-                $text = $translate_field['text'] ?? null;
+        foreach ($accept_queries as $query => $params) {
 
-                if ($text != null) {
-                    /**
-                     * Fetching child nodes to find Text nodes
-                     *
-                     * @var DOMNode $child_node
-                     */
-                    foreach ($node->childNodes as $child_node) {
-                        if ($child_node->nodeType == XML_TEXT_NODE
-                            || $child_node->nodeType == XML_CDATA_SECTION_NODE
-                        ) {
-                            /**
-                             * Checking if TextNode data length
-                             * without whitespace in not null
-                             * Then running callback function for text nodes
-                             *
-                             * @var DOMText $child_node
-                             */
-                            if (mb_strlen(trim($child_node->data)) == 0) {
-                                continue;
-                            }
-                            call_user_func_array(
-                                $text_callback,
-                                [&$child_node, $text, $rule]
-                            );
-                        }
-                    }
-                }
+            $query .= $ignore_queries;
 
-                $attrs = $translate_field['attrs'] ?? [];
+            $nodes = $this->_getXpath()->query($query);
+            /**
+             * Fetching nodes to get each node in DomDocument
+             *
+             * @var DOMElement $node
+             */
+            foreach ($nodes as $node) {
 
-                /**
-                 * Fetching current set attrs and checking
-                 * If node has attribute with this keys
-                 * */
-                foreach ($attrs as $attr => $type) {
-                    if ($node->hasAttribute($attr)) {
-                        $attr_node = $node->getAttributeNode($attr);
-                        /**
-                         * Running callback function for attr nodes
-                         *
-                         * @var DOMAttr $node
-                         */
-                        call_user_func_array(
-                            $attr_callback,
-                            [&$attr_node, $type, $rule]
-                        );
-                    }
-                }
-
-                break;
+                call_user_func_array($callback, [&$node, $params]);
             }
         }
     }
@@ -397,37 +329,6 @@ class XML
     }
 
     /**
-     * Getting translate fields set
-     *
-     * @return array[]
-     */
-    private function _getTranslateFields(): array
-    {
-        return $this->translate_fields;
-    }
-
-    /**
-     * Adding translate fields
-     *
-     * @param Rule $rule Rule object
-     * @param string $text Text node type to translate
-     * @param array $attrs List of attributes that must be translated
-     *
-     * @return void
-     */
-    public function addTranslateField(
-        interfaces\Rule $rule,
-        string $text = 'text',
-        $attrs = []
-    ) {
-        $this->translate_fields[] = [
-            'rule' => $rule,
-            'text' => $text,
-            'attrs' => $attrs
-        ];
-    }
-
-    /**
      * Get HTML string
      *
      * @return string
@@ -487,28 +388,6 @@ class XML
     private function _setXml(string $xml): void
     {
         $this->xml = $xml;
-    }
-
-    /**
-     * Get Xpath query
-     *
-     * @return string
-     */
-    private function _getQuery(): string
-    {
-        return $this->_query;
-    }
-
-    /**
-     * Set Xpath query
-     *
-     * @param string $_query Query String
-     *
-     * @return void
-     */
-    private function _setQuery(string $_query): void
-    {
-        $this->_query = $_query;
     }
 
     /**
@@ -616,5 +495,21 @@ class XML
     private function _setType(int $type): void
     {
         $this->_type = $type;
+    }
+
+    /**
+     * @return array
+     */
+    private function _getQueryMap(): array
+    {
+        return $this->query_map;
+    }
+
+    /**
+     * @param array $query_map
+     */
+    private function _setQueryMap(array $query_map): void
+    {
+        $this->query_map = $query_map;
     }
 }

@@ -99,10 +99,10 @@ class Rule
         array $texts = null,
         $mode = self::IN
     ) {
-        $this->setTags($tags);
-        $this->setAttrs($attrs);
-        $this->setTexts($texts);
-        $this->setMode($mode);
+        $this->_setTags($tags);
+        $this->_setAttrs($attrs);
+        $this->_setTexts($texts);
+        $this->_setMode($mode);
     }
 
     /**
@@ -110,7 +110,7 @@ class Rule
      *
      * @return mixed
      */
-    public function getTags()
+    private function _getTags()
     {
         return $this->_tags;
     }
@@ -122,7 +122,7 @@ class Rule
      *
      * @return void
      */
-    public function setTags($_tags = null)
+    private function _setTags($_tags = null)
     {
         $this->_tags = $_tags;
     }
@@ -132,7 +132,7 @@ class Rule
      *
      * @return array
      */
-    public function getAttrs()
+    private function _getAttrs()
     {
         return $this->_attrs;
     }
@@ -144,7 +144,7 @@ class Rule
      *
      * @return void
      */
-    public function setAttrs($_attrs = null)
+    private function _setAttrs($_attrs = null)
     {
         $this->_attrs = $_attrs;
     }
@@ -154,7 +154,7 @@ class Rule
      *
      * @return array
      */
-    public function getTexts()
+    private function _getTexts()
     {
         return $this->_texts;
     }
@@ -166,7 +166,7 @@ class Rule
      *
      * @return void
      */
-    public function setTexts($_texts = null)
+    private function _setTexts($_texts = null)
     {
         $this->_texts = $_texts;
     }
@@ -180,13 +180,13 @@ class Rule
      */
     private function _validateTag($node)
     {
-        if (!$this->getTags()) {
+        if (!$this->_getTags()) {
             return true;
         }
 
-        if ($this->getMode() == self::REGEX) {
+        if ($this->_getMode() == self::REGEX) {
             $regex_status = false;
-            foreach ($this->getTags() as $pattern) {
+            foreach ($this->_getTags() as $pattern) {
                 if (preg_match($pattern, $node->tagName)) {
                     $regex_status = true;
                     break;
@@ -195,16 +195,16 @@ class Rule
             if (!$regex_status) {
                 return false;
             }
-        } elseif ($this->getMode() == self::IN) {
-            if (!in_array($node->tagName, $this->getTags())) {
+        } elseif ($this->_getMode() == self::IN) {
+            if (!in_array($node->tagName, $this->_getTags())) {
                 return false;
             }
-        } elseif ($this->getMode() == self::CONTAINS) {
-            if (!(strpos($this->getTags(), $node->tagName) !== false)) {
+        } elseif ($this->_getMode() == self::CONTAINS) {
+            if (!(strpos($this->_getTags(), $node->tagName) !== false)) {
                 return false;
             }
-        } elseif ($this->getMode() == self::EQ) {
-            if ($node->tagName != $this->getTags()) {
+        } elseif ($this->_getMode() == self::EQ) {
+            if ($node->tagName != $this->_getTags()) {
                 return false;
             }
         }
@@ -221,11 +221,11 @@ class Rule
      */
     private function _validateAttrs($node)
     {
-        if (!$this->getAttrs()) {
+        if (!$this->_getAttrs()) {
             return true;
         }
 
-        foreach ($this->getAttrs() as $attribute => $values) {
+        foreach ($this->_getAttrs() as $attribute => $values) {
 
             if ($node->hasAttribute($attribute)) {
                 $attribute_value = $node->getAttribute($attribute);
@@ -233,7 +233,7 @@ class Rule
                 $attribute_value = '';
             }
 
-            if ($this->getMode() == self::REGEX) {
+            if ($this->_getMode() == self::REGEX) {
 
                 $regex_status = false;
                 foreach ($values as $pattern) {
@@ -245,15 +245,15 @@ class Rule
                 if (!$regex_status) {
                     return false;
                 }
-            } elseif ($this->getMode() == self::IN) {
+            } elseif ($this->_getMode() == self::IN) {
                 if (!in_array('*', $values)
                     && !in_array(
-                        $attribute_value, $values
-                    )
+                    $attribute_value, $values
+                )
                 ) {
                     return false;
                 }
-            } elseif ($this->getMode() == self::CONTAINS) {
+            } elseif ($this->_getMode() == self::CONTAINS) {
                 if (!(strpos(
                     $values,
                     $attribute_value
@@ -261,7 +261,7 @@ class Rule
                 ) {
                     return false;
                 }
-            } elseif ($this->getMode() == self::EQ) {
+            } elseif ($this->_getMode() == self::EQ) {
                 if ($attribute_value != $values) {
                     return false;
                 }
@@ -280,7 +280,7 @@ class Rule
      */
     private function _validateTexts($node)
     {
-        if (!$this->getTexts()) {
+        if (!$this->_getTexts()) {
             return true;
         }
         foreach ($node->childNodes as $child_node) {
@@ -291,9 +291,9 @@ class Rule
                  *
                  * @var DOMText $child_node
                  */
-                if ($this->getMode() == self::REGEX) {
+                if ($this->_getMode() == self::REGEX) {
                     $regex_status = false;
-                    foreach ($this->getTexts() as $pattern) {
+                    foreach ($this->_getTexts() as $pattern) {
                         if (preg_match($pattern, $child_node->data)) {
                             $regex_status = true;
                             break;
@@ -302,16 +302,16 @@ class Rule
                     if (!$regex_status) {
                         return false;
                     }
-                } elseif ($this->getMode() == self::IN) {
-                    if (!in_array($child_node->data, $this->getTexts())) {
+                } elseif ($this->_getMode() == self::IN) {
+                    if (!in_array($child_node->data, $this->_getTexts())) {
                         return false;
                     }
-                } elseif ($this->getMode() == self::CONTAINS) {
-                    if (!(strpos($this->getTexts(), $child_node->data) !== false)) {
+                } elseif ($this->_getMode() == self::CONTAINS) {
+                    if (!(strpos($this->_getTexts(), $child_node->data) !== false)) {
                         return false;
                     }
-                } elseif ($this->getMode() == self::EQ) {
-                    if ($child_node->data != $this->getTexts()) {
+                } elseif ($this->_getMode() == self::EQ) {
+                    if ($child_node->data != $this->_getTexts()) {
                         return false;
                     }
                 }
@@ -329,7 +329,7 @@ class Rule
      *
      * @return bool
      */
-    public function validate(DOMElement $node)
+    public function validate(DOMElement $node):bool
     {
 
         /*
@@ -361,7 +361,7 @@ class Rule
      *
      * @return mixed
      */
-    public function getMode()
+    private function _getMode()
     {
         return $this->_mode;
     }
@@ -373,7 +373,7 @@ class Rule
      *
      * @return void
      */
-    public function setMode($_mode)
+    private function _setMode($_mode)
     {
         $this->_mode = $_mode;
     }

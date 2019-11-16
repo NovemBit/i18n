@@ -76,7 +76,7 @@ class HTML extends XML implements interfaces\HTML
     protected function getParser(
         string $xml,
         string $language
-    ): \NovemBit\i18n\system\parsers\XML {
+    ): \NovemBit\i18n\system\parsers\XML2 {
 
         $this->addAfterParseCallback(
             function ($xpath) use ($language) {
