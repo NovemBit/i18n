@@ -89,20 +89,6 @@ class XML extends Type
      * */
     private $_to_translate = [];
 
-    /**
-     * Translated contents
-     *
-     * @var array
-     * */
-    private $_translations = [];
-
-    /**
-     * Translated contents
-     *
-     * @var array
-     * */
-    private $_verbose = [];
-
     public $save_translations = false;
     /**
      * Model class name of ActiveRecord
@@ -204,13 +190,16 @@ class XML extends Type
 
         $result = [];
 
-        $this->_translations = [];
+        $translations = [];
+
+        $to_translate = [];
+
+        $verbose = [];
 
         $_parsed_dom = [];
 
         $_parsed_dom_mutex = [];
 
-        $this->_verbose = [];
 
         /**
          * Finding translatable node values and attributes
@@ -225,7 +214,7 @@ class XML extends Type
                 );
 
                 $_parsed_dom[$key][$language]->fetch(
-                    function (&$node, $params) {
+                    function (&$node, $params) use (&$to_translate) {
                         /**
                          * Define node type
                          *
@@ -240,10 +229,10 @@ class XML extends Type
                             /**
                              * @var DOMText $node Text node
                              */
-                            $node->data = htmlspecialchars_decode(
+                            /*$node->data = htmlspecialchars_decode(
                                 $node->data,
                                 ENT_QUOTES | ENT_HTML401
-                            );
+                            );*/
                             $node_value = $node->data;
                         } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
                             /**
@@ -253,15 +242,15 @@ class XML extends Type
 
                         }
                         if ($node_value !== null) {
-                            $this->_to_translate[$type][] = $node_value;
+                            $to_translate[$type][] = $node_value;
                         }
                     }
                 );
             }
         }
 
-        foreach ($this->_to_translate as $type => $texts) {
-            $this->_verbose[$type] = $this->getHelperAttributes() ? [] : null;
+        foreach ($to_translate as $type => $texts) {
+            $verbose[$type] = $this->getHelperAttributes() ? [] : null;
 
             /**
              * Translator method
@@ -269,9 +258,9 @@ class XML extends Type
              * @var Translator $translator
              */
             $translator = $this->context->{$type};
-            $this->_translations[$type] = $translator->translate(
+            $translations[$type] = $translator->translate(
                 $texts,
-                $this->_verbose[$type]
+                $verbose[$type]
             );
         }
 
@@ -285,7 +274,12 @@ class XML extends Type
             foreach ($languages as $language) {
 
                 $_parsed_dom[$key][$language]->fetch(
-                    function (&$node, $params) use ($language, $_parsed_dom_mutex) {
+                    function (&$node, $params) use (
+                        $translations,
+                        $verbose,
+                        $language,
+                        &$_parsed_dom_mutex
+                    ) {
                         /**
                          * Define type of $node
                          *
@@ -317,13 +311,13 @@ class XML extends Type
                             /**
                              * @var DOMAttr $node Text node
                              */
-                            $node_value = $node->value;
+                            $node_value = $node->nodeValue;
                             $node_type = 'attr';
                         } else {
                             return;
                         }
 
-                        $translate = $this->_translations
+                        $translate = $translations
                             [$type][$node_value][$language]
                             ?? null;
 
@@ -332,7 +326,7 @@ class XML extends Type
                             /** @var DOMElement $parent */
                             $parent = $node->parentNode;
 
-                            $verbose = $this->_verbose
+                            $_verbose = $verbose
                                 [$type][$node_value] ?? null;
 
                             if ($node_type == 'text') {
@@ -356,15 +350,17 @@ class XML extends Type
                                 if ($translate !== null) {
                                     $text[] = [
                                         $node_value,
-                                        $verbose[$language]['translate'] ?? null,
+                                        $_verbose[$language]['translate'] ?? null,
                                         $type,
-                                        $verbose[$language]['level'] ?? null,
-                                        $verbose['prefix'] ?? null,
-                                        $verbose['suffix'] ?? null
+                                        $_verbose[$language]['level'] ?? null,
+                                        $_verbose['prefix'] ?? null,
+                                        $_verbose['suffix'] ?? null,
+                                        $translate
                                     ];
                                     $parent->setAttribute(
                                         $this->context->context->prefix . '-text',
                                         json_encode($text)
+
                                     );
                                 }
                             } elseif ($node_type == 'attr') {
@@ -387,11 +383,12 @@ class XML extends Type
                                 if ($translate !== null) {
                                     $attr[$node->name] = [
                                         $node_value,
-                                        $verbose[$language]['translate'] ?? null,
+                                        $_verbose[$language]['translate'] ?? null,
                                         $type,
-                                        $verbose[$language]['level'] ?? null,
-                                        $verbose['prefix'] ?? null,
-                                        $verbose['suffix'] ?? null
+                                        $_verbose[$language]['level'] ?? null,
+                                        $_verbose['prefix'] ?? null,
+                                        $_verbose['suffix'] ?? null,
+                                        $translate
                                     ];
                                     $parent->setAttribute(
                                         $this->context->context->prefix . '-attr',
@@ -406,11 +403,11 @@ class XML extends Type
                         if ($node_type == 'text') {
                             $node->data = !empty($translate)
                                 ? $translate
-                                : $node->data;
+                                : $node_value;
                         } elseif ($node_type == 'attr') {
                             $node->value = !empty($translate)
-                                ? htmlspecialchars($translate)
-                                : $node->value;
+                                ? $translate
+                                : $node_value;
                         }
 
                     }

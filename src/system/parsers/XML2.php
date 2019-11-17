@@ -20,6 +20,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use DOMXPath;
+use Masterminds\HTML5;
 
 /**
  * HTML parser with callback function
@@ -101,6 +102,12 @@ class XML2
 
     private $_type = self::XML;
 
+    /**
+     *
+     * @var HTML5
+     * */
+    private $_html5;
+
     const XML = 1;
     const HTML = 2;
 
@@ -151,6 +158,22 @@ class XML2
         }
 
         return $this;
+    }
+
+    /**
+     * @return HTML5
+     */
+    public function _getHtml5(): HTML5
+    {
+        return $this->_html5;
+    }
+
+    /**
+     * @param HTML5 $html5
+     */
+    public function _setHtml5(HTML5 $html5): void
+    {
+        $this->_html5 = $html5;
     }
 
     /**
@@ -239,7 +262,7 @@ class XML2
         $ignore_queries = $this->_getQueryMap()['ignore'] ?? [];
 
         $ignore_queries = !empty($ignore_queries)
-            ? '[not('.implode(' or ',$ignore_queries).')]' : '';
+            ? '[not(' . implode(' or ', $ignore_queries) . ')]' : '';
 
 
         foreach ($accept_queries as $query => $params) {
@@ -281,6 +304,7 @@ class XML2
         $this->dom = $dom;
     }
 
+
     /**
      * Initialization DomDocument and Xpath
      * Preserving tag that must be restored on save
@@ -291,35 +315,46 @@ class XML2
     {
         $xml = $this->_getXml();
 
-        if ($this->_getType() === self::HTML) {
-            $this->_addPreserveField(
-                'script',
-                '(?!\stype="application\/ld\+json")+?'
-            );
-        }
-        foreach ($this->_getPreserveFields() as $field) {
-            $this->preserveField(
-                $xml,
-                $field[0],
-                $field[1]
-            );
-        }
+//        if ($this->_getType() === self::HTML) {
+//            $this->_addPreserveField(
+//                'script',
+//                '(?!\stype="application\/ld\+json")+?'
+//            );
+//        }
+//        foreach ($this->_getPreserveFields() as $field) {
+//            $this->preserveField(
+//                $xml,
+//                $field[0],
+//                $field[1]
+//            );
+//        }
 
         $this->setDom(new DomDocument());
 
         if ($this->_getType() === self::HTML) {
-            $this->getDom()->preserveWhiteSpace = false;
-            $this->getDom()->formatOutput = true;
+//            $this->getDom()->preserveWhiteSpace = false;
+//            $this->getDom()->formatOutput = true;
+
+            $this->_setHtml5(new HTML5(
+                    [
+                        'encode_entities' => false,
+                        'disable_html_ns'=>true,
+                    ]
+                )
+            );
+
+            $this->setDom($this->_getHtml5()->loadHTML($xml));
             /**
              * Set encoding of document UTF-8
              * */
-            @$this->getDom()->loadHTML(
-                $this->_xml_encoding_fixer . $xml,
-                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-            );
-            $this->getDom()->encoding = 'utf-8';
+//            @$this->getDom()->loadHTML(
+//                $this->_xml_encoding_fixer . $xml,
+//                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+//            );
+//            $this->getDom()->encoding = 'utf-8';
 
-        } elseif ($this->_getType() == self::XML) {
+        } else {
+            $this->setDom(new DomDocument());
 
             @$this->getDom()->loadXML($xml);
         }
@@ -353,26 +388,26 @@ class XML2
         }
 
         if ($this->_getType() === self::HTML) {
-            $xml = $this->getDom()->saveHTML();
+            $xml = $this->_getHtml5()->saveHTML($this->getDom());
         } else {
             $xml = $this->getDom()->saveXML();
         }
 
-        foreach ($this->_getPreserveFields() as $field) {
-            $this->restorePreservedTag($xml, $field[0], $field[1]);
-        }
-
-        if ($this->_getType() === self::HTML) {
-            /**
-             * Remove <?xml.. syntax string
-             * */
-            $xml = preg_replace(
-                '/' . preg_quote($this->_xml_encoding_fixer) . '/',
-                '',
-                $xml,
-                1
-            );
-        }
+//        foreach ($this->_getPreserveFields() as $field) {
+//            $this->restorePreservedTag($xml, $field[0], $field[1]);
+//        }
+//
+//        if ($this->_getType() === self::HTML) {
+//            /**
+//             * Remove <?xml.. syntax string
+//             * */
+//            $xml = preg_replace(
+//                '/' . preg_quote($this->_xml_encoding_fixer) . '/',
+//                '',
+//                $xml,
+//                1
+//            );
+//        }
 
 
         return $xml;
