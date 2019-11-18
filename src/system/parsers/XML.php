@@ -225,7 +225,7 @@ class XML
             $this->_setHtml5(
                 new HTML5(
                     [
-                        'encode_entities' => true,
+                        'encode_entities' => false,
                         'disable_html_ns'=>true,
                     ]
                 )
