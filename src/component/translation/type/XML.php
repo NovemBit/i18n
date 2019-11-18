@@ -376,7 +376,7 @@ class XML extends Type
                             if ($node_type == 'text') {
                                 $node->data = $translate;
                             } elseif ($node_type == 'attr') {
-                                $node->value = $translate;
+                                $node->value = htmlspecialchars($translate);
                             }
                         }
 

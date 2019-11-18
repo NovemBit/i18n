@@ -60,22 +60,6 @@ class XML
     protected $xpath;
 
     /**
-     * For script tags
-     *
-     * @var array[]
-     * */
-    private $_preserve_fields = [];
-
-    /**
-     * Keeping preserved data
-     *
-     * @var array
-     * @see preserveField
-     * @see restorePreservedTag
-     * */
-    private $_preserved_data = [];
-
-    /**
      * Before translate callback
      *
      * @var callable
@@ -165,84 +149,6 @@ class XML
         $this->_html5 = $html5;
     }
 
-    /**
-     * Preserve tags
-     * Actually using it for preserve script tags that
-     * Impossible to parser with DOM parser
-     *
-     * @param string $xml  Referenced HTML content
-     * @param string $tag  Tag that must be preserved
-     * @param string $attr Attributes pattern
-     *
-     * @return void
-     * @see    preserveField
-     */
-    protected function preserveField(
-        string &$xml,
-        string $tag,
-        string $attr = ''
-    ): void {
-
-        $new_tag = sprintf(
-            '<__%s__ attr="%2$s"></__%1$s__>',
-            $tag,
-            md5($attr)
-        );
-
-        $attr = !empty($attr) ? '(' . $attr . ')' : '';
-
-        $pattern = '/<' . $tag . '\b' . $attr . '[^>]*>[\s\S]*?<\/' . $tag . '>/is';
-
-        $xml = preg_replace_callback(
-            $pattern,
-            function ($matches) use ($new_tag) {
-                $this->_preserved_data[$new_tag][] = $matches[0];
-                return $new_tag;
-            },
-            $xml
-        );
-    }
-
-    /**
-     * Restoring preserved tags on HTML
-     *
-     * @param string $xml  Referenced HTML content
-     * @param string $tag  Tag That should be restored
-     * @param string $attr Attributes pattern
-     *
-     * @return void
-     * @see    preserveField
-     */
-    protected function restorePreservedTag(
-        string &$xml,
-        string $tag,
-        string $attr
-    ): void {
-
-        $first = 0;
-        $newtag = sprintf(
-            '<__%s__ attr="%2$s"></__%1$s__>',
-            $tag,
-            md5($attr)
-        );
-
-        $tags = $this->_preserved_data[$newtag] ?? [];
-        for ($i = 0; $i < count($tags); $i++) {
-            $replace = $tags[$i];
-            $first = strpos(
-                $xml,
-                $newtag,
-                ($first == 0 ? 0 : $first + strlen($tags[$i - 1]))
-            );
-
-            if ($first === false) {
-                continue;
-            }
-            $before = substr($xml, 0, $first);
-            $after = substr($xml, $first + strlen($newtag));
-            $xml = $before . $replace . $after;
-        }
-    }
 
     /**
      * Walk on DOMDocument and
@@ -312,45 +218,20 @@ class XML
     protected function initDom(): void
     {
         $xml = $this->_getXml();
-
-        //        if ($this->_getType() === self::HTML) {
-        //            $this->_addPreserveField(
-        //                'script',
-        //                '(?!\stype="application\/ld\+json")+?'
-        //            );
-        //        }
-        //        foreach ($this->_getPreserveFields() as $field) {
-        //            $this->preserveField(
-        //                $xml,
-        //                $field[0],
-        //                $field[1]
-        //            );
-        //        }
-
         $this->setDom(new DomDocument());
 
         if ($this->_getType() === self::HTML) {
-            //            $this->getDom()->preserveWhiteSpace = false;
-            //            $this->getDom()->formatOutput = true;
 
             $this->_setHtml5(
                 new HTML5(
                     [
-                        'encode_entities' => false,
+                        'encode_entities' => true,
                         'disable_html_ns'=>true,
                     ]
                 )
             );
 
             $this->setDom($this->_getHtml5()->loadHTML($xml));
-            /**
-             * Set encoding of document UTF-8
-             * */
-            //            @$this->getDom()->loadHTML(
-            //                $this->_xml_encoding_fixer . $xml,
-            //                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-            //            );
-            //            $this->getDom()->encoding = 'utf-8';
 
         } else {
             $this->setDom(new DomDocument());
