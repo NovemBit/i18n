@@ -20,7 +20,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use DOMXPath;
-use Masterminds\HTML5;
+use NovemBit\i18n\system\parsers\xml\Rule;
 
 /**
  * HTML parser with callback function
@@ -32,7 +32,7 @@ use Masterminds\HTML5;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class XML2
+class XML3
 {
 
     /**
@@ -47,7 +47,7 @@ class XML2
      *
      * @var array
      * */
-    protected $query_map = [];
+    protected $translate_fields = [];
 
     /**
      * Main DomDocument
@@ -62,6 +62,13 @@ class XML2
      * @var DOMXPath
      * */
     protected $xpath;
+
+    /**
+     * Main query for Xpath
+     *
+     * @var string
+     * */
+    private $_query;
 
     /**
      * For script tags
@@ -102,12 +109,6 @@ class XML2
 
     private $_type = self::XML;
 
-    /**
-     *
-     * @var HTML5
-     * */
-    private $_html5;
-
     const XML = 1;
     const HTML = 2;
 
@@ -115,21 +116,20 @@ class XML2
      * HTML parser constructor.
      *
      * @param string $xml XML content
-     * @param array $query_map Xpath Query
+     * @param string $query Xpath Query
      * @param int $type XML or HTML
      * @param callable|null $before_translate_callback Before init callback
      * @param callable|null $after_translate_callback After init callback
      */
     public function __construct(
         string $xml,
-        array $query_map,
+        string $query,
         int $type = self::XML,
         callable $before_translate_callback = null,
         callable $after_translate_callback = null
     ) {
-
+        $this->_setQuery($query);
         $this->_setType($type);
-        $this->_setQueryMap($query_map);
         $this->_setBeforeTranslateCallback($before_translate_callback);
         $this->_setAfterTranslateCallback($after_translate_callback);
 
@@ -142,9 +142,9 @@ class XML2
      *
      * @param string $xml initial HTML content
      *
-     * @return XML
+     * @return XML3
      */
-    public function load(string $xml): self
+    public function load(string $xml): interfaces\XML
     {
         $this->_setXml($xml);
 
@@ -158,22 +158,6 @@ class XML2
         }
 
         return $this;
-    }
-
-    /**
-     * @return HTML5
-     */
-    public function _getHtml5(): HTML5
-    {
-        return $this->_html5;
-    }
-
-    /**
-     * @param HTML5 $html5
-     */
-    public function _setHtml5(HTML5 $html5): void
-    {
-        $this->_html5 = $html5;
     }
 
     /**
@@ -255,29 +239,90 @@ class XML2
         }
     }
 
-    public function fetch(callable $callback): void
+    /**
+     * Fetch current DOM document XPATH
+     *
+     * @param callable $text_callback Callback function for Text Nodes
+     * @param callable $attr_callback Callback function for Attr Nodes
+     *
+     * @return void
+     */
+    public function fetch(callable $text_callback, callable $attr_callback): void
     {
-        $accept_queries = $this->_getQueryMap()['accept'] ?? [];
+        $nodes = $this->_getXpath()->query($this->_getQuery());
 
-        $ignore_queries = $this->_getQueryMap()['ignore'] ?? [];
+        /**
+         * Fetching nodes to get each node in DomDocument
+         *
+         * @var DOMElement $node
+         */
+        foreach ($nodes as $node) {
+            foreach ($this->_getTranslateFields() as $translate_field) {
 
-        $ignore_queries = !empty($ignore_queries)
-            ? '[not(' . implode(' or ', $ignore_queries) . ')]' : '';
+                /**
+                 * Getting Rule for current set of field
+                 * Then validating node with this rule
+                 *
+                 * @var Rule $rule
+                 */
+                $rule = $translate_field['rule'] ?? null;
 
+                if ($rule === null || !$rule->validate($node)) {
+                    continue;
+                }
 
-        foreach ($accept_queries as $query => $params) {
+                $text = $translate_field['text'] ?? null;
 
-            $query .= $ignore_queries;
+                if ($text != null) {
+                    /**
+                     * Fetching child nodes to find Text nodes
+                     *
+                     * @var DOMNode $child_node
+                     */
+                    foreach ($node->childNodes as $child_node) {
+                        if ($child_node->nodeType == XML_TEXT_NODE
+                            || $child_node->nodeType == XML_CDATA_SECTION_NODE
+                        ) {
+                            /**
+                             * Checking if TextNode data length
+                             * without whitespace in not null
+                             * Then running callback function for text nodes
+                             *
+                             * @var DOMText $child_node
+                             */
+                            if (mb_strlen(trim($child_node->data)) == 0) {
+                                continue;
+                            }
+                            call_user_func_array(
+                                $text_callback,
+                                [&$child_node, $text, $rule]
+                            );
+                        }
+                    }
+                }
 
-            $nodes = $this->_getXpath()->query($query);
-            /**
-             * Fetching nodes to get each node in DomDocument
-             *
-             * @var DOMElement $node
-             */
-            foreach ($nodes as $node) {
+                $attrs = $translate_field['attrs'] ?? [];
 
-                call_user_func_array($callback, [&$node, $params]);
+                /**
+                 * Fetching current set attrs and checking
+                 * If node has attribute with this keys
+                 * */
+                foreach ($attrs as $attr => $type) {
+                    if ($node->hasAttribute($attr)) {
+                        $attr_node = $node->getAttributeNode($attr);
+                        /**
+                         * Running callback function for attr nodes
+                         *
+                         * @var DOMAttr $node
+                         */
+                        call_user_func_array(
+                            $attr_callback,
+                            [&$attr_node, $type, $rule]
+                        );
+                    }
+                }
+
+                break;
             }
         }
     }
@@ -304,7 +349,6 @@ class XML2
         $this->dom = $dom;
     }
 
-
     /**
      * Initialization DomDocument and Xpath
      * Preserving tag that must be restored on save
@@ -315,52 +359,72 @@ class XML2
     {
         $xml = $this->_getXml();
 
-//        if ($this->_getType() === self::HTML) {
-//            $this->_addPreserveField(
-//                'script',
-//                '(?!\stype="application\/ld\+json")+?'
-//            );
-//        }
-//        foreach ($this->_getPreserveFields() as $field) {
-//            $this->preserveField(
-//                $xml,
-//                $field[0],
-//                $field[1]
-//            );
-//        }
+        if ($this->_getType() === self::HTML) {
+            $this->_addPreserveField(
+                'script',
+                '(?!\stype="application\/ld\+json")+?'
+            );
+        }
+        foreach ($this->_getPreserveFields() as $field) {
+            $this->preserveField(
+                $xml,
+                $field[0],
+                $field[1]
+            );
+        }
 
         $this->setDom(new DomDocument());
 
         if ($this->_getType() === self::HTML) {
-//            $this->getDom()->preserveWhiteSpace = false;
-//            $this->getDom()->formatOutput = true;
-
-            $this->_setHtml5(new HTML5(
-                    [
-                        'encode_entities' => false,
-                        'disable_html_ns'=>true,
-                    ]
-                )
-            );
-
-            $this->setDom($this->_getHtml5()->loadHTML($xml));
+            $this->getDom()->preserveWhiteSpace = false;
+            $this->getDom()->formatOutput = true;
             /**
              * Set encoding of document UTF-8
              * */
-//            @$this->getDom()->loadHTML(
-//                $this->_xml_encoding_fixer . $xml,
-//                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-//            );
-//            $this->getDom()->encoding = 'utf-8';
+            @$this->getDom()->loadHTML(
+                $this->_xml_encoding_fixer . $xml,
+                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+            );
+            $this->getDom()->encoding = 'utf-8';
 
-        } else {
-            $this->setDom(new DomDocument());
+        } elseif ($this->_getType() == self::XML) {
 
             @$this->getDom()->loadXML($xml);
         }
 
         $this->setXpath(new DOMXpath($this->getDom()));
 
+    }
+
+    /**
+     * Getting translate fields set
+     *
+     * @return array[]
+     */
+    private function _getTranslateFields(): array
+    {
+        return $this->translate_fields;
+    }
+
+    /**
+     * Adding translate fields
+     *
+     * @param Rule $rule Rule object
+     * @param string $text Text node type to translate
+     * @param array $attrs List of attributes that must be translated
+     *
+     * @return void
+     */
+    public function addTranslateField(
+        interfaces\Rule $rule,
+        string $text = 'text',
+        $attrs = []
+    ) {
+        $this->translate_fields[] = [
+            'rule' => $rule,
+            'text' => $text,
+            'attrs' => $attrs
+        ];
     }
 
     /**
@@ -388,26 +452,26 @@ class XML2
         }
 
         if ($this->_getType() === self::HTML) {
-            $xml = $this->_getHtml5()->saveHTML($this->getDom());
+            $xml = $this->getDom()->saveHTML();
         } else {
             $xml = $this->getDom()->saveXML();
         }
 
-//        foreach ($this->_getPreserveFields() as $field) {
-//            $this->restorePreservedTag($xml, $field[0], $field[1]);
-//        }
-//
-//        if ($this->_getType() === self::HTML) {
-//            /**
-//             * Remove <?xml.. syntax string
-//             * */
-//            $xml = preg_replace(
-//                '/' . preg_quote($this->_xml_encoding_fixer) . '/',
-//                '',
-//                $xml,
-//                1
-//            );
-//        }
+        foreach ($this->_getPreserveFields() as $field) {
+            $this->restorePreservedTag($xml, $field[0], $field[1]);
+        }
+
+        if ($this->_getType() === self::HTML) {
+            /**
+             * Remove <?xml.. syntax string
+             * */
+            $xml = preg_replace(
+                '/' . preg_quote($this->_xml_encoding_fixer) . '/',
+                '',
+                $xml,
+                1
+            );
+        }
 
 
         return $xml;
@@ -423,6 +487,28 @@ class XML2
     private function _setXml(string $xml): void
     {
         $this->xml = $xml;
+    }
+
+    /**
+     * Get Xpath query
+     *
+     * @return string
+     */
+    private function _getQuery(): string
+    {
+        return $this->_query;
+    }
+
+    /**
+     * Set Xpath query
+     *
+     * @param string $_query Query String
+     *
+     * @return void
+     */
+    private function _setQuery(string $_query): void
+    {
+        $this->_query = $_query;
     }
 
     /**
@@ -530,21 +616,5 @@ class XML2
     private function _setType(int $type): void
     {
         $this->_type = $type;
-    }
-
-    /**
-     * @return array
-     */
-    private function _getQueryMap(): array
-    {
-        return $this->query_map;
-    }
-
-    /**
-     * @param array $query_map
-     */
-    private function _setQueryMap(array $query_map): void
-    {
-        $this->query_map = $query_map;
     }
 }

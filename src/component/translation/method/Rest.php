@@ -110,11 +110,11 @@ class Rest extends Method
 
         //Tell cURL that it should only spend 10 seconds
         //trying to connect to the URL in question.
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 
         //A given cURL operation should only take
         //30 seconds max.
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $result = curl_exec($ch);
 
         if ($result === false) {

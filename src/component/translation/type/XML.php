@@ -19,7 +19,6 @@ use DOMText;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
-use NovemBit\i18n\system\parsers\XML2;
 
 
 /**
@@ -82,13 +81,6 @@ class XML extends Type
      * */
     private $_helper_attributes = false;
 
-    /**
-     * To translate
-     *
-     * @var array
-     * */
-    private $_to_translate = [];
-
     public $save_translations = false;
     /**
      * Model class name of ActiveRecord
@@ -113,9 +105,9 @@ class XML extends Type
     protected function getParser(
         string $xml,
         string $language
-    ): \NovemBit\i18n\system\parsers\XML2 {
+    ): \NovemBit\i18n\system\parsers\XML {
 
-        $parser = new XML2(
+        $parser = new \NovemBit\i18n\system\parsers\XML(
             $xml,
             $this->xpath_query_map,
             $this->parser_type,
@@ -130,36 +122,6 @@ class XML extends Type
                 }
             }
         );
-        /*$parser = new \NovemBit\i18n\system\parsers\XML(
-            $xml,
-            $this->parser_query,
-            $this->parser_type,
-            function ($xpath, $dom) {
-                foreach ($this->getBeforeParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
-                }
-            },
-            function ($xpath, $dom) use ($language) {
-                foreach ($this->getAfterParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
-                }
-            }
-        );
-
-        foreach ($this->fields_to_translate as $field) {
-
-            $text = isset($field['text']) ? $field['text'] : 'text';
-            $attrs = isset($field['attrs']) ? $field['attrs'] : [];
-
-            $rule = new Rule(
-                $field['rule']['tags'] ?? null,
-                $field['rule']['attrs'] ?? null,
-                $field['rule']['texts'] ?? null,
-                $field['rule']['mode'] ?? Rule::IN
-            );
-
-            $parser->addTranslateField($rule, $text, $attrs);
-        }*/
 
         return $parser;
     }
@@ -226,16 +188,19 @@ class XML extends Type
                         if ($node->nodeType == XML_TEXT_NODE
                             || $node->nodeType == XML_CDATA_SECTION_NODE
                         ) {
+
                             /**
+                             * Define node type
+                             *
                              * @var DOMText $node Text node
                              */
-                            /*$node->data = htmlspecialchars_decode(
-                                $node->data,
-                                ENT_QUOTES | ENT_HTML401
-                            );*/
+
                             $node_value = $node->data;
                         } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
+
                             /**
+                             * Define node type
+                             *
                              * @var DOMAttr $node Text node
                              */
                             $node_value = $node->value;
@@ -309,9 +274,11 @@ class XML extends Type
                             $node_type = 'text';
                         } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
                             /**
+                             * Define node type
+                             *
                              * @var DOMAttr $node Text node
                              */
-                            $node_value = $node->nodeValue;
+                            $node_value = $node->value;
                             $node_type = 'attr';
                         } else {
                             return;
@@ -323,15 +290,22 @@ class XML extends Type
 
                         if ($this->getHelperAttributes()) {
 
-                            /** @var DOMElement $parent */
+                            /**
+                             * Define node type
+                             *
+                             * @var DOMElement $parent
+                             */
                             $parent = $node->parentNode;
 
                             $_verbose = $verbose
                                 [$type][$node_value] ?? null;
 
                             if ($node_type == 'text') {
-                                /** @var DOMText $node */
-
+                                /**
+                                 * Define node type
+                                 *
+                                 * @var DOMText $node
+                                 */
 
                                 if ($parent->hasAttribute(
                                     $this->context->context->prefix . '-text'
@@ -360,12 +334,13 @@ class XML extends Type
                                     $parent->setAttribute(
                                         $this->context->context->prefix . '-text',
                                         json_encode($text)
-
                                     );
                                 }
                             } elseif ($node_type == 'attr') {
 
-                                /** @var DOMAttr $node */
+                                /**
+                                 * @var DOMAttr $node
+                                 */
 
                                 if ($parent->hasAttribute(
                                     $this->context->context->prefix . '-attr'
@@ -397,17 +372,12 @@ class XML extends Type
                                 }
                             }
                         }
-                        /*
-                         * Setting values
-                         * */
-                        if ($node_type == 'text') {
-                            $node->data = !empty($translate)
-                                ? $translate
-                                : $node_value;
-                        } elseif ($node_type == 'attr') {
-                            $node->value = !empty($translate)
-                                ? $translate
-                                : $node_value;
+                        if (!empty($translate)) {
+                            if ($node_type == 'text') {
+                                $node->data = $translate;
+                            } elseif ($node_type == 'attr') {
+                                $node->value = $translate;
+                            }
                         }
 
                     }
