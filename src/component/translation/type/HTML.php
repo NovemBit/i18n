@@ -63,7 +63,7 @@ class HTML extends XML implements interfaces\HTML
      * */
     public $model_class = models\HTML::class;
 
-    protected $parser_type = \NovemBit\i18n\system\parsers\XML::HTML;
+    protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::HTML;
 
     /**
      * Get Html parser. Create new instance of HTML parser
