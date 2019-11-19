@@ -16,6 +16,7 @@ use NovemBit\i18n\Module;
  * @property URL $url
  * @property Text $text
  * @property HTML $html
+ * @property HTML $html_fragment
  * @property XML $xml
  * @property Method $method
  * */
