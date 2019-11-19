@@ -92,7 +92,23 @@ class XML extends Type
     private $_before_parse_callbacks = [];
     private $_after_parse_callbacks = [];
 
-    protected $parser_type = \NovemBit\i18n\system\parsers\XML::XML;
+    protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
+
+    /**
+     * @return int
+     */
+    public function getParserType(): int
+    {
+        return $this->parser_type;
+    }
+
+    /**
+     * @param int $parser_type
+     */
+    public function setParserType(int $parser_type): void
+    {
+        $this->parser_type = $parser_type;
+    }
 
     /**
      * Get Html parser. Create new instance of HTML parser
@@ -110,7 +126,7 @@ class XML extends Type
         $parser = new \NovemBit\i18n\system\parsers\XML(
             $xml,
             $this->xpath_query_map,
-            $this->parser_type,
+            $this->getParserType(),
             function ($xpath, $dom) {
                 foreach ($this->getBeforeParseCallbacks() as $callback) {
                     call_user_func_array($callback, [$xpath, $dom]);
