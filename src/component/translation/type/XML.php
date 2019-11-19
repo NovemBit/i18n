@@ -38,38 +38,7 @@ class XML extends Type
      * {@inheritdoc}
      * */
     public $name = 'xml';
-
-    /**
-     * Xpath Query for parser
-     *
-     * @var string
-     * */
-    public $parser_query = ".//*[(text() or @*)]";
-
-    /**
-     * Fields to translate
-     *
-     * ```php
-     * [
-     *  ...
-     *  [
-     *   'rule' => ['tags' => ['a']],
-     *   'attrs' => [
-     *      'title' => Text::NAME,
-     *      'alt' => Text::NAME,
-     *      'href' => URL::NAME,
-     *      'data-tooltip' => Text::NAME,
-     *      'data-tip' => Text::NAME
-     *    ],
-     *    'text' => Text::NAME
-     *   ]
-     *  ...
-     * ]
-     * ```
-     *
-     * @var array
-     * */
-    public $fields_to_translate = [];
+    
 
     public $xpath_query_map = [];
 
