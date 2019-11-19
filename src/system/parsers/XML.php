@@ -85,11 +85,11 @@ class XML
     /**
      * HTML parser constructor.
      *
-     * @param string        $xml                       XML content
-     * @param array         $query_map                 Xpath Query
-     * @param int           $type                      XML or HTML
+     * @param string $xml XML content
+     * @param array $query_map Xpath Query
+     * @param int $type XML or HTML
      * @param callable|null $before_translate_callback Before init callback
-     * @param callable|null $after_translate_callback  After init callback
+     * @param callable|null $after_translate_callback After init callback
      */
     public function __construct(
         string $xml,
@@ -164,6 +164,7 @@ class XML
 
         $ignore_queries = $this->_getQueryMap()['ignore'] ?? [];
 
+
         $ignore_queries = !empty($ignore_queries)
             ? '[not(' . implode(' or ', $ignore_queries) . ')]' : '';
 
@@ -172,7 +173,8 @@ class XML
 
             $query .= $ignore_queries;
 
-            $nodes = $this->_getXpath()->query($query);
+            $nodes = $this->getXpath()->query($query);
+
             /**
              * Fetching nodes to get each node in DomDocument
              *
@@ -218,9 +220,7 @@ class XML
         $xml = $this->_getXml();
         $this->setDom(new DomDocument('1.0', 'utf-8'));
 
-        if ($this->_getType() === interfaces\XML::HTML
-            || $this->_getType() === interfaces\XML::HTML_FRAGMENT
-        ) {
+        if ($this->_getType() === interfaces\XML::HTML) {
 
             $this->_setHtml5(
                 new HTML5(
@@ -231,19 +231,28 @@ class XML
                 )
             );
 
-            if ($this->_getType() === interfaces\XML::HTML_FRAGMENT) {
-                //$fragment = $this->_getHtml5()->loadHTMLFragment($xml,['target_document '=> $this->dom]);
-                $fragment = $this->getDom()->createDocumentFragment();
-                $fragment->appendXML($xml);
-                $this->getDom()->appendChild($fragment);
+            @$this->setDom($this->_getHtml5()->loadHTML($xml));
 
-            } else {
-                $this->setDom($this->_getHtml5()->loadHTML($xml));
-            }
+        } elseif ($this->_getType() === interfaces\XML::HTML_FRAGMENT) {
+            $this->_setHtml5(
+                new HTML5(
+                    [
+                        'encode_entities' => false,
+                        'disable_html_ns' => true,
+                    ]
+                )
+            );
+
+            @$fragment = $this->_getHtml5()->loadHTMLFragment(
+                $xml,
+                [
+                    'target_document' => $this->getDom()
+                ]
+            );
+
+            $this->getDom()->appendChild($fragment);
 
         } else {
-            $this->setDom(new DomDocument());
-
             @$this->getDom()->loadXML($xml);
         }
 
@@ -303,7 +312,7 @@ class XML
      *
      * @return DOMXpath
      */
-    private function _getXpath(): DOMXPath
+    protected function getXpath(): DOMXPath
     {
         return $this->xpath;
     }
