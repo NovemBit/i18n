@@ -9,6 +9,7 @@ interface XML
 {
     const XML = 1;
     const HTML = 2;
+    const HTML_FRAGMENT = 3;
 
     public function __construct(
         string $xml,

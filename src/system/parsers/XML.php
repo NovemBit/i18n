@@ -73,7 +73,7 @@ class XML
      * */
     private $_after_translate_callback = null;
 
-    private $_type = self::XML;
+    private $_type = interfaces\XML::XML;
 
     /**
      *
@@ -81,8 +81,6 @@ class XML
      * */
     private $_html5;
 
-    const XML = 1;
-    const HTML = 2;
 
     /**
      * HTML parser constructor.
@@ -96,7 +94,7 @@ class XML
     public function __construct(
         string $xml,
         array $query_map,
-        int $type = self::XML,
+        int $type = interfaces\XML::XML,
         callable $before_translate_callback = null,
         callable $after_translate_callback = null
     ) {
@@ -203,7 +201,7 @@ class XML
      *
      * @return void
      */
-    protected function setDom(DomDocument $dom): void
+    protected function setDom(DOMDocument $dom): void
     {
         $this->dom = $dom;
     }
@@ -218,20 +216,30 @@ class XML
     protected function initDom(): void
     {
         $xml = $this->_getXml();
-        $this->setDom(new DomDocument());
+        $this->setDom(new DomDocument('1.0', 'utf-8'));
 
-        if ($this->_getType() === self::HTML) {
+        if ($this->_getType() === interfaces\XML::HTML
+            || $this->_getType() === interfaces\XML::HTML_FRAGMENT
+        ) {
 
             $this->_setHtml5(
                 new HTML5(
                     [
                         'encode_entities' => false,
-                        'disable_html_ns'=>true,
+                        'disable_html_ns' => true,
                     ]
                 )
             );
 
-            $this->setDom($this->_getHtml5()->loadHTML($xml));
+            if ($this->_getType() === interfaces\XML::HTML_FRAGMENT) {
+                //$fragment = $this->_getHtml5()->loadHTMLFragment($xml,['target_document '=> $this->dom]);
+                $fragment = $this->getDom()->createDocumentFragment();
+                $fragment->appendXML($xml);
+                $this->getDom()->appendChild($fragment);
+
+            } else {
+                $this->setDom($this->_getHtml5()->loadHTML($xml));
+            }
 
         } else {
             $this->setDom(new DomDocument());
@@ -267,7 +275,9 @@ class XML
             );
         }
 
-        if ($this->_getType() === self::HTML) {
+        if ($this->_getType() === interfaces\XML::HTML
+            || $this->_getType() === interfaces\XML::HTML_FRAGMENT
+        ) {
             $xml = $this->_getHtml5()->saveHTML($this->getDom());
         } else {
             $xml = $this->getDom()->saveXML();

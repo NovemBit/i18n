@@ -36,9 +36,14 @@ class DataType
      *
      * @return bool
      */
-    public static function isHTML($string)
+    public static function isHTMLFragment($string)
     {
         return $string != strip_tags($string);
+    }
+
+    public static function isHTML($string)
+    {
+        return preg_match('/<html.*?>.*<\/html>/ims',$string) ? true : false;
     }
 
     public static function isXML($string): bool
@@ -89,6 +94,8 @@ class DataType
             return 'json';
         } elseif (self::isHTML($string)) {
             return 'html';
+        } elseif (self::isHTMLFragment($string)) {
+            return 'html_fragment';
         } elseif (self::isXML($string)) {
             return 'xml';
         } else {
