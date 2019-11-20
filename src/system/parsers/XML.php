@@ -158,7 +158,7 @@ class XML
      *
      * @return void
      */
-    public function fetch(callable $callback): void
+    public function fetch(callable $callback, array $data = []): void
     {
         $accept_queries = $this->_getQueryMap()['accept'] ?? [];
 
@@ -181,7 +181,12 @@ class XML
              * @var DOMElement $node
              */
             foreach ($nodes as $node) {
-                call_user_func_array($callback, [$node, $params]);
+                call_user_func(
+                    $callback,
+                    $node,
+                    $params,
+                    $data
+                );
             }
         }
     }
