@@ -37,6 +37,7 @@ class URL extends Type implements interfaces\URL
      * */
     public $name = 'url';
 
+    public $cache_result = true;
     /**
      * {@inheritdoc}
      * */
@@ -119,10 +120,12 @@ class URL extends Type implements interfaces\URL
      *
      * @return array
      */
-    protected function doTranslate(array $urls): array
-    {
+    protected function doTranslate(
+        array $urls,
+        string $from_language,
+        array $to_languages
+    ): array {
 
-        $languages = $this->context->getLanguages();
         $paths = [];
         $paths_to_translate = [];
 
@@ -137,7 +140,7 @@ class URL extends Type implements interfaces\URL
         $translations = $this->path_translation
             ? $this->_getPathPartTranslations($paths_to_translate) : [];
 
-        $result = $this->_buildTranslateResult($paths, $languages, $translations);
+        $result = $this->_buildTranslateResult($paths, $to_languages, $translations);
 
         return $result;
     }
@@ -147,10 +150,10 @@ class URL extends Type implements interfaces\URL
      * Concat prefix, body and suffix to avoid that
      * Final url is fully like origin url
      *
-     * @param string     $before     initial type of url
-     * @param string     $after      final type of url
-     * @param array      $translates list of translated urls
-     * @param array|null $verbose    Verbose
+     * @param string $before initial type of url
+     * @param string $after final type of url
+     * @param array $translates list of translated urls
+     * @param array|null $verbose Verbose
      *
      * @return bool
      */
@@ -225,8 +228,8 @@ class URL extends Type implements interfaces\URL
      * Building translation result that
      * must be returned
      *
-     * @param array $paths        whole translatable paths
-     * @param array $languages    list of languages
+     * @param array $paths whole translatable paths
+     * @param array $languages list of languages
      * @param array $translations translated paths
      *
      * @return array
@@ -415,8 +418,8 @@ class URL extends Type implements interfaces\URL
      *  Remove language key from query variables
      *
      * @param string $before initial url
-     * @param string $after  final url
-     * @param array  $result Referenced variable to receive result
+     * @param string $after final url
+     * @param array $result Referenced variable to receive result
      *
      * @return bool
      */

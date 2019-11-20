@@ -136,9 +136,11 @@ class JSON extends Type
      *
      * @return array
      */
-    protected function doTranslate(array $jsons): array
-    {
-        $languages = $this->context->getLanguages();
+    protected function doTranslate(
+        array $jsons,
+        string $from_language,
+        array $to_languages
+    ): array {
 
         $to_translate = [];
         $translations = [];
@@ -173,7 +175,7 @@ class JSON extends Type
         }
 
         foreach ($this->_objects as $json => &$object) {
-            foreach ($languages as $language) {
+            foreach ($to_languages as $language) {
 
                 Arrays::arrayWalkWithRoute(
                     $object,

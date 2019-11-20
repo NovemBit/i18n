@@ -15,9 +15,10 @@ namespace NovemBit\i18n\component\translation\type;
 
 use DOMAttr;
 use DOMElement;
+use DOMNode;
 use DOMText;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\component\translation\Translator;
+use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
 
 
@@ -38,7 +39,7 @@ class XML extends Type
      * {@inheritdoc}
      * */
     public $name = 'xml';
-    
+
 
     public $xpath_query_map = [];
 
@@ -111,6 +112,186 @@ class XML extends Type
         return $parser;
     }
 
+    public function buildToTranslateFields(
+        DOMNode &$node,
+        array $params,
+        array &$data
+    ) {
+        /**
+         * Define node type
+         *
+         * @var DOMNode $node
+         */
+
+        $type = $params['type'] ?? 'text';
+        $node_value = null;
+        if ($node->nodeType == XML_TEXT_NODE
+            || $node->nodeType == XML_CDATA_SECTION_NODE
+        ) {
+
+            /**
+             * Define node type
+             *
+             * @var DOMText $node Text node
+             */
+
+            $node_value = $node->data;
+        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
+
+            /**
+             * Define node type
+             *
+             * @var DOMAttr $node Text node
+             */
+            $node_value = $node->value;
+
+        }
+        if ($node_value !== null) {
+            $data['to_translate'][$type][] = $node_value;
+        }
+    }
+
+    public function replaceTranslatedFields(
+        DOMNode &$node,
+        array $params,
+        array $data
+    ) {
+
+        /**
+         * Define type of $node
+         *
+         * @var DOMNode $node
+         */
+
+        $node_path = $node->getNodePath();
+        if (isset($data['parsed_dom_mutex'][$node_path])) {
+            return;
+        }
+
+        $data['parsed_dom_mutex'][$node_path] = true;
+
+        $type = $params['type'] ?? 'text';
+
+        $node_value = null;
+
+        if ($node->nodeType == XML_TEXT_NODE
+            || $node->nodeType == XML_CDATA_SECTION_NODE
+        ) {
+            /**
+             * Define $node type
+             *
+             * @var DOMText $node Text node
+             */
+            $node_value = $node->data;
+            $node_type = 'text';
+        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
+            /**
+             * Define node type
+             *
+             * @var DOMAttr $node Text node
+             */
+            $node_value = $node->value;
+            $node_type = 'attr';
+        } else {
+            return;
+        }
+
+        $translate = $data['translations']
+            [$type][$node_value][$data['language']]
+            ?? null;
+
+        if ($this->getHelperAttributes()) {
+
+            /**
+             * Define node type
+             *
+             * @var DOMElement $parent
+             */
+            $parent = $node->parentNode;
+
+            $_verbose = $data['verbose']
+                [$type][$node_value] ?? null;
+
+            if ($node_type == 'text') {
+                /**
+                 * Define node type
+                 *
+                 * @var DOMText $node
+                 */
+
+                if ($parent->hasAttribute(
+                    $this->context->context->prefix . '-text'
+                )
+                ) {
+                    $text = json_decode(
+                        $parent->getAttribute(
+                            $this->context->context->prefix . '-text'
+                        ),
+                        true
+                    );
+                } else {
+                    $text = [];
+                }
+
+                if ($translate !== null) {
+                    $text[] = [
+                        $node_value,
+                        $_verbose[$data['language']]['translate'] ?? null,
+                        $type,
+                        $_verbose[$data['language']]['level'] ?? null,
+                        $_verbose['prefix'] ?? null,
+                        $_verbose['suffix'] ?? null,
+                        $translate
+                    ];
+                    $parent->setAttribute(
+                        $this->context->context->prefix . '-text',
+                        json_encode($text)
+                    );
+                }
+            } elseif ($node_type == 'attr') {
+
+                /**
+                 * @var DOMAttr $node
+                 */
+
+                if ($parent->hasAttribute(
+                    $this->context->context->prefix . '-attr'
+                )
+                ) {
+                    $attr = json_decode(
+                        $parent->getAttribute(
+                            $this->context->context->prefix . '-attr'
+                        ),
+                        true
+                    );
+                } else {
+                    $attr = [];
+                }
+                if ($translate !== null) {
+                    $attr[$node->name] = [
+                        $node_value,
+                        $_verbose[$data['language']]['translate'] ?? null,
+                        $type,
+                        $_verbose[$data['language']]['level'] ?? null,
+                        $_verbose['prefix'] ?? null,
+                        $_verbose['suffix'] ?? null,
+                        $translate
+                    ];
+                    $parent->setAttribute(
+                        $this->context->context->prefix . '-attr',
+                        json_encode($attr)
+                    );
+                }
+            }
+        }
+        if (!empty($translate)) {
+            if ($node_type == 'text') {
+                $node->data = $translate;
+            } elseif ($node_type == 'attr') {
+                $node->value = htmlspecialchars($translate);
+            }
+        }
+    }
 
     /**
      * Doing translate method
@@ -124,16 +305,19 @@ class XML extends Type
      * Using custom type of translation for each type of node
      *
      * @param array $xml_list list of translatable HTML strings
+     * @param string $from_language
+     * @param array $to_languages
      *
      * @return mixed
      * @throws ActiveRecordException
-     *
-     * @see DOMText
-     * @see DOMAttr
+     * @see    DOMText
+     * @see    DOMAttr
      */
-    protected function doTranslate(array $xml_list): array
-    {
-        $languages = $this->context->getLanguages();
+    protected function doTranslate(
+        array $xml_list,
+        string $from_language,
+        array $to_languages
+    ): array {
 
         $result = [];
 
@@ -143,58 +327,25 @@ class XML extends Type
 
         $verbose = [];
 
-        $_parsed_dom = [];
+        $parsed_dom = [];
 
-        $_parsed_dom_mutex = [];
-
+        $parsed_dom_mutex = [];
 
         /**
          * Finding translatable node values and attributes
          * */
         foreach ($xml_list as $key => $html) {
 
-            foreach ($languages as $language) {
+            foreach ($to_languages as $language) {
 
-                $_parsed_dom[$key][$language] = $this->getParser(
+                $parsed_dom[$key][$language] = $this->getParser(
                     $html,
                     $language
                 );
 
-                $_parsed_dom[$key][$language]->fetch(
-                    function (&$node, $params) use (&$to_translate) {
-                        /**
-                         * Define node type
-                         *
-                         * @var \DOMNode $node
-                         */
-
-                        $type = $params['type'] ?? 'text';
-                        $node_value = null;
-                        if ($node->nodeType == XML_TEXT_NODE
-                            || $node->nodeType == XML_CDATA_SECTION_NODE
-                        ) {
-
-                            /**
-                             * Define node type
-                             *
-                             * @var DOMText $node Text node
-                             */
-
-                            $node_value = $node->data;
-                        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
-
-                            /**
-                             * Define node type
-                             *
-                             * @var DOMAttr $node Text node
-                             */
-                            $node_value = $node->value;
-
-                        }
-                        if ($node_value !== null) {
-                            $to_translate[$type][] = $node_value;
-                        }
-                    }
+                $parsed_dom[$key][$language]->fetch(
+                    [$this,'buildToTranslateFields'],
+                    ['to_translate' => &$to_translate]
                 );
             }
         }
@@ -221,154 +372,19 @@ class XML extends Type
          * */
         foreach ($xml_list as $key => $html) {
 
-            foreach ($languages as $language) {
+            foreach ($to_languages as $language) {
 
-                $_parsed_dom[$key][$language]->fetch(
-                    function (&$node, $params) use (
-                        $translations,
-                        $verbose,
-                        $language,
-                        &$_parsed_dom_mutex
-                    ) {
-                        /**
-                         * Define type of $node
-                         *
-                         * @var \DOMNode $node
-                         */
-
-                        $node_path = $node->getNodePath();
-                        if (isset($_parsed_dom_mutex[$node_path])) {
-                            return;
-                        }
-
-                        $_parsed_dom_mutex[$node_path] = true;
-
-                        $type = $params['type'] ?? 'text';
-
-                        $node_value = null;
-
-                        if ($node->nodeType == XML_TEXT_NODE
-                            || $node->nodeType == XML_CDATA_SECTION_NODE
-                        ) {
-                            /**
-                             * Define $node type
-                             *
-                             * @var DOMText $node Text node
-                             */
-                            $node_value = $node->data;
-                            $node_type = 'text';
-                        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
-                            /**
-                             * Define node type
-                             *
-                             * @var DOMAttr $node Text node
-                             */
-                            $node_value = $node->value;
-                            $node_type = 'attr';
-                        } else {
-                            return;
-                        }
-
-                        $translate = $translations
-                            [$type][$node_value][$language]
-                            ?? null;
-
-                        if ($this->getHelperAttributes()) {
-
-                            /**
-                             * Define node type
-                             *
-                             * @var DOMElement $parent
-                             */
-                            $parent = $node->parentNode;
-
-                            $_verbose = $verbose
-                                [$type][$node_value] ?? null;
-
-                            if ($node_type == 'text') {
-                                /**
-                                 * Define node type
-                                 *
-                                 * @var DOMText $node
-                                 */
-
-                                if ($parent->hasAttribute(
-                                    $this->context->context->prefix . '-text'
-                                )
-                                ) {
-                                    $text = json_decode(
-                                        $parent->getAttribute(
-                                            $this->context->context->prefix . '-text'
-                                        ),
-                                        true
-                                    );
-                                } else {
-                                    $text = [];
-                                }
-
-                                if ($translate !== null) {
-                                    $text[] = [
-                                        $node_value,
-                                        $_verbose[$language]['translate'] ?? null,
-                                        $type,
-                                        $_verbose[$language]['level'] ?? null,
-                                        $_verbose['prefix'] ?? null,
-                                        $_verbose['suffix'] ?? null,
-                                        $translate
-                                    ];
-                                    $parent->setAttribute(
-                                        $this->context->context->prefix . '-text',
-                                        json_encode($text)
-                                    );
-                                }
-                            } elseif ($node_type == 'attr') {
-
-                                /**
-                                 * @var DOMAttr $node
-                                 */
-
-                                if ($parent->hasAttribute(
-                                    $this->context->context->prefix . '-attr'
-                                )
-                                ) {
-                                    $attr = json_decode(
-                                        $parent->getAttribute(
-                                            $this->context->context->prefix . '-attr'
-                                        ),
-                                        true
-                                    );
-                                } else {
-                                    $attr = [];
-                                }
-                                if ($translate !== null) {
-                                    $attr[$node->name] = [
-                                        $node_value,
-                                        $_verbose[$language]['translate'] ?? null,
-                                        $type,
-                                        $_verbose[$language]['level'] ?? null,
-                                        $_verbose['prefix'] ?? null,
-                                        $_verbose['suffix'] ?? null,
-                                        $translate
-                                    ];
-                                    $parent->setAttribute(
-                                        $this->context->context->prefix . '-attr',
-                                        json_encode($attr)
-                                    );
-                                }
-                            }
-                        }
-                        if (!empty($translate)) {
-                            if ($node_type == 'text') {
-                                $node->data = $translate;
-                            } elseif ($node_type == 'attr') {
-                                $node->value = htmlspecialchars($translate);
-                            }
-                        }
-
-                    }
+                $parsed_dom[$key][$language]->fetch(
+                    [$this,'replaceTranslatedFields'],
+                    [
+                        'translations' => $translations,
+                        'verbose' => $verbose,
+                        'language' => $language,
+                        'parsed_dom_mutex' => &$parsed_dom_mutex
+                    ]
                 );
 
-                $result[$html][$language] = $_parsed_dom[$key][$language]->save();
+                $result[$html][$language] = $parsed_dom[$key][$language]->save();
             }
         }
 

@@ -35,6 +35,8 @@ class Text extends Type
      * */
     public $name = 'text';
 
+    public $cache_result = true;
+
     /**
      * {@inheritdoc}
      * */
@@ -85,8 +87,11 @@ class Text extends Type
      *
      * @return array
      */
-    protected function doTranslate(array $texts) : array
-    {
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages
+    ): array {
 
         $translations = $this->context->method->translate($texts);
 
@@ -102,10 +107,10 @@ class Text extends Type
     /**
      * Reset whitespace
      *
-     * @param string     $before     Before
-     * @param string     $after      After
-     * @param array      $translates Last result
-     * @param array|null $verbose    Verbose
+     * @param string $before Before
+     * @param string $after After
+     * @param array $translates Last result
+     * @param array|null $verbose Verbose
      *
      * @return bool
      */
@@ -114,7 +119,7 @@ class Text extends Type
         $after,
         &$translates,
         ?array &$verbose
-    ) : bool {
+    ): bool {
 
         Strings::getStringsDifference(
             $before,
@@ -150,7 +155,7 @@ class Text extends Type
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$text) : bool
+    protected function validateBeforeTranslate(&$text): bool
     {
 
         foreach ($this->dont_translate_patterns as $pattern) {

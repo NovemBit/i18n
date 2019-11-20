@@ -34,6 +34,8 @@ class HTMLFragment extends HTML implements interfaces\HTMLFragment
      * */
     public $name = 'html_fragment';
 
+    public $cache_result = true;
+
     /**
      * Model class name of ActiveRecord
      *
