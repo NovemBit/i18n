@@ -288,7 +288,7 @@ class Request extends Component implements interfaces\Request
      * Get Source Url from translate
      * Using ReTranslate method of Translation
      *
-     * @param string $translate Translated url
+     * @param string $translate   Translated url
      * @param string $to_language Language of translated string
      *
      * @return string|null
@@ -569,8 +569,8 @@ class Request extends Component implements interfaces\Request
     /**
      * Restore non translated urls
      *
-     * @param string|null $url Url
-     * @param string $language Language
+     * @param string|null $url      Url
+     * @param string      $language Language
      *
      * @return string|null
      */
@@ -583,11 +583,11 @@ class Request extends Component implements interfaces\Request
          * Get translation from source
          * */
         $url = $this->getTranslation()->setLanguages([$language])->url
-                ->translate(
-                    [$url],
-                    $verbose,
-                    true
-                )[$url][$language] ?? null;
+            ->translate(
+                [$url],
+                $verbose,
+                true
+            )[$url][$language] ?? null;
 
         if ($url == null) {
             return null;
@@ -934,7 +934,7 @@ class Request extends Component implements interfaces\Request
                  * Translate content
                  * */
                 $content = $translator
-                        ->translate([$content])[$content][$this->getLanguage()]
+                    ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -1064,7 +1064,18 @@ class Request extends Component implements interfaces\Request
 
         $this->setReady(true);
 
-        ob_start([$this, 'translateBuffer']);
+        $host_default_language = $this->context
+            ->languages
+            ->getDefaultLanguage(Environment::server('HTTP_HOST'));
+
+        /**
+         * Prevent pages with main(from_language) and default language translation
+         * */
+        if (($this->getFromLanguage() !== $this->getLanguage())
+            || ($this->getLanguage() !== $host_default_language)
+        ) {
+            ob_start([$this, 'translateBuffer']);
+        }
     }
 
 
@@ -1072,8 +1083,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1094,8 +1105,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1151,8 +1162,8 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
@@ -1195,8 +1206,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom Document object
-     * @param DOMNode $parent Parent element
+     * @param DOMDocument $dom    Document object
+     * @param DOMNode     $parent Parent element
      *
      * @return void
      */
