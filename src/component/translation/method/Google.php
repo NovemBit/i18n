@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\translation\method;
 
 use Google\Cloud\Core\Exception\GoogleException;
 use Google\Cloud\Translate\TranslateClient;
+//use Google\Cloud\Translate\V2\TranslateClient;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\exceptions\MethodException;
 use NovemBit\i18n\component\translation\Translation;
@@ -50,7 +51,7 @@ class Google extends Method
      * @return void
      * @throws MethodException
      */
-    public function init() : void
+    public function init(): void
     {
         if (!isset($this->api_key)) {
             throw new MethodException('Missing Google Cloud Translate API key.');
@@ -63,24 +64,24 @@ class Google extends Method
      * @param array $texts Array of texts to translate
      *
      * @return array
-     * @throws TranslationException
      */
-    protected function doTranslate(array $texts) : array
-    {
-
-        $languages = $this->context->getLanguages();
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages
+    ): array {
 
         $result = [];
 
-        foreach ($languages as $language) {
-            if ($this->context->getFromLanguage() == $language) {
+        foreach ($to_languages as $language) {
+            if ($from_language == $language) {
                 foreach ($texts as $text) {
                     $result[$text][$language] = $text;
                 }
                 continue;
             }
 
-            $this->_translateOneLanguage($texts, $language, $result);
+            $this->_translateOneLanguage($texts, $from_language, $language, $result);
         }
 
         return $result;
@@ -90,20 +91,22 @@ class Google extends Method
     /**
      * Translate texts to only one language
      *
-     * @param array  $texts  Array of translatable texts
-     * @param string $to     Language code
-     * @param array  $result Referenced variable of results
+     * @param array  $texts       Array of translatable texts
+     * @param string $to_language Language code
+     * @param array  $result      Referenced variable of results
      *
      * @return void
      */
-    private function _translateOneLanguage(array $texts, $to, &$result) : void
-    {
-        $source = $this->context->getFromLanguage();
+    private function _translateOneLanguage(array $texts,
+        string $from_language,
+        string $to_language,
+        array &$result
+    ): void {
 
         $request_data = array(
             'key' => $this->api_key,
-            'source' => $source,
-            'target' => $to
+            'source' => $from_language,
+            'target' => $to_language
         );
         /*if( ! empty( $credentials[ 'referer' ] ) ){
             $request_data['restOptions'] = array(
@@ -138,7 +141,7 @@ class Google extends Method
             );
 
             if (!empty($node)) {
-                $result[$item['input']][$to] = $node;
+                $result[$item['input']][$to_language] = $node;
             }
         }
     }

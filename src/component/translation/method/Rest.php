@@ -79,7 +79,11 @@ class Rest extends Method
      * @return array
      * @throws TranslationException
      */
-    protected function doTranslate(array $texts): array
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages
+    ): array
     {
 
         $translation = [];
@@ -95,7 +99,7 @@ class Rest extends Method
         $ch = curl_init($url);
 
         $query = [
-            'languages' => $this->context->getLanguages(),
+            'languages' => $to_languages,
             'languages_config' => $this->getLanguagesConfig(),
             'texts' => $texts,
         ];
