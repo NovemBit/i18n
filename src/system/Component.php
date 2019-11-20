@@ -13,8 +13,10 @@
 
 namespace NovemBit\i18n\system;
 
+use NovemBit\i18n\system\helpers\Arrays;
+
 /**
- * Main system component class
+ * Main system inheritance component class
  * That helps to build very flexible and beautiful
  * Structure of application
  * Like very popular frameworks
@@ -48,19 +50,55 @@ abstract class Component
     /**
      * Component constructor.
      *
-     * @param array          $config  Configuration array
+     * @param array $config Configuration array
      * @param null|Component $context Context (parent) Component
      */
     public function __construct($config = [], & $context = null)
     {
 
         $this->context = $context;
+
         if (!isset($this->config)) {
-            $this->config = $config;
+
+            $default = static::defaultConfig();
+
+            $this->config = Arrays::arrayMergeRecursiveDistinct(
+                $config,
+                $default
+            );
         }
 
-        $this->commonInit();
+        if ($this->_isCli()) {
 
+            global $argv, $argc;
+
+            $this->cliLateInit($argv, $argc);
+
+            $this->_extractConfig();
+
+            $this->cliInit($argv, $argc);
+
+            if (isset($argv[1]) && $argv[1] == get_called_class()) {
+                $this->cli($argv, $argc);
+            }
+
+        } else {
+            $this->lateInit();
+
+            $this->_extractConfig();
+
+            $this->init();
+        }
+
+    }
+
+    /**
+     * Extract config array
+     *
+     * @return void
+     */
+    private function _extractConfig(): void
+    {
         foreach ($this->config as $key => $value) {
             if (is_array($value) && isset($value['class'])) {
                 $sub_class = $value['class'];
@@ -70,22 +108,6 @@ abstract class Component
                 $this->{$key} = $value;
             }
         }
-
-
-        $this->init();
-
-        if ($this->_isCli()) {
-
-            global $argv, $argc;
-
-            $this->cliInit($argv, $argc);
-
-            if (isset($argv[1]) && $argv[1] == get_called_class()) {
-                $this->cli($argv, $argc);
-            }
-
-        }
-
     }
 
 
@@ -95,17 +117,18 @@ abstract class Component
      *
      * @return void
      */
-    public function commonInit() : void
+    public function lateInit(): void
     {
     }
 
     /**
      * Component init method
+     * Non CLI
      * Running after child component initialization
      *
      * @return void
      * */
-    public function init() : void
+    public function init(): void
     {
     }
 
@@ -114,11 +137,11 @@ abstract class Component
      * Only on cli script
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
-    public function cli($argv, $argc)
+    public function cli($argv, $argc): void
     {
     }
 
@@ -127,11 +150,23 @@ abstract class Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
-    public function cliInit($argv, $argc) : void
+    public function cliInit($argv, $argc): void
+    {
+    }
+
+    /**
+     * Init method only for CLI
+     *
+     * @param array $argv Array of cli arguments
+     * @param int $argc Count of cli arguments
+     *
+     * @return void
+     */
+    public function cliLateInit($argv, $argc): void
     {
     }
 
@@ -141,9 +176,24 @@ abstract class Component
      *
      * @return bool
      */
-    private function _isCli() : bool
+    private function _isCli(): bool
     {
         return php_sapi_name() === 'cli';
     }
+
+    /**
+     * Prevent cloning of instance
+     *
+     * @return void
+     */
+    private function __clone()
+    {
+    }
+
+    public static function defaultConfig(): array
+    {
+        return [];
+    }
+
 
 }
