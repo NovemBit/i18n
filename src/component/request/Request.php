@@ -898,6 +898,9 @@ class Request extends Component implements interfaces\Request
      */
     private function _translateBuffer(?string $content): ?string
     {
+        $this->context->log->logger()
+            ->debug('Start buffer translating.', [self::class]);
+
         $status = http_response_code();
 
         /*
@@ -941,6 +944,7 @@ class Request extends Component implements interfaces\Request
                     );
 
                 }
+
                 /*
                  * Translate content
                  * */
@@ -1021,6 +1025,9 @@ class Request extends Component implements interfaces\Request
     public function start(): void
     {
 
+        $this->context->log->logger()
+            ->debug('Request component initialized.', [self::class]);
+
         $this->_setDbTransaction(ActiveRecord::getDb()->beginTransaction());
 
         if (!$this->_prepare()) {
@@ -1033,7 +1040,6 @@ class Request extends Component implements interfaces\Request
          * Then set editor status true to initialize editor JavaScript
          * */
         if ($this->allow_editor) {
-
             /**
              * Adding editor urls
              * */
@@ -1058,6 +1064,10 @@ class Request extends Component implements interfaces\Request
             if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
                 && ($this->getLanguage() != $this->getFromLanguage())
             ) {
+
+                $this->context->log->logger()
+                    ->debug('Editor mode enabled.', [self::class]);
+
                 $this->_is_editor = true;
 
                 /**
@@ -1072,6 +1082,9 @@ class Request extends Component implements interfaces\Request
                 die;
             }
         }
+
+        $this->context->log->logger()
+            ->debug('Request is ready to translate.', [self::class]);
 
         $this->_setReady(true);
 

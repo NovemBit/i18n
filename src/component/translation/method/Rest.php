@@ -74,7 +74,9 @@ class Rest extends Method
     /**
      * Doing translate method
      *
-     * @param array $texts Array of texts to translate
+     * @param array  $texts         Array of texts to translate
+     * @param string $from_language
+     * @param array  $to_languages
      *
      * @return array
      * @throws TranslationException
@@ -83,8 +85,7 @@ class Rest extends Method
         array $texts,
         string $from_language,
         array $to_languages
-    ): array
-    {
+    ): array {
 
         $translation = [];
         $url = URL::buildUrl(
@@ -125,13 +126,10 @@ class Rest extends Method
 
             /**
              * Error reporting for dynamic hub
-             *
-             * @todo log curl error
              * */
-
-            /*throw new TranslationException(
-                "Dynamic hub: Cannot connect to dynamic hub."
-            );*/
+            $this->context->context->log->logger()->error(
+                'Rest endpoint: not responding.'
+            );
 
             return [];
         }
@@ -144,11 +142,10 @@ class Rest extends Method
             $translation = $result['translation'];
         } else {
 
-            /**
-             * Throw exception
-             *
-             * @todo Create error reporting
-             * */
+            $this->context->context->log->logger()->warning(
+                'Rest endpoint: negative response.'
+            );
+
         }
 
         return $translation;
@@ -165,6 +162,7 @@ class Rest extends Method
         $config = $this->context->context->config['languages'] ?? null;
 
         if ($config == null) {
+
             throw new TranslationException("Languages config not found.");
         }
 
