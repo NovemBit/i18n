@@ -18,6 +18,8 @@
     "ext-curl": "*",
     "ext-simplexml": "*",
     "ext-mbstring": "*",
+    "psr/cache": "*",
+    "psr/log": "*",
     "yiisoft/yii2": "~2.0.14",
     "google/cloud-translate": "*",
     "masterminds/html5": "^2.0",
