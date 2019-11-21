@@ -7,7 +7,7 @@ namespace NovemBit\i18n\component\cache;
 use NovemBit\i18n\system\Component;
 use Psr\SimpleCache\CacheInterface;
 
-class Cache extends Component
+class Cache extends Component implements interfaces\Cache
 {
     /**
      * PSR-6 interfaced cache class

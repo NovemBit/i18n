@@ -14,8 +14,11 @@
 namespace NovemBit\i18n;
 
 
-use NovemBit\i18n\component\cache\Cache;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use NovemBit\i18n\component\cache\interfaces\Cache;
 use NovemBit\i18n\component\languages\interfaces\Languages;
+use NovemBit\i18n\component\log\interfaces\Log;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
@@ -33,6 +36,7 @@ use Cache\Adapter\Filesystem\FilesystemCachePool;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Cache cache
+ * @property Log log
  * @property Translation translation
  * @property Languages languages
  * @property Request request
@@ -59,18 +63,33 @@ class Module extends system\Component
      * */
     public $prefix = 'i18n';
 
+
     /**
      * Default component configuration
      *
      * @return array
+     * @throws \Exception
      */
     public static function defaultConfig(): array
     {
 
-        $filesystemAdapter = new Local(dirname(__DIR__).'/runtime');
-        $filesystem        = new Filesystem($filesystemAdapter);
+        /**
+         * Runtime directory
+         **/
+        $runtime_dir = dirname(__DIR__).'/runtime';
 
+        $filesystemAdapter = new Local($runtime_dir);
+        $filesystem        = new Filesystem($filesystemAdapter);
         $pool = new FilesystemCachePool($filesystem);
+
+        $logger = new Logger('default');
+        $log_file = $runtime_dir.'/default.log';
+        $logger->pushHandler(
+            new StreamHandler(
+                $log_file,
+                Logger::WARNING
+            )
+        );
 
         return [
             'languages'=>[
@@ -89,10 +108,27 @@ class Module extends system\Component
                 'class' => DB::class,
             ],
             'cache'=>[
-                'class'=>Cache::class,
+                'class'=> component\cache\Cache::class,
                 'pool'=>$pool
+            ],
+            'log'=>[
+                'class'=> component\log\Log::class,
+                'logger'=>$logger
             ]
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public function init(): void
+    {
+        $this->log->logger()->debug(
+            'Module initialized.',
+            [self::class]
+        );
     }
 
     /**
