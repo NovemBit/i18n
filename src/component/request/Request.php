@@ -226,6 +226,20 @@ class Request extends Component implements interfaces\Request
     public $custom_translation_level = 1;
 
     /**
+     * DB transaction
+     *
+     * @var Transaction
+     * */
+    private $_db_transaction;
+
+    /**
+     * HTTP methods for translate
+     *
+     * @var array
+     * */
+    public $accept_request_methods = ['GET', 'POST'];
+
+    /**
      * Custom colors for editor to mark each level of translation
      *
      * @var array
@@ -246,6 +260,14 @@ class Request extends Component implements interfaces\Request
      * @var bool
      * */
     public $restore_non_translated_urls = true;
+
+    /**
+     * @return array
+     */
+    public function getAcceptRequestMethods(): array
+    {
+        return $this->accept_request_methods;
+    }
 
     /**
      * Get request referer source url
@@ -631,10 +653,6 @@ class Request extends Component implements interfaces\Request
      */
     private function _prepare(): bool
     {
-        if ($this->_isExclusion()) {
-            return false;
-        }
-
 
         $this->_setTranslation($this->context->translation);
         $this->_setFromLanguage($this->context->languages->getFromLanguage());
@@ -1000,6 +1018,7 @@ class Request extends Component implements interfaces\Request
             } catch (\yii\db\Exception $exception) {
                 $verbose['error'] = $exception->getMessage();
             }
+
             echo json_encode($verbose);
 
             return true;
@@ -1010,13 +1029,6 @@ class Request extends Component implements interfaces\Request
 
 
     /**
-     * DB transaction
-     *
-     * @var Transaction
-     * */
-    private $_db_transaction;
-
-    /**
      * Start request translation
      *
      * @return void
@@ -1024,6 +1036,15 @@ class Request extends Component implements interfaces\Request
      */
     public function start(): void
     {
+
+        if (!in_array(
+            Environment::server('REQUEST_METHOD'),
+            $this->getAcceptRequestMethods()
+        )
+            || $this->_isExclusion()
+        ) {
+            return;
+        }
 
         $this->context->log->logger()
             ->debug('Request component initialized.', [self::class]);

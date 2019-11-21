@@ -51,7 +51,7 @@ class Google extends Method
      * @return void
      * @throws MethodException
      */
-    public function init(): void
+    public function mainInit(): void
     {
         if (!isset($this->api_key)) {
             throw new MethodException('Missing Google Cloud Translate API key.');

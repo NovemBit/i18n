@@ -25,4 +25,6 @@ interface Request
     public function isReady(): bool;
 
     public function getUrlTranslations(): ?array;
+
+    public function getEditorUrlTranslations(): array;
 }

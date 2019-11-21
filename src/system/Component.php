@@ -72,9 +72,13 @@ abstract class Component
 
             global $argv, $argc;
 
+            $this->commonLateInit();
+
             $this->cliLateInit($argv, $argc);
 
             $this->_extractConfig();
+
+            $this->commonInit();
 
             $this->cliInit($argv, $argc);
 
@@ -83,11 +87,15 @@ abstract class Component
             }
 
         } else {
-            $this->lateInit();
+            $this->commonLateInit();
+
+            $this->mainLateInit();
 
             $this->_extractConfig();
 
-            $this->init();
+            $this->commonInit();
+
+            $this->mainInit();
         }
 
     }
@@ -110,6 +118,13 @@ abstract class Component
         }
     }
 
+    public function commonLateInit():void{
+
+    }
+
+    public function commonInit():void{
+
+    }
 
     /**
      * Common init method running before
@@ -117,7 +132,7 @@ abstract class Component
      *
      * @return void
      */
-    public function lateInit(): void
+    public function mainLateInit(): void
     {
     }
 
@@ -128,7 +143,7 @@ abstract class Component
      *
      * @return void
      * */
-    public function init(): void
+    public function mainInit(): void
     {
     }
 

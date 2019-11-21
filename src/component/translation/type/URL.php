@@ -100,7 +100,7 @@ class URL extends Type implements interfaces\URL
      * @return void
      * @throws TranslationException
      */
-    public function init(): void
+    public function mainInit(): void
     {
         if ($this->path_translation === false) {
             $this->save_translations = false;
@@ -110,7 +110,7 @@ class URL extends Type implements interfaces\URL
             $this->base_domain = $_SERVER['HTTP_HOST'];
         }
 
-        parent::init();
+        parent::mainInit();
     }
 
     /**
