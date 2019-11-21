@@ -264,7 +264,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererSourceUrl(?string $_referer_source_url): void
+    private function _setRefererSourceUrl(?string $_referer_source_url): void
     {
         $this->_referer_source_url = $_referer_source_url;
     }
@@ -286,7 +286,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererTranslations(array $_referer_translations): void
+    private function _setRefererTranslations(array $_referer_translations): void
     {
         $this->_referer_translations = $_referer_translations;
     }
@@ -363,7 +363,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setReferer(string $_referer): void
+    private function _setReferer(string $_referer): void
     {
         $this->_referer = $_referer;
     }
@@ -388,7 +388,7 @@ class Request extends Component implements interfaces\Request
 
             $referer = urldecode($referer);
 
-            $this->setReferer($referer);
+            $this->_setReferer($referer);
 
             $this->_prepareRefererSourceUrl();
         }
@@ -410,13 +410,13 @@ class Request extends Component implements interfaces\Request
          * */
         if ($this->getRefererLanguage() == $this->getFromLanguage()) {
 
-            $this->setRefererSourceUrl($this->getReferer());
+            $this->_setRefererSourceUrl($this->getReferer());
 
         } else {
             /*
             * Set referrer source origin URL
             * */
-            $this->setRefererSourceUrl(
+            $this->_setRefererSourceUrl(
                 $this->_getSourceUrlFromTranslate(
                     $this->getReferer(),
                     $this->getRefererLanguage()
@@ -515,7 +515,7 @@ class Request extends Component implements interfaces\Request
                 if ($restored_url !== null) {
 
                     try {
-                        $this->getDbTransaction()->commit();
+                        $this->_getDbTransaction()->commit();
                     } catch (\yii\db\Exception $exception) {
                         throw new RequestException('Cannot commit db.');
                     }
@@ -524,7 +524,7 @@ class Request extends Component implements interfaces\Request
                 }
             }
 
-            $this->getDbTransaction()->rollBack();
+            $this->_getDbTransaction()->rollBack();
 
             if (isset($this->on_page_not_found)
                 && is_callable($this->on_page_not_found)
@@ -637,7 +637,7 @@ class Request extends Component implements interfaces\Request
 
 
         $this->_setTranslation($this->context->translation);
-        $this->setFromLanguage($this->context->languages->getFromLanguage());
+        $this->_setFromLanguage($this->context->languages->getFromLanguage());
 
         return $this->_prepareLanguage()
             && $this->_prepareRegion()
@@ -665,7 +665,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setRefererLanguage(string $_referer_language): void
+    private function _setRefererLanguage(string $_referer_language): void
     {
         $this->_referer_language = $_referer_language;
     }
@@ -707,7 +707,7 @@ class Request extends Component implements interfaces\Request
         /*
          * Setting current instance language
          * */
-        $this->setRefererLanguage($language);
+        $this->_setRefererLanguage($language);
 
         /*
          * Remove Language from URI
@@ -738,7 +738,7 @@ class Request extends Component implements interfaces\Request
             Environment::server('ORIG_REQUEST_URI', $request_uri);
         }
 
-        $this->setDefaultLanguage(
+        $this->_setDefaultLanguage(
             $this->context
                 ->languages
                 ->getDefaultLanguage(Environment::server('HTTP_HOST'))
@@ -896,7 +896,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    public function translateBuffer(?string $content): ?string
+    private function _translateBuffer(?string $content): ?string
     {
         $status = http_response_code();
 
@@ -952,7 +952,7 @@ class Request extends Component implements interfaces\Request
         }
 
         try {
-            $this->getDbTransaction()->commit();
+            $this->_getDbTransaction()->commit();
         } catch (\yii\db\Exception $exception) {
             $verbose['error'] = $exception->getMessage();
         }
@@ -992,7 +992,7 @@ class Request extends Component implements interfaces\Request
             );
 
             try {
-                $this->getDbTransaction()->commit();
+                $this->_getDbTransaction()->commit();
             } catch (\yii\db\Exception $exception) {
                 $verbose['error'] = $exception->getMessage();
             }
@@ -1021,7 +1021,7 @@ class Request extends Component implements interfaces\Request
     public function start(): void
     {
 
-        $this->setDbTransaction(ActiveRecord::getDb()->beginTransaction());
+        $this->_setDbTransaction(ActiveRecord::getDb()->beginTransaction());
 
         if (!$this->_prepare()) {
             return;
@@ -1073,7 +1073,7 @@ class Request extends Component implements interfaces\Request
             }
         }
 
-        $this->setReady(true);
+        $this->_setReady(true);
 
         /**
          * Prevent pages with main(from_language) and default language translation
@@ -1081,7 +1081,7 @@ class Request extends Component implements interfaces\Request
         if (($this->getFromLanguage() !== $this->getLanguage())
             || ($this->getLanguage() !== $this->getDefaultLanguage())
         ) {
-            ob_start([$this, 'translateBuffer']);
+            ob_start([$this, '_translateBuffer']);
         }
     }
 
@@ -1356,7 +1356,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setFromLanguage(string $from_language): void
+    private function _setFromLanguage(string $from_language): void
     {
         $this->_from_language = $from_language;
     }
@@ -1398,7 +1398,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    public function setReady(bool $ready): void
+    private function _setReady(bool $ready): void
     {
         $this->_ready = $ready;
     }
@@ -1406,7 +1406,7 @@ class Request extends Component implements interfaces\Request
     /**
      * @return Transaction
      */
-    public function getDbTransaction(): Transaction
+    private function _getDbTransaction(): Transaction
     {
         return $this->_db_transaction;
     }
@@ -1414,7 +1414,7 @@ class Request extends Component implements interfaces\Request
     /**
      * @param Transaction $db_transaction
      */
-    public function setDbTransaction(Transaction $db_transaction): void
+    private function _setDbTransaction(Transaction $db_transaction): void
     {
         $this->_db_transaction = $db_transaction;
     }
@@ -1435,7 +1435,7 @@ class Request extends Component implements interfaces\Request
      *
      * @param string $default_language
      */
-    public function setDefaultLanguage(string $default_language): void
+    private function _setDefaultLanguage(string $default_language): void
     {
         $this->_default_language = $default_language;
     }
