@@ -70,6 +70,13 @@ class Request extends Component implements interfaces\Request
     private $_language;
 
     /**
+     * Default language for current host
+     *
+     * @var string
+     * */
+    private $_default_language;
+
+    /**
      * Country name
      *
      * @var string
@@ -731,6 +738,12 @@ class Request extends Component implements interfaces\Request
             Environment::server('ORIG_REQUEST_URI', $request_uri);
         }
 
+        $this->setDefaultLanguage(
+            $this->context
+                ->languages
+                ->getDefaultLanguage(Environment::server('HTTP_HOST'))
+        );
+
         /**
          * Taking language from current @REQUEST_URI
          * */
@@ -741,9 +754,7 @@ class Request extends Component implements interfaces\Request
          * If language does not exists in @URL
          * */
         if ($language == null) {
-            $language = $this->context
-                ->languages
-                ->getDefaultLanguage(Environment::server('HTTP_HOST'));
+            $language = $this->getDefaultLanguage();
         }
 
         /*
@@ -1064,15 +1075,11 @@ class Request extends Component implements interfaces\Request
 
         $this->setReady(true);
 
-        $host_default_language = $this->context
-            ->languages
-            ->getDefaultLanguage(Environment::server('HTTP_HOST'));
-
         /**
          * Prevent pages with main(from_language) and default language translation
          * */
         if (($this->getFromLanguage() !== $this->getLanguage())
-            || ($this->getLanguage() !== $host_default_language)
+            || ($this->getLanguage() !== $this->getDefaultLanguage())
         ) {
             ob_start([$this, 'translateBuffer']);
         }
@@ -1410,5 +1417,26 @@ class Request extends Component implements interfaces\Request
     public function setDbTransaction(Transaction $db_transaction): void
     {
         $this->_db_transaction = $db_transaction;
+    }
+
+    /**
+     * Get default language for current hostname
+     * Its taking from localization_config
+     *
+     * @return string
+     */
+    public function getDefaultLanguage(): string
+    {
+        return $this->_default_language;
+    }
+
+    /**
+     * Set default language
+     *
+     * @param string $default_language
+     */
+    public function setDefaultLanguage(string $default_language): void
+    {
+        $this->_default_language = $default_language;
     }
 }
