@@ -270,6 +270,14 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @return array
+     */
+    public function getVerbose(): array
+    {
+        return $this->_verbose;
+    }
+
+    /**
      * Get request referer source url
      *
      * @return string
@@ -979,6 +987,10 @@ class Request extends Component implements interfaces\Request
             $verbose['error'] = $exception->getMessage();
         }
 
+        $this->_verbose['end'] = microtime(true);
+        $this->_verbose['duration'] = $this->_verbose['start']
+            - $this->_verbose['end'];
+
         return $content;
     }
 
@@ -1028,14 +1040,20 @@ class Request extends Component implements interfaces\Request
     }
 
 
+    private $_verbose = [];
+
     /**
      * Start request translation
+     *
+     * @param array|null $verbose Verbose
      *
      * @return void
      * @throws RequestException
      */
     public function start(): void
     {
+
+        $this->_verbose['start'] = microtime(true);
 
         if (!in_array(
             Environment::server('REQUEST_METHOD'),

@@ -22,6 +22,8 @@ interface Request
 
     public function start(): void;
 
+    public function getVerbose(): array;
+
     public function isReady(): bool;
 
     public function getUrlTranslations(): ?array;
