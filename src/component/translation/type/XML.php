@@ -52,6 +52,7 @@ class XML extends Type
     private $_helper_attributes = false;
 
     public $save_translations = false;
+
     /**
      * Model class name of ActiveRecord
      *
@@ -60,9 +61,26 @@ class XML extends Type
     public $model_class = models\XML::class;
 
     private $_before_parse_callbacks = [];
+
     private $_after_parse_callbacks = [];
 
     protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return array
+     */
+    public static function defaultConfig(): array
+    {
+        return [
+            'xpath_query_map' => [
+                'ignore' => [
+                    'ancestor-or-self::*[@translate="no"]'
+                ]
+            ]
+        ];
+    }
 
     /**
      * @return int
@@ -344,7 +362,7 @@ class XML extends Type
                 );
 
                 $parsed_dom[$key][$language]->fetch(
-                    [$this,'buildToTranslateFields'],
+                    [$this, 'buildToTranslateFields'],
                     ['to_translate' => &$to_translate]
                 );
             }
@@ -375,7 +393,7 @@ class XML extends Type
             foreach ($to_languages as $language) {
 
                 $parsed_dom[$key][$language]->fetch(
-                    [$this,'replaceTranslatedFields'],
+                    [$this, 'replaceTranslatedFields'],
                     [
                         'translations' => $translations,
                         'verbose' => $verbose,
