@@ -50,7 +50,7 @@ abstract class Component
     /**
      * Component constructor.
      *
-     * @param array $config Configuration array
+     * @param array          $config  Configuration array
      * @param null|Component $context Context (parent) Component
      */
     public function __construct($config = [], & $context = null)
@@ -63,8 +63,8 @@ abstract class Component
             $default = static::defaultConfig();
 
             $this->config = Arrays::arrayMergeRecursiveDistinct(
-                $config,
-                $default
+                $default,
+                $config
             );
         }
 
@@ -118,11 +118,13 @@ abstract class Component
         }
     }
 
-    public function commonLateInit():void{
+    public function commonLateInit():void
+    {
 
     }
 
-    public function commonInit():void{
+    public function commonInit():void
+    {
 
     }
 
@@ -152,7 +154,7 @@ abstract class Component
      * Only on cli script
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
@@ -165,7 +167,7 @@ abstract class Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
@@ -177,7 +179,7 @@ abstract class Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
