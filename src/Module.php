@@ -26,6 +26,9 @@ use NovemBit\i18n\system\component\DB;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
+
 /**
  * Module class
  *
@@ -64,15 +67,8 @@ class Module extends system\Component
     public $prefix = 'i18n';
 
 
-    /**
-     * Default component configuration
-     *
-     * @return array
-     * @throws \Exception
-     */
-    public static function defaultConfig(): array
+    private static function defaultCachePool():CacheInterface
     {
-
         /**
          * Runtime directory
          **/
@@ -80,8 +76,19 @@ class Module extends system\Component
 
         $filesystemAdapter = new Local($runtime_dir);
         $filesystem        = new Filesystem($filesystemAdapter);
-        $pool = new FilesystemCachePool($filesystem);
+        return new FilesystemCachePool($filesystem);
+    }
 
+    /**
+     * @return LoggerInterface
+     * @throws \Exception
+     */
+    private static function defaultLogger():LoggerInterface
+    {
+        /**
+         * Runtime directory
+         **/
+        $runtime_dir = dirname(__DIR__).'/runtime';
         $logger = new Logger('default');
         $log_file = $runtime_dir.'/default.log';
         $logger->pushHandler(
@@ -90,6 +97,17 @@ class Module extends system\Component
                 Logger::WARNING
             )
         );
+
+        return $logger;
+    }
+    /**
+     * Default component configuration
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public static function defaultConfig(): array
+    {
 
         return [
             'languages'=>[
@@ -109,11 +127,11 @@ class Module extends system\Component
             ],
             'cache'=>[
                 'class'=> component\cache\Cache::class,
-                'pool'=>$pool
+                'pool'=>self::defaultCachePool()
             ],
             'log'=>[
                 'class'=> component\log\Log::class,
-                'logger'=>$logger
+                'logger'=>self::defaultLogger()
             ]
         ];
     }
