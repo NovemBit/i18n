@@ -1180,6 +1180,8 @@ class Request extends Component implements interfaces\Request
 
                     'current_language' => $this->getLanguage(),
 
+                    'default_language' => $this->getDefaultLanguage(),
+
                     'accept_languages' => $this->context->languages
                         ->getAcceptLanguages(true),
 
