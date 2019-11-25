@@ -197,10 +197,6 @@ abstract class Translator extends Component implements interfaces\Translator
                     = $model['translate'];
                 $verbose[$model['source']][$model['to_language']]['level']
                     = $model['level'];
-                $verbose[$model['source']][$model['to_language']]['created_at']
-                    = $model['created_at'];
-                $verbose[$model['source']][$model['to_language']]['updated_at']
-                    = $model['updated_at'];
             }
 
             /**
