@@ -159,7 +159,6 @@ class Module extends system\Component
      */
     public function commonLateInit(): void
     {
-
         /*
          * Check if yii framework not initialized
          * Then include yii2 layer class

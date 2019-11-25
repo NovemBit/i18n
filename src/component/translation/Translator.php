@@ -197,10 +197,6 @@ abstract class Translator extends Component implements interfaces\Translator
                     = $model['translate'];
                 $verbose[$model['source']][$model['to_language']]['level']
                     = $model['level'];
-                $verbose[$model['source']][$model['to_language']]['created_at']
-                    = $model['created_at'];
-                $verbose[$model['source']][$model['to_language']]['updated_at']
-                    = $model['updated_at'];
             }
 
             /**
@@ -313,6 +309,7 @@ abstract class Translator extends Component implements interfaces\Translator
              * And without overwriting old values
              * */
             if ($this->save_translations) {
+                $this->context->context->log->logger()->warning(json_encode([$this->name,'old'=>$translations,'new'=>$new_translations]));
                 $this->saveModels($new_translations, 0, false);
             }
 

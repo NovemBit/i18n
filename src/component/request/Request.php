@@ -1013,17 +1013,17 @@ class Request extends Component implements interfaces\Request
                 $result[$source][$this->getLanguage()] = $translate;
             }
 
-            /**
-             * Save translations
-             * With Level *1*
-             * And overwrite old values if exists
-             * */
-            $this->context->translation->text->saveModels(
-                $result,
-                $this->custom_translation_level,
-                true,
-                $verbose
-            );
+//            /**
+//             * Save translations
+//             * With Level *1*
+//             * And overwrite old values if exists
+//             * */
+//            $this->context->translation->text->saveModels(
+//                $result,
+//                $this->custom_translation_level,
+//                true,
+//                $verbose
+//            );
 
             try {
                 $this->_getDbTransaction()->commit();

@@ -39,4 +39,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return Module::instance()->db->getConnection();
     }
 
+    public static function getDB2(): \Doctrine\DBAL\Connection
+    {
+        return Module::instance()->db2->getConnection();
+    }
 }
