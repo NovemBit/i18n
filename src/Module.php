@@ -22,7 +22,7 @@ use NovemBit\i18n\component\log\interfaces\Log;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\system\component\DB;
+use NovemBit\i18n\component\db\DB;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Cache\Adapter\Filesystem\FilesystemCachePool;
@@ -38,13 +38,11 @@ use Psr\SimpleCache\CacheInterface;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property Cache cache
- * @property Log log
  * @property Translation translation
  * @property Languages languages
  * @property Request request
  * @property Rest rest
- * @property system\component\DB db
+ * @property DB db
  */
 class Module extends system\Component
 {
@@ -67,39 +65,6 @@ class Module extends system\Component
     public $prefix = 'i18n';
 
 
-    private static function defaultCachePool():CacheInterface
-    {
-        /**
-         * Runtime directory
-         **/
-        $runtime_dir = dirname(__DIR__).'/runtime';
-
-        $filesystemAdapter = new Local($runtime_dir);
-        $filesystem        = new Filesystem($filesystemAdapter);
-        return new FilesystemCachePool($filesystem);
-    }
-
-    /**
-     * @return LoggerInterface
-     * @throws \Exception
-     */
-    private static function defaultLogger():LoggerInterface
-    {
-        /**
-         * Runtime directory
-         **/
-        $runtime_dir = dirname(__DIR__).'/runtime';
-        $logger = new Logger('default');
-        $log_file = $runtime_dir.'/default.log';
-        $logger->pushHandler(
-            new StreamHandler(
-                $log_file,
-                Logger::WARNING
-            )
-        );
-
-        return $logger;
-    }
     /**
      * Default component configuration
      *
@@ -124,14 +89,6 @@ class Module extends system\Component
             ],
             'db'=>[
                 'class' => DB::class,
-            ],
-            'cache'=>[
-                'class'=> component\cache\Cache::class,
-                'pool'=>self::defaultCachePool()
-            ],
-            'log'=>[
-                'class'=> component\log\Log::class,
-                'logger'=>self::defaultLogger()
             ]
         ];
     }
@@ -140,13 +97,11 @@ class Module extends system\Component
      * {@inheritDoc}
      *
      * @return void
+     * @throws \Exception
      */
     public function mainInit(): void
     {
-        $this->log->logger()->debug(
-            'Module initialized.',
-            [self::class]
-        );
+        $this->getLogger()->warning('Hello');
     }
 
     /**
@@ -159,28 +114,6 @@ class Module extends system\Component
      */
     public function commonLateInit(): void
     {
-        /*
-         * Check if yii framework not initialized
-         * Then include yii2 layer class
-         * */
-        if (!class_exists("Yii")) {
-            defined('YII_DEBUG') or define('YII_DEBUG', false);
-            defined('YII_ENV') or define('YII_ENV', 'prod');
-            include __DIR__ . '/../../../yiisoft/yii2/Yii.php';
-
-            /*new Application(
-                [
-                    'id' => 'i18n',
-                    'basePath' => dirname(__DIR__),
-                    'components' => [
-                        'cache' => [
-                            'class' => 'yii\caching\FileCache',
-                        ],
-                    ],
-                ]
-            );*/
-
-        }
         parent::commonLateInit();
     }
 

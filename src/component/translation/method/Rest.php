@@ -74,12 +74,13 @@ class Rest extends Method
     /**
      * Doing translate method
      *
-     * @param array  $texts         Array of texts to translate
+     * @param array $texts Array of texts to translate
      * @param string $from_language
-     * @param array  $to_languages
+     * @param array $to_languages
      *
      * @return array
      * @throws TranslationException
+     * @throws \Exception
      */
     protected function doTranslate(
         array $texts,
@@ -127,7 +128,7 @@ class Rest extends Method
             /**
              * Error reporting for dynamic hub
              * */
-            $this->context->context->log->logger()->error(
+            $this->getLogger()->error(
                 'Rest endpoint: not responding.'
             );
 
@@ -142,7 +143,7 @@ class Rest extends Method
             $translation = $result['translation'];
         } else {
 
-            $this->context->context->log->logger()->warning(
+            $this->getLogger()->warning(
                 'Rest endpoint: negative response.'
             );
 
