@@ -20,9 +20,8 @@
     "ext-mbstring": "*",
     "psr/cache": "*",
     "psr/log": "*",
-    "yiisoft/yii2": "~2.0.14",
     "google/cloud-translate": "*",
-    "masterminds/html5": "^2.0",
+    "masterminds/html5": "^2.7",
     "cache/cache": "*",
     "monolog/monolog": "*",
     "doctrine/dbal": "*"
