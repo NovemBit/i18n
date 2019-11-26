@@ -13,7 +13,14 @@
 
 namespace NovemBit\i18n\system;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use NovemBit\i18n\system\helpers\Arrays;
+use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * Main system inheritance component class
@@ -48,9 +55,28 @@ abstract class Component
     public $context;
 
     /**
+     * PSR Logger
+     *
+     * @var LoggerInterface
+     * */
+    public $logger;
+
+    public $logging_level = Logger::DEBUG;
+
+    /**
+     * @var CacheInterface
+     * */
+    public $cache_pool;
+
+    /**
+     * @var string
+     * */
+    public $runtime_dir = __DIR__ . '/../../runtime';
+
+    /**
      * Component constructor.
      *
-     * @param array          $config  Configuration array
+     * @param array $config Configuration array
      * @param null|Component $context Context (parent) Component
      */
     public function __construct($config = [], & $context = null)
@@ -118,12 +144,12 @@ abstract class Component
         }
     }
 
-    public function commonLateInit():void
+    public function commonLateInit(): void
     {
 
     }
 
-    public function commonInit():void
+    public function commonInit(): void
     {
 
     }
@@ -154,7 +180,7 @@ abstract class Component
      * Only on cli script
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -167,7 +193,7 @@ abstract class Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -179,7 +205,7 @@ abstract class Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -196,6 +222,82 @@ abstract class Component
     private function _isCli(): bool
     {
         return php_sapi_name() === 'cli';
+    }
+
+    /**
+     * @return LoggerInterface
+     * @throws \Exception
+     */
+    public function getLogger(): LoggerInterface
+    {
+        if (!isset($this->logger)) {
+            /**
+             * Runtime directory
+             **/
+            $path = trim(str_replace('\\', '/', static::class), '/');
+            $log_dir = $this->getRuntimeDir() . "/logs/" . $path;
+            $log_file = $log_dir . '/' . date("Y-m-d") . '.log';
+            $logger = new Logger('default');
+            $logger->pushHandler(
+                new StreamHandler(
+                    $log_file,
+                    $this->logging_level
+                )
+            );
+            $this->setLogger($logger);
+        }
+        return $this->logger;
+    }
+
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRuntimeDir(): string
+    {
+        return $this->runtime_dir;
+    }
+
+    /**
+     * @param string $runtime_dir
+     */
+    public function setRuntimeDir(string $runtime_dir): void
+    {
+        $this->runtime_dir = $runtime_dir;
+    }
+
+    /**
+     * @param CacheInterface $cache_pool
+     */
+    public function setCachePool(CacheInterface $cache_pool): void
+    {
+        $this->cache_pool = $cache_pool;
+    }
+
+    /**
+     * @return CacheInterface
+     */
+    public function getCachePool(): CacheInterface
+    {
+        if (!isset($this->cache_pool)) {
+
+            $path = trim(str_replace('\\', '/', static::class), '/');
+            $cache_dir = $this->getRuntimeDir() . "/cache/" . $path;
+
+            $filesystemAdapter = new Local($cache_dir);
+            $filesystem = new Filesystem($filesystemAdapter);
+            $this->setCachePool(new FilesystemCachePool($filesystem, ''));
+        }
+
+        return $this->cache_pool;
     }
 
     /**
