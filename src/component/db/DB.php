@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\db;
 
+use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use NovemBit\i18n\Module;
@@ -54,19 +55,24 @@ class DB extends Component
      *
      * @return void
      * @throws DBALException
+     * @throws \Exception
      */
     public function commonInit(): void
     {
 
-        $config = new \Doctrine\DBAL\Configuration();
+        $config = new Configuration();
 
-        $connectionParams = array(
+        $connectionParams = [
             'dbname' => 'swanson',
             'user' => 'top',
             'password' => 'top',
             'host' => 'localhost',
             'driver' => 'pdo_mysql',
 
+        ];
+
+        $config->setSQLLogger(
+            new SQLFileLogger($this->getLogger())
         );
 
         $this->_setConnection(
@@ -75,6 +81,8 @@ class DB extends Component
                 $config
             )
         );
+
+
     }
 
     /**
