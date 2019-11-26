@@ -26,21 +26,13 @@ use yii\db\Connection;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-class ActiveRecord extends \yii\db\ActiveRecord
+class DataMapper
 {
-
     /**
-     * Get DB of main module instance
-     *
-     * @return Connection
+     * @return \Doctrine\DBAL\Connection
      */
-    public static function getDb()
+    public static function getDB(): \Doctrine\DBAL\Connection
     {
         return Module::instance()->db->getConnection();
-    }
-
-    public static function getDB2(): \Doctrine\DBAL\Connection
-    {
-        return Module::instance()->db2->getConnection();
     }
 }
