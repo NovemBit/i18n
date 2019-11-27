@@ -61,7 +61,12 @@ abstract class Component
      * */
     public $logger;
 
-    public $logging_level = Logger::DEBUG;
+    /**
+     * PSR logging level
+     *
+     * @var int
+     * */
+    public $logging_level = Logger::WARNING;
 
     /**
      * @var CacheInterface
