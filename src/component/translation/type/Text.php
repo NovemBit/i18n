@@ -90,10 +90,18 @@ class Text extends Type
     protected function doTranslate(
         array $texts,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
 
-        $translations = $this->context->method->translate($texts);
+        $translator = $this->context->method;
+
+        $translations = $translator->translate(
+            $texts,
+            $verbose,
+            false,
+            $ignore_cache
+        );
 
         foreach ($translations as $source => &$translation) {
             foreach ($translation as $language => &$text) {

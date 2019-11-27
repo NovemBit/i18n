@@ -68,7 +68,8 @@ class Google extends Method
     protected function doTranslate(
         array $texts,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
 
         $result = [];

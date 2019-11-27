@@ -38,6 +38,7 @@ class URL extends Type implements interfaces\URL
     public $name = 'url';
 
     public $cache_result = true;
+
     /**
      * {@inheritdoc}
      * */
@@ -123,9 +124,9 @@ class URL extends Type implements interfaces\URL
     protected function doTranslate(
         array $urls,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
-
         $paths = [];
         $paths_to_translate = [];
 
@@ -138,7 +139,7 @@ class URL extends Type implements interfaces\URL
         }
 
         $translations = $this->path_translation
-            ? $this->_getPathPartTranslations($paths_to_translate) : [];
+            ? $this->_getPathPartTranslations($paths_to_translate, $ignore_cache) : [];
 
         $result = $this->_buildTranslateResult($paths, $to_languages, $translations);
 
@@ -291,15 +292,23 @@ class URL extends Type implements interfaces\URL
      *
      * @param array $paths paths to translate
      *
+     * @param  $ignore_cache
      * @return mixed
      */
-    private function _getPathPartTranslations(array $paths)
+    private function _getPathPartTranslations(array $paths, $ignore_cache)
     {
         foreach ($paths as &$string) {
             $string = (string)$string;
         }
 
-        $translate = $this->context->text->translate($paths);
+        $translator = $this->context->text;
+
+        $translate = $translator->translate(
+            $paths,
+            $verbose,
+            false,
+            $ignore_cache
+        );
 
         return $translate;
     }

@@ -10,7 +10,8 @@ interface Translator
     public function translate(
         array $texts,
         ?array &$verbose = null,
-        bool $only_saved = false
+        bool $only_saved = false,
+        bool $ignore_cache = false
     ): array;
 
 
@@ -31,4 +32,9 @@ interface Translator
     public function reTranslate(
         array $texts
     ): array;
+
+    public function isCacheResult(): ?bool;
+
+    public function setCacheResult(?bool $cache_status): void;
+
 }

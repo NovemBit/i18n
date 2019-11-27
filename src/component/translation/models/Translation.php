@@ -156,8 +156,10 @@ class Translation extends DataMapper implements interfaces\Translation
             }
         }
 
-        foreach ($texts as &$text) {
-            $text = self::createHash($text);
+        $hashes = [];
+
+        foreach ($texts as $text) {
+            $hashes[] = self::createHash($text);
         }
 
         $queryBuilder = self::getDB()->createQueryBuilder();
@@ -167,14 +169,14 @@ class Translation extends DataMapper implements interfaces\Translation
             ->andWhere('from_language = :from_language')
             ->andWhere('to_language IN (:to_language)')
             ->andWhere(
-                ($reverse ? 'translate_hash' : 'source_hash') . ' IN (:texts)'
+                ($reverse ? 'translate_hash' : 'source_hash') . ' IN (:hashes)'
             )
             ->addOrderBy('id', 'DESC')
             ->addOrderBy('level', 'ASC')
             ->setParameter('type', static::TYPE)
             ->setParameter('from_language', $from_language)
             ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
-            ->setParameter('texts', $texts, Connection::PARAM_STR_ARRAY);
+            ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
 
         $db_result = $queryBuilder->execute()->fetchAll();
 
@@ -188,76 +190,6 @@ class Translation extends DataMapper implements interfaces\Translation
     {
         return md5($str);
     }
-
-    /**
-     * Main method to save translations in DB
-     *
-     * @param string $from_language From language
-     * @param array $translations Translations of texts
-     * @param int $level Level of translation
-     * @param bool $overwrite If translation exists, then overwrite value
-     * @param array $result Result about saving
-     *
-     * @return void
-     * @throws ActiveRecordException
-     */
-    public static function saveTranslations3(
-        $from_language,
-        $translations,
-        $level = 0,
-        $overwrite = false,
-        &$result = []
-    ) {
-
-        $transaction = static::getDb()->beginTransaction();
-
-        foreach ($translations as $source => $haystack) {
-
-            foreach ($haystack as $to_language => $translate) {
-
-                if ($from_language == $to_language) {
-                    continue;
-                }
-
-                $model = null;
-
-                if ($overwrite === true) {
-
-                    $model = static::find()
-                        ->where(['from_language' => $from_language])
-                        ->andWhere(['type' => static::TYPE])
-                        ->andWhere(['to_language' => $to_language])
-                        ->andWhere(['source' => $source])
-                        ->andWhere(['level' => $level])
-                        ->one();
-                }
-
-                if ($model == null) {
-                    $model = new static();
-                    $model->from_language = $from_language;
-                    $model->to_language = $to_language;
-                    $model->source = $source;
-                    $model->level = $level;
-                    $model->type = static::TYPE;
-                }
-
-                $model->translate = $translate;
-
-                if ($model->validate() && $model->save()) {
-                    $result['success'][] = $model->id;
-                } else {
-                    $result['errors'][] = $model->errors;
-                }
-            }
-        }
-
-        try {
-            $transaction->commit();
-        } catch (Exception $exception) {
-            throw new ActiveRecordException($exception->getMessage());
-        }
-    }
-
 
     /**
      * @param string $from_language
@@ -279,25 +211,15 @@ class Translation extends DataMapper implements interfaces\Translation
 
 
         foreach ($translations as $source => $haystack) {
-
+            $source_hash = self::createHash($source);
             foreach ($haystack as $to_language => $translate) {
 
                 if ($from_language == $to_language) {
                     continue;
                 }
 
-                //                $model = null;
-                //
-                //                if ($overwrite === true) {
-                //
-                //                    $model = static::find()
-                //                        ->where(['from_language' => $from_language])
-                //                        ->andWhere(['type' => static::TYPE])
-                //                        ->andWhere(['to_language' => $to_language])
-                //                        ->andWhere(['source' => $source])
-                //                        ->andWhere(['level' => $level])
-                //                        ->one();
-                //                }
+                $translate_hash =  self::createHash($translate);
+
                 $query = self::getDB()->createQueryBuilder();
 
                 try {
@@ -319,8 +241,8 @@ class Translation extends DataMapper implements interfaces\Translation
                         ->setParameter('level', $level)
                         ->setParameter('type', static::TYPE)
                         ->setParameter('translate', $translate)
-                        ->setParameter('source_hash', self::createHash($source))
-                        ->setParameter('translate_hash', self::createHash($translate))
+                        ->setParameter('source_hash', $source_hash)
+                        ->setParameter('translate_hash', $translate_hash)
                         ->execute();
                 } catch (UniqueConstraintViolationException $exception) {
 
@@ -332,7 +254,7 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->set('translate_hash', ':translate_hash')
 
                                 ->setParameter('translate', $translate)
-                                ->setParameter('translate_hash', self::createHash($translate))
+                                ->setParameter('translate_hash', $translate_hash)
 
                                 ->where('type = :type')
                                 ->andWhere('from_language = :from_language')
@@ -346,7 +268,7 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->setParameter('from_language', $from_language)
                                 ->setParameter('to_language', $to_language)
                                 ->setParameter('level', $level)
-                                ->setParameter('source_hash', self::createHash($source))
+                                ->setParameter('source_hash', $source_hash)
                                 ->setFirstResult(1)
                                 ->setMaxResults(1)
                                 ->execute();

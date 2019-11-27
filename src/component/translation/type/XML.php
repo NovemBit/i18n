@@ -51,6 +51,11 @@ class XML extends Type
      * */
     private $_helper_attributes = false;
 
+    /**
+     * Save translations
+     *
+     * @var bool
+     * */
     public $save_translations = false;
 
     /**
@@ -101,7 +106,7 @@ class XML extends Type
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml XML content
+     * @param string $xml      XML content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -322,19 +327,19 @@ class XML extends Type
      * And send to translation:
      * Using custom type of translation for each type of node
      *
-     * @param array $xml_list list of translatable HTML strings
+     * @param array  $xml_list      list of translatable HTML strings
      * @param string $from_language
-     * @param array $to_languages
+     * @param array  $to_languages
      *
      * @return mixed
-     * @throws ActiveRecordException
      * @see    DOMText
      * @see    DOMAttr
      */
     protected function doTranslate(
         array $xml_list,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
 
         $result = [];
@@ -377,9 +382,12 @@ class XML extends Type
              * @var Translator $translator
              */
             $translator = $this->context->{$type};
+
             $translations[$type] = $translator->translate(
                 $texts,
-                $verbose[$type]
+                $verbose[$type],
+                false,
+                $ignore_cache
             );
         }
 

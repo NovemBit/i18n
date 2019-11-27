@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Arrays;
 
@@ -139,7 +140,8 @@ class JSON extends Type
     protected function doTranslate(
         array $jsons,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
 
         $to_translate = [];
@@ -171,7 +173,16 @@ class JSON extends Type
         }
 
         foreach ($to_translate as $type => $values) {
-            $translations[$type] = $this->context->{$type}->translate($values);
+
+            /** @var Translator $translator */
+            $translator = $this->context->{$type};
+
+            $translations[$type] = $translator->translate(
+                $values,
+                $verbose,
+                false,
+                $ignore_cache
+            );
         }
 
         foreach ($this->_objects as $json => &$object) {

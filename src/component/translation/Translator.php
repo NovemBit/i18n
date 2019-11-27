@@ -16,8 +16,6 @@ namespace NovemBit\i18n\component\translation;
 
 use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
-use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -49,7 +47,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @var bool
      * */
-    public $cache_result = false;
+    public $cache_result = null;
 
     /**
      * If true then all translations saving on DB
@@ -223,24 +221,28 @@ abstract class Translator extends Component implements interfaces\Translator
      * To make translations, its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts      Texts array to translate
-     * @param array $verbose    Information about translation progress
-     * @param bool  $only_saved Dont make new translate and return only saved
+     * @param array $texts Texts array to translate
+     * @param array $verbose Information about translation progress
+     * @param bool $only_saved Dont make new translate and return only saved
+     * @param bool $ignore_cache
      *
      * @return array
-     * @throws ActiveRecordException
+     * @throws ConnectionException
      * @throws InvalidArgumentException
      */
     public function translate(
         array $texts,
         ?array &$verbose = null,
-        bool $only_saved = false
+        bool $only_saved = false,
+        bool $ignore_cache = false
     ): array {
+
+        $this->context->getLogger()->warning($this->name, $texts);
 
         $from_language = $this->context->getFromLanguage();
         $to_languages = $this->context->getLanguages();
 
-        if ($this->cache_result === true) {
+        if ($this->isCacheResult() === true && !$ignore_cache) {
 
             $cache_key = sprintf(
                 "%s_%s_%s_%s",
@@ -271,7 +273,6 @@ abstract class Translator extends Component implements interfaces\Translator
          * */
         $this->beforeTranslate($texts);
 
-
         /*
          * Result
          * */
@@ -293,7 +294,7 @@ abstract class Translator extends Component implements interfaces\Translator
             );
 
         }
-        
+
         /*
          * If $texts array not empty then
          * Make new translates
@@ -303,7 +304,8 @@ abstract class Translator extends Component implements interfaces\Translator
             $new_translations = $this->doTranslate(
                 $texts,
                 $from_language,
-                $to_languages
+                $to_languages,
+                $ignore_cache
             );
 
             /**
@@ -326,15 +328,13 @@ abstract class Translator extends Component implements interfaces\Translator
             );
         }
 
-
         /*
          * Event after translate
          * */
         $this->afterTranslate($translations, $verbose);
 
-        if ($this->cache_result === true) {
-            $this->getCachePool()
-                ->set($cache_key, $translations);
+        if (isset($cache_key)) {
+            $this->getCachePool()->set($cache_key, $translations);
         }
 
         return $translations;
@@ -659,13 +659,17 @@ abstract class Translator extends Component implements interfaces\Translator
      * Child methods to translate texts
      *
      * @param array $texts Texts array to translate
+     * @param string $from_language
+     * @param array $to_languages
+     * @param bool $ignore_cache
      *
      * @return array
      */
     protected function doTranslate(
         array $texts,
         string $from_language,
-        array $to_languages
+        array $to_languages,
+        bool $ignore_cache
     ): array {
         return [];
     }
@@ -674,9 +678,9 @@ abstract class Translator extends Component implements interfaces\Translator
      * Main method to save translations in DB
      *
      * @param array $translations Translations of texts
-     * @param int $level Level of translation
-     * @param bool $overwrite If translation exists, then overwrite value
-     * @param array $result Result about saving
+     * @param int   $level        Level of translation
+     * @param bool  $overwrite    If translation exists, then overwrite value
+     * @param array $result       Result about saving
      *
      * @return void
      * @throws ConnectionException
@@ -736,6 +740,22 @@ abstract class Translator extends Component implements interfaces\Translator
     public function getTranslation()
     {
         return $this->context;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isCacheResult(): ?bool
+    {
+        return $this->cache_result;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setCacheResult(?bool $status): void
+    {
+        $this->cache_result = $status;
     }
 
 }

@@ -109,9 +109,13 @@ class HTML extends XML implements interfaces\HTML
                     $country_name = $this->context->getCountry();
                     $region_name = $this->context->getRegion();
 
-                    $_translations =  $this
-                        ->getTranslation()
-                        ->text
+                    $translator = $this->getTranslation()->text;
+
+                    if ($this->isCacheResult() === false) {
+                        $translator->setCacheResult(false);
+                    }
+
+                    $_translations = $translator
                         ->translate([$language_name, $country_name, $region_name]);
 
                     $language_native_name = $_translations[$language_name][$language]
