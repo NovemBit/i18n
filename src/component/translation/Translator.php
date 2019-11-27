@@ -221,10 +221,10 @@ abstract class Translator extends Component implements interfaces\Translator
      * To make translations, its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts Texts array to translate
-     * @param array $verbose Information about translation progress
-     * @param bool $only_saved Dont make new translate and return only saved
-     * @param bool $ignore_cache
+     * @param array $texts        Texts array to translate
+     * @param array $verbose      Information about translation progress
+     * @param bool  $only_saved   Dont make new translate and return only saved
+     * @param bool  $ignore_cache
      *
      * @return array
      * @throws ConnectionException
@@ -658,10 +658,10 @@ abstract class Translator extends Component implements interfaces\Translator
      * Abstract method that must be extended from
      * Child methods to translate texts
      *
-     * @param array $texts Texts array to translate
+     * @param array  $texts         Texts array to translate
      * @param string $from_language
-     * @param array $to_languages
-     * @param bool $ignore_cache
+     * @param array  $to_languages
+     * @param bool   $ignore_cache
      *
      * @return array
      */

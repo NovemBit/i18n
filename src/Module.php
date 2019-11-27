@@ -14,20 +14,11 @@
 namespace NovemBit\i18n;
 
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use NovemBit\i18n\component\cache\interfaces\Cache;
 use NovemBit\i18n\component\languages\interfaces\Languages;
-use NovemBit\i18n\component\log\interfaces\Log;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\db\DB;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
-use Cache\Adapter\Filesystem\FilesystemCachePool;
-use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 
 /**
  * Module class
