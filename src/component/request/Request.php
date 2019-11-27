@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\request;
 
+use Doctrine\DBAL\ConnectionException;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
@@ -20,7 +21,6 @@ use NovemBit\i18n\component\request\exceptions\RequestException;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\models\ActiveRecord;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
@@ -468,10 +468,16 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      * @throws RequestException
+     * @throws ConnectionException
      */
     private function _prepareSourceUrl(): bool
     {
         $is_root_path = parse_url($this->getDestination(), PHP_URL_PATH) == '/';
+
+        $db_connection = $this->context->db->getConnection();
+
+        $db_connection->beginTransaction();
+
         /**
          * If current language is from_language
          * Then translate current url for all languages
@@ -487,6 +493,7 @@ class Request extends Component implements interfaces\Request
                     ->url->translate(
                         [$this->getDestination()],
                         $verbose,
+                        true,
                         true
                     )
                 [$this->getDestination()] ?? null
@@ -518,6 +525,7 @@ class Request extends Component implements interfaces\Request
                     ->translate(
                         [$this->getSourceUrl()],
                         $verbose,
+                        true,
                         true
                     )[$this->getSourceUrl()]
                 ?? null
@@ -544,17 +552,12 @@ class Request extends Component implements interfaces\Request
 
                 if ($restored_url !== null) {
 
-                    try {
-                        $this->_getDbTransaction()->commit();
-                    } catch (\yii\db\Exception $exception) {
-                        throw new RequestException('Cannot commit db.');
-                    }
-
                     $this->_redirect($restored_url);
                 }
             }
 
-            $this->_getDbTransaction()->rollBack();
+            $db_connection->rollBack();
+
 
             if (isset($this->on_page_not_found)
                 && is_callable($this->on_page_not_found)
@@ -567,6 +570,12 @@ class Request extends Component implements interfaces\Request
             }
         }
 
+        try {
+            $db_connection->commit();
+        } catch (\Exception $exception) {
+            $db_connection->rollBack();
+        }
+
         /**
          * Finally register shutdown function
          * that should translate url for all languages,
@@ -574,6 +583,7 @@ class Request extends Component implements interfaces\Request
         register_shutdown_function(
             function () {
                 if (!in_array(http_response_code(), [400, 401, 402, 403, 404])) {
+
                     $this->getTranslation()
                         ->setLanguages(
                             $this->context->languages->getAcceptLanguages()
@@ -582,11 +592,9 @@ class Request extends Component implements interfaces\Request
                             [$this->getSourceUrl()],
                             $verbose
                         );
-
                 }
             }
         );
-
         return true;
     }
 
@@ -623,6 +631,7 @@ class Request extends Component implements interfaces\Request
             ->translate(
                 [$url],
                 $verbose,
+                true,
                 true
             )[$url][$language] ?? null;
 
@@ -903,7 +912,13 @@ class Request extends Component implements interfaces\Request
 
     public $source_type_map = [];
 
-    private function _getType($source, $content)
+    /**
+     * @param $source
+     * @param $content
+     *
+     * @return string|null
+     */
+    private function _getType($source, $content): ?string
     {
 
         foreach ($this->source_type_map as $pattern => $type) {
@@ -924,9 +939,6 @@ class Request extends Component implements interfaces\Request
      */
     private function _translateBuffer(?string $content): ?string
     {
-        $this->context->log->logger()
-            ->debug('Start buffer translating.', [self::class]);
-
         $status = http_response_code();
 
         /*
@@ -946,8 +958,21 @@ class Request extends Component implements interfaces\Request
                     ->getTranslation()
                     ->setLanguages([$this->getLanguage()])
                     ->{$type};
+
+                if ($this->isEditor()) {
+                    $translator->setCacheResult(false);
+                }
+
                 if ($type == "html") {
 
+                    if ($this->isEditor()) {
+                        /**
+                         * Define translator type
+                         *
+                         * @var HTML $translator
+                         */
+                        $translator->setHelperAttributes(true);
+                    }
                     /**
                      * Define type of HTML translator
                      *
@@ -971,20 +996,16 @@ class Request extends Component implements interfaces\Request
 
                 }
 
-                /*
+                /**
                  * Translate content
+                 *
+                 * @var Translator $translator
                  * */
                 $content = $translator
                     ->translate([$content])[$content][$this->getLanguage()]
                     ?? $content;
 
             }
-        }
-
-        try {
-            $this->_getDbTransaction()->commit();
-        } catch (\yii\db\Exception $exception) {
-            $verbose['error'] = $exception->getMessage();
         }
 
         $this->_verbose['end'] = microtime(true);
@@ -1013,23 +1034,18 @@ class Request extends Component implements interfaces\Request
                 $result[$source][$this->getLanguage()] = $translate;
             }
 
-//            /**
-//             * Save translations
-//             * With Level *1*
-//             * And overwrite old values if exists
-//             * */
-//            $this->context->translation->text->saveModels(
-//                $result,
-//                $this->custom_translation_level,
-//                true,
-//                $verbose
-//            );
+            /**
+             * Save translations
+             * With Level *1*
+             * And overwrite old values if exists
+             * */
+            $this->context->translation->text->saveModels(
+                $result,
+                $this->custom_translation_level,
+                true,
+                $verbose
+            );
 
-            try {
-                $this->_getDbTransaction()->commit();
-            } catch (\yii\db\Exception $exception) {
-                $verbose['error'] = $exception->getMessage();
-            }
 
             echo json_encode($verbose);
 
@@ -1044,8 +1060,6 @@ class Request extends Component implements interfaces\Request
 
     /**
      * Start request translation
-     *
-     * @param array|null $verbose Verbose
      *
      * @return void
      * @throws RequestException
@@ -1063,11 +1077,6 @@ class Request extends Component implements interfaces\Request
         ) {
             return;
         }
-
-        $this->context->log->logger()
-            ->debug('Request component initialized.', [self::class]);
-
-        $this->_setDbTransaction(ActiveRecord::getDb()->beginTransaction());
 
         if (!$this->_prepare()) {
             return;
@@ -1104,26 +1113,13 @@ class Request extends Component implements interfaces\Request
                 && ($this->getLanguage() != $this->getFromLanguage())
             ) {
 
-                $this->context->log->logger()
-                    ->debug('Editor mode enabled.', [self::class]);
-
                 $this->_is_editor = true;
-
-                /**
-                 * Enable helper attributes to use for editor
-                 *
-                 * @see HTML::$_helper_attributes
-                 * */
-                $this->context->translation->html->setHelperAttributes(true);
             }
 
             if ($this->_editorSave()) {
                 die;
             }
         }
-
-        $this->context->log->logger()
-            ->debug('Request is ready to translate.', [self::class]);
 
         $this->_setReady(true);
 
