@@ -171,8 +171,8 @@ class Translation extends DataMapper implements interfaces\Translation
             ->andWhere(
                 ($reverse ? 'translate_hash' : 'source_hash') . ' IN (:hashes)'
             )
-            ->addOrderBy('id', 'DESC')
-            ->addOrderBy('level', 'ASC')
+            ->addOrderBy('level', 'DESC')
+            ->addOrderBy('id', 'ASC')
             ->setParameter('type', static::TYPE)
             ->setParameter('from_language', $from_language)
             ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
