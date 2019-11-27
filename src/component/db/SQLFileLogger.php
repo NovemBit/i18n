@@ -4,11 +4,11 @@
 namespace NovemBit\i18n\component\db;
 
 
-use Doctrine\DBAL\Logging\SQLLogger;
-use InvalidArgumentException;
+use Doctrine\DBAL\Logging\DebugStack;
+
 use Psr\Log\LoggerInterface;
 
-class SQLFileLogger implements SQLLogger
+class SQLFileLogger extends DebugStack
 {
 
     private $_logger;
@@ -18,15 +18,16 @@ class SQLFileLogger implements SQLLogger
         $this->_logger = $logger;
     }
 
-
-    public function startQuery($sql, array $params = null, array $types = null)
+    /**
+     * @param $sql
+     * @param array|null $params
+     * @param array|null $types
+     */
+    public function startQuery($sql, ?array $params = null, ?array $types = null)
     {
-        $log = json_encode(['sql' => $sql, 'params' => $params, 'types' => $types]);
-        $this->getLogger()->debug($log, [static::class]);
-    }
+        parent::startQuery($sql, $params, $types);
 
-    public function stopQuery()
-    {
+        $this->getLogger()->debug(json_encode($this->queries), [self::class]);
     }
 
     /**
