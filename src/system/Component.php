@@ -299,7 +299,7 @@ abstract class Component
 
             $filesystemAdapter = new Local($cache_dir);
             $filesystem = new Filesystem($filesystemAdapter);
-            $this->setCachePool(new FilesystemCachePool($filesystem, ''));
+            $this->setCachePool(new FilesystemCachePool($filesystem, 'cache'));
         }
 
         return $this->cache_pool;
