@@ -153,16 +153,16 @@ class JSON extends Type
                 $this->_objects[$json],
                 function ($key, &$val, $route) use (&$to_translate) {
 
-                    $val = html_entity_decode($val);
+//                    $val = html_entity_decode($val);
 
                     $type = $this->_getFieldType($val, $route);
 
                     if (is_string($type)) {
                         if ($type !== null) {
 
-                            if (in_array($type, ['xml', 'html', 'html_fragment'])) {
-                                $val = html_entity_decode($val);
-                            }
+//                            if (in_array($type, ['xml', 'html', 'html_fragment'])) {
+//                                $val = html_entity_decode($val);
+//                            }
 
                             $to_translate[$type][] = $val;
                         }
