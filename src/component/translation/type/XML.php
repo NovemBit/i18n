@@ -175,7 +175,7 @@ class XML extends Type
     }
 
     public function replaceTranslatedFields(
-        DOMNode &$node,
+        DOMNode $node,
         array $params,
         array $data
     ) {
