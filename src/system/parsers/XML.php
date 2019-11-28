@@ -181,7 +181,7 @@ class XML
              * @var DOMElement $node
              */
             foreach ($nodes as $node) {
-                call_user_func_array($callback,[
+                call_user_func_array($callback, [
                     &$node,
                     $params,
                     &$data
@@ -289,9 +289,11 @@ class XML
         }
 
         if ($this->_getType() === interfaces\XML::HTML
-            || $this->_getType() === interfaces\XML::HTML_FRAGMENT
         ) {
             $xml = $this->_getHtml5()->saveHTML($this->getDom());
+        } elseif ($this->_getType() === interfaces\XML::HTML_FRAGMENT) {
+            $xml = $this->_getHtml5()->saveHTML($this->getDom());
+            $xml = preg_replace('/(?>^<!DOCTYPE.+?>(?>\\n)?)|(?>\\n$)/i', '', $xml);
         } else {
             $xml = $this->getDom()->saveXML();
         }
