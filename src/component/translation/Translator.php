@@ -14,10 +14,11 @@
 namespace NovemBit\i18n\component\translation;
 
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Translation abstract method
@@ -39,6 +40,21 @@ abstract class Translator extends Component implements interfaces\Translator
      * @var string
      * */
     public $name;
+
+
+    /**
+     * Cache last result of translation
+     *
+     * @var bool
+     * */
+    public $cache_result = null;
+
+    /**
+     * Cache TTL
+     *
+     * @var int
+     * */
+    public $cache_result_ttl = 50000;
 
     /**
      * If true then all translations saving on DB
@@ -95,7 +111,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @return void
      * @throws TranslationException
      */
-    public function init(): void
+    public function mainInit(): void
     {
         if ($this->save_translations == true && !isset($this->model_class)) {
             throw new TranslationException(
@@ -143,32 +159,42 @@ abstract class Translator extends Component implements interfaces\Translator
      * Fetching saved translates from DB
      * Using \NovemBit\i18n\models\Translation model
      *
-     * @param array $translations Referenced variable of translations
-     * @param array $texts        Referenced variable of initial texts
-     * @param array $verbose      Information about progress
+     * @param string $from_language
+     * @param array  $to_languages
+     * @param array  $translations  Referenced variable of translations
+     * @param array  $texts         Referenced variable of initial texts
+     * @param array  $verbose       Information about progress
      *
      * @return void
      */
     private function _fetchSavedTranslations(
+        string $from_language,
+        array $to_languages,
         array &$translations,
         array &$texts,
         ?array &$verbose
     ): void {
 
-        $languages = $this->context->getLanguages();
 
         /**
          * Find translations from DB with ActiveData
          * */
-        $models = $this->getModels($texts, $languages);
+        $models = $this->getModels(
+            $texts,
+            $from_language,
+            $to_languages
+        );
 
         foreach ($models as $model) {
 
             /**
              * Adding saved translations on array
              * */
-            $translations[$model['source']][$model['to_language']]
-                = $model['translate'];
+            if (!isset($translations[$model['source']][$model['to_language']])) {
+                $translations[$model['source']][$model['to_language']]
+                    = $model['translate'];
+            }
+
             /**
              * Take level/created_at/updated_at
              * from model only if with_verbose variable is true
@@ -182,16 +208,12 @@ abstract class Translator extends Component implements interfaces\Translator
                     = $model['translate'];
                 $verbose[$model['source']][$model['to_language']]['level']
                     = $model['level'];
-                $verbose[$model['source']][$model['to_language']]['created_at']
-                    = $model['created_at'];
-                $verbose[$model['source']][$model['to_language']]['updated_at']
-                    = $model['updated_at'];
             }
 
             /**
              * Unset texts that already saved in cache
              * */
-            if (count($translations[$model['source']]) == count($languages)) {
+            if (count($translations[$model['source']]) == count($to_languages)) {
                 $keys_to_unset = array_keys($texts, $model['source']);
                 foreach ($keys_to_unset as $key) {
                     unset($texts[$key]);
@@ -206,18 +228,43 @@ abstract class Translator extends Component implements interfaces\Translator
      * To make translations, its using builtin caching system to
      * Save already translated texts on DB with Active data
      *
-     * @param array $texts      Texts array to translate
-     * @param array $verbose    Information about translation progress
-     * @param bool  $only_cache Dont make new translate and return only cached
+     * @param array $texts        Texts array to translate
+     * @param array $verbose      Information about translation progress
+     * @param bool  $only_saved   Dont make new translate and return only saved
+     * @param bool  $ignore_cache
      *
      * @return array
-     * @throws ActiveRecordException
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     public function translate(
         array $texts,
         ?array &$verbose = null,
-        bool $only_cache = false
+        bool $only_saved = false,
+        bool $ignore_cache = false
     ): array {
+
+        $from_language = $this->context->getFromLanguage();
+        $to_languages = $this->context->getLanguages();
+
+        if ($this->isCacheResult() === true && !$ignore_cache) {
+
+            $cache_key = sprintf(
+                "%s_%s_%s_%s",
+                $this->name,
+                $from_language,
+                implode('_', $to_languages),
+                md5(json_encode($texts))
+            );
+
+            $cache = $this->getCachePool()
+                ->get($cache_key, null);
+
+            if ($cache !== null) {
+                return $cache;
+            }
+
+        }
 
         $texts = array_filter($texts);
 
@@ -243,7 +290,13 @@ abstract class Translator extends Component implements interfaces\Translator
          * */
         if ($this->save_translations) {
 
-            $this->_fetchSavedTranslations($translations, $texts, $verbose);
+            $this->_fetchSavedTranslations(
+                $from_language,
+                $to_languages,
+                $translations,
+                $texts,
+                $verbose
+            );
 
         }
 
@@ -251,9 +304,14 @@ abstract class Translator extends Component implements interfaces\Translator
          * If $texts array not empty then
          * Make new translates
          * */
-        if (!$only_cache && !empty($texts)) {
+        if (!$only_saved && !empty($texts)) {
 
-            $new_translations = $this->doTranslate($texts);
+            $new_translations = $this->doTranslate(
+                $texts,
+                $from_language,
+                $to_languages,
+                $ignore_cache
+            );
 
             /**
              * If save_translations is true
@@ -275,11 +333,18 @@ abstract class Translator extends Component implements interfaces\Translator
             );
         }
 
-
         /*
          * Event after translate
          * */
         $this->afterTranslate($translations, $verbose);
+
+        if (isset($cache_key)) {
+            $this->getCachePool()->set(
+                $cache_key,
+                $translations,
+                $this->cache_result_ttl
+            );
+        }
 
         return $translations;
     }
@@ -295,8 +360,10 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public function reTranslate(array $texts): array
     {
+        $from_language = $this->context->getFromLanguage();
+        $to_languages = $this->context->getLanguages();
 
-        if (count($this->context->getLanguages()) != 1) {
+        if (count($to_languages) != 1) {
             throw new TranslationException(
                 "Language not set or set multiple languages."
             );
@@ -306,7 +373,7 @@ abstract class Translator extends Component implements interfaces\Translator
             return [];
         }
 
-        $language = $this->context->getLanguages()[0];
+        $language = $to_languages[0];
 
         $result = [];
 
@@ -315,7 +382,7 @@ abstract class Translator extends Component implements interfaces\Translator
         foreach ($texts as $text) {
 
 
-            $model = $this->getModels([$text], [$language], true);
+            $model = $this->getModels([$text], $from_language, [$language], true);
 
             if (!isset($model[0]['source'])) {
                 continue;
@@ -600,12 +667,19 @@ abstract class Translator extends Component implements interfaces\Translator
      * Abstract method that must be extended from
      * Child methods to translate texts
      *
-     * @param array $texts Texts array to translate
+     * @param array  $texts         Texts array to translate
+     * @param string $from_language
+     * @param array  $to_languages
+     * @param bool   $ignore_cache
      *
      * @return array
      */
-    protected function doTranslate(array $texts): array
-    {
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        bool $ignore_cache
+    ): array {
         return [];
     }
 
@@ -618,7 +692,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $result       Result about saving
      *
      * @return void
-     * @throws ActiveRecordException
+     * @throws ConnectionException
      */
     public function saveModels(
         $translations,
@@ -650,21 +724,23 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Main method to get translations from DB
      *
-     * @param array $texts        Texts array to translate
-     * @param array $to_languages To languages list
-     * @param bool  $reverse      Use translate column as source (ReTranslate)
+     * @param array  $texts         Texts array to translate
+     * @param string $from_language
+     * @param array  $to_languages  To languages list
+     * @param bool   $reverse       Use translate column as source (ReTranslate)
      *
      * @return array
      */
     public function getModels(
-        $texts,
-        $to_languages,
-        $reverse = false
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        bool $reverse = false
     ): array {
 
         return $this->model_class::get(
             $texts,
-            $this->context->getFromLanguage(),
+            $from_language,
             $to_languages,
             $reverse
         );
@@ -673,6 +749,22 @@ abstract class Translator extends Component implements interfaces\Translator
     public function getTranslation()
     {
         return $this->context;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isCacheResult(): ?bool
+    {
+        return $this->cache_result;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setCacheResult(?bool $status): void
+    {
+        $this->cache_result = $status;
     }
 
 }

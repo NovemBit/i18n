@@ -22,15 +22,7 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-interface XML extends Type
+interface HTMLFragment extends HTML
 {
-
-    public function getHelperAttributes() : bool;
-
-    public function setHelperAttributes(bool $status) : void;
-
-    public function addBeforeParseCallback(callable $callback):void;
-
-    public function addAfterParseCallback(callable $callback):void;
 
 }

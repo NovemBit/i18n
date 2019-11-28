@@ -75,12 +75,19 @@ class Rest extends Method
      * Doing translate method
      *
      * @param array $texts Array of texts to translate
+     * @param string $from_language
+     * @param array $to_languages
      *
      * @return array
      * @throws TranslationException
+     * @throws \Exception
      */
-    protected function doTranslate(array $texts): array
-    {
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        bool $ignore_cache
+    ): array {
 
         $translation = [];
         $url = URL::buildUrl(
@@ -95,7 +102,7 @@ class Rest extends Method
         $ch = curl_init($url);
 
         $query = [
-            'languages' => $this->context->getLanguages(),
+            'languages' => $to_languages,
             'languages_config' => $this->getLanguagesConfig(),
             'texts' => $texts,
         ];
@@ -110,24 +117,21 @@ class Rest extends Method
 
         //Tell cURL that it should only spend 10 seconds
         //trying to connect to the URL in question.
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 
         //A given cURL operation should only take
         //30 seconds max.
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $result = curl_exec($ch);
 
         if ($result === false) {
 
             /**
              * Error reporting for dynamic hub
-             *
-             * @todo log curl error
              * */
-
-            /*throw new TranslationException(
-                "Dynamic hub: Cannot connect to dynamic hub."
-            );*/
+            $this->getLogger()->error(
+                'Rest endpoint: not responding.'
+            );
 
             return [];
         }
@@ -140,11 +144,10 @@ class Rest extends Method
             $translation = $result['translation'];
         } else {
 
-            /**
-             * Throw exception
-             *
-             * @todo Create error reporting
-             * */
+            $this->getLogger()->warning(
+                'Rest endpoint: negative response.'
+            );
+
         }
 
         return $translation;
@@ -161,6 +164,7 @@ class Rest extends Method
         $config = $this->context->context->config['languages'] ?? null;
 
         if ($config == null) {
+
             throw new TranslationException("Languages config not found.");
         }
 

@@ -36,15 +36,19 @@ class DataType
      *
      * @return bool
      */
-    public static function isHTML($string)
+    public static function isHTMLFragment($string)
     {
         return $string != strip_tags($string);
     }
 
+    public static function isHTML($string)
+    {
+        return preg_match('/<html.*?>.*<\/html>/ims',$string) ? true : false;
+    }
+
     public static function isXML($string): bool
     {
-        $doc = @simplexml_load_string($string);
-        return $doc ? true : false;
+        return preg_match('/<\?xml.*\?>/ims',$string) ? true : false;
     }
 
     /**
@@ -82,15 +86,16 @@ class DataType
      */
     public static function getType(string $string): ?string
     {
-        // endregion LOG
         if (self::isURL($string)) {
             return 'url';
         } elseif (self::isJSON($string)) {
             return 'json';
-        } elseif (self::isHTML($string)) {
-            return 'html';
         } elseif (self::isXML($string)) {
             return 'xml';
+        } elseif (self::isHTML($string)) {
+            return 'html';
+        } elseif (self::isHTMLFragment($string)) {
+            return 'html_fragment';
         } else {
             return null;
         }

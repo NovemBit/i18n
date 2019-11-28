@@ -13,8 +13,13 @@
 
 namespace NovemBit\i18n\component\translation\models;
 
-use NovemBit\i18n\models\ActiveRecord;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ConnectionException;
+use Doctrine\DBAL\Exception\ConstraintViolationException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use NovemBit\i18n\models\DataMapper;
 use NovemBit\i18n\models\exceptions\ActiveRecordException;
+use NovemBit\i18n\Module;
 use yii\db\Exception;
 
 /**
@@ -34,9 +39,11 @@ use yii\db\Exception;
  * @property string $translate
  * @property int $level
  * */
-class Translation extends ActiveRecord implements interfaces\Translation
+class Translation extends DataMapper implements interfaces\Translation
 {
     const TYPE = 0;
+
+    const TABLE = "i18n_translations";
 
     /**
      * Table name in DB
@@ -119,10 +126,10 @@ class Translation extends ActiveRecord implements interfaces\Translation
     /**
      * Main method to get translations from DB
      *
-     * @param array  $texts         Texts array to translate
+     * @param array $texts Texts array to translate
      * @param string $from_language From language
-     * @param array  $to_languages  To languages list
-     * @param bool   $reverse       Use translate column as source (ReTranslate)
+     * @param array $to_languages To languages list
+     * @param bool $reverse Use translate column as source (ReTranslate)
      *
      * @return array
      */
@@ -138,8 +145,9 @@ class Translation extends ActiveRecord implements interfaces\Translation
         $to_languages = array_values($to_languages);
 
         if (($key = array_search($from_language, $to_languages)) !== false) {
+
             unset($to_languages[$key]);
-            foreach ($texts as $text) {
+            foreach ($texts as &$text) {
                 $result[] = [
                     'source' => $text,
                     'to_language' => $from_language,
@@ -148,32 +156,48 @@ class Translation extends ActiveRecord implements interfaces\Translation
             }
         }
 
-        $query = static::find();
-        $query
-            ->select(['id', 'source', 'to_language', 'translate', 'level'])
-            ->where(['type' => static::TYPE])
-            ->andWhere(['from_language' => $from_language])
-            ->andWhere(['in', 'to_language', $to_languages])
-            ->andWhere(['in', ($reverse ? 'translate' : 'source'), $texts])
-            ->orderBy(['id' => SORT_DESC, 'level' => SORT_ASC]);
+        $hashes = [];
 
-        $result = array_merge($result, $query->asArray()->all());
+        foreach ($texts as $text) {
+            $hashes[] = self::createHash($text);
+        }
+
+        $queryBuilder = self::getDB()->createQueryBuilder();
+        $queryBuilder->select('id', 'source', 'to_language', 'translate', 'level')
+            ->from(static::TABLE)
+            ->where('type = :type')
+            ->andWhere('from_language = :from_language')
+            ->andWhere('to_language IN (:to_language)')
+            ->andWhere(
+                ($reverse ? 'translate_hash' : 'source_hash') . ' IN (:hashes)'
+            )
+            ->addOrderBy('level', 'DESC')
+            ->addOrderBy('id', 'ASC')
+            ->setParameter('type', static::TYPE)
+            ->setParameter('from_language', $from_language)
+            ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
+            ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
+
+        $db_result = $queryBuilder->execute()->fetchAll();
+
+        $result = array_merge($result, $db_result);
 
 
         return $result;
     }
 
+    private static function createHash($str)
+    {
+        return md5($str);
+    }
+
     /**
-     * Main method to save translations in DB
-     *
-     * @param string $from_language From language
-     * @param array  $translations  Translations of texts
-     * @param int    $level         Level of translation
-     * @param bool   $overwrite     If translation exists, then overwrite value
-     * @param array  $result        Result about saving
-     *
-     * @return void
-     * @throws ActiveRecordException
+     * @param string $from_language
+     * @param array $translations
+     * @param int $level
+     * @param bool $overwrite
+     * @param array $result
+     * @throws ConnectionException
      */
     public static function saveTranslations(
         $from_language,
@@ -183,52 +207,91 @@ class Translation extends ActiveRecord implements interfaces\Translation
         &$result = []
     ) {
 
-        $transaction = static::getDb()->beginTransaction();
+        self::getDB()->beginTransaction();
+
 
         foreach ($translations as $source => $haystack) {
-
+            $source_hash = self::createHash($source);
             foreach ($haystack as $to_language => $translate) {
 
                 if ($from_language == $to_language) {
                     continue;
                 }
 
-                $model = null;
+                $translate_hash =  self::createHash($translate);
 
-                if ($overwrite === true) {
+                $query = self::getDB()->createQueryBuilder();
 
-                    $model = static::find()
-                        ->where(['from_language' => $from_language])
-                        ->andWhere(['type' => static::TYPE])
-                        ->andWhere(['to_language' => $to_language])
-                        ->andWhere(['source' => $source])
-                        ->andWhere(['level' => $level])
-                        ->one();
-                }
+                try {
+                    $query->insert(static::TABLE)->values(
+                        [
+                            'from_language' => ':from_language',
+                            'to_language' => ':to_language',
+                            'source' => ':source',
+                            'level' => ':level',
+                            'type' => ':type',
+                            'translate' => ':translate',
+                            'source_hash' => ':source_hash',
+                            'translate_hash' => ':translate_hash',
+                        ]
+                    )
+                        ->setParameter('from_language', $from_language)
+                        ->setParameter('to_language', $to_language)
+                        ->setParameter('source', $source)
+                        ->setParameter('level', $level)
+                        ->setParameter('type', static::TYPE)
+                        ->setParameter('translate', $translate)
+                        ->setParameter('source_hash', $source_hash)
+                        ->setParameter('translate_hash', $translate_hash)
+                        ->execute();
+                } catch (UniqueConstraintViolationException $exception) {
 
-                if ($model == null) {
-                    $model = new static();
-                    $model->from_language = $from_language;
-                    $model->to_language = $to_language;
-                    $model->source = $source;
-                    $model->level = $level;
-                    $model->type = static::TYPE;
-                }
+                    if ($overwrite === true) {
+                        $query = self::getDB()->createQueryBuilder();
+                        try {
+                            $query->update(static::TABLE)
+                                ->set('translate', ':translate')
+                                ->set('translate_hash', ':translate_hash')
 
-                $model->translate = $translate;
+                                ->setParameter('translate', $translate)
+                                ->setParameter('translate_hash', $translate_hash)
 
-                if ($model->validate() && $model->save()) {
-                    $result['success'][] = $model->id;
-                } else {
-                    $result['errors'][] = $model->errors;
+                                ->where('type = :type')
+                                ->andWhere('from_language = :from_language')
+                                ->andWhere('to_language IN (:to_language)')
+                                ->andWhere('level = :level')
+                                ->andWhere('source_hash = :source_hash')
+                                ->addOrderBy('id', 'DESC')
+                                ->addOrderBy('level', 'ASC')
+
+                                ->setParameter('type', static::TYPE)
+                                ->setParameter('from_language', $from_language)
+                                ->setParameter('to_language', $to_language)
+                                ->setParameter('level', $level)
+                                ->setParameter('source_hash', $source_hash)
+                                ->setFirstResult(1)
+                                ->setMaxResults(1)
+                                ->execute();
+                        } catch (ConstraintViolationException $exception){
+
+                            $result['errors'][] = $exception->getMessage();
+                        }
+                    } else {
+                        $result['errors'][] = $exception->getMessage();
+                    }
+
                 }
             }
         }
 
-        try {
-            $transaction->commit();
-        } catch (Exception $exception) {
-            throw new ActiveRecordException($exception->getMessage());
-        }
+        self::getDB()->commit();
+
+        //        try {
+        //
+        //            $query->fl();
+        //
+        //        } catch (\Exception $exception){
+        //            Module::instance()->log->logger()->warning($exception->getMessage());
+        //        }
     }
 }

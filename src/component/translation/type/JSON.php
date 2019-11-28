@@ -14,6 +14,7 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Arrays;
 
@@ -136,24 +137,33 @@ class JSON extends Type
      *
      * @return array
      */
-    protected function doTranslate(array $jsons): array
-    {
-        $languages = $this->context->getLanguages();
+    protected function doTranslate(
+        array $jsons,
+        string $from_language,
+        array $to_languages,
+        bool $ignore_cache
+    ): array {
 
         $to_translate = [];
         $translations = [];
         $result = [];
 
         foreach ($jsons as $json) {
-            $object = $this->_objects[$json];
             Arrays::arrayWalkWithRoute(
-                $object,
+                $this->_objects[$json],
                 function ($key, &$val, $route) use (&$to_translate) {
+
+//                    $val = html_entity_decode($val);
 
                     $type = $this->_getFieldType($val, $route);
 
                     if (is_string($type)) {
                         if ($type !== null) {
+
+//                            if (in_array($type, ['xml', 'html', 'html_fragment'])) {
+//                                $val = html_entity_decode($val);
+//                            }
+
                             $to_translate[$type][] = $val;
                         }
                     }
@@ -163,12 +173,20 @@ class JSON extends Type
         }
 
         foreach ($to_translate as $type => $values) {
-            $translations[$type] = $this->context->{$type}->translate($values);
+
+            /** @var Translator $translator */
+            $translator = $this->context->{$type};
+
+            $translations[$type] = $translator->translate(
+                $values,
+                $verbose,
+                false,
+                $ignore_cache
+            );
         }
 
-        foreach ($jsons as &$json) {
-            foreach ($languages as $language) {
-                $object = $this->_objects[$json];
+        foreach ($this->_objects as $json => &$object) {
+            foreach ($to_languages as $language) {
 
                 Arrays::arrayWalkWithRoute(
                     $object,

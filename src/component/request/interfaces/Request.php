@@ -14,8 +14,6 @@ interface Request
 
     public function getLanguage(): string;
 
-    public function setFromLanguage(string $from_language): void;
-
     public function getTranslation(): Translation;
 
     public function getSourceUrl(): ?string;
@@ -24,7 +22,11 @@ interface Request
 
     public function start(): void;
 
+    public function getVerbose(): array;
+
     public function isReady(): bool;
 
     public function getUrlTranslations(): ?array;
+
+    public function getEditorUrlTranslations(): array;
 }

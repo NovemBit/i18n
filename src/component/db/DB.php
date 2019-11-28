@@ -11,12 +11,14 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\system\component;
+namespace NovemBit\i18n\component\db;
 
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\DriverManager;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
-use yii\db\Connection;
-
+use Doctrine\DBAL\Connection;
 
 /**
  * DB component
@@ -37,7 +39,7 @@ class DB extends Component
      *
      * @var array
      * */
-    public $connection;
+    public $connection_params;
 
     /**
      * Yii2 DB connection
@@ -52,12 +54,35 @@ class DB extends Component
      * Setting default connection of DB
      *
      * @return void
+     * @throws DBALException
+     * @throws \Exception
      */
     public function commonInit(): void
     {
-        $this->setConnection(
-            new Connection($this->connection)
+
+        $config = new Configuration();
+
+        $connectionParams = [
+            'dbname' => 'swanson',
+            'user' => 'top',
+            'password' => 'top',
+            'host' => 'localhost',
+            'driver' => 'pdo_mysql',
+
+        ];
+
+        $config->setSQLLogger(
+            new SQLFileLogger($this->getLogger())
         );
+
+        $this->_setConnection(
+            DriverManager::getConnection(
+                $this->getConnectionParams(),
+                $config
+            )
+        );
+
+
     }
 
     /**
@@ -77,9 +102,16 @@ class DB extends Component
      *
      * @return void
      */
-    public function setConnection(Connection $_connection): void
+    private function _setConnection(Connection $_connection): void
     {
         $this->_connection = $_connection;
     }
 
+    /**
+     * @return array
+     */
+    public function getConnectionParams(): array
+    {
+        return $this->connection_params;
+    }
 }

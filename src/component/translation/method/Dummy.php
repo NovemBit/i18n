@@ -43,16 +43,18 @@ class Dummy extends Method
      * @return array
      * @throws TranslationException
      */
-    protected function doTranslate(array $texts) : array
-    {
-
-        $languages = $this->context->getLanguages();
+    protected function doTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        bool $ignore_cache
+    ): array {
 
         $result = [];
 
         foreach ($texts as $key => $text) {
 
-            foreach ($languages as $language) {
+            foreach ($to_languages as $language) {
                 $result[(string)$text][$language] = $text . '-' . $language;
             }
 
