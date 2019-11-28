@@ -92,7 +92,6 @@ class Module extends system\Component
      */
     public function mainInit(): void
     {
-        $this->getLogger()->warning('Hello');
     }
 
     /**
