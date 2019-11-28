@@ -182,9 +182,9 @@ class XML
              */
             foreach ($nodes as $node) {
                 call_user_func_array($callback,[
-                    $node,
+                    &$node,
                     $params,
-                    $data
+                    &$data
                 ]);
             }
         }
