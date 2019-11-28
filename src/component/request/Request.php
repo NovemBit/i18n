@@ -161,6 +161,11 @@ class Request extends Component implements interfaces\Request
     private $_is_editor = false;
 
     /**
+     * @var string
+     * */
+    private $_orig_request_uri;
+
+    /**
      * Allow to use editor
      *
      * @var bool
@@ -275,6 +280,22 @@ class Request extends Component implements interfaces\Request
     public function getVerbose(): array
     {
         return $this->_verbose;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrigRequestUri(): string
+    {
+        return $this->_orig_request_uri;
+    }
+
+    /**
+     * @param string $orig_request_uri
+     */
+    private function _setOrigRequestUri(string $orig_request_uri): void
+    {
+        $this->_orig_request_uri = $orig_request_uri;
     }
 
     /**
@@ -667,6 +688,7 @@ class Request extends Component implements interfaces\Request
      * @return boolean
      *
      * @throws RequestException
+     * @throws ConnectionException
      */
     private function _prepare(): bool
     {
@@ -771,6 +793,13 @@ class Request extends Component implements interfaces\Request
 
         if ($request_uri !== null) {
             Environment::server('ORIG_REQUEST_URI', $request_uri);
+
+            $this->_setOrigRequestUri(
+                URL::removeQueryVars(
+                    $request_uri,
+                    $this->context->prefix . '-' . $this->editor_query_key
+                )
+            );
         }
 
         $this->_setDefaultLanguage(
@@ -959,10 +988,6 @@ class Request extends Component implements interfaces\Request
                     ->setLanguages([$this->getLanguage()])
                     ->{$type};
 
-                if ($this->isEditor()) {
-                    $translator->setCacheResult(false);
-                }
-
                 if ($type == "html") {
 
                     if ($this->isEditor()) {
@@ -1002,7 +1027,12 @@ class Request extends Component implements interfaces\Request
                  * @var Translator $translator
                  * */
                 $content = $translator
-                    ->translate([$content])[$content][$this->getLanguage()]
+                    ->translate(
+                        [$content],
+                        $verbose,
+                        false,
+                        $this->isEditor()
+                    )[$content][$this->getLanguage()]
                     ?? $content;
 
             }
@@ -1190,10 +1220,7 @@ class Request extends Component implements interfaces\Request
 
                     'prefix' => $this->context->prefix,
 
-                    'orig_request_uri' => URL::removeQueryVars(
-                        Environment::server('ORIG_REQUEST_URI'),
-                        $this->context->prefix . '-' . $this->editor_query_key
-                    ),
+                    'orig_request_uri' => $this->getOrigRequestUri(),
 
                     'destination' => $this->getDestination(),
                     'uri' => $this->getSourceUrl(),

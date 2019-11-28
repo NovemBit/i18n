@@ -24,6 +24,8 @@ interface Request
 
     public function getVerbose(): array;
 
+    public function getOrigRequestUri(): string;
+
     public function isReady(): bool;
 
     public function getUrlTranslations(): ?array;
