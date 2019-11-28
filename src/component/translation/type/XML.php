@@ -136,7 +136,7 @@ class XML extends Type
     }
 
     public function buildToTranslateFields(
-        DOMNode &$node,
+        DOMNode $node,
         array $params,
         array &$data
     ) {
