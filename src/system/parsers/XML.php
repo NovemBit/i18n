@@ -181,12 +181,11 @@ class XML
              * @var DOMElement $node
              */
             foreach ($nodes as $node) {
-                call_user_func(
-                    $callback,
+                call_user_func_array($callback,[
                     $node,
                     $params,
                     $data
-                );
+                ]);
             }
         }
     }
