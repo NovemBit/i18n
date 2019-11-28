@@ -50,6 +50,13 @@ abstract class Translator extends Component implements interfaces\Translator
     public $cache_result = null;
 
     /**
+     * Cache TTL
+     *
+     * @var int
+     * */
+    public $cache_result_ttl = 50000;
+
+    /**
      * If true then all translations saving on DB
      *
      * @var bool
@@ -237,8 +244,6 @@ abstract class Translator extends Component implements interfaces\Translator
         bool $ignore_cache = false
     ): array {
 
-        $this->context->getLogger()->warning($this->name, $texts);
-
         $from_language = $this->context->getFromLanguage();
         $to_languages = $this->context->getLanguages();
 
@@ -334,7 +339,11 @@ abstract class Translator extends Component implements interfaces\Translator
         $this->afterTranslate($translations, $verbose);
 
         if (isset($cache_key)) {
-            $this->getCachePool()->set($cache_key, $translations);
+            $this->getCachePool()->set(
+                $cache_key,
+                $translations,
+                $this->cache_result_ttl
+            );
         }
 
         return $translations;
