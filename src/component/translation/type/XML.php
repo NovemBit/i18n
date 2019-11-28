@@ -263,8 +263,7 @@ class XML extends Type
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,
                         $_verbose['prefix'] ?? null,
-                        $_verbose['suffix'] ?? null,
-                        $translate
+                        $_verbose['suffix'] ?? null
                     ];
                     $parent->setAttribute(
                         $this->context->context->prefix . '-text',
@@ -297,8 +296,7 @@ class XML extends Type
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,
                         $_verbose['prefix'] ?? null,
-                        $_verbose['suffix'] ?? null,
-                        $translate
+                        $_verbose['suffix'] ?? null
                     ];
                     $parent->setAttribute(
                         $this->context->context->prefix . '-attr',
