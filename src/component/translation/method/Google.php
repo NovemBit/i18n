@@ -92,11 +92,12 @@ class Google extends Method
     /**
      * Translate texts to only one language
      *
-     * @param array  $texts       Array of translatable texts
+     * @param array $texts Array of translatable texts
      * @param string $to_language Language code
-     * @param array  $result      Referenced variable of results
+     * @param array $result Referenced variable of results
      *
      * @return void
+     * @throws \Exception
      */
     private function _translateOneLanguage(array $texts,
         string $from_language,
@@ -129,6 +130,8 @@ class Google extends Method
                 );
             }
         } catch (GoogleException $e) {
+
+            $this->getLogger()->error($e->getMessage());
             /*
              * TODO: Make logger to log errors of GT
              * */
