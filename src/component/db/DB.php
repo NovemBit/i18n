@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\db;
 
+use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
@@ -62,14 +63,14 @@ class DB extends Component
 
         $config = new Configuration();
 
-        $connectionParams = [
+        /*$connectionParams = [
             'dbname' => 'swanson',
             'user' => 'top',
             'password' => 'top',
             'host' => 'localhost',
             'driver' => 'pdo_mysql',
 
-        ];
+        ];*/
 
         $config->setSQLLogger(
             new SQLFileLogger($this->getLogger())
@@ -82,6 +83,9 @@ class DB extends Component
             )
         );
 
+        $cache = new FilesystemCache($this->getRuntimeDir() . '/dbal_cache');
+
+        $this->getConnection()->getConfiguration()->setResultCacheImpl($cache);
 
     }
 

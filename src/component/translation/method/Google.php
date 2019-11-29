@@ -61,9 +61,13 @@ class Google extends Method
     /**
      * Doing translate method
      *
-     * @param array $texts Array of texts to translate
+     * @param array  $texts         Array of texts to translate
+     * @param string $from_language
+     * @param array  $to_languages
+     * @param bool   $ignore_cache
      *
      * @return array
+     * @throws \Exception
      */
     protected function doTranslate(
         array $texts,
@@ -137,16 +141,13 @@ class Google extends Method
 
             $this->getLogger()->warning(
                 sprintf(
-                    "%s: %s | Lang: %s| Texts: [%s]",
+                    "%s: %s | Lang: %s | Texts: [%s]",
                     $message['error']['code'] ?? '000',
-                    $message['error']['message'] ?? 'Google Translate: Undefined error.',
+                    $message['error']['message'] ?? 'Google Translate: Undefined.',
                     $to_language,
                     implode(' | ', $texts)
                 )
             );
-            /*
-             * TODO: Make logger to log errors of GT
-             * */
         }
 
         foreach ($translations as $key => $item) {

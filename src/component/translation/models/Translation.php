@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\component\translation\models;
 
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
@@ -46,84 +47,6 @@ class Translation extends DataMapper implements interfaces\Translation
     const TABLE = "i18n_translations";
 
     /**
-     * Table name in DB
-     *
-     * @return string
-     */
-    public static function tableName()
-    {
-        return "{{%translations}}";
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            /**
-             * Make unique bundle for multiple columns
-             * */
-            [
-                ['from_language', 'to_language', 'type', 'source', 'level'],
-                'unique',
-                'targetAttribute' => [
-                    'from_language',
-                    'to_language',
-                    'type',
-                    'source',
-                    'level'
-                ]
-            ],
-            [['from_language', 'to_language'], 'string', 'max' => 2],
-            [['type', 'level'], 'integer', 'min' => 0, 'max' => 99],
-        ];
-    }
-
-    /**
-     * Before save set type of node
-     *
-     * @param bool $insert if insert
-     *
-     * @return bool
-     */
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-            $this->type = static::TYPE;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Yii2 component behaviours
-     * Using timestamp behaviour
-     * To set created and updated at columns values.
-     *
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Attribute values
-     *
-     * @return array
-     */
-    public function attributeLabels()
-    {
-        return [];
-    }
-
-    /**
      * Main method to get translations from DB
      *
      * @param array $texts Texts array to translate
@@ -132,6 +55,7 @@ class Translation extends DataMapper implements interfaces\Translation
      * @param bool $reverse Use translate column as source (ReTranslate)
      *
      * @return array
+     * @throws \Doctrine\DBAL\Cache\CacheException
      */
     public static function get(
         $texts,
@@ -163,6 +87,7 @@ class Translation extends DataMapper implements interfaces\Translation
         }
 
         $queryBuilder = self::getDB()->createQueryBuilder();
+
         $queryBuilder->select('id', 'source', 'to_language', 'translate', 'level')
             ->from(static::TABLE)
             ->where('type = :type')
@@ -178,7 +103,19 @@ class Translation extends DataMapper implements interfaces\Translation
             ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
             ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
 
-        $db_result = $queryBuilder->execute()->fetchAll();
+//        $db_result = $queryBuilder->execute()->fetchAll();
+
+        $stmt = self::getDB()->executeCacheQuery(
+            $queryBuilder->getSQL(),
+            $queryBuilder->getParameters(),
+            $queryBuilder->getParameterTypes(),
+            new QueryCacheProfile(10000, self::TYPE . '_type')
+        );
+
+        $db_result = $stmt->fetchAll();
+
+        $stmt->closeCursor(); // at this point the result is cached
+
 
         $result = array_merge($result, $db_result);
 
@@ -218,7 +155,7 @@ class Translation extends DataMapper implements interfaces\Translation
                     continue;
                 }
 
-                $translate_hash =  self::createHash($translate);
+                $translate_hash = self::createHash($translate);
 
                 $query = self::getDB()->createQueryBuilder();
 
@@ -252,10 +189,8 @@ class Translation extends DataMapper implements interfaces\Translation
                             $query->update(static::TABLE)
                                 ->set('translate', ':translate')
                                 ->set('translate_hash', ':translate_hash')
-
                                 ->setParameter('translate', $translate)
                                 ->setParameter('translate_hash', $translate_hash)
-
                                 ->where('type = :type')
                                 ->andWhere('from_language = :from_language')
                                 ->andWhere('to_language IN (:to_language)')
@@ -263,7 +198,6 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->andWhere('source_hash = :source_hash')
                                 ->addOrderBy('id', 'DESC')
                                 ->addOrderBy('level', 'ASC')
-
                                 ->setParameter('type', static::TYPE)
                                 ->setParameter('from_language', $from_language)
                                 ->setParameter('to_language', $to_language)
@@ -272,7 +206,7 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->setFirstResult(1)
                                 ->setMaxResults(1)
                                 ->execute();
-                        } catch (ConstraintViolationException $exception){
+                        } catch (ConstraintViolationException $exception) {
 
                             $result['errors'][] = $exception->getMessage();
                         }
