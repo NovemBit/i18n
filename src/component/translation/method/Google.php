@@ -135,7 +135,11 @@ class Google extends Method
             $message = json_encode($e->getMessage()) ?? [];
 
             $this->getLogger()->error(
-                $message['message'] ?? 'Google Translate: Undefined error.'
+                sprintf(
+                    "%s: %s",
+                    $message['code'] ?? '000',
+                    $message['message'] ?? 'Google Translate: Undefined error.'
+                )
             );
             /*
              * TODO: Make logger to log errors of GT
