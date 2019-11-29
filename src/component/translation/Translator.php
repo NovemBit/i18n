@@ -54,7 +54,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @var int
      * */
-    public $cache_result_ttl = 50000;
+    public $cache_result_ttl = 3600;
 
     /**
      * If true then all translations saving on DB
