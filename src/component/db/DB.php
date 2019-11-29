@@ -83,10 +83,6 @@ class DB extends Component
             )
         );
 
-        $cache = new FilesystemCache($this->getRuntimeDir() . '/dbal_cache');
-
-        $this->getConnection()->getConfiguration()->setResultCacheImpl($cache);
-
     }
 
     /**
