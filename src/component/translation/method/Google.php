@@ -137,8 +137,8 @@ class Google extends Method
             $this->getLogger()->error(
                 sprintf(
                     "%s: %s",
-                    $message['code'] ?? '000',
-                    $message['message'] ?? 'Google Translate: Undefined error.'
+                    $message['error']['code'] ?? '000',
+                    $message['error']['message'] ?? 'Google Translate: Undefined error.'
                 )
             );
             /*
