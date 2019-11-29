@@ -15,7 +15,7 @@ namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\system\helpers\DataType;
+use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\Strings;
 
 /**
@@ -139,7 +139,10 @@ class URL extends Type implements interfaces\URL
         }
 
         $translations = $this->path_translation
-            ? $this->_getPathPartTranslations($paths_to_translate, $ignore_cache) : [];
+            ? $this->_getPathPartTranslations(
+                $paths_to_translate,
+                $ignore_cache
+            ) : [];
 
         $result = $this->_buildTranslateResult($paths, $to_languages, $translations);
 
@@ -461,4 +464,22 @@ class URL extends Type implements interfaces\URL
     {
         return $this->path_translation;
     }
+
+    /**
+     * @param $from_language
+     * @param $to_languages
+     * @param $texts
+     * @return string
+     */
+    protected function getCacheKey($from_language, $to_languages, $texts): string
+    {
+        $prefix = '';
+        $http_host = Environment::server('HTTP_HOST');
+        if ($http_host !== null) {
+            $http_host = str_replace('.', '_', $http_host);
+            $prefix = $http_host . '_';
+        }
+        return $prefix . parent::getCacheKey($from_language, $to_languages, $texts);
+    }
+
 }
