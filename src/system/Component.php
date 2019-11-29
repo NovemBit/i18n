@@ -37,7 +37,7 @@ use Psr\SimpleCache\CacheInterface;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  * */
-abstract class Component
+abstract class Component implements interfaces\Component
 {
 
     /**
@@ -149,12 +149,12 @@ abstract class Component
         }
     }
 
-    public function commonLateInit(): void
+    protected function commonLateInit(): void
     {
 
     }
 
-    public function commonInit(): void
+    protected function commonInit(): void
     {
 
     }
@@ -165,7 +165,7 @@ abstract class Component
      *
      * @return void
      */
-    public function mainLateInit(): void
+    protected function mainLateInit(): void
     {
     }
 
@@ -176,7 +176,7 @@ abstract class Component
      *
      * @return void
      * */
-    public function mainInit(): void
+    protected function mainInit(): void
     {
     }
 
@@ -189,7 +189,7 @@ abstract class Component
      *
      * @return void
      */
-    public function cli($argv, $argc): void
+    protected function cli($argv, $argc): void
     {
     }
 
@@ -202,7 +202,7 @@ abstract class Component
      *
      * @return void
      */
-    public function cliInit($argv, $argc): void
+    protected function cliInit($argv, $argc): void
     {
     }
 
@@ -214,7 +214,7 @@ abstract class Component
      *
      * @return void
      */
-    public function cliLateInit($argv, $argc): void
+    protected function cliLateInit($argv, $argc): void
     {
     }
 
