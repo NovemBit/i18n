@@ -134,7 +134,7 @@ class Google extends Method
 
             $message = json_decode($e->getMessage(), true) ?? [];
 
-            $this->getLogger()->error(
+            $this->getLogger()->warning(
                 sprintf(
                     "%s: %s | Texts: [%s]",
                     $message['error']['code'] ?? '000',
