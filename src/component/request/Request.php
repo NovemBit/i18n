@@ -769,7 +769,7 @@ class Request extends Component implements interfaces\Request
         /*
          * Remove Language from URI
          * */
-        $this->_removeLanguageFromURI($http_referer);
+        $http_referer = $this->_removeLanguageFromURI($http_referer);
 
         /**
          * Change HTTP_REFERER value
@@ -821,18 +821,41 @@ class Request extends Component implements interfaces\Request
             $language = $this->getDefaultLanguage();
         }
 
-        /*
+        /**
          * Setting current instance language
          * */
         $this->_setLanguage($language);
 
         $url = Environment::server('REQUEST_URI');
-        /*
+
+        /**
          * Remove Language from URI
          * */
-        $this->_removeLanguageFromURI($url);
+        $new_url = $this->_removeLanguageFromURI($url);
 
-        $url = Environment::server('REQUEST_URI', $url);
+        /**
+         * When user trying to access url that contains `domain`
+         * that included in localization config
+         * and that included also default language then redirect
+         * to url without language code
+         *
+         * @example https://test.ru included in localization config and have default
+         *          language `ru`, and user trying to open url https://test.ru/ru/
+         *          then system redirects that url to https://test.ru
+         *          or https://test.ru/ru/магазин redirect to https://test.ru/магазин
+         *
+         * @since 1.1.0
+         * */
+        if ($new_url != $url 
+            && $this->getDefaultLanguage() == $this->getLanguage()
+        ) {
+            $this->_redirect($new_url);
+        }
+
+        /**
+         * Setting REQUEST_URI
+         * */
+        Environment::server('REQUEST_URI', $new_url);
 
         return true;
     }
@@ -922,9 +945,9 @@ class Request extends Component implements interfaces\Request
      *
      * @param string $uri Referenced variable of URI string
      *
-     * @return void
+     * @return string
      */
-    private function _removeLanguageFromURI(&$uri): void
+    private function _removeLanguageFromURI($uri): string
     {
         $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
@@ -937,6 +960,8 @@ class Request extends Component implements interfaces\Request
             $new_url = URL::buildUrl($parts);
             $uri = empty($new_url) ? '/' : $new_url;
         }
+
+        return $uri;
     }
 
     public $source_type_map = [];
@@ -1093,6 +1118,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      * @throws RequestException
+     * @throws ConnectionException
      */
     public function start(): void
     {
@@ -1203,27 +1229,19 @@ class Request extends Component implements interfaces\Request
         $config = json_encode(
             [
                 'i18n' => [
-
                     'current_language' => $this->getLanguage(),
-
-                    'default_language'=>$this->getDefaultLanguage(),
-
+                    'default_language' => $this->getDefaultLanguage(),
                     'accept_languages' => $this->context->languages
                         ->getAcceptLanguages(true),
-
                     'language_query_key' => $this->context->languages
                         ->getLanguageQueryKey(),
-
                     'editor' => [
                         'is_editor' => $this->isEditor(),
                         'query_key' => $this->editor_query_key,
                         'url_translations' => $this->getEditorUrlTranslations()
                     ],
-
                     'prefix' => $this->context->prefix,
-
                     'orig_request_uri' => $this->getOrigRequestUri(),
-
                     'destination' => $this->getDestination(),
                     'uri' => $this->getSourceUrl(),
                     'orig_referer' => $this->getReferer(),
