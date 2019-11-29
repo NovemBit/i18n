@@ -99,7 +99,7 @@ abstract class Component implements interfaces\Component
             );
         }
 
-        if ($this->_isCli()) {
+        if ($this->isCli()) {
 
             global $argv, $argc;
 
@@ -224,7 +224,7 @@ abstract class Component implements interfaces\Component
      *
      * @return bool
      */
-    private function _isCli(): bool
+    public function isCli(): bool
     {
         return php_sapi_name() === 'cli';
     }

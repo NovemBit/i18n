@@ -1134,11 +1134,12 @@ class Request extends Component implements interfaces\Request
 
         $this->_verbose['start'] = microtime(true);
 
-        if (!in_array(
+        if ($this->isCli()
+            || $this->_isExclusion()
+            || !in_array(
             Environment::server('REQUEST_METHOD'),
             $this->getAcceptRequestMethods()
         )
-            || $this->_isExclusion()
         ) {
             return;
         }
