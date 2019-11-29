@@ -132,13 +132,14 @@ class Google extends Method
             }
         } catch (GoogleException $e) {
 
-            $message = json_decode($e->getMessage(),true) ?? [];
+            $message = json_decode($e->getMessage(), true) ?? [];
 
             $this->getLogger()->error(
                 sprintf(
-                    "%s: %s",
+                    "%s: %s | Texts: [%s]",
                     $message['error']['code'] ?? '000',
-                    $message['error']['message'] ?? 'Google Translate: Undefined error.'
+                    $message['error']['message'] ?? 'Google Translate: Undefined error.',
+                    implode(' | ', $texts)
                 )
             );
             /*
