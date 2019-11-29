@@ -14,8 +14,8 @@
 namespace NovemBit\i18n\component\translation\method;
 
 use Google\Cloud\Core\Exception\GoogleException;
-use Google\Cloud\Translate\TranslateClient;
-//use Google\Cloud\Translate\V2\TranslateClient;
+//use Google\Cloud\Translate\TranslateClient;
+use Google\Cloud\Translate\V2\TranslateClient;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\exceptions\MethodException;
 use NovemBit\i18n\component\translation\Translation;
@@ -92,9 +92,10 @@ class Google extends Method
     /**
      * Translate texts to only one language
      *
-     * @param array $texts Array of translatable texts
-     * @param string $to_language Language code
-     * @param array $result Referenced variable of results
+     * @param array  $texts         Array of translatable texts
+     * @param string $from_language Language code
+     * @param string $to_language   Language code
+     * @param array  $result        Referenced variable of results
      *
      * @return void
      * @throws \Exception
@@ -136,9 +137,10 @@ class Google extends Method
 
             $this->getLogger()->warning(
                 sprintf(
-                    "%s: %s | Texts: [%s]",
+                    "%s: %s | Lang: %s| Texts: [%s]",
                     $message['error']['code'] ?? '000',
                     $message['error']['message'] ?? 'Google Translate: Undefined error.',
+                    $to_language,
                     implode(' | ', $texts)
                 )
             );
