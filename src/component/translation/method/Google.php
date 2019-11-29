@@ -99,7 +99,8 @@ class Google extends Method
      * @return void
      * @throws \Exception
      */
-    private function _translateOneLanguage(array $texts,
+    private function _translateOneLanguage(
+        array $texts,
         string $from_language,
         string $to_language,
         array &$result
@@ -131,7 +132,11 @@ class Google extends Method
             }
         } catch (GoogleException $e) {
 
-            $this->getLogger()->error($e->getMessage());
+            $message = json_encode($e->getMessage()) ?? [];
+
+            $this->getLogger()->error(
+                $message['message'] ?? 'Google Translate: Undefined error.'
+            );
             /*
              * TODO: Make logger to log errors of GT
              * */
