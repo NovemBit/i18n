@@ -132,7 +132,7 @@ class Google extends Method
             }
         } catch (GoogleException $e) {
 
-            $message = json_encode($e->getMessage()) ?? [];
+            $message = json_decode($e->getMessage(),true) ?? [];
 
             $this->getLogger()->error(
                 sprintf(
