@@ -3,10 +3,12 @@
 
 namespace NovemBit\i18n\component\languages\interfaces;
 
+use NovemBit\i18n\system\interfaces\Component;
+
 /**
  * Languages component interface
  * */
-interface Languages
+interface Languages extends Component
 {
 
     /**

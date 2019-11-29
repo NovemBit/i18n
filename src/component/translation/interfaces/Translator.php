@@ -4,7 +4,9 @@
 namespace NovemBit\i18n\component\translation\interfaces;
 
 
-interface Translator
+use NovemBit\i18n\system\interfaces\Component;
+
+interface Translator extends Component
 {
 
     public function translate(

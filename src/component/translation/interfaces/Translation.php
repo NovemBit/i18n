@@ -10,6 +10,7 @@ use NovemBit\i18n\component\translation\type\interfaces\Text;
 use NovemBit\i18n\component\translation\type\interfaces\URL;
 use NovemBit\i18n\component\translation\type\interfaces\XML;
 use NovemBit\i18n\Module;
+use NovemBit\i18n\system\interfaces\Component;
 
 /**
  *
@@ -22,7 +23,7 @@ use NovemBit\i18n\Module;
  * @property XML $xml
  * @property Method $method
  * */
-interface Translation
+interface Translation extends Component
 {
     public function getFromLanguage(): string;
 

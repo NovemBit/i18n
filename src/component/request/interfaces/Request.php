@@ -5,8 +5,9 @@ namespace NovemBit\i18n\component\request\interfaces;
 
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\system\interfaces\Component;
 
-interface Request
+interface Request extends Component
 {
     public function isEditor(): bool;
 
