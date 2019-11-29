@@ -257,6 +257,15 @@ class Request extends Component implements interfaces\Request
     ];
 
     /**
+     * Default `HTTP_HOST`
+     * This property not required but recommended,
+     * To prevent page content translations for default domain with default language
+     *
+     * @var string
+     * */
+    public $default_http_host;
+
+    /**
      * If true then redirect non translated urls to translated url
      *
      * @example https://test.com/fr/shop redirect to https://test.com/fr/boutique
@@ -1183,7 +1192,7 @@ class Request extends Component implements interfaces\Request
          * Prevent pages with main(from_language) and default language translation
          * */
         if (($this->getFromLanguage() !== $this->getLanguage())
-            || ($this->getLanguage() !== $this->getDefaultLanguage())
+            || ($this->default_http_host != Environment::server('HTTP_HOST'))
         ) {
             ob_start([$this, '_translateBuffer']);
         }
