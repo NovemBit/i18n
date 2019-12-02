@@ -13,11 +13,11 @@
 
 namespace NovemBit\i18n\component\rest;
 
-use NovemBit\i18n\component\translation\interfaces\Translator;
+use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
-use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\Environment;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Rest component
@@ -33,6 +33,10 @@ use NovemBit\i18n\system\helpers\Environment;
 class Rest extends Component implements interfaces\Rest
 {
 
+    const STATUS_NONE = 0;
+    const STATUS_DONE = 1;
+    const STATUS_EMPTY = -1;
+    const STATUS_ERROR = -2;
     /**
      * Api keys list
      *
@@ -137,7 +141,7 @@ class Rest extends Component implements interfaces\Rest
     public function actionTranslate()
     {
 
-        $result = ['status' => -1];
+        $result = ['status' => interfaces\Rest::STATUS_NONE];
 
         if (isset($_POST['languages_config'])
             && isset($_POST['texts'])
@@ -148,23 +152,33 @@ class Rest extends Component implements interfaces\Rest
              * Setting language component configuration
              * */
             $languages_config = $_POST['languages_config'] ?? [];
+
             foreach ($languages_config as $key => $value) {
                 $this->context->languages->{$key} = $value;
             }
 
             try {
+                $translate =  $this->context
+                    ->translation
+                    ->setLanguages($_POST['languages'])
+                    ->method
+                    ->translate($_POST['texts']);
+
                 $result = [
-                    'status' => 1,
-                    'translation' => $this->context
-                        ->translation
-                        ->setLanguages($_POST['languages'])
-                        ->method
-                        ->translate($_POST['texts'])
+                    'status' => empty($translate)
+                        ? interfaces\Rest::STATUS_EMPTY
+                        : interfaces\Rest::STATUS_DONE,
+                    'translation' => $translate
                 ];
-            } catch (Exception $exception) {
+            } catch (Exception $e) {
                 $result = [
-                    'status' => -3,
-                    'message' => 'Unexpected Error.'
+                    'status' => interfaces\Rest::STATUS_ERROR,
+                    'message' => $e->getMessage()
+                ];
+            } catch (InvalidArgumentException $e) {
+                $result = [
+                    'status' => interfaces\Rest::STATUS_ERROR,
+                    'message' => $e->getMessage()
                 ];
             }
 
