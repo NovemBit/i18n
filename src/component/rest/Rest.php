@@ -141,7 +141,10 @@ class Rest extends Component implements interfaces\Rest
     public function actionTranslate()
     {
 
-        $result = ['status' => interfaces\Rest::STATUS_NONE];
+        $result = [
+            'status' => interfaces\Rest::STATUS_NONE,
+            'message' => 'Invalid parameters.'
+        ];
 
         if (isset($_POST['languages_config'])
             && isset($_POST['texts'])
@@ -158,7 +161,7 @@ class Rest extends Component implements interfaces\Rest
             }
 
             try {
-                $translate =  $this->context
+                $translate = $this->context
                     ->translation
                     ->setLanguages($_POST['languages'])
                     ->method
@@ -168,6 +171,7 @@ class Rest extends Component implements interfaces\Rest
                     'status' => empty($translate)
                         ? interfaces\Rest::STATUS_EMPTY
                         : interfaces\Rest::STATUS_DONE,
+                    'message' => 'Translation done.',
                     'translation' => $translate
                 ];
             } catch (Exception $e) {
