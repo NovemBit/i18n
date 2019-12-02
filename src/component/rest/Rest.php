@@ -142,8 +142,7 @@ class Rest extends Component implements interfaces\Rest
             'message' => 'Invalid parameters.'
         ];
 
-        if (isset($_POST['languages_config'])
-            && isset($_POST['texts'])
+        if (isset($_POST['texts'])
             && isset($_POST['languages'])
         ) {
 
