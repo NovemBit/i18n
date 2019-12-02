@@ -33,10 +33,6 @@ use Psr\SimpleCache\InvalidArgumentException;
 class Rest extends Component implements interfaces\Rest
 {
 
-    const STATUS_NONE = 0;
-    const STATUS_DONE = 1;
-    const STATUS_EMPTY = -1;
-    const STATUS_ERROR = -2;
     /**
      * Api keys list
      *
