@@ -15,9 +15,9 @@
 namespace NovemBit\i18n\component\translation\method;
 
 
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\component\translation\Translator;
-use NovemBit\i18n\system\helpers\URL;
+use \NovemBit\i18n\component\translation\exceptions\TranslationException;
+use \NovemBit\i18n\component\rest\interfaces\Rest as RestComponentInterface;
+use \NovemBit\i18n\system\helpers\URL;
 use \NovemBit\i18n\component\translation\interfaces;
 
 /**
@@ -140,14 +140,28 @@ class Rest extends Method
 
         $result = json_decode($result, true);
 
-        if ($result['status'] == 1) {
-            $translation = $result['translation'];
+        $status = $result['status'] ?? RestComponentInterface::STATUS_NONE;
+
+        $translation = [];
+
+        if ($status == RestComponentInterface::STATUS_DONE) {
+
+            $translation = $result['translation'] ?? [];
+        } elseif ($status == RestComponentInterface::STATUS_ERROR) {
+
+            $this->getLogger()->warning(
+                $result['message'] ?? 'Rest endpoint: unexpected error.'
+            );
+        } elseif ($status == RestComponentInterface::STATUS_EMPTY) {
+
+            $this->getLogger()->warning(
+                $result['message'] ?? 'Rest endpoint: empty response.'
+            );
         } else {
 
             $this->getLogger()->warning(
                 'Rest endpoint: negative response.'
             );
-
         }
 
         return $translation;

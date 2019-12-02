@@ -4,11 +4,17 @@
 namespace NovemBit\i18n\component\translation\interfaces;
 
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\system\interfaces\Component;
+use Psr\SimpleCache\InvalidArgumentException;
 
 interface Translator extends Component
 {
 
+    /**
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
+     * */
     public function translate(
         array $texts,
         ?array &$verbose = null,
