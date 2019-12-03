@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>NovemBit i18n - Internationalization library</title>
+    <title>NovemBit i18n - Internationalization framework library</title>
     <parser>
         <target>runtime/tmp/docs</target>
         <default-package-name>NovemBit\i18n</default-package-name>
@@ -9,7 +9,7 @@
         <target>docs</target>
     </transformer>
     <transformations>
-        <template name="markdown-public"/>
+        <template name="D:/Languages/php-7.3.9/composer/vendor/cvuorinen/phpdoc-markdown-public/data/templates/markdown-public"/>
 <!--        <template name="clean"/>-->
         <template name="checkstyle"/>
         <template name="responsive"/>

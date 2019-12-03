@@ -3,7 +3,7 @@
  * DB component
  *
  * Global DB Abstraction layer class
- * We using Doctrine DBAL to provides universal RDMS support
+ * We using **Doctrine DBAL** to provides universal RDMS support
  *
  * php version 7.2.10
  *
@@ -32,7 +32,6 @@ use Doctrine\DBAL\Connection;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
  * @property Module $context
  */
 class DB extends Component
@@ -41,13 +40,26 @@ class DB extends Component
     /**
      * Array of configuration for Yii2 DB connection
      *
+     * @example ```php
+     *    [
+     *      'dbname' => 'swanson',
+     *      'user' => 'top',
+     *      'password' => 'top',
+     *      'host' => 'localhost',
+     *      'driver' => 'pdo_mysql'
+     *      ...
+     *    ];
+     * ```
+     * @see     https://www.doctrine-project.org/projects/doctrine-dbal/en/2.9/reference/configuration.html
+     *
      * @var array
      * */
     public $connection_params;
 
     /**
-     * Yii2 DB connection
+     * Doctrine DB connection
      *
+     * @see https://www.doctrine-project.org/projects/dbal.html
      * @var Connection
      * */
     private $_connection;
@@ -65,15 +77,6 @@ class DB extends Component
     {
 
         $config = new Configuration();
-
-        /*$connectionParams = [
-            'dbname' => 'swanson',
-            'user' => 'top',
-            'password' => 'top',
-            'host' => 'localhost',
-            'driver' => 'pdo_mysql',
-
-        ];*/
 
         $config->setSQLLogger(
             new SQLFileLogger($this->getLogger())
@@ -111,6 +114,8 @@ class DB extends Component
     }
 
     /**
+     * Connection params getter
+     *
      * @return array
      */
     public function getConnectionParams(): array
