@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<checkstyle version="1.3.0">
+  <file name="component\translation\type\models\Text.php"/>
+  <file name="component\languages\interfaces\Languages.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\method\exceptions\MethodException.php"/>
+  <file name="component\rest\interfaces\Rest.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="9" severity="error" message="No summary for interface \NovemBit\i18n\component\rest\interfaces\Rest" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="15" severity="error" message="No summary for method start()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\method\models\Method.php"/>
+  <file name="component\translation\exceptions\TranslationException.php"/>
+  <file name="component\db\DB.php"/>
+  <file name="component\translation\models\interfaces\Translation.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for interface \NovemBit\i18n\component\translation\models\interfaces\Translation" source="phpDocumentor.file.PPC:ERR-50009"/>
+  </file>
+  <file name="component\translation\type\Text.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\method\Google.php"/>
+  <file name="component\translation\method\Method.php">
+    <error line="40" severity="error" message="No summary for property $cache_result" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\type\interfaces\Text.php"/>
+  <file name="component\translation\type\interfaces\URL.php">
+    <error line="28" severity="error" message="No summary for method isPathTranslation()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="system\Component.php">
+    <error line="152" severity="error" message="No summary for method commonLateInit()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="157" severity="error" message="No summary for method commonInit()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="236" severity="error" message="No summary for method getLogger()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="261" severity="error" message="No summary for method setLogger()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="269" severity="error" message="No summary for method getRuntimeDir()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="277" severity="error" message="No summary for method setRuntimeDir()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="285" severity="error" message="No summary for method setCachePool()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="293" severity="error" message="No summary for method getCachePool()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="317" severity="error" message="No summary for method defaultConfig()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="74" severity="error" message="No summary for property $cache_pool" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="79" severity="error" message="No summary for property $runtime_dir" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\method\Dummy.php">
+    <error line="46" severity="error" message="Argument $from_language is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="46" severity="error" message="Name of argument $from_language does not match with the DocBlock's name $texts in doTranslate()" source="phpDocumentor.file.PPC:ERR-50014"/>
+    <error line="46" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $from_language in doTranslate()" source="phpDocumentor.file.PPC:ERR-50016"/>
+    <error line="46" severity="error" message="Argument $to_languages is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="46" severity="error" message="Name of argument $to_languages does not match with the DocBlock's name $texts in doTranslate()" source="phpDocumentor.file.PPC:ERR-50014"/>
+    <error line="46" severity="error" message="Argument $ignore_cache is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="46" severity="error" message="Name of argument $ignore_cache does not match with the DocBlock's name $texts in doTranslate()" source="phpDocumentor.file.PPC:ERR-50014"/>
+    <error line="46" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $ignore_cache in doTranslate()" source="phpDocumentor.file.PPC:ERR-50016"/>
+  </file>
+  <file name="system\helpers\Arrays.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for class \NovemBit\i18n\system\helpers\Arrays" source="phpDocumentor.file.PPC:ERR-50005"/>
+  </file>
+  <file name="component\translation\type\HTML.php">
+    <error line="66" severity="error" message="No summary for property $parser_type" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="Module.php"/>
+  <file name="system\parsers\XML.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="system\helpers\URL.php"/>
+  <file name="system\helpers\Environment.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\JSON.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\languages\exceptions\LanguageException.php"/>
+  <file name="component\translation\type\models\XML.php"/>
+  <file name="component\translation\type\interfaces\HTMLFragment.php"/>
+  <file name="component\request\interfaces\Request.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\interfaces\Type.php"/>
+  <file name="component\translation\Translation.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\interfaces\HTML.php"/>
+  <file name="models\exceptions\ActiveRecordException.php"/>
+  <file name="system\exception\FriendlyExceptionInterface.php"/>
+  <file name="component\translation\type\models\HTML.php"/>
+  <file name="component\languages\Languages.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\Type.php"/>
+  <file name="system\exception\Exception.php"/>
+  <file name="system\parsers\interfaces\XML.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="8" severity="error" message="No summary for interface \NovemBit\i18n\system\parsers\interfaces\XML" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="14" severity="error" message="Argument $xml is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="Argument $query is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="Argument $type is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="Argument $before_translate_callback is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="Argument $after_translate_callback is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="No summary for method __construct()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="22" severity="error" message="Argument $xml is missing from the Docblock of load" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="22" severity="error" message="No summary for method load()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="34" severity="error" message="No summary for method save()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="36" severity="error" message="Argument $rule is missing from the Docblock of addTranslateField" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="36" severity="error" message="Argument $text is missing from the Docblock of addTranslateField" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="36" severity="error" message="Argument $attrs is missing from the Docblock of addTranslateField" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="36" severity="error" message="No summary for method addTranslateField()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="models\DataMapper.php">
+    <error line="34" severity="error" message="No summary for method getDB()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\type\interfaces\JSON.php"/>
+  <file name="component\translation\interfaces\Translator.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\languages\traits\Countries.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\URL.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\method\interfaces\Method.php"/>
+  <file name="component\translation\Translator.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\request\exceptions\RequestException.php"/>
+  <file name="component\translation\type\XML.php">
+    <error line="93" severity="error" message="No summary for method getParserType()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="101" severity="error" message="No summary for method setParserType()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="138" severity="error" message="Argument $node is missing from the Docblock of buildToTranslateFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="138" severity="error" message="Argument $params is missing from the Docblock of buildToTranslateFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="138" severity="error" message="Argument $data is missing from the Docblock of buildToTranslateFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="138" severity="error" message="No summary for method buildToTranslateFields()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="177" severity="error" message="Argument $node is missing from the Docblock of replaceTranslatedFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="177" severity="error" message="Argument $params is missing from the Docblock of replaceTranslatedFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="177" severity="error" message="Argument $data is missing from the Docblock of replaceTranslatedFields" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="177" severity="error" message="No summary for method replaceTranslatedFields()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="336" severity="error" message="Argument $ignore_cache is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="336" severity="error" message="Name of argument $ignore_cache does not match with the DocBlock's name $to_languages in doTranslate()" source="phpDocumentor.file.PPC:ERR-50014"/>
+    <error line="336" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $ignore_cache in doTranslate()" source="phpDocumentor.file.PPC:ERR-50016"/>
+    <error line="441" severity="error" message="Argument $callback is missing from the Docblock of addBeforeParseCallback" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="441" severity="error" message="No summary for method addBeforeParseCallback()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="446" severity="error" message="Argument $callback is missing from the Docblock of addAfterParseCallback" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="446" severity="error" message="No summary for method addAfterParseCallback()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="454" severity="error" message="No summary for method getBeforeParseCallbacks()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="462" severity="error" message="No summary for method getAfterParseCallbacks()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="44" severity="error" message="No summary for property $xpath_query_map" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="68" severity="error" message="No summary for property $_before_parse_callbacks" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="70" severity="error" message="No summary for property $_after_parse_callbacks" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="72" severity="error" message="No summary for property $parser_type" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\rest\Rest.php"/>
+  <file name="system\helpers\Strings.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="7" severity="error" message="No summary for class \NovemBit\i18n\system\helpers\Strings" source="phpDocumentor.file.PPC:ERR-50005"/>
+  </file>
+  <file name="system\parsers\interfaces\Rule.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="9" severity="error" message="No summary for interface \NovemBit\i18n\system\parsers\interfaces\Rule" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="40" severity="error" message="Argument $tags is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="40" severity="error" message="Argument $attrs is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="40" severity="error" message="Argument $texts is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="40" severity="error" message="Argument $mode is missing from the Docblock of __construct" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="40" severity="error" message="No summary for method __construct()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="47" severity="error" message="Argument $node is missing from the Docblock of validate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="47" severity="error" message="No summary for method validate()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\method\Rest.php">
+    <error line="85" severity="error" message="Argument $ignore_cache is missing from the Docblock of doTranslate" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="85" severity="error" message="Name of argument $ignore_cache does not match with the DocBlock's name $to_languages in doTranslate()" source="phpDocumentor.file.PPC:ERR-50014"/>
+    <error line="85" severity="error" message="The type hint of the argument is incorrect for the type definition of the @param tag with argument $ignore_cache in doTranslate()" source="phpDocumentor.file.PPC:ERR-50016"/>
+  </file>
+  <file name="system\helpers\DataType.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\languages\traits\Languages.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="system\component\DB.php"/>
+  <file name="component\translation\models\Translation.php">
+    <error line="123" severity="error" message="Argument $str is missing from the Docblock of createHash" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="123" severity="error" message="No summary for method createHash()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="136" severity="error" message="No summary for method saveTranslations()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\type\HTMLFragment.php">
+    <error line="37" severity="error" message="No summary for property $cache_result" source="phpDocumentor.file.PPC:ERR-50007"/>
+    <error line="46" severity="error" message="No summary for property $parser_type" source="phpDocumentor.file.PPC:ERR-50007"/>
+  </file>
+  <file name="component\translation\type\interfaces\XML.php">
+    <error line="28" severity="error" message="No summary for method getHelperAttributes()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="30" severity="error" message="Argument $status is missing from the Docblock of setHelperAttributes" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="30" severity="error" message="No summary for method setHelperAttributes()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="32" severity="error" message="Argument $callback is missing from the Docblock of addBeforeParseCallback" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="32" severity="error" message="No summary for method addBeforeParseCallback()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="34" severity="error" message="Argument $callback is missing from the Docblock of addAfterParseCallback" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="34" severity="error" message="No summary for method addAfterParseCallback()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\translation\interfaces\Translation.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\models\JSON.php"/>
+  <file name="system\interfaces\Component.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+    <error line="10" severity="error" message="No summary for interface \NovemBit\i18n\system\interfaces\Component" source="phpDocumentor.file.PPC:ERR-50009"/>
+    <error line="12" severity="error" message="No summary for method getLogger()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="14" severity="error" message="Argument $logger is missing from the Docblock of setLogger" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="14" severity="error" message="No summary for method setLogger()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="16" severity="error" message="No summary for method getRuntimeDir()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="18" severity="error" message="Argument $runtime_dir is missing from the Docblock of setRuntimeDir" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="18" severity="error" message="No summary for method setRuntimeDir()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="20" severity="error" message="Argument $cache_pool is missing from the Docblock of setCachePool" source="phpDocumentor.file.PPC:ERR-50015"/>
+    <error line="20" severity="error" message="No summary for method setCachePool()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="22" severity="error" message="No summary for method getCachePool()" source="phpDocumentor.file.PPC:ERR-50008"/>
+    <error line="24" severity="error" message="No summary for method defaultConfig()" source="phpDocumentor.file.PPC:ERR-50008"/>
+  </file>
+  <file name="component\request\Request.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\db\SQLFileLogger.php">
+    <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
+  </file>
+  <file name="component\translation\type\models\URL.php"/>
+</checkstyle>
