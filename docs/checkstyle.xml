@@ -80,7 +80,6 @@
     <error line="0" severity="error" message="No summary was found for this file" source="phpDocumentor.file.PPC:ERR-50000"/>
   </file>
   <file name="component\translation\type\interfaces\HTML.php"/>
-  <file name="models\exceptions\ActiveRecordException.php"/>
   <file name="system\exception\FriendlyExceptionInterface.php"/>
   <file name="component\translation\type\models\HTML.php"/>
   <file name="component\languages\Languages.php">

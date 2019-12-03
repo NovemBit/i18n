@@ -3677,35 +3677,6 @@ php version 7.2.10</description>
       </docblock>
     </interface>
   </file>
-  <file path="models\exceptions\ActiveRecordException.php" generated-path="models.exceptions.ActiveRecordException.html" hash="ae14f1f90c19dbb561113db1dc556276" package="Models\Exceptions">
-    <docblock line="0">
-      <description>Active Record Exception file
-php version 7.2.10</description>
-      <long-description></long-description>
-      <tag name="category" line="0" description="Models\Exceptions"/>
-      <tag name="package" line="0" description="Models\Exceptions"/>
-      <tag name="author" line="0" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
-      <tag name="license" line="0" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
-      <tag name="version" line="0" description="GIT: @1.0.1@"/>
-      <tag name="link" line="0" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
-    </docblock>
-    <namespace-alias name="Exception">\NovemBit\i18n\system\exception\Exception</namespace-alias>
-    <class final="false" abstract="false" namespace="NovemBit\i18n\models\exceptions" line="28" package="Models\Exceptions">
-      <extends>\NovemBit\i18n\system\exception\Exception</extends>
-      <name>ActiveRecordException</name>
-      <full_name>\NovemBit\i18n\models\exceptions\ActiveRecordException</full_name>
-      <docblock line="28">
-        <description>Active Record Exception Class</description>
-        <long-description></long-description>
-        <tag name="category" line="28" description="Models\Exceptions"/>
-        <tag name="package" line="28" description="Models\Exceptions"/>
-        <tag name="author" line="28" description="Aaron Yordanyan" link="mailto:aaron.yor@gmail.com"/>
-        <tag name="license" line="28" description="GNU/GPLv3" link="https://www.gnu.org/licenses/gpl-3.0.txt"/>
-        <tag name="link" line="28" description="https://github.com/NovemBit/i18n" link="https://github.com/NovemBit/i18n"/>
-        <tag name="inherited_from" description="\NovemBit\i18n\system\exception\Exception" refers="\NovemBit\i18n\system\exception\Exception" link="/classes/NovemBit.i18n.system.exception.Exception.html"/>
-      </docblock>
-    </class>
-  </file>
   <file path="system\exception\FriendlyExceptionInterface.php" generated-path="system.exception.FriendlyExceptionInterface.html" hash="077b77fd8bd90166e1885cca8e8b4e29" package="System\Exceptions">
     <docblock line="0">
       <description>System Exception interface file
@@ -7518,9 +7489,7 @@ php version 7.2.10</description>
     </package>
   </package>
   <package name="Default" full_name="Default"/>
-  <package name="Models" full_name="Models">
-    <package name="Exceptions" full_name="Models\Exceptions"/>
-  </package>
+  <package name="Models" full_name="Models"/>
   <package name="System" full_name="System">
     <package name="Components" full_name="System\Components"/>
     <package name="Exceptions" full_name="System\Exceptions"/>
@@ -7556,9 +7525,7 @@ php version 7.2.10</description>
           </namespace>
         </namespace>
       </namespace>
-      <namespace name="models" full_name="NovemBit\i18n\models">
-        <namespace name="exceptions" full_name="NovemBit\i18n\models\exceptions"/>
-      </namespace>
+      <namespace name="models" full_name="NovemBit\i18n\models"/>
       <namespace name="system" full_name="NovemBit\i18n\system">
         <namespace name="component" full_name="NovemBit\i18n\system\component"/>
         <namespace name="exception" full_name="NovemBit\i18n\system\exception"/>

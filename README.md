@@ -2,7 +2,6 @@
 
 ## Table of Contents
 
-* [ActiveRecordException](#activerecordexception)
 * [Arrays](#arrays)
     * [arrayWalkWithRoute](#arraywalkwithroute)
     * [arrayMergeRecursiveDistinct](#arraymergerecursivedistinct)
@@ -39,6 +38,10 @@
 * [Google](#google)
     * [mainInit](#maininit)
 * [HTML](#html)
+    * [get](#get)
+    * [saveTranslations](#savetranslations)
+    * [getDB](#getdb-1)
+* [HTML](#html-1)
     * [defaultConfig](#defaultconfig-2)
     * [getParserType](#getparsertype)
     * [setParserType](#setparsertype)
@@ -50,10 +53,6 @@
     * [addAfterParseCallback](#addafterparsecallback)
     * [getBeforeParseCallbacks](#getbeforeparsecallbacks)
     * [getAfterParseCallbacks](#getafterparsecallbacks)
-* [HTML](#html-1)
-    * [get](#get)
-    * [saveTranslations](#savetranslations)
-    * [getDB](#getdb-1)
 * [HTMLFragment](#htmlfragment)
     * [defaultConfig](#defaultconfig-3)
     * [getParserType](#getparsertype-1)
@@ -92,8 +91,6 @@
     * [instance](#instance)
 * [RequestException](#requestexception)
 * [Rest](#rest)
-    * [getLanguagesConfig](#getlanguagesconfig)
-* [Rest](#rest-1)
     * [__construct](#__construct-3)
     * [isCli](#iscli-3)
     * [getLogger](#getlogger-3)
@@ -107,6 +104,8 @@
     * [actionTranslate](#actiontranslate)
     * [actionIndex](#actionindex)
     * [actionRestrict](#actionrestrict)
+* [Rest](#rest-1)
+    * [getLanguagesConfig](#getlanguagesconfig)
 * [Strings](#strings)
     * [getStringsDifference](#getstringsdifference)
 * [Text](#text)
@@ -119,14 +118,14 @@
     * [saveTranslations](#savetranslations-4)
 * [TranslationException](#translationexception)
 * [URL](#url)
-    * [addQueryVars](#addqueryvars)
-    * [removeQueryVars](#removequeryvars)
-    * [buildUrl](#buildurl)
-* [URL](#url-1)
     * [get](#get-5)
     * [saveTranslations](#savetranslations-5)
     * [getDB](#getdb-6)
     * [rules](#rules)
+* [URL](#url-1)
+    * [addQueryVars](#addqueryvars)
+    * [removeQueryVars](#removequeryvars)
+    * [buildUrl](#buildurl)
 * [XML](#xml)
     * [defaultConfig](#defaultconfig-6)
     * [getParserType](#getparsertype-2)
@@ -143,19 +142,6 @@
     * [get](#get-6)
     * [saveTranslations](#savetranslations-6)
     * [getDB](#getdb-7)
-
-## ActiveRecordException
-
-Active Record Exception Class
-
-
-
-* Full name: \NovemBit\i18n\models\exceptions\ActiveRecordException
-* Parent class: \NovemBit\i18n\system\exception\Exception
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
 
 ## Arrays
 
@@ -787,6 +773,86 @@ Google::mainInit(  ): void
 
 ## HTML
 
+ActiveRecord class. Child of Yii ActiveRecord library
+
+
+
+* Full name: \NovemBit\i18n\component\translation\type\models\HTML
+* Parent class: \NovemBit\i18n\component\translation\models\Translation
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### get
+
+Main method to get translations from DB
+
+```php
+HTML::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$texts` | **array** | Texts array to translate |
+| `$from_language` | **string** | From language |
+| `$to_languages` | **array** | To languages list |
+| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
+
+
+
+
+---
+
+### saveTranslations
+
+Main method to save translations in DB
+
+```php
+HTML::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$from_language` | **string** | From language |
+| `$translations` | **array** | Translations of texts |
+| `$level` | **integer** | Level of translation |
+| `$overwrite` | **boolean** | Overwrite or not |
+| `$result` | **array** |  |
+
+
+
+
+---
+
+### getDB
+
+
+
+```php
+HTML::getDB(  ): \Doctrine\DBAL\Connection
+```
+
+
+
+* This method is **static**.
+
+
+
+---
+
+## HTML
+
 HTML type for translation component
 
 
@@ -1011,86 +1077,6 @@ HTML::getAfterParseCallbacks(  ): array
 
 
 
-
-
-
----
-
-## HTML
-
-ActiveRecord class. Child of Yii ActiveRecord library
-
-
-
-* Full name: \NovemBit\i18n\component\translation\type\models\HTML
-* Parent class: \NovemBit\i18n\component\translation\models\Translation
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### get
-
-Main method to get translations from DB
-
-```php
-HTML::get( array $texts, string $from_language, array $to_languages, boolean $reverse = false ): array
-```
-
-
-
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$texts` | **array** | Texts array to translate |
-| `$from_language` | **string** | From language |
-| `$to_languages` | **array** | To languages list |
-| `$reverse` | **boolean** | Use translate column as source (ReTranslate) |
-
-
-
-
----
-
-### saveTranslations
-
-Main method to save translations in DB
-
-```php
-HTML::saveTranslations( string $from_language, array $translations, integer $level, boolean $overwrite = false, array &$result = array() ): void
-```
-
-
-
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$from_language` | **string** | From language |
-| `$translations` | **array** | Translations of texts |
-| `$level` | **integer** | Level of translation |
-| `$overwrite` | **boolean** | Overwrite or not |
-| `$result` | **array** |  |
-
-
-
-
----
-
-### getDB
-
-
-
-```php
-HTML::getDB(  ): \Doctrine\DBAL\Connection
-```
-
-
-
-* This method is **static**.
 
 
 
@@ -1787,35 +1773,6 @@ Request Exception class
 
 ## Rest
 
-Rest Translate method of translation
-
-
-
-* Full name: \NovemBit\i18n\component\translation\method\Rest
-* Parent class: \NovemBit\i18n\component\translation\method\Method
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### getLanguagesConfig
-
-Get languages configuration from main module instance `$config`
-
-```php
-Rest::getLanguagesConfig(  ): array
-```
-
-
-
-
-
-
-
----
-
-## Rest
-
 Rest component
 
 Its simple but provides very useful functionality
@@ -2062,6 +2019,35 @@ Rest::actionRestrict(  ): array
 
 ---
 
+## Rest
+
+Rest Translate method of translation
+
+
+
+* Full name: \NovemBit\i18n\component\translation\method\Rest
+* Parent class: \NovemBit\i18n\component\translation\method\Method
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### getLanguagesConfig
+
+Get languages configuration from main module instance `$config`
+
+```php
+Rest::getLanguagesConfig(  ): array
+```
+
+
+
+
+
+
+
+---
+
 ## Strings
 
 
@@ -2272,88 +2258,6 @@ Request Exception class
 
 ## URL
 
-Helper class for some actions with URLs
-
-
-
-* Full name: \NovemBit\i18n\system\helpers\URL
-
-**See Also:**
-
-* https://github.com/NovemBit/i18n 
-
-### addQueryVars
-
-Adding query parameters to URL
-
-```php
-URL::addQueryVars( string $url, string $name, string $value ): string
-```
-
-
-
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** | Initial url |
-| `$name` | **string** | Parameter name (key) |
-| `$value` | **string** | Value of parameter |
-
-
-
-
----
-
-### removeQueryVars
-
-Remove Query parameter from URL
-
-```php
-URL::removeQueryVars( string $url, string $paramName ): string
-```
-
-
-
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** | Initial url |
-| `$paramName` | **string** | Parameter name (key) |
-
-
-
-
----
-
-### buildUrl
-
-Build url from parts
-Same as reversed parse_url
-
-```php
-URL::buildUrl( array $parts ): string
-```
-
-
-
-* This method is **static**.
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$parts` | **array** | Parts of url |
-
-
-
-
----
-
-## URL
-
 ActiveRecord class. Child of Yii ActiveRecord library
 
 
@@ -2442,6 +2346,88 @@ URL::rules(  ): array
 
 
 
+
+
+
+
+---
+
+## URL
+
+Helper class for some actions with URLs
+
+
+
+* Full name: \NovemBit\i18n\system\helpers\URL
+
+**See Also:**
+
+* https://github.com/NovemBit/i18n 
+
+### addQueryVars
+
+Adding query parameters to URL
+
+```php
+URL::addQueryVars( string $url, string $name, string $value ): string
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$url` | **string** | Initial url |
+| `$name` | **string** | Parameter name (key) |
+| `$value` | **string** | Value of parameter |
+
+
+
+
+---
+
+### removeQueryVars
+
+Remove Query parameter from URL
+
+```php
+URL::removeQueryVars( string $url, string $paramName ): string
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$url` | **string** | Initial url |
+| `$paramName` | **string** | Parameter name (key) |
+
+
+
+
+---
+
+### buildUrl
+
+Build url from parts
+Same as reversed parse_url
+
+```php
+URL::buildUrl( array $parts ): string
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$parts` | **array** | Parts of url |
 
 
 
