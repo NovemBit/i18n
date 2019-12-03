@@ -1,6 +1,20 @@
 <?php
 /**
  * Main i18n module
+ *
+ * This php framework provides services to translate whole website without
+ * Touching any structure of local project. This is only one request layer
+ * That translates any http connection response. For example if response type
+ * is `html` then module making translate whole DOM document with your custom
+ * rules (Xpath and type mappers).
+ * If you have xml, or json request then each type translating with custom
+ * translation method.
+ * All translations from remote API services saving to DB,
+ * To make module faster and send less requests to DB we using PSR interface caches
+ * (`memcached` or `redis`), or you can create your custom
+ * PSR cache handler. Any component of module can have custom Cache pool and
+ * custom handler, and each component can have custom PSR logger.
+ *
  * php version 7.2.10
  *
  * @category Default
@@ -14,6 +28,7 @@
 namespace NovemBit\i18n;
 
 
+use Exception;
 use NovemBit\i18n\component\languages\interfaces\Languages;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
@@ -22,6 +37,20 @@ use NovemBit\i18n\component\db\DB;
 
 /**
  * Module class
+ * Main instance of i18n library. Should be used for any external connection
+ * Provides component system. There have some required components,
+ * DBAL (RDMS) configurations, Request handlers, Translation abstraction layer,
+ *
+ * @example ```php
+ *              // Simple usage example for module instance
+ *              // to use translation sub-component
+ *              Module::instance()->translation->setLanguages(['ru','fr'])->text->translate(['hello'])
+ *          ```
+ *
+ * @example ```php
+ *              // Example to start request translation
+ *              Module::instance()->request->start()
+ *          ```
  *
  * @category Default
  * @package  Default
@@ -40,13 +69,14 @@ class Module extends system\Component
 
     /**
      * Main instance of Module
+     * Using singleton pattern only for main instance
      *
      * @var Module
      * */
     private static $_instance;
 
     /**
-     * Prefix for any public action
+     * Prefix for any script public action
      * For example in translated HTML document attributes
      * JS global variables
      * e.t.c.
@@ -60,7 +90,7 @@ class Module extends system\Component
      * Default component configuration
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function defaultConfig(): array
     {
@@ -88,7 +118,7 @@ class Module extends system\Component
      * {@inheritDoc}
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function mainInit(): void
     {
@@ -123,9 +153,9 @@ class Module extends system\Component
      *
      * @param null|array $config Main configuration array
      *
-     * @return Module
+     * @return self
      */
-    public static function instance($config = null)
+    public static function instance($config = null): self
     {
 
         if (!isset(self::$_instance) && ($config != null)) {

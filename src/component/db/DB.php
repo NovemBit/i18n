@@ -1,6 +1,10 @@
 <?php
 /**
- * Translation component
+ * DB component
+ *
+ * Global DB Abstraction layer class
+ * We using Doctrine DBAL to provides universal RDMS support
+ *
  * php version 7.2.10
  *
  * @category System\Components
@@ -13,7 +17,6 @@
 
 namespace NovemBit\i18n\component\db;
 
-use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
