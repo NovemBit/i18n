@@ -13,10 +13,12 @@
 
 namespace NovemBit\i18n\component\request;
 
+use Psr\SimpleCache\InvalidArgumentException;
 use Doctrine\DBAL\ConnectionException;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
+use Exception;
 use NovemBit\i18n\component\request\exceptions\RequestException;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
@@ -26,7 +28,6 @@ use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
-use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Request component main class.
@@ -161,6 +162,8 @@ class Request extends Component implements interfaces\Request
     private $_is_editor = false;
 
     /**
+     * Orig request uri
+     * 
      * @var string
      * */
     private $_orig_request_uri;
@@ -231,13 +234,6 @@ class Request extends Component implements interfaces\Request
     public $custom_translation_level = 1;
 
     /**
-     * DB transaction
-     *
-     * @var Transaction
-     * */
-    private $_db_transaction;
-
-    /**
      * HTTP methods for translate
      *
      * @var array
@@ -276,6 +272,8 @@ class Request extends Component implements interfaces\Request
     public $restore_non_translated_urls = true;
 
     /**
+     * Get allowed request methods
+     * 
      * @return array
      */
     public function getAcceptRequestMethods(): array
@@ -284,6 +282,8 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * Get whole verbose of request processing
+     * 
      * @return array
      */
     public function getVerbose(): array
@@ -292,6 +292,8 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * Get orig request uri
+     * 
      * @return string
      */
     public function getOrigRequestUri(): string
@@ -300,7 +302,11 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
-     * @param string $orig_request_uri
+     * Set Original request uri
+     * 
+     * @param string $orig_request_uri Original request uri
+     * 
+     * @return void
      */
     private function _setOrigRequestUri(string $orig_request_uri): void
     {
@@ -499,6 +505,7 @@ class Request extends Component implements interfaces\Request
      * @return bool
      * @throws RequestException
      * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _prepareSourceUrl(): bool
     {
@@ -602,7 +609,7 @@ class Request extends Component implements interfaces\Request
 
         try {
             $db_connection->commit();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $db_connection->rollBack();
         }
 
@@ -648,6 +655,8 @@ class Request extends Component implements interfaces\Request
      * @param string      $language Language
      *
      * @return string|null
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _restoreNonTranslatedUrl(
         ?string $url,
@@ -698,6 +707,7 @@ class Request extends Component implements interfaces\Request
      *
      * @throws RequestException
      * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _prepare(): bool
     {
@@ -956,7 +966,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _removeLanguageFromURI($uri): string
+    private function _removeLanguageFromURI(?string $uri): string
     {
         $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
@@ -976,12 +986,14 @@ class Request extends Component implements interfaces\Request
     public $source_type_map = [];
 
     /**
-     * @param $source
-     * @param $content
+     * Get type of response
+     * 
+     * @param $source  null|string Source
+     * @param $content null|string Content
      *
      * @return string|null
      */
-    private function _getType($source, $content): ?string
+    private function _getType(?string $source,?string $content): ?string
     {
 
         foreach ($this->source_type_map as $pattern => $type) {
@@ -1130,6 +1142,7 @@ class Request extends Component implements interfaces\Request
      * @return void
      * @throws RequestException
      * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     public function start(): void
     {
@@ -1511,22 +1524,6 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
-     * @return Transaction
-     */
-    private function _getDbTransaction(): Transaction
-    {
-        return $this->_db_transaction;
-    }
-
-    /**
-     * @param Transaction $db_transaction
-     */
-    private function _setDbTransaction(Transaction $db_transaction): void
-    {
-        $this->_db_transaction = $db_transaction;
-    }
-
-    /**
      * Get default language for current hostname
      * Its taking from localization_config
      *
@@ -1540,7 +1537,9 @@ class Request extends Component implements interfaces\Request
     /**
      * Set default language
      *
-     * @param string $default_language
+     * @param string $default_language Default language
+     * 
+     * @return void
      */
     private function _setDefaultLanguage(string $default_language): void
     {
