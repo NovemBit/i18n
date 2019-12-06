@@ -26,7 +26,7 @@ use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
-use yii\db\Transaction;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Request component main class.
@@ -855,7 +855,7 @@ class Request extends Component implements interfaces\Request
          *
          * @since 1.1.0
          * */
-        if ($new_url != $url 
+        if (rtrim($new_url, '/') != rtrim($url, '/')
             && $this->getDefaultLanguage() == $this->getLanguage()
         ) {
             $this->_redirect($new_url);
@@ -999,6 +999,8 @@ class Request extends Component implements interfaces\Request
      * @param string $content content of request buffer
      *
      * @return string
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _translateBuffer(?string $content): ?string
     {
