@@ -471,7 +471,11 @@ class URL extends Type implements interfaces\URL
      * @param $texts
      * @return string
      */
-    protected function getCacheKey($from_language, $to_languages, $texts): string
+    protected function getCacheKey(
+        string $from_language,
+        array $to_languages,
+        array $texts
+    ): string
     {
         $prefix = '';
         $http_host = Environment::server('HTTP_HOST');

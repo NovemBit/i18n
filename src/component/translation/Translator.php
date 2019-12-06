@@ -159,8 +159,8 @@ abstract class Translator extends Component implements interfaces\Translator
      * Fetching saved translates from DB
      * Using \NovemBit\i18n\models\Translation model
      *
-     * @param string $from_language
-     * @param array  $to_languages
+     * @param string $from_language From language
+     * @param array  $to_languages  To languages array
      * @param array  $translations  Referenced variable of translations
      * @param array  $texts         Referenced variable of initial texts
      * @param array  $verbose       Information about progress
@@ -174,8 +174,7 @@ abstract class Translator extends Component implements interfaces\Translator
         array &$texts,
         ?array &$verbose
     ): void {
-
-
+        
         /**
          * Find translations from DB with ActiveData
          * */
@@ -203,11 +202,11 @@ abstract class Translator extends Component implements interfaces\Translator
                 && !isset($verbose[$model['source']][$model['to_language']]['id'])
             ) {
                 $verbose[$model['source']][$model['to_language']]['id']
-                    = $model['id'];
+                    = $model['id'] ?? null;
                 $verbose[$model['source']][$model['to_language']]['translate']
-                    = $model['translate'];
+                    = $model['translate'] ?? null;
                 $verbose[$model['source']][$model['to_language']]['level']
-                    = $model['level'];
+                    = $model['level'] ?? null;
             }
 
             /**
@@ -223,8 +222,20 @@ abstract class Translator extends Component implements interfaces\Translator
 
     }
 
-    protected function getCacheKey($from_language, $to_languages, $texts): string
-    {
+    /**
+     * Get cache key for combination
+     * 
+     * @param string $from_language From language 
+     * @param array  $to_languages  To languages array
+     * @param array  $texts         Texts array
+     * 
+     * @return string
+     */
+    protected function getCacheKey(
+        string $from_language, 
+        array $to_languages,
+        array $texts
+    ): string {
         return sprintf(
             "%s_%s_%s_%s",
             $this->name,
@@ -242,7 +253,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @param array $texts        Texts array to translate
      * @param array $verbose      Information about translation progress
      * @param bool  $only_saved   Dont make new translate and return only saved
-     * @param bool  $ignore_cache
+     * @param bool  $ignore_cache Ignore cached result
      *
      * @return array
      * @throws ConnectionException
@@ -673,9 +684,9 @@ abstract class Translator extends Component implements interfaces\Translator
      * Child methods to translate texts
      *
      * @param array  $texts         Texts array to translate
-     * @param string $from_language
-     * @param array  $to_languages
-     * @param bool   $ignore_cache
+     * @param string $from_language From language
+     * @param array  $to_languages  To languages array
+     * @param bool   $ignore_cache  Ignore cache
      *
      * @return array
      */
@@ -730,7 +741,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * Main method to get translations from DB
      *
      * @param array  $texts         Texts array to translate
-     * @param string $from_language
+     * @param string $from_language From language
      * @param array  $to_languages  To languages list
      * @param bool   $reverse       Use translate column as source (ReTranslate)
      *
@@ -751,12 +762,19 @@ abstract class Translator extends Component implements interfaces\Translator
         );
     }
 
+    /**
+     * Get context translation component
+     *
+     * @return interfaces\Translation
+     */
     public function getTranslation()
     {
         return $this->context;
     }
 
     /**
+     * If Cache Result enabled
+     *
      * @return bool|null
      */
     public function isCacheResult(): ?bool
@@ -765,7 +783,11 @@ abstract class Translator extends Component implements interfaces\Translator
     }
 
     /**
-     * @param bool $status
+     * Set cache result status
+     *
+     * @param bool $status Status
+     *
+     * @return void
      */
     public function setCacheResult(?bool $status): void
     {
