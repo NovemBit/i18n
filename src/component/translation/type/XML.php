@@ -151,13 +151,14 @@ class XML extends Type
         if ($node->nodeType == XML_TEXT_NODE
             || $node->nodeType == XML_CDATA_SECTION_NODE
         ) {
-
             /**
              * Define node type
              *
              * @var DOMText $node Text node
              */
-
+            if($type == 'url'){
+                $node->data = urldecode( $node->data);
+            }
             $node_value = $node->data;
         } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
 
@@ -166,6 +167,9 @@ class XML extends Type
              *
              * @var DOMAttr $node Text node
              */
+            if($type == 'url'){
+                $node->value = urldecode( $node->value);
+            }
             $node_value = $node->value;
 
         }
