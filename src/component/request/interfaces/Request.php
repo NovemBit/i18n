@@ -32,4 +32,6 @@ interface Request extends Component
     public function getUrlTranslations(): ?array;
 
     public function getEditorUrlTranslations(): array;
+
+    public function isAllowEditor(): bool;
 }

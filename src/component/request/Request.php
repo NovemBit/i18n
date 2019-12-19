@@ -292,6 +292,14 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @return bool
+     */
+    public function isAllowEditor(): bool
+    {
+        return $this->allow_editor;
+    }
+
+    /**
      * Get orig request uri
      * 
      * @return string
