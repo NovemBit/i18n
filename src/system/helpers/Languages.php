@@ -45,7 +45,7 @@ class Languages
         ['alpha1' => 'am', 'name' => 'Amharic', 'native' => 'Amharic', 'flag' => 'am'],
         ['alpha1' => 'ar', 'name' => 'Arabic', 'native' => 'Arabic', 'flag' => 'ar'],
         ['alpha1' => 'an', 'name' => 'Aragonese', 'native' => 'Aragonese', 'flag' => 'an'],
-        ['alpha1' => 'hy', 'name' => 'Armenian', 'native' => 'Armenian', 'flag' => 'hy'],
+        ['alpha1' => 'hy', 'name' => 'Armenian', 'native' => 'Armenian', 'flag' => 'am'],
         ['alpha1' => 'as', 'name' => 'Assamese', 'native' => 'Assamese', 'flag' => 'as'],
         ['alpha1' => 'av', 'name' => 'Avaric', 'native' => 'Avaric', 'flag' => 'av'],
         ['alpha1' => 'ae', 'name' => 'Avestan', 'native' => 'Avestan', 'flag' => 'ae'],
