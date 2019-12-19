@@ -402,10 +402,9 @@
         }
     }
 
-
-    window.onload = function () {
-        this.novembit.i18n.editor.start();
-    };
+    document.addEventListener("DOMContentLoaded", function(event) {
+        window.novembit.i18n.editor.start();
+    });
 
     stopScroll(window, function () {
         window.novembit.i18n.editor.update();
