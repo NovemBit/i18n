@@ -478,7 +478,7 @@ class URL extends Type implements interfaces\URL
     ): string
     {
         $prefix = '';
-        $http_host = Environment::server('HTTP_HOST');
+        $http_host = md5(Environment::server('HTTP_HOST'));
         if ($http_host !== null) {
             $http_host = str_replace('.', '_', $http_host);
             $prefix = $http_host . '_';
