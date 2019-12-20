@@ -155,7 +155,7 @@ class Module extends system\Component
      *
      * @return self
      */
-    public static function instance($config = null): self
+    public static function instance($config = null): ?self
     {
 
         if (!isset(self::$_instance) && ($config != null)) {
