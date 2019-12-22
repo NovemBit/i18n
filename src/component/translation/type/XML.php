@@ -106,7 +106,7 @@ class XML extends Type
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml      XML content
+     * @param string $xml XML content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -135,6 +135,58 @@ class XML extends Type
         return $parser;
     }
 
+    /**
+     * Get node value with node type
+     *
+     * @param DOMNode $node Node element
+     * @param string $type type of node content
+     *
+     * @return string|null
+     */
+    private function _getNodeValue($node, $type, &$node_type = null): ?string
+    {
+        $node_value = null;
+        $node_type = $this->_getNodeType($node);
+
+        if ($node_type == 'text') {
+            /**
+             * Define node type
+             *
+             * @var DOMText $node Text node
+             */
+            if ($type == 'url') {
+                $node_value = urldecode($node->data);
+            } else {
+                $node_value = $node->data;
+            }
+        } elseif ($node_type == 'attr') {
+            /**
+             * Define node type
+             *
+             * @var DOMAttr $node Text node
+             */
+            if ($type == 'url') {
+                $node_value = urldecode($node->value);
+            } else {
+                $node_value = $node->value;
+            }
+        }
+        return $node_value;
+    }
+
+    private function _getNodeType($node): ?string
+    {
+        if ($node->nodeType == XML_TEXT_NODE
+            || $node->nodeType == XML_CDATA_SECTION_NODE
+        ) {
+            return 'text';
+        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
+            return 'attr';
+        } else {
+            return null;
+        }
+    }
+
     public function buildToTranslateFields(
         DOMNode &$node,
         array $params,
@@ -145,34 +197,10 @@ class XML extends Type
          *
          * @var DOMNode $node
          */
-
         $type = $params['type'] ?? 'text';
-        $node_value = null;
-        if ($node->nodeType == XML_TEXT_NODE
-            || $node->nodeType == XML_CDATA_SECTION_NODE
-        ) {
-            /**
-             * Define node type
-             *
-             * @var DOMText $node Text node
-             */
-            if($type == 'url'){
-                $node->data = urldecode( $node->data);
-            }
-            $node_value = $node->data;
-        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
 
-            /**
-             * Define node type
-             *
-             * @var DOMAttr $node Text node
-             */
-            if($type == 'url'){
-                $node->value = urldecode( $node->value);
-            }
-            $node_value = $node->value;
+        $node_value = $this->_getNodeValue($node, $type);
 
-        }
         if ($node_value !== null) {
             $data['to_translate'][$type][] = $node_value;
         }
@@ -199,27 +227,9 @@ class XML extends Type
 
         $type = $params['type'] ?? 'text';
 
-        $node_value = null;
+        $node_value = $this->_getNodeValue($node, $type, $node_type);
 
-        if ($node->nodeType == XML_TEXT_NODE
-            || $node->nodeType == XML_CDATA_SECTION_NODE
-        ) {
-            /**
-             * Define $node type
-             *
-             * @var DOMText $node Text node
-             */
-            $node_value = $node->data;
-            $node_type = 'text';
-        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
-            /**
-             * Define node type
-             *
-             * @var DOMAttr $node Text node
-             */
-            $node_value = $node->value;
-            $node_type = 'attr';
-        } else {
+        if ($node_type == null) {
             return;
         }
 
@@ -309,6 +319,7 @@ class XML extends Type
                 }
             }
         }
+
         if (!empty($translate)) {
             if ($node_type == 'text') {
                 $node->data = $translate;
@@ -329,9 +340,9 @@ class XML extends Type
      * And send to translation:
      * Using custom type of translation for each type of node
      *
-     * @param array  $xml_list      list of translatable HTML strings
+     * @param array $xml_list list of translatable HTML strings
      * @param string $from_language
-     * @param array  $to_languages
+     * @param array $to_languages
      *
      * @return mixed
      * @see    DOMText
