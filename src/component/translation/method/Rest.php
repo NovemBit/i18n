@@ -72,6 +72,13 @@ class Rest extends Method
     public $api_key;
 
     /**
+     * Timeout of curl request
+     *
+     * @var int
+     * */
+    public $request_timeout =5;
+
+    /**
      * Doing translate method
      *
      * @param array $texts Array of texts to translate
@@ -117,11 +124,11 @@ class Rest extends Method
 
         //Tell cURL that it should only spend 10 seconds
         //trying to connect to the URL in question.
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->request_timeout);
 
         //A given cURL operation should only take
         //30 seconds max.
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT,  ($this->request_timeout+7));
         $result = curl_exec($ch);
 
         if ($result === false) {
