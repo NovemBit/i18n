@@ -93,7 +93,7 @@ class Google extends Method
                 continue;
             }
 
-            if ($timestamp!==null && $timestamp + $this->api_limit_expire_delay < time()) {
+            if ($timestamp==null || $timestamp + $this->api_limit_expire_delay < time()) {
                 $this->_translateOneLanguage($texts, $from_language, $language, $result);
             }
 
