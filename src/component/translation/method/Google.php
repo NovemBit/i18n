@@ -40,6 +40,8 @@ class Google extends Method
      * */
     public $api_key;
 
+    public $api_limit_expire_delay = 3600;
+
     /**
      * {@inheritdoc}
      * */
@@ -61,10 +63,10 @@ class Google extends Method
     /**
      * Doing translate method
      *
-     * @param array  $texts         Array of texts to translate
+     * @param array $texts Array of texts to translate
      * @param string $from_language
-     * @param array  $to_languages
-     * @param bool   $ignore_cache
+     * @param array $to_languages
+     * @param bool $ignore_cache
      *
      * @return array
      * @throws \Exception
@@ -75,8 +77,13 @@ class Google extends Method
         array $to_languages,
         bool $ignore_cache
     ): array {
-
         $result = [];
+
+        $timestamp = null;
+
+        if (file_exists($this->_getMutexPath())) {
+            $timestamp = (int) file_get_contents($this->_getMutexPath());
+        }
 
         foreach ($to_languages as $language) {
             if ($from_language == $language) {
@@ -86,20 +93,27 @@ class Google extends Method
                 continue;
             }
 
-            $this->_translateOneLanguage($texts, $from_language, $language, $result);
+            if ($timestamp!==null && $timestamp + $this->api_limit_expire_delay < time()) {
+                $this->_translateOneLanguage($texts, $from_language, $language, $result);
+            }
+
         }
 
         return $result;
     }
 
+    private function _getMutexPath()
+    {
+        return $this->getRuntimeDir() . "/" . md5(self::class) . '_mutex';
+    }
 
     /**
      * Translate texts to only one language
      *
-     * @param array  $texts         Array of translatable texts
+     * @param array $texts Array of translatable texts
      * @param string $from_language Language code
-     * @param string $to_language   Language code
-     * @param array  $result        Referenced variable of results
+     * @param string $to_language Language code
+     * @param array $result Referenced variable of results
      *
      * @return void
      * @throws \Exception
@@ -126,6 +140,7 @@ class Google extends Method
         $gt_client = new  TranslateClient($request_data);
         $translations = [];
 
+
         try {
             // todo: count the character
             $chunks = array_chunk($texts, 100);
@@ -138,6 +153,8 @@ class Google extends Method
         } catch (GoogleException $e) {
 
             $message = json_decode($e->getMessage(), true) ?? [];
+
+            file_put_contents($this->_getMutexPath(), time());
 
             $this->getLogger()->warning(
                 sprintf(
