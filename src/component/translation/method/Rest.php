@@ -76,7 +76,7 @@ class Rest extends Method
      *
      * @var int
      * */
-    public $request_timeout =5;
+    public $request_timeout = 4;
 
     /**
      * Doing translate method
