@@ -35,8 +35,6 @@ use NovemBit\i18n\component\languages\exceptions\LanguageException;
  * */
 class Languages extends Component implements interfaces\Languages
 {
-
-    use traits\Languages;
     /**
      * Main content language
      *
@@ -541,7 +539,7 @@ class Languages extends Component implements interfaces\Languages
     public function getLanguageNameByCode(string $code): string
     {
 
-        $name = self::_getLanguage($code, 'alpha1', 'name') ?? null;
+        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'name') ?? null;
 
         if ($name === null) {
             throw new LanguageException("Language name property not found!");
@@ -559,7 +557,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getLanguageNativeNameByCode(string $code): string
     {
-        $name = self::_getLanguage($code, 'alpha1', 'native') ?? null;
+        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'native') ?? null;
 
         if ($name === null) {
             throw new LanguageException("Language native property not found!");
@@ -583,7 +581,7 @@ class Languages extends Component implements interfaces\Languages
         $html = false
     ): string {
 
-        $flag = self::_getLanguage($code, 'alpha1', 'flag') ?? null;
+        $flag = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'flag') ?? null;
 
         if ($flag === null) {
             throw new LanguageException("Language flag property not found!");
