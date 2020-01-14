@@ -66,7 +66,7 @@ class Languages
         ['alpha1' => 'km', 'name' => 'Central Khmer', 'native' => 'Central Khmer', 'flag' => 'km'],
         ['alpha1' => 'ch', 'name' => 'Chamorro', 'native' => 'Chamorro', 'flag' => 'ch'],
         ['alpha1' => 'ce', 'name' => 'Chechen', 'native' => 'Chechen', 'flag' => 'ce'],
-        ['alpha1' => 'ny', 'name' => 'Chichewa', 'native' => 'Chichewa', 'flag' => 'ny'],
+        ['alpha1' => 'ny', 'name' => 'Chichewa', 'native' => 'Chichewa', 'flag' => 'mw'],
         ['alpha1' => 'zh', 'name' => 'Chinese', 'native' => 'Chinese', 'flag' => 'zh'],
         ['alpha1' => 'cu', 'name' => 'Church Slavonic', 'native' => 'Church Slavonic', 'flag' => 'cu'],
         ['alpha1' => 'cv', 'name' => 'Chuvash', 'native' => 'Chuvash', 'flag' => 'cv'],
