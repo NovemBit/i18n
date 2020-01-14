@@ -6,6 +6,26 @@ namespace NovemBit\i18n\system\helpers;
 
 class Languages
 {
+    public static function getLanguage(
+        string $key,
+        string $by = 'alpha1',
+        ?string $return = 'name'
+    ) {
+        $languages = self::getLanguages();
+        foreach ($languages as $language) {
+            if (isset($language[$by])
+                && is_string($language[$by])
+                && $language[$by] == strtolower($key)
+            ) {
+                if ($return!=null) {
+                    return $language[$return] ?? null;
+                } else {
+                    return $language;
+                }
+            }
+        }
+        return null;
+    }
     /**
      * ISO 639-1 languages list
      *
@@ -43,7 +63,7 @@ class Languages
             'flag' => 'sq'
         ],
         ['alpha1' => 'am', 'name' => 'Amharic', 'native' => 'Amharic', 'flag' => 'am'],
-        ['alpha1' => 'ar', 'name' => 'Arabic', 'native' => 'Arabic', 'flag' => 'ae'],
+        ['alpha1' => 'ar', 'name' => 'Arabic', 'native' => 'Arabic', 'flag' => 'ae', "dir"=>"rtl"],
         ['alpha1' => 'an', 'name' => 'Aragonese', 'native' => 'Aragonese', 'flag' => 'an'],
         ['alpha1' => 'hy', 'name' => 'Armenian', 'native' => 'Armenian', 'flag' => 'am'],
         ['alpha1' => 'as', 'name' => 'Assamese', 'native' => 'Assamese', 'flag' => 'as'],
