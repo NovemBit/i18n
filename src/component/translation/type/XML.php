@@ -19,7 +19,6 @@ use DOMNode;
 use DOMText;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
 
 
 /**

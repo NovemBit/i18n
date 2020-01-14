@@ -13,14 +13,10 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use DOMAttr;
 use DOMElement;
 use DOMText;
 use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\component\translation\Translator;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
-use NovemBit\i18n\system\parsers\xml\Rule;
 
 
 /**
@@ -84,11 +80,18 @@ class HTML extends XML implements interfaces\HTML
                  * Setting var types
                  *
                  * @var DOMXPath $xpath
-                 * @var DOMAttr $lang
+                 * @var DOMElement $html
                  */
-                $lang = $xpath->query('//html/@lang')->item(0);
-                if ($lang !== null) {
-                    $lang->value = $language;
+                $html = $xpath->query('//html')->item(0);
+                $html->setAttribute('lang', $language);
+                $dir = \NovemBit\i18n\system\helpers\Languages::getLanguage($language,'alpha1','dir');
+
+                /**
+                 * Set html dir="rtl" attribute
+                 * When language dir set rtl
+                 * */
+                if($dir == 'rtl'){
+                    $html->setAttribute('dir','rtl');
                 }
             }
         );
