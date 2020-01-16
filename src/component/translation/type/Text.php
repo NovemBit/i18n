@@ -85,7 +85,13 @@ class Text extends Type
      *
      * @param array $texts List of texts to translate
      *
+     * @param string $from_language
+     * @param array $to_languages
+     * @param bool $ignore_cache
+     *
      * @return array
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function doTranslate(
         array $texts,
