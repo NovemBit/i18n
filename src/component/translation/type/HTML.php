@@ -64,7 +64,7 @@ class HTML extends XML implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml      Html content
+     * @param string $xml Html content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -83,15 +83,20 @@ class HTML extends XML implements interfaces\HTML
                  * @var DOMElement $html
                  */
                 $html = $xpath->query('//html')->item(0);
+
+                if ( ! $html) {
+                    return;
+                }
+
                 $html->setAttribute('lang', $language);
-                $dir = \NovemBit\i18n\system\helpers\Languages::getLanguage($language,'alpha1','dir');
+                $dir = \NovemBit\i18n\system\helpers\Languages::getLanguage($language, 'alpha1', 'dir');
 
                 /**
                  * Set html dir="rtl" attribute
                  * When language dir set rtl
                  * */
-                if($dir == 'rtl'){
-                    $html->setAttribute('dir','rtl');
+                if ($dir == 'rtl') {
+                    $html->setAttribute('dir', 'rtl');
                 }
             }
         );
@@ -109,8 +114,8 @@ class HTML extends XML implements interfaces\HTML
 
                     $language_name = $this->context->context->languages
                         ->getLanguageNameByCode($language);
-                    $country_name = $this->context->getCountry();
-                    $region_name = $this->context->getRegion();
+                    $country_name  = $this->context->getCountry();
+                    $region_name   = $this->context->getRegion();
 
                     $translator = $this->getTranslation()->text;
 
@@ -122,39 +127,39 @@ class HTML extends XML implements interfaces\HTML
                         ->translate([$language_name, $country_name, $region_name]);
 
                     $language_native_name = $_translations[$language_name][$language]
-                        ?? $language_name;
+                                            ?? $language_name;
 
                     $country_native_name = $_translations[$country_name][$language]
-                        ?? $country_name;
+                                           ?? $country_name;
 
                     $region_native_name = $_translations[$region_name][$language]
-                        ?? $region_name;
+                                          ?? $region_name;
 
                     if (is_callable($this->title_tag_template)) {
                         $title->data = call_user_func(
                             $this->title_tag_template,
                             [
-                                'translate' => $title->data,
-                                'language_code' => $language,
-                                'language_name' => $language_name,
+                                'translate'       => $title->data,
+                                'language_code'   => $language,
+                                'language_name'   => $language_name,
                                 'language_native' => $language_native_name,
-                                'country' => $country_name,
-                                'country_native' => $country_native_name,
-                                'region' => $region_name,
-                                'region_native' => $region_native_name
+                                'country'         => $country_name,
+                                'country_native'  => $country_native_name,
+                                'region'          => $region_name,
+                                'region_native'   => $region_native_name
                             ]
                         );
                     } else {
                         $title->data = strtr(
                             $this->title_tag_template, [
-                                '{translate}' => $title->data,
-                                '{language_code}' => $language,
-                                '{language_name}' => $language_name,
+                                '{translate}'       => $title->data,
+                                '{language_code}'   => $language,
+                                '{language_name}'   => $language_name,
                                 '{language_native}' => $language_native_name,
-                                '{country}' => $country_name,
-                                '{country_native}' => $country_native_name,
-                                '{region}' => $region_name,
-                                '{region_native}' => $region_native_name
+                                '{country}'         => $country_name,
+                                '{country_native}'  => $country_native_name,
+                                '{region}'          => $region_name,
+                                '{region_native}'   => $region_native_name
                             ]
                         );
                     }
