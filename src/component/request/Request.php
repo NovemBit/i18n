@@ -1019,6 +1019,8 @@ class Request extends Component implements interfaces\Request
      * @param string $content content of request buffer
      *
      * @return string
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _translateBuffer(?string $content): ?string
     {
