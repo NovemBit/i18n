@@ -98,6 +98,15 @@ class URL extends Type implements interfaces\URL
     public $base_domain = null;
 
     /**
+     * You can write custom patterns
+     * To exclude path custom parts of path
+     * After translate your excluded path will be restored
+     *
+     * @example `\/var\/.*`
+     * */
+    public $path_exclusion_patterns = [];
+
+    /**
      * {@inheritDoc}
      *
      * @return void
@@ -119,9 +128,14 @@ class URL extends Type implements interfaces\URL
     /**
      * Doing translation method
      *
-     * @param array $urls list of urls
+     * @param array  $urls          list of urls
+     * @param string $from_language From language
+     * @param array  $to_languages  To Languages
+     * @param bool   $ignore_cache  Ignore cache
      *
      * @return array
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     protected function doTranslate(
         array $urls,
@@ -146,9 +160,7 @@ class URL extends Type implements interfaces\URL
             $ignore_cache
         ) : [];
 
-        $result = $this->_buildTranslateResult($paths, $to_languages, $translations);
-
-        return $result;
+        return $this->_buildTranslateResult($paths, $to_languages, $translations);
     }
 
     /**
@@ -169,7 +181,6 @@ class URL extends Type implements interfaces\URL
         &$translates,
         ?array &$verbose
     ): bool {
-
         Strings::getStringsDifference($before, $after, $prefix, $suffix);
 
         $translates[$before] = $translates[$after];
@@ -185,7 +196,10 @@ class URL extends Type implements interfaces\URL
         }
 
         return parent::validateAfterTranslate(
-            $before, $after, $translates, $verbose
+            $before,
+            $after,
+            $translates,
+            $verbose
         );
     }
 
@@ -205,6 +219,10 @@ class URL extends Type implements interfaces\URL
     {
         $url = trim($url, ' ');
 
+        foreach ($this->path_exclusion_patterns as $pattern) {
+            $url = preg_replace($pattern, '', $url);
+        }
+
         $parts = parse_url($url);
 
         foreach ($this->url_validation_rules as $key => $rules) {
@@ -214,7 +232,6 @@ class URL extends Type implements interfaces\URL
             foreach ($rules as $rule) {
                 if (!preg_match("/$rule/", $parts[$key])) {
                     return false;
-
                 }
             }
         }
@@ -226,7 +243,6 @@ class URL extends Type implements interfaces\URL
         $url = rtrim($url, '/');
 
         return true;
-
     }
 
 
@@ -245,22 +261,18 @@ class URL extends Type implements interfaces\URL
         array $languages,
         array $translations
     ) {
-
         $result = [];
 
         foreach ($paths as $path_parts) {
-
             $path = implode('/', $path_parts);
             /*
              * To build last result fetching languages
              * And building result with language keys
              * */
             foreach ($languages as $language) {
-
                 $language_path_parts = $path_parts;
 
                 foreach ($language_path_parts as &$part) {
-
                     /*
                      * If translation found
                      * */
@@ -296,7 +308,7 @@ class URL extends Type implements interfaces\URL
      * Translate with translation component as text
      *
      * @param array $paths        paths to translate
-     * @param bool  $ignore_cache Ignore cache 
+     * @param bool  $ignore_cache Ignore cache
      *
      * @return mixed
      * @throws ConnectionException
@@ -328,7 +340,6 @@ class URL extends Type implements interfaces\URL
      */
     private function _getPathParts($path)
     {
-
         $path = trim($path, '/');
 
         /*
@@ -378,7 +389,6 @@ class URL extends Type implements interfaces\URL
         $url = trim($url, $this->path_separator);
 
         if ($this->path_lowercase) {
-
             /**
              * String to lowercase
              * */
@@ -399,6 +409,10 @@ class URL extends Type implements interfaces\URL
     {
         $url = trim($url, ' ');
 
+        foreach ($this->path_exclusion_patterns as $pattern) {
+            $url = preg_replace($pattern, '', $url);
+        }
+
         $parts = parse_url($url);
 
         foreach ($this->url_validation_rules as $key => $rules) {
@@ -408,7 +422,6 @@ class URL extends Type implements interfaces\URL
             foreach ($rules as $rule) {
                 if (!preg_match("/$rule/", $parts[$key])) {
                     return false;
-
                 }
             }
         }
@@ -420,7 +433,6 @@ class URL extends Type implements interfaces\URL
         $url = rtrim($url, '/');
 
         return true;
-
     }
 
     /**
@@ -483,6 +495,7 @@ class URL extends Type implements interfaces\URL
             $http_host = str_replace('.', '_', $http_host);
             $prefix = $http_host . '_';
         }
+
         return $prefix . parent::getCacheKey($from_language, $to_languages, $texts);
     }
 
