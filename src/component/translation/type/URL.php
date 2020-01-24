@@ -464,9 +464,11 @@ class URL extends Type implements interfaces\URL
     }
 
     /**
-     * @param  $from_language
-     * @param  $to_languages
-     * @param  $texts
+     * {@inheritDoc}
+     *
+     * @param string $from_language From language
+     * @param array  $to_languages  To languages list
+     * @param array  $texts         Texts to translate
      *
      * @return string
      */
