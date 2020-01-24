@@ -13,10 +13,12 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\Strings;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Url translation component
@@ -140,9 +142,9 @@ class URL extends Type implements interfaces\URL
 
         $translations = $this->path_translation
             ? $this->_getPathPartTranslations(
-                $paths_to_translate,
-                $ignore_cache
-            ) : [];
+            $paths_to_translate,
+            $ignore_cache
+        ) : [];
 
         $result = $this->_buildTranslateResult($paths, $to_languages, $translations);
 
@@ -154,10 +156,10 @@ class URL extends Type implements interfaces\URL
      * Concat prefix, body and suffix to avoid that
      * Final url is fully like origin url
      *
-     * @param string $before initial type of url
-     * @param string $after final type of url
-     * @param array $translates list of translated urls
-     * @param array|null $verbose Verbose
+     * @param string     $before     initial type of url
+     * @param string     $after      final type of url
+     * @param array      $translates list of translated urls
+     * @param array|null $verbose    Verbose
      *
      * @return bool
      */
@@ -232,8 +234,8 @@ class URL extends Type implements interfaces\URL
      * Building translation result that
      * must be returned
      *
-     * @param array $paths whole translatable paths
-     * @param array $languages list of languages
+     * @param array $paths        whole translatable paths
+     * @param array $languages    list of languages
      * @param array $translations translated paths
      *
      * @return array
@@ -293,10 +295,12 @@ class URL extends Type implements interfaces\URL
      * Get path translations
      * Translate with translation component as text
      *
-     * @param array $paths paths to translate
+     * @param array $paths        paths to translate
+     * @param bool  $ignore_cache Ignore cache 
      *
-     * @param  $ignore_cache
      * @return mixed
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     private function _getPathPartTranslations(array $paths, $ignore_cache)
     {
@@ -306,14 +310,12 @@ class URL extends Type implements interfaces\URL
 
         $translator = $this->context->text;
 
-        $translate = $translator->translate(
+        return $translator->translate(
             $paths,
             $verbose,
             false,
             $ignore_cache
         );
-
-        return $translate;
     }
 
     /**
@@ -332,9 +334,7 @@ class URL extends Type implements interfaces\URL
         /*
          * Separate path parts
          * */
-        $parts = explode('/', $path);
-
-        return $parts;
+        return explode('/', $path);
     }
 
     /**
@@ -346,9 +346,7 @@ class URL extends Type implements interfaces\URL
      */
     private function _getUrlParts($url)
     {
-        $parts = parse_url($url);
-
-        return $parts;
+        return parse_url($url);
     }
 
     /**
@@ -430,8 +428,8 @@ class URL extends Type implements interfaces\URL
      *  Remove language key from query variables
      *
      * @param string $before initial url
-     * @param string $after final url
-     * @param array $result Referenced variable to receive result
+     * @param string $after  final url
+     * @param array  $result Referenced variable to receive result
      *
      * @return bool
      */
@@ -466,17 +464,17 @@ class URL extends Type implements interfaces\URL
     }
 
     /**
-     * @param $from_language
-     * @param $to_languages
-     * @param $texts
+     * @param  $from_language
+     * @param  $to_languages
+     * @param  $texts
+     *
      * @return string
      */
     protected function getCacheKey(
         string $from_language,
         array $to_languages,
         array $texts
-    ): string
-    {
+    ): string {
         $prefix = '';
         $http_host = md5(Environment::server('HTTP_HOST'));
         if ($http_host !== null) {
