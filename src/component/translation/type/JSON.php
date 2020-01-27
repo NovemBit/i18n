@@ -224,7 +224,7 @@ class JSON extends Type
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$json): bool
+    protected function validateBeforeTranslate(string &$json): bool
     {
         $obj = json_decode($json, true);
         if (is_array($obj)) {

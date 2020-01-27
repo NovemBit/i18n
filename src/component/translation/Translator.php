@@ -539,7 +539,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$text): bool
+    protected function validateBeforeTranslate(string &$text): bool
     {
         return true;
     }

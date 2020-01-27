@@ -169,7 +169,7 @@ class Text extends Type
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$text): bool
+    protected function validateBeforeTranslate(string &$text): bool
     {
 
         foreach ($this->dont_translate_patterns as $pattern) {
