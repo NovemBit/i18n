@@ -384,11 +384,12 @@ class XML extends Type implements interfaces\XML
              * @var Translator $translator
              */
             $translator = $this->context->{$type};
-
-            if ($this->getHelperAttributes()) {
-                $translator->setHelperAttributes(true);
-            }
             
+            /**
+             * Enable helper attributes for sub-translators
+             * */
+            $translator->setHelperAttributes($this->getHelperAttributes());
+
             $translations[$type] = $translator->translate(
                 $texts,
                 $verbose[$type],
