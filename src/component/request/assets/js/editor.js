@@ -253,7 +253,7 @@
             unexpandSelector: function (node) {
                 node.selector.classList.remove('expanded');
             },
-            showNodeContextMenu:function(node){
+            showNodeContextMenu: function (node) {
                 let editor = this;
             },
             initSelectors: function () {
@@ -287,7 +287,7 @@
                             editor.context_menu.style.top = posY + "px";
                             editor.context_menu.style.left = posX + "px";
                             editor.context_menu.classList.add("shown");
-                            editor.context_menu.querySelector('.translate').onclick = function(){
+                            editor.context_menu.querySelector('.translate').onclick = function () {
                                 editor.activeSelector(node);
                                 editor.expandSelector(node);
                                 editor.context_menu.classList.remove("shown");
@@ -315,13 +315,13 @@
                         };
 
 
-                        if(node.data.hasOwnProperty('attr')){
-                            for (let _attr in node.data.attr){
-                                if(node.data.attr.hasOwnProperty(_attr)){
-                                    if(node.data.attr[_attr][2] === 'url'){
+                        if (node.data.hasOwnProperty('attr')) {
+                            for (let _attr in node.data.attr) {
+                                if (node.data.attr.hasOwnProperty(_attr)) {
+                                    if (node.data.attr[_attr][2] === 'url') {
                                         let url = node.getAttribute(_attr);
-                                        url = this.addParameterToURL(url,window.novembit.i18n.prefix+'-'+this.query_key,'1');
-                                        node.setAttribute(_attr,url);
+                                        url = this.addParameterToURL(url, window.novembit.i18n.prefix + '-' + this.query_key, '2');
+                                        node.setAttribute(_attr, url);
                                     }
                                 }
                             }
@@ -343,11 +343,12 @@
                     node.selector.style.left = nodePos.left + "px";
                 }
             },
-            addParameterToURL:function (url, key, value) {
-                url += (url.split('?')[1] ? '&' : '?') + key + '=' + value;
-                return url;
+            addParameterToURL: function (url, key, value) {
+                url = new URL(url, document.baseURI);
+                url.searchParams.set(key, value);
+                return url.href;
             },
-            initContextMenu : function(){
+            initContextMenu: function () {
                 let editor = this;
 
                 this.context_menu.id = window.novembit.i18n.prefix + "-context-menu";
@@ -402,7 +403,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function(event) {
+    document.addEventListener("DOMContentLoaded", function (event) {
         window.novembit.i18n.editor.start();
     });
 
