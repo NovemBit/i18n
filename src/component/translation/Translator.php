@@ -106,6 +106,14 @@ abstract class Translator extends Component implements interfaces\Translator
     private $_re_translate_original_texts = [];
 
     /**
+     * Show helper attributes that contains
+     * All information about current node and child Text/Attr nodes
+     *
+     * @var bool
+     * */
+    private $_helper_attributes = false;
+    
+    /**
      * {@inheritdoc}
      *
      * @return void
@@ -792,6 +800,29 @@ abstract class Translator extends Component implements interfaces\Translator
     public function setCacheResult(?bool $status): void
     {
         $this->cache_result = $status;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return bool
+     * */
+    public function getHelperAttributes(): bool
+    {
+        return $this->_helper_attributes;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param bool $status If true then
+     *                     html translation including additional attributes
+     *
+     * @return void
+     * */
+    public function setHelperAttributes(bool $status): void
+    {
+        $this->_helper_attributes = $status;
     }
 
 }

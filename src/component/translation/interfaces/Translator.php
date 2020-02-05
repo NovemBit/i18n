@@ -45,4 +45,7 @@ interface Translator extends Component
 
     public function setCacheResult(?bool $cache_status): void;
 
+    public function getHelperAttributes() : bool;
+
+    public function setHelperAttributes(bool $status) : void;
 }
