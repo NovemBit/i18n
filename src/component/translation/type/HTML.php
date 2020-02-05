@@ -17,6 +17,7 @@ use DOMElement;
 use DOMText;
 use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\system\helpers\Languages;
 
 
 /**
@@ -64,7 +65,7 @@ class HTML extends XML implements interfaces\HTML
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml Html content
+     * @param string $xml      Html content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -84,12 +85,12 @@ class HTML extends XML implements interfaces\HTML
                  */
                 $html = $xpath->query('//html')->item(0);
 
-                if ( ! $html) {
+                if (! $html) {
                     return;
                 }
 
                 $html->setAttribute('lang', $language);
-                $dir = \NovemBit\i18n\system\helpers\Languages::getLanguage($language, 'alpha1', 'dir');
+                $dir = Languages::getLanguage($language, 'alpha1', 'dir');
 
                 /**
                  * Set html dir="rtl" attribute
