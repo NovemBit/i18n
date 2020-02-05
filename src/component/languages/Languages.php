@@ -72,7 +72,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @var string
      * */
-    public $language_query_key = 'language';
+    public $language_query_key = 'i18n-language';
 
     /**
      * Pattern to exclude paths from url
