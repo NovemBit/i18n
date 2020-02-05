@@ -29,7 +29,7 @@ use NovemBit\i18n\system\helpers\Arrays;
  *
  * @property Translation context
  */
-class JSON extends Type
+class JSON extends Type implements interfaces\JSON
 {
     /**
      * {@inheritdoc}
@@ -180,6 +180,8 @@ class JSON extends Type
 
             /** @var Translator $translator */
             $translator = $this->context->{$type};
+            
+            $translator->setHelperAttributes($this->getHelperAttributes());
 
             $translations[$type] = $translator->translate(
                 $values,
