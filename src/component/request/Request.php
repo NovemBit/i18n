@@ -1044,16 +1044,18 @@ class Request extends Component implements interfaces\Request
                     ->setLanguages([$this->getLanguage()])
                     ->{$type};
 
+                if ($this->isEditor()) {
+                    /**
+                     * Define translator type
+                     *
+                     * @var HTML $translator
+                     */
+                    $translator->setHelperAttributes(true);
+                }
+                
                 if ($type == "html") {
 
-                    if ($this->isEditor()) {
-                        /**
-                         * Define translator type
-                         *
-                         * @var HTML $translator
-                         */
-                        $translator->setHelperAttributes(true);
-                    }
+
                     /**
                      * Define type of HTML translator
                      *
