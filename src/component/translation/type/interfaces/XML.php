@@ -24,11 +24,6 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
  */
 interface XML extends Type
 {
-
-    public function getHelperAttributes() : bool;
-
-    public function setHelperAttributes(bool $status) : void;
-
     public function addBeforeParseCallback(callable $callback):void;
 
     public function addAfterParseCallback(callable $callback):void;
