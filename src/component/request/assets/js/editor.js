@@ -320,7 +320,7 @@
                                 if (node.data.attr.hasOwnProperty(_attr)) {
                                     if (node.data.attr[_attr][2] === 'url') {
                                         let url = node.getAttribute(_attr);
-                                        url = this.addParameterToURL(url, window.novembit.i18n.prefix + '-' + this.query_key, '2');
+                                        url = this.addParameterToURL(url, window.novembit.i18n.prefix + '-' + this.query_key, 1);
                                         node.setAttribute(_attr, url);
                                     }
                                 }
