@@ -262,7 +262,7 @@ class XML extends Type implements interfaces\XML
 
                 if ($translate !== null) {
                     $text[] = [
-                        $node_value,
+                        $_verbose['after'] ?? null,
                         $_verbose[$data['language']]['translate'] ?? null,
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,
@@ -276,9 +276,10 @@ class XML extends Type implements interfaces\XML
                 }
             } elseif ($node_type == 'attr') {
                 /**
+                 * Define node type
+                 *
                  * @var DOMAttr $node
                  */
-
                 if ($parent->hasAttribute(
                     $this->context->context->prefix . '-attr'
                 )
@@ -294,7 +295,7 @@ class XML extends Type implements interfaces\XML
                 }
                 if ($translate !== null) {
                     $attr[$node->name] = [
-                        $node_value,
+                        $_verbose['after'] ?? null,
                         $_verbose[$data['language']]['translate'] ?? null,
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,

@@ -1122,10 +1122,13 @@ class Request extends Component implements interfaces\Request
             );
 
             if (is_callable($this->editor_after_save_callback)) {
-                call_user_func($this->editor_after_save_callback, $verbose, $this);
+                call_user_func_array(
+                    $this->editor_after_save_callback, [&$verbose, $this]
+                );
             }
 
-            echo json_encode($verbose);
+            header('Content-Type: application/json');
+            echo json_encode($verbose,JSON_PRETTY_PRINT);
 
             return true;
         }
