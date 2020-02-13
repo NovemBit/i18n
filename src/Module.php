@@ -84,8 +84,7 @@ class Module extends system\Component
      * @var string
      * */
     public $prefix = 'i18n';
-
-
+    
     /**
      * Default component configuration
      *
@@ -127,9 +126,6 @@ class Module extends system\Component
     /**
      * {@inheritdoc}
      *
-     * Load Yii framework container to use some libraries that not
-     * Allowed to use standalone
-     *
      * @return void
      */
     public function commonLateInit(): void
@@ -138,7 +134,9 @@ class Module extends system\Component
     }
 
     /**
-     * Start request translation
+     * Main start method of module
+     * * Starting request component
+     * * Starting rest component
      *
      * @return void
      */
@@ -155,7 +153,7 @@ class Module extends system\Component
      *
      * @return self
      */
-    public static function instance($config = null): ?self
+    public static function instance(?array $config = null): ?self
     {
 
         if (!isset(self::$_instance) && ($config != null)) {
