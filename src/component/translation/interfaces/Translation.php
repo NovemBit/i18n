@@ -3,6 +3,7 @@
 
 namespace NovemBit\i18n\component\translation\interfaces;
 
+use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\component\translation\type\interfaces\HTML;
 use NovemBit\i18n\component\translation\type\interfaces\JSON;
@@ -27,6 +28,15 @@ interface Translation extends Component
 {
     public function getFromLanguage(): string;
 
+    /**
+     * Set languages
+     *
+     * @param array $_languages Languages list
+     *
+     * @return $this
+     *
+     * @throws UnsupportedLanguagesException
+     */
     public function setLanguages(array $_languages): self;
 
     public function setCountry(?string $_country): self;

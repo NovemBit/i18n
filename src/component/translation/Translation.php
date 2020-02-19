@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\translation;
 
 
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
@@ -97,13 +98,13 @@ class Translation extends Component implements interfaces\Translation
      * @return self
      * @throws TranslationException
      */
-    public function setLanguages(array $_languages) : interfaces\Translation
+    public function setLanguages(array $_languages): interfaces\Translation
     {
         if ($this->context->languages->validateLanguages($_languages)) {
             $this->_languages = $_languages;
             return $this;
         } else {
-            throw new TranslationException('Language not supporting.');
+            throw new UnsupportedLanguagesException($_languages);
         }
     }
 
@@ -125,7 +126,7 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getCountry():?string
+    public function getCountry(): ?string
     {
         return $this->_country;
     }
@@ -148,7 +149,7 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getRegion():?string
+    public function getRegion(): ?string
     {
         return $this->_region;
     }
@@ -159,7 +160,7 @@ class Translation extends Component implements interfaces\Translation
      * @return mixed
      * @throws TranslationException
      */
-    public function getLanguages() : array
+    public function getLanguages(): array
     {
         if (isset($this->_languages)) {
             return $this->_languages;
@@ -173,7 +174,7 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getFromLanguage() : string
+    public function getFromLanguage(): string
     {
         return $this->context->languages->getFromLanguage();
     }
