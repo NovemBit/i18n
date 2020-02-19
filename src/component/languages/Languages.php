@@ -145,11 +145,9 @@ class Languages extends Component implements interfaces\Languages
         $path = explode('/', trim($uri_parts['path'], '/'));
 
         if (isset($path[0]) && $this->validateLanguage($path[0])) {
-
             $language = $path[0];
 
             return $language;
-
         }
 
         return null;
@@ -163,7 +161,6 @@ class Languages extends Component implements interfaces\Languages
      */
     private static function _getScriptUrl(): ?string
     {
-
         if (isset(self::$_script_url)) {
             return self::$_script_url;
         }
@@ -251,8 +248,6 @@ class Languages extends Component implements interfaces\Languages
         string $language,
         ?string $base_domain = null
     ): ?string {
-
-
         /**
          * Make sure language is valid
          * */
@@ -268,7 +263,6 @@ class Languages extends Component implements interfaces\Languages
         if (isset($base_domain)
             && !isset($this->getDefaultConfig($base_domain)['is_default'])
         ) {
-
             $parts = parse_url($url);
             /**
              * Change host of url
@@ -307,11 +301,9 @@ class Languages extends Component implements interfaces\Languages
                         $parts['path'] = '/' . implode('/', $path_parts);
                     }
                 }
-
             }
 
             $url = URL::buildUrl($parts);
-
         } elseif ($this->language_on_path == true
             && trim($url, '/') == $this->removeScriptNameFromUrl($url)
         ) {
@@ -338,7 +330,6 @@ class Languages extends Component implements interfaces\Languages
             }
 
             $url = URL::buildUrl($parts);
-
         } else {
             /**
              * Adding query language variable
@@ -396,7 +387,6 @@ class Languages extends Component implements interfaces\Languages
     public function getAcceptLanguages(
         bool $assoc = false
     ): array {
-
         if (!$assoc) {
             return $this->accept_languages;
         }
@@ -404,14 +394,27 @@ class Languages extends Component implements interfaces\Languages
         $accept_languages = array_flip($this->accept_languages);
 
         foreach ($accept_languages as $key => &$language) {
-            $language = [
-                'name' => $this->getLanguageNameByCode($key),
-                'flag' => $this->getLanguageFlagByCode($key),
-                'native' => $this->getLanguageNativeNameByCode($key),
-            ];
+            $language = $this->getLanguageData($key);
         }
 
         return $accept_languages;
+    }
+
+    /**
+     * @param string $language_key Language code
+     *
+     * @return array
+     *
+     * @throws LanguageException
+     */
+    public function getLanguageData(string $language_key): array
+    {
+        return [
+            'name' => $this->getLanguageNameByCode($language_key),
+            'flag' => $this->getLanguageFlagByCode($language_key),
+            'native' => $this->getLanguageNativeNameByCode($language_key),
+            'direction' => $this->getLanguageDirectionByCode($language_key),
+        ];
     }
 
     /**
@@ -538,8 +541,11 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getLanguageNameByCode(string $code): string
     {
-
-        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'name') ?? null;
+        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage(
+            $code,
+            'alpha1',
+            'name'
+        );
 
         if ($name === null) {
             throw new LanguageException("Language name property not found!");
@@ -553,11 +559,33 @@ class Languages extends Component implements interfaces\Languages
      * @param string $code Language code
      *
      * @return mixed|null
+     */
+    public function getLanguageDirectionByCode(string $code): string
+    {
+        $dir = \NovemBit\i18n\system\helpers\Languages::getLanguage(
+            $code,
+            'alpha1',
+            'dir'
+        );
+
+        return $dir == null ? 'ltr' : 'rtl';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $code Language code
+     *
+     * @return mixed|null
      * @throws LanguageException
      */
     public function getLanguageNativeNameByCode(string $code): string
     {
-        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'native') ?? null;
+        $name = \NovemBit\i18n\system\helpers\Languages::getLanguage(
+            $code,
+            'alpha1',
+            'native'
+        ) ?? null;
 
         if ($name === null) {
             throw new LanguageException("Language native property not found!");
@@ -580,8 +608,11 @@ class Languages extends Component implements interfaces\Languages
         $rectangle = true,
         $html = false
     ): string {
-
-        $flag = \NovemBit\i18n\system\helpers\Languages::getLanguage($code, 'alpha1', 'flag') ?? null;
+        $flag = \NovemBit\i18n\system\helpers\Languages::getLanguage(
+            $code,
+            'alpha1',
+            'flag'
+        ) ?? null;
 
         if ($flag === null) {
             throw new LanguageException("Language flag property not found!");
