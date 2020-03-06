@@ -537,7 +537,7 @@ class Request extends Component implements interfaces\Request
         ) {
             $this->_setUrlTranslations(
                 $this->getTranslation()
-                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->setLanguages($this->getAcceptLanguages())
                     ->url->translate(
                         [$this->getDestination()],
                         $verbose,
@@ -568,7 +568,7 @@ class Request extends Component implements interfaces\Request
              * */
             $this->_setUrlTranslations(
                 $this->getTranslation()
-                    ->setLanguages($this->context->languages->getAcceptLanguages())
+                    ->setLanguages($this->getAcceptLanguages())
                     ->url
                     ->translate(
                         [$this->getSourceUrl()],
@@ -629,7 +629,7 @@ class Request extends Component implements interfaces\Request
                 if (!in_array(http_response_code(), [400, 401, 402, 403, 404])) {
                     $this->getTranslation()
                         ->setLanguages(
-                            $this->context->languages->getAcceptLanguages()
+                            $this->getAcceptLanguages()
                         )
                         ->url->translate(
                             [$this->getSourceUrl()],
@@ -1128,7 +1128,7 @@ class Request extends Component implements interfaces\Request
             }
 
             header('Content-Type: application/json');
-            echo json_encode($verbose,JSON_PRETTY_PRINT);
+            echo json_encode($verbose, JSON_PRETTY_PRINT);
 
             return true;
         }
@@ -1239,6 +1239,19 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @param bool $assoc
+     * @return array
+     */
+    private function getAcceptLanguages(bool $assoc = false)
+    {
+        return $this->context->languages
+            ->getAcceptLanguages(
+                $assoc,
+                Environment::server('HTTP_HOST')
+            );
+    }
+
+    /**
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
@@ -1256,8 +1269,7 @@ class Request extends Component implements interfaces\Request
                 'i18n' => [
                     'current_language' => $this->getLanguage(),
                     'default_language' => $this->getDefaultLanguage(),
-                    'accept_languages' => $this->context->languages
-                        ->getAcceptLanguages(true),
+                    'accept_languages' => $this->getAcceptLanguages(true),
                     'language_query_key' => $this->context->languages
                         ->getLanguageQueryKey(),
                     'editor' => [

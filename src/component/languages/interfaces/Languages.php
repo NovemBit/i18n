@@ -126,11 +126,15 @@ interface Languages extends Component
     /**
      * Get accept languages
      *
-     * @param bool $assoc Return assoc with whole data
+     * @param bool        $assoc       Return assoc with whole data
+     * @param string|null $base_domain Base Domain
      *
      * @return array
      */
-    public function getAcceptLanguages(bool $assoc = false): array;
+    public function getAcceptLanguages(
+        bool $assoc = false,
+        ?string $base_domain = null
+    ): array;
 
     /**
      * Get default config by `$base_domain` name
@@ -158,7 +162,7 @@ interface Languages extends Component
      *
      * @return array
      */
-    public function getLanguageData(string $language_key):array;
+    public function getLanguageData(string $language_key): array;
 
     /**
      * Get language name by code

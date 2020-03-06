@@ -385,19 +385,31 @@ class Languages extends Component implements interfaces\Languages
      * @throws LanguageException
      */
     public function getAcceptLanguages(
-        bool $assoc = false
+        bool $assoc = false,
+        ?string $base_domain = null
     ): array {
-        if (!$assoc) {
-            return $this->accept_languages;
+        
+        $config = $this->getDefaultConfig($base_domain);
+
+        if (isset($config['accept_languages'])
+            && !empty($config['accept_languages'])
+        ) {
+            $accept_languages = $config['accept_languages'];
+        } else {
+            $accept_languages = $this->accept_languages;
         }
 
-        $accept_languages = array_flip($this->accept_languages);
+        if (!$assoc) {
+            return $accept_languages;
+        }
 
-        foreach ($accept_languages as $key => &$language) {
+        $result = array_flip($accept_languages);
+
+        foreach ($result as $key => &$language) {
             $language = $this->getLanguageData($key);
         }
 
-        return $accept_languages;
+        return $result;
     }
 
     /**
