@@ -1239,10 +1239,13 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
-     * @param bool $assoc
+     * Get Accepted languages
+     *
+     * @param bool $assoc Return all related info for language
+     * 
      * @return array
      */
-    private function getAcceptLanguages(bool $assoc = false)
+    public function getAcceptLanguages(bool $assoc = false)
     {
         return $this->context->languages
             ->getAcceptLanguages(
