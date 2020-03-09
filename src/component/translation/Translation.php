@@ -100,7 +100,7 @@ class Translation extends Component implements interfaces\Translation
      */
     public function setLanguages(array $_languages): interfaces\Translation
     {
-        if ($this->context->languages->validateLanguages($_languages)) {
+        if ($this->context->localization->validateLanguages($_languages)) {
             $this->_languages = $_languages;
             return $this;
         } else {
@@ -176,6 +176,6 @@ class Translation extends Component implements interfaces\Translation
      */
     public function getFromLanguage(): string
     {
-        return $this->context->languages->getFromLanguage();
+        return $this->context->localization->getFromLanguage();
     }
 }

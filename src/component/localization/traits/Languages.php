@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NovemBit\i18n\component\languages\traits;
+namespace NovemBit\i18n\component\localization\traits;
 
 
 trait Languages

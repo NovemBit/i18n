@@ -29,7 +29,7 @@ namespace NovemBit\i18n;
 
 
 use Exception;
-use NovemBit\i18n\component\languages\interfaces\Languages;
+use NovemBit\i18n\component\localization\interfaces\Localization;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
@@ -59,7 +59,7 @@ use NovemBit\i18n\component\db\DB;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Translation translation
- * @property Languages languages
+ * @property Localization localization
  * @property Request request
  * @property Rest rest
  * @property DB db
@@ -95,8 +95,8 @@ class Module extends system\Component
     {
 
         return [
-            'languages'=>[
-                'class' => component\languages\Languages::class,
+            'localization'=>[
+                'class' => component\localization\Localization::class,
             ],
             'translation'=>[
                 'class' => component\translation\Translation::class,

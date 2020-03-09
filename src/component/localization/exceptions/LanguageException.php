@@ -11,7 +11,7 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\component\languages\exceptions;
+namespace NovemBit\i18n\component\localization\exceptions;
 
 
 use NovemBit\i18n\system\exception\Exception;

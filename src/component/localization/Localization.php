@@ -11,13 +11,13 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-namespace NovemBit\i18n\component\languages;
+namespace NovemBit\i18n\component\localization;
 
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
-use NovemBit\i18n\component\languages\exceptions\LanguageException;
+use NovemBit\i18n\component\localization\exceptions\LanguageException;
 
 /**
  * Setting default languages
@@ -33,7 +33,7 @@ use NovemBit\i18n\component\languages\exceptions\LanguageException;
  *
  * @property Module $context
  * */
-class Languages extends Component implements interfaces\Languages
+class Localization extends Component implements interfaces\Localization
 {
     /**
      * Main content language

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace NovemBit\i18n\component\languages\interfaces;
+namespace NovemBit\i18n\component\localization\interfaces;
 
 use NovemBit\i18n\system\interfaces\Component;
 
 /**
  * Languages component interface
  * */
-interface Languages extends Component
+interface Localization extends Component
 {
 
     /**

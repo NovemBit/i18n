@@ -113,7 +113,7 @@ class HTML extends XML implements interfaces\HTML
                 $title = $xpath->query('//html/head/title/text()')->item(0);
                 if ($title !== null) {
 
-                    $language_name = $this->context->context->languages
+                    $language_name = $this->context->context->localization
                         ->getLanguageNameByCode($language);
                     $country_name  = $this->context->getCountry();
                     $region_name   = $this->context->getRegion();
