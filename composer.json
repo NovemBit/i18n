@@ -36,6 +36,9 @@
       "NovemBit\\i18n\\": "src/"
     }
   },
+  "scripts": {
+    "style": "phpcs --standard=PSR12"
+  },
   "repositories": [
     {
       "type": "composer",
