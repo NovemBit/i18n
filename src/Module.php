@@ -73,7 +73,7 @@ class Module extends system\Component
      *
      * @var Module
      * */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Prefix for any script public action
@@ -156,11 +156,11 @@ class Module extends system\Component
     public static function instance(?array $config = null): ?self
     {
 
-        if (!isset(self::$_instance) && ($config != null)) {
-            self::$_instance = new self($config);
+        if ( !isset(self::$instance) && ($config != null)) {
+            self::$instance = new self($config);
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
 }
