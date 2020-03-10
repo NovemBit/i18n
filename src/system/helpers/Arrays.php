@@ -6,13 +6,63 @@ namespace NovemBit\i18n\system\helpers;
 
 class Arrays
 {
+
+    /**
+     * Find from array
+     *
+     * @param array       $data   Data
+     * @param string      $key    Key
+     * @param string      $by     By
+     * @param string|null $return Return
+     *
+     * @return mixed|null
+     */
+    public static function find(
+        array $data,
+        string $key,
+        string $by,
+        ?string $return
+    ) {
+        foreach ($data as $item) {
+            if (isset($item[$by])
+                && is_string($item[$by])
+                && $item[$by] == strtolower($key)
+            ) {
+                if ($return != null) {
+                    return $item[$return] ?? null;
+                } else {
+                    return $item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param array $data
+     * @param string $key
+     * @param string $value
+     *
+     * @return array
+     */
+    public static function map(array $data, string $key, string $value): array
+    {
+        $result = [];
+
+        foreach ($data as $item) {
+            $result[$item[$key]] = $item[$value];
+        }
+
+        return $result;
+    }
+
     /**
      * Recursive array walk with callback and route
      *
-     * @param array $arr Main array
-     * @param callable $callback Callback function with 3 params (key/val/route)
-     * @param Strings $route Parent route
-     * @param Strings $separator Route separator
+     * @param array    $arr       Main array
+     * @param callable $callback  Callback function with 3 params (key/val/route)
+     * @param string   $route     Parent route
+     * @param string   $separator Route separator
      *
      * @return void
      */
@@ -54,8 +104,8 @@ class Arrays
      * Parameters are passed by reference, though only for performance reasons. They're not
      * altered by this function.
      *
-     * @param array $array1
-     * @param array $array2
+     * @param  array $array1
+     * @param  array $array2
      * @return array
      *
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
@@ -66,7 +116,7 @@ class Arrays
         $merged = $array1;
 
         foreach ($array2 as $key => &$value) {
-            if (is_array($value) && isset ($merged [$key]) && is_array($merged [$key])) {
+            if (is_array($value) && isset($merged [$key]) && is_array($merged [$key])) {
                 $merged [$key] = self::arrayMergeRecursiveDistinct($merged [$key], $value);
             } else {
                 $merged [$key] = $value;
