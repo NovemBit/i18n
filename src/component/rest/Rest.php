@@ -152,7 +152,7 @@ class Rest extends Component implements interfaces\Rest
             $languages_config = $_POST['languages_config'] ?? [];
 
             foreach ($languages_config as $key => $value) {
-                $this->context->localization->{$key} = $value;
+                $this->context->localization->languages->{$key} = $value;
             }
 
             try {
