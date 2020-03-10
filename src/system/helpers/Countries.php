@@ -8,8 +8,8 @@ class Countries extends LocalData
 {
 
     /**
-     * @param string $key
-     * @param string $by
+     * @param string      $key
+     * @param string      $by
      * @param string|null $return
      *
      * @return mixed|null
@@ -28,2282 +28,2781 @@ class Countries extends LocalData
     public static function getData(): array
     {
         return [
+
             [
                 'name' => 'Afghanistan',
-                'alpha2' => 'AF',
-                'alpha3' => 'AFG',
+                'alpha2' => 'af',
+                'alpha3' => 'afg',
                 'numeric' => '004',
-                'currency' => [
-                    'AFN',
-                ],
+                'currency' =>
+                    [
+                        'AFN',
+                    ],
             ],
+
             [
                 'name' => 'Åland Islands',
-                'alpha2' => 'AX',
-                'alpha3' => 'ALA',
+                'alpha2' => 'ax',
+                'alpha3' => 'ala',
                 'numeric' => '248',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Albania',
-                'alpha2' => 'AL',
-                'alpha3' => 'ALB',
+                'alpha2' => 'al',
+                'alpha3' => 'alb',
                 'numeric' => '008',
-                'currency' => [
-                    'ALL',
-                ],
+                'currency' =>
+                    [
+                        'ALL',
+                    ],
             ],
+
             [
                 'name' => 'Algeria',
-                'alpha2' => 'DZ',
-                'alpha3' => 'DZA',
+                'alpha2' => 'dz',
+                'alpha3' => 'dza',
                 'numeric' => '012',
-                'currency' => [
-                    'DZD',
-                ],
+                'currency' =>
+                    [
+                        'DZD',
+                    ],
             ],
+
             [
                 'name' => 'American Samoa',
-                'alpha2' => 'AS',
-                'alpha3' => 'ASM',
+                'alpha2' => 'as',
+                'alpha3' => 'asm',
                 'numeric' => '016',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Andorra',
-                'alpha2' => 'AD',
-                'alpha3' => 'AND',
+                'alpha2' => 'ad',
+                'alpha3' => 'and',
                 'numeric' => '020',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Angola',
-                'alpha2' => 'AO',
-                'alpha3' => 'AGO',
+                'alpha2' => 'ao',
+                'alpha3' => 'ago',
                 'numeric' => '024',
-                'currency' => [
-                    'AOA',
-                ],
+                'currency' =>
+                    [
+                        'AOA',
+                    ],
             ],
+
             [
                 'name' => 'Anguilla',
-                'alpha2' => 'AI',
-                'alpha3' => 'AIA',
+                'alpha2' => 'ai',
+                'alpha3' => 'aia',
                 'numeric' => '660',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Antarctica',
-                'alpha2' => 'AQ',
-                'alpha3' => 'ATA',
+                'alpha2' => 'aq',
+                'alpha3' => 'ata',
                 'numeric' => '010',
-                'currency' => [
-                    'ARS',
-                    'AUD',
-                    'BGN',
-                    'BRL',
-                    'BYR',
-                    'CLP',
-                    'CNY',
-                    'CZK',
-                    'EUR',
-                    'GBP',
-                    'INR',
-                    'JPY',
-                    'KRW',
-                    'NOK',
-                    'NZD',
-                    'PEN',
-                    'PKR',
-                    'PLN',
-                    'RON',
-                    'RUB',
-                    'SEK',
-                    'UAH',
-                    'USD',
-                    'UYU',
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'ARS',
+                        'AUD',
+                        'BGN',
+                        'BRL',
+                        'BYR',
+                        'CLP',
+                        'CNY',
+                        'CZK',
+                        'EUR',
+                        'GBP',
+                        'INR',
+                        'JPY',
+                        'KRW',
+                        'NOK',
+                        'NZD',
+                        'PEN',
+                        'PKR',
+                        'PLN',
+                        'RON',
+                        'RUB',
+                        'SEK',
+                        'UAH',
+                        'USD',
+                        'UYU',
+                        'ZAR',
+                    ],
             ],
+
             [
                 'name' => 'Antigua and Barbuda',
-                'alpha2' => 'AG',
-                'alpha3' => 'ATG',
+                'alpha2' => 'ag',
+                'alpha3' => 'atg',
                 'numeric' => '028',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Argentina',
-                'alpha2' => 'AR',
-                'alpha3' => 'ARG',
+                'alpha2' => 'ar',
+                'alpha3' => 'arg',
                 'numeric' => '032',
-                'currency' => [
-                    'ARS',
-                ],
+                'currency' =>
+                    [
+                        'ARS',
+                    ],
             ],
+
             [
                 'name' => 'Armenia',
-                'alpha2' => 'AM',
-                'alpha3' => 'ARM',
+                'alpha2' => 'am',
+                'alpha3' => 'arm',
                 'numeric' => '051',
-                'currency' => [
-                    'AMD',
-                ],
+                'currency' =>
+                    [
+                        'AMD',
+                    ],
             ],
+
             [
                 'name' => 'Aruba',
-                'alpha2' => 'AW',
-                'alpha3' => 'ABW',
+                'alpha2' => 'aw',
+                'alpha3' => 'abw',
                 'numeric' => '533',
-                'currency' => [
-                    'AWG',
-                ],
+                'currency' =>
+                    [
+                        'AWG',
+                    ],
             ],
+
             [
                 'name' => 'Australia',
-                'alpha2' => 'AU',
-                'alpha3' => 'AUS',
+                'alpha2' => 'au',
+                'alpha3' => 'aus',
                 'numeric' => '036',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Austria',
-                'alpha2' => 'AT',
-                'alpha3' => 'AUT',
+                'alpha2' => 'at',
+                'alpha3' => 'aut',
                 'numeric' => '040',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Azerbaijan',
-                'alpha2' => 'AZ',
-                'alpha3' => 'AZE',
+                'alpha2' => 'az',
+                'alpha3' => 'aze',
                 'numeric' => '031',
-                'currency' => [
-                    'AZN',
-                ],
+                'currency' =>
+                    [
+                        'AZN',
+                    ],
             ],
+
             [
                 'name' => 'Bahamas',
-                'alpha2' => 'BS',
-                'alpha3' => 'BHS',
+                'alpha2' => 'bs',
+                'alpha3' => 'bhs',
                 'numeric' => '044',
-                'currency' => [
-                    'BSD',
-                ],
+                'currency' =>
+                    [
+                        'BSD',
+                    ],
             ],
+
             [
                 'name' => 'Bahrain',
-                'alpha2' => 'BH',
-                'alpha3' => 'BHR',
+                'alpha2' => 'bh',
+                'alpha3' => 'bhr',
                 'numeric' => '048',
-                'currency' => [
-                    'BHD',
-                ],
+                'currency' =>
+                    [
+                        'BHD',
+                    ],
             ],
+
             [
                 'name' => 'Bangladesh',
-                'alpha2' => 'BD',
-                'alpha3' => 'BGD',
+                'alpha2' => 'bd',
+                'alpha3' => 'bgd',
                 'numeric' => '050',
-                'currency' => [
-                    'BDT',
-                ],
+                'currency' =>
+                    [
+                        'BDT',
+                    ],
             ],
+
             [
                 'name' => 'Barbados',
-                'alpha2' => 'BB',
-                'alpha3' => 'BRB',
+                'alpha2' => 'bb',
+                'alpha3' => 'brb',
                 'numeric' => '052',
-                'currency' => [
-                    'BBD',
-                ],
+                'currency' =>
+                    [
+                        'BBD',
+                    ],
             ],
+
             [
                 'name' => 'Belarus',
-                'alpha2' => 'BY',
-                'alpha3' => 'BLR',
+                'alpha2' => 'by',
+                'alpha3' => 'blr',
                 'numeric' => '112',
-                'currency' => [
-                    'BYN',
-                ],
+                'currency' =>
+                    [
+                        'BYN',
+                    ],
             ],
+
             [
                 'name' => 'Belgium',
-                'alpha2' => 'BE',
-                'alpha3' => 'BEL',
+                'alpha2' => 'be',
+                'alpha3' => 'bel',
                 'numeric' => '056',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Belize',
-                'alpha2' => 'BZ',
-                'alpha3' => 'BLZ',
+                'alpha2' => 'bz',
+                'alpha3' => 'blz',
                 'numeric' => '084',
-                'currency' => [
-                    'BZD',
-                ],
+                'currency' =>
+                    [
+                        'BZD',
+                    ],
             ],
+
             [
                 'name' => 'Benin',
-                'alpha2' => 'BJ',
-                'alpha3' => 'BEN',
+                'alpha2' => 'bj',
+                'alpha3' => 'ben',
                 'numeric' => '204',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Bermuda',
-                'alpha2' => 'BM',
-                'alpha3' => 'BMU',
+                'alpha2' => 'bm',
+                'alpha3' => 'bmu',
                 'numeric' => '060',
-                'currency' => [
-                    'BMD',
-                ],
+                'currency' =>
+                    [
+                        'BMD',
+                    ],
             ],
+
             [
                 'name' => 'Bhutan',
-                'alpha2' => 'BT',
-                'alpha3' => 'BTN',
+                'alpha2' => 'bt',
+                'alpha3' => 'btn',
                 'numeric' => '064',
-                'currency' => [
-                    'BTN',
-                ],
+                'currency' =>
+                    [
+                        'BTN',
+                    ],
             ],
+
             [
                 'name' => 'Bolivia (Plurinational State of)',
-                'alpha2' => 'BO',
-                'alpha3' => 'BOL',
+                'alpha2' => 'bo',
+                'alpha3' => 'bol',
                 'numeric' => '068',
-                'currency' => [
-                    'BOB',
-                ],
+                'currency' =>
+                    [
+                        'BOB',
+                    ],
             ],
+
             [
                 'name' => 'Bonaire, Sint Eustatius and Saba',
-                'alpha2' => 'BQ',
-                'alpha3' => 'BES',
+                'alpha2' => 'bq',
+                'alpha3' => 'bes',
                 'numeric' => '535',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Bosnia and Herzegovina',
-                'alpha2' => 'BA',
-                'alpha3' => 'BIH',
+                'alpha2' => 'ba',
+                'alpha3' => 'bih',
                 'numeric' => '070',
-                'currency' => [
-                    'BAM',
-                ],
+                'currency' =>
+                    [
+                        'BAM',
+                    ],
             ],
+
             [
                 'name' => 'Botswana',
-                'alpha2' => 'BW',
-                'alpha3' => 'BWA',
+                'alpha2' => 'bw',
+                'alpha3' => 'bwa',
                 'numeric' => '072',
-                'currency' => [
-                    'BWP',
-                ],
+                'currency' =>
+                    [
+                        'BWP',
+                    ],
             ],
+
             [
                 'name' => 'Bouvet Island',
-                'alpha2' => 'BV',
-                'alpha3' => 'BVT',
+                'alpha2' => 'bv',
+                'alpha3' => 'bvt',
                 'numeric' => '074',
-                'currency' => [
-                    'NOK',
-                ],
+                'currency' =>
+                    [
+                        'NOK',
+                    ],
             ],
+
             [
                 'name' => 'Brazil',
-                'alpha2' => 'BR',
-                'alpha3' => 'BRA',
+                'alpha2' => 'br',
+                'alpha3' => 'bra',
                 'numeric' => '076',
-                'currency' => [
-                    'BRL',
-                ],
+                'currency' =>
+                    [
+                        'BRL',
+                    ],
             ],
+
             [
                 'name' => 'British Indian Ocean Territory',
-                'alpha2' => 'IO',
-                'alpha3' => 'IOT',
+                'alpha2' => 'io',
+                'alpha3' => 'iot',
                 'numeric' => '086',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'Brunei Darussalam',
-                'alpha2' => 'BN',
-                'alpha3' => 'BRN',
+                'alpha2' => 'bn',
+                'alpha3' => 'brn',
                 'numeric' => '096',
-                'currency' => [
-                    'BND',
-                    'SGD',
-                ],
+                'currency' =>
+                    [
+                        'BND',
+                        'SGD',
+                    ],
             ],
+
             [
                 'name' => 'Bulgaria',
-                'alpha2' => 'BG',
-                'alpha3' => 'BGR',
+                'alpha2' => 'bg',
+                'alpha3' => 'bgr',
                 'numeric' => '100',
-                'currency' => [
-                    'BGN',
-                ],
+                'currency' =>
+                    [
+                        'BGN',
+                    ],
             ],
+
             [
                 'name' => 'Burkina Faso',
-                'alpha2' => 'BF',
-                'alpha3' => 'BFA',
+                'alpha2' => 'bf',
+                'alpha3' => 'bfa',
                 'numeric' => '854',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Burundi',
-                'alpha2' => 'BI',
-                'alpha3' => 'BDI',
+                'alpha2' => 'bi',
+                'alpha3' => 'bdi',
                 'numeric' => '108',
-                'currency' => [
-                    'BIF',
-                ],
+                'currency' =>
+                    [
+                        'BIF',
+                    ],
             ],
+
             [
                 'name' => 'Cabo Verde',
-                'alpha2' => 'CV',
-                'alpha3' => 'CPV',
+                'alpha2' => 'cv',
+                'alpha3' => 'cpv',
                 'numeric' => '132',
-                'currency' => [
-                    'CVE',
-                ],
+                'currency' =>
+                    [
+                        'CVE',
+                    ],
             ],
+
             [
                 'name' => 'Cambodia',
-                'alpha2' => 'KH',
-                'alpha3' => 'KHM',
+                'alpha2' => 'kh',
+                'alpha3' => 'khm',
                 'numeric' => '116',
-                'currency' => [
-                    'KHR',
-                ],
+                'currency' =>
+                    [
+                        'KHR',
+                    ],
             ],
+
             [
                 'name' => 'Cameroon',
-                'alpha2' => 'CM',
-                'alpha3' => 'CMR',
+                'alpha2' => 'cm',
+                'alpha3' => 'cmr',
                 'numeric' => '120',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Canada',
-                'alpha2' => 'CA',
-                'alpha3' => 'CAN',
+                'alpha2' => 'ca',
+                'alpha3' => 'can',
                 'numeric' => '124',
-                'currency' => [
-                    'CAD',
-                ],
+                'currency' =>
+                    [
+                        'CAD',
+                    ],
             ],
+
             [
                 'name' => 'Cayman Islands',
-                'alpha2' => 'KY',
-                'alpha3' => 'CYM',
+                'alpha2' => 'ky',
+                'alpha3' => 'cym',
                 'numeric' => '136',
-                'currency' => [
-                    'KYD',
-                ],
+                'currency' =>
+                    [
+                        'KYD',
+                    ],
             ],
+
             [
                 'name' => 'Central African Republic',
-                'alpha2' => 'CF',
-                'alpha3' => 'CAF',
+                'alpha2' => 'cf',
+                'alpha3' => 'caf',
                 'numeric' => '140',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Chad',
-                'alpha2' => 'TD',
-                'alpha3' => 'TCD',
+                'alpha2' => 'td',
+                'alpha3' => 'tcd',
                 'numeric' => '148',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Chile',
-                'alpha2' => 'CL',
-                'alpha3' => 'CHL',
+                'alpha2' => 'cl',
+                'alpha3' => 'chl',
                 'numeric' => '152',
-                'currency' => [
-                    'CLP',
-                ],
+                'currency' =>
+                    [
+                        'CLP',
+                    ],
             ],
+
             [
                 'name' => 'China',
-                'alpha2' => 'CN',
-                'alpha3' => 'CHN',
+                'alpha2' => 'cn',
+                'alpha3' => 'chn',
                 'numeric' => '156',
-                'currency' => [
-                    'CNY',
-                ],
+                'currency' =>
+                    [
+                        'CNY',
+                    ],
             ],
+
             [
                 'name' => 'Christmas Island',
-                'alpha2' => 'CX',
-                'alpha3' => 'CXR',
+                'alpha2' => 'cx',
+                'alpha3' => 'cxr',
                 'numeric' => '162',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Cocos (Keeling) Islands',
-                'alpha2' => 'CC',
-                'alpha3' => 'CCK',
+                'alpha2' => 'cc',
+                'alpha3' => 'cck',
                 'numeric' => '166',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Colombia',
-                'alpha2' => 'CO',
-                'alpha3' => 'COL',
+                'alpha2' => 'co',
+                'alpha3' => 'col',
                 'numeric' => '170',
-                'currency' => [
-                    'COP',
-                ],
+                'currency' =>
+                    [
+                        'COP',
+                    ],
             ],
+
             [
                 'name' => 'Comoros',
-                'alpha2' => 'KM',
-                'alpha3' => 'COM',
+                'alpha2' => 'km',
+                'alpha3' => 'com',
                 'numeric' => '174',
-                'currency' => [
-                    'KMF',
-                ],
+                'currency' =>
+                    [
+                        'KMF',
+                    ],
             ],
+
             [
                 'name' => 'Congo',
-                'alpha2' => 'CG',
-                'alpha3' => 'COG',
+                'alpha2' => 'cg',
+                'alpha3' => 'cog',
                 'numeric' => '178',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Congo (Democratic Republic of the)',
-                'alpha2' => 'CD',
-                'alpha3' => 'COD',
+                'alpha2' => 'cd',
+                'alpha3' => 'cod',
                 'numeric' => '180',
-                'currency' => [
-                    'CDF',
-                ],
+                'currency' =>
+                    [
+                        'CDF',
+                    ],
             ],
+
             [
                 'name' => 'Cook Islands',
-                'alpha2' => 'CK',
-                'alpha3' => 'COK',
+                'alpha2' => 'ck',
+                'alpha3' => 'cok',
                 'numeric' => '184',
-                'currency' => [
-                    'NZD',
-                ],
+                'currency' =>
+                    [
+                        'NZD',
+                    ],
             ],
+
             [
                 'name' => 'Costa Rica',
-                'alpha2' => 'CR',
-                'alpha3' => 'CRI',
+                'alpha2' => 'cr',
+                'alpha3' => 'cri',
                 'numeric' => '188',
-                'currency' => [
-                    'CRC',
-                ],
+                'currency' =>
+                    [
+                        'CRC',
+                    ],
             ],
+
             [
                 'name' => 'Côte d\'Ivoire',
-                'alpha2' => 'CI',
-                'alpha3' => 'CIV',
+                'alpha2' => 'ci',
+                'alpha3' => 'civ',
                 'numeric' => '384',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Croatia',
-                'alpha2' => 'HR',
-                'alpha3' => 'HRV',
+                'alpha2' => 'hr',
+                'alpha3' => 'hrv',
                 'numeric' => '191',
-                'currency' => [
-                    'HRK',
-                ],
+                'currency' =>
+                    [
+                        'HRK',
+                    ],
             ],
+
             [
                 'name' => 'Cuba',
-                'alpha2' => 'CU',
-                'alpha3' => 'CUB',
+                'alpha2' => 'cu',
+                'alpha3' => 'cub',
                 'numeric' => '192',
-                'currency' => [
-                    'CUC',
-                    'CUP',
-                ],
+                'currency' =>
+                    [
+                        'CUC',
+                        'CUP',
+                    ],
             ],
+
             [
                 'name' => 'Curaçao',
-                'alpha2' => 'CW',
-                'alpha3' => 'CUW',
+                'alpha2' => 'cw',
+                'alpha3' => 'cuw',
                 'numeric' => '531',
-                'currency' => [
-                    'ANG',
-                ],
+                'currency' =>
+                    [
+                        'ANG',
+                    ],
             ],
+
             [
                 'name' => 'Cyprus',
-                'alpha2' => 'CY',
-                'alpha3' => 'CYP',
+                'alpha2' => 'cy',
+                'alpha3' => 'cyp',
                 'numeric' => '196',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Czechia',
-                'alpha2' => 'CZ',
-                'alpha3' => 'CZE',
+                'alpha2' => 'cz',
+                'alpha3' => 'cze',
                 'numeric' => '203',
-                'currency' => [
-                    'CZK',
-                ],
+                'currency' =>
+                    [
+                        'CZK',
+                    ],
             ],
+
             [
                 'name' => 'Denmark',
-                'alpha2' => 'DK',
-                'alpha3' => 'DNK',
+                'alpha2' => 'dk',
+                'alpha3' => 'dnk',
                 'numeric' => '208',
-                'currency' => [
-                    'DKK',
-                ],
+                'currency' =>
+                    [
+                        'DKK',
+                    ],
             ],
+
             [
                 'name' => 'Djibouti',
-                'alpha2' => 'DJ',
-                'alpha3' => 'DJI',
+                'alpha2' => 'dj',
+                'alpha3' => 'dji',
                 'numeric' => '262',
-                'currency' => [
-                    'DJF',
-                ],
+                'currency' =>
+                    [
+                        'DJF',
+                    ],
             ],
+
             [
                 'name' => 'Dominica',
-                'alpha2' => 'DM',
-                'alpha3' => 'DMA',
+                'alpha2' => 'dm',
+                'alpha3' => 'dma',
                 'numeric' => '212',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Dominican Republic',
-                'alpha2' => 'DO',
-                'alpha3' => 'DOM',
+                'alpha2' => 'do',
+                'alpha3' => 'dom',
                 'numeric' => '214',
-                'currency' => [
-                    'DOP',
-                ],
+                'currency' =>
+                    [
+                        'DOP',
+                    ],
             ],
+
             [
                 'name' => 'Ecuador',
-                'alpha2' => 'EC',
-                'alpha3' => 'ECU',
+                'alpha2' => 'ec',
+                'alpha3' => 'ecu',
                 'numeric' => '218',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Egypt',
-                'alpha2' => 'EG',
-                'alpha3' => 'EGY',
+                'alpha2' => 'eg',
+                'alpha3' => 'egy',
                 'numeric' => '818',
-                'currency' => [
-                    'EGP',
-                ],
+                'currency' =>
+                    [
+                        'EGP',
+                    ],
             ],
+
             [
                 'name' => 'El Salvador',
-                'alpha2' => 'SV',
-                'alpha3' => 'SLV',
+                'alpha2' => 'sv',
+                'alpha3' => 'slv',
                 'numeric' => '222',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Equatorial Guinea',
-                'alpha2' => 'GQ',
-                'alpha3' => 'GNQ',
+                'alpha2' => 'gq',
+                'alpha3' => 'gnq',
                 'numeric' => '226',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Eritrea',
-                'alpha2' => 'ER',
-                'alpha3' => 'ERI',
+                'alpha2' => 'er',
+                'alpha3' => 'eri',
                 'numeric' => '232',
-                'currency' => [
-                    'ERN',
-                ],
+                'currency' =>
+                    [
+                        'ERN',
+                    ],
             ],
+
             [
                 'name' => 'Estonia',
-                'alpha2' => 'EE',
-                'alpha3' => 'EST',
+                'alpha2' => 'ee',
+                'alpha3' => 'est',
                 'numeric' => '233',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Ethiopia',
-                'alpha2' => 'ET',
-                'alpha3' => 'ETH',
+                'alpha2' => 'et',
+                'alpha3' => 'eth',
                 'numeric' => '231',
-                'currency' => [
-                    'ETB',
-                ],
+                'currency' =>
+                    [
+                        'ETB',
+                    ],
             ],
+
             [
                 'name' => 'Eswatini',
-                'alpha2' => 'SZ',
-                'alpha3' => 'SWZ',
+                'alpha2' => 'sz',
+                'alpha3' => 'swz',
                 'numeric' => '748',
-                'currency' => [
-                    'SZL',
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'SZL',
+                        'ZAR',
+                    ],
             ],
+
             [
                 'name' => 'Falkland Islands (Malvinas)',
-                'alpha2' => 'FK',
-                'alpha3' => 'FLK',
+                'alpha2' => 'fk',
+                'alpha3' => 'flk',
                 'numeric' => '238',
-                'currency' => [
-                    'FKP',
-                ],
+                'currency' =>
+                    [
+                        'FKP',
+                    ],
             ],
+
             [
                 'name' => 'Faroe Islands',
-                'alpha2' => 'FO',
-                'alpha3' => 'FRO',
+                'alpha2' => 'fo',
+                'alpha3' => 'fro',
                 'numeric' => '234',
-                'currency' => [
-                    'DKK',
-                ],
+                'currency' =>
+                    [
+                        'DKK',
+                    ],
             ],
+
             [
                 'name' => 'Fiji',
-                'alpha2' => 'FJ',
-                'alpha3' => 'FJI',
+                'alpha2' => 'fj',
+                'alpha3' => 'fji',
                 'numeric' => '242',
-                'currency' => [
-                    'FJD',
-                ],
+                'currency' =>
+                    [
+                        'FJD',
+                    ],
             ],
+
             [
                 'name' => 'Finland',
-                'alpha2' => 'FI',
-                'alpha3' => 'FIN',
+                'alpha2' => 'fi',
+                'alpha3' => 'fin',
                 'numeric' => '246',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'France',
-                'alpha2' => 'FR',
-                'alpha3' => 'FRA',
+                'alpha2' => 'fr',
+                'alpha3' => 'fra',
                 'numeric' => '250',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'French Guiana',
-                'alpha2' => 'GF',
-                'alpha3' => 'GUF',
+                'alpha2' => 'gf',
+                'alpha3' => 'guf',
                 'numeric' => '254',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'French Polynesia',
-                'alpha2' => 'PF',
-                'alpha3' => 'PYF',
+                'alpha2' => 'pf',
+                'alpha3' => 'pyf',
                 'numeric' => '258',
-                'currency' => [
-                    'XPF',
-                ],
+                'currency' =>
+                    [
+                        'XPF',
+                    ],
             ],
+
             [
                 'name' => 'French Southern Territories',
-                'alpha2' => 'TF',
-                'alpha3' => 'ATF',
+                'alpha2' => 'tf',
+                'alpha3' => 'atf',
                 'numeric' => '260',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Gabon',
-                'alpha2' => 'GA',
-                'alpha3' => 'GAB',
+                'alpha2' => 'ga',
+                'alpha3' => 'gab',
                 'numeric' => '266',
-                'currency' => [
-                    'XAF',
-                ],
+                'currency' =>
+                    [
+                        'XAF',
+                    ],
             ],
+
             [
                 'name' => 'Gambia',
-                'alpha2' => 'GM',
-                'alpha3' => 'GMB',
+                'alpha2' => 'gm',
+                'alpha3' => 'gmb',
                 'numeric' => '270',
-                'currency' => [
-                    'GMD',
-                ],
+                'currency' =>
+                    [
+                        'GMD',
+                    ],
             ],
+
             [
                 'name' => 'Georgia',
-                'alpha2' => 'GE',
-                'alpha3' => 'GEO',
+                'alpha2' => 'ge',
+                'alpha3' => 'geo',
                 'numeric' => '268',
-                'currency' => [
-                    'GEL',
-                ],
+                'currency' =>
+                    [
+                        'GEL',
+                    ],
             ],
+
             [
                 'name' => 'Germany',
-                'alpha2' => 'DE',
-                'alpha3' => 'DEU',
+                'alpha2' => 'de',
+                'alpha3' => 'deu',
                 'numeric' => '276',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Ghana',
-                'alpha2' => 'GH',
-                'alpha3' => 'GHA',
+                'alpha2' => 'gh',
+                'alpha3' => 'gha',
                 'numeric' => '288',
-                'currency' => [
-                    'GHS',
-                ],
+                'currency' =>
+                    [
+                        'GHS',
+                    ],
             ],
+
             [
                 'name' => 'Gibraltar',
-                'alpha2' => 'GI',
-                'alpha3' => 'GIB',
+                'alpha2' => 'gi',
+                'alpha3' => 'gib',
                 'numeric' => '292',
-                'currency' => [
-                    'GIP',
-                ],
+                'currency' =>
+                    [
+                        'GIP',
+                    ],
             ],
+
             [
                 'name' => 'Greece',
-                'alpha2' => 'GR',
-                'alpha3' => 'GRC',
+                'alpha2' => 'gr',
+                'alpha3' => 'grc',
                 'numeric' => '300',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Greenland',
-                'alpha2' => 'GL',
-                'alpha3' => 'GRL',
+                'alpha2' => 'gl',
+                'alpha3' => 'grl',
                 'numeric' => '304',
-                'currency' => [
-                    'DKK',
-                ],
+                'currency' =>
+                    [
+                        'DKK',
+                    ],
             ],
+
             [
                 'name' => 'Grenada',
-                'alpha2' => 'GD',
-                'alpha3' => 'GRD',
+                'alpha2' => 'gd',
+                'alpha3' => 'grd',
                 'numeric' => '308',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Guadeloupe',
-                'alpha2' => 'GP',
-                'alpha3' => 'GLP',
+                'alpha2' => 'gp',
+                'alpha3' => 'glp',
                 'numeric' => '312',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Guam',
-                'alpha2' => 'GU',
-                'alpha3' => 'GUM',
+                'alpha2' => 'gu',
+                'alpha3' => 'gum',
                 'numeric' => '316',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Guatemala',
-                'alpha2' => 'GT',
-                'alpha3' => 'GTM',
+                'alpha2' => 'gt',
+                'alpha3' => 'gtm',
                 'numeric' => '320',
-                'currency' => [
-                    'GTQ',
-                ],
+                'currency' =>
+                    [
+                        'GTQ',
+                    ],
             ],
+
             [
                 'name' => 'Guernsey',
-                'alpha2' => 'GG',
-                'alpha3' => 'GGY',
+                'alpha2' => 'gg',
+                'alpha3' => 'ggy',
                 'numeric' => '831',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'Guinea',
-                'alpha2' => 'GN',
-                'alpha3' => 'GIN',
+                'alpha2' => 'gn',
+                'alpha3' => 'gin',
                 'numeric' => '324',
-                'currency' => [
-                    'GNF',
-                ],
+                'currency' =>
+                    [
+                        'GNF',
+                    ],
             ],
+
             [
                 'name' => 'Guinea-Bissau',
-                'alpha2' => 'GW',
-                'alpha3' => 'GNB',
+                'alpha2' => 'gw',
+                'alpha3' => 'gnb',
                 'numeric' => '624',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Guyana',
-                'alpha2' => 'GY',
-                'alpha3' => 'GUY',
+                'alpha2' => 'gy',
+                'alpha3' => 'guy',
                 'numeric' => '328',
-                'currency' => [
-                    'GYD',
-                ],
+                'currency' =>
+                    [
+                        'GYD',
+                    ],
             ],
+
             [
                 'name' => 'Haiti',
-                'alpha2' => 'HT',
-                'alpha3' => 'HTI',
+                'alpha2' => 'ht',
+                'alpha3' => 'hti',
                 'numeric' => '332',
-                'currency' => [
-                    'HTG',
-                ],
+                'currency' =>
+                    [
+                        'HTG',
+                    ],
             ],
+
             [
                 'name' => 'Heard Island and McDonald Islands',
-                'alpha2' => 'HM',
-                'alpha3' => 'HMD',
+                'alpha2' => 'hm',
+                'alpha3' => 'hmd',
                 'numeric' => '334',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Holy See',
-                'alpha2' => 'VA',
-                'alpha3' => 'VAT',
+                'alpha2' => 'va',
+                'alpha3' => 'vat',
                 'numeric' => '336',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Honduras',
-                'alpha2' => 'HN',
-                'alpha3' => 'HND',
+                'alpha2' => 'hn',
+                'alpha3' => 'hnd',
                 'numeric' => '340',
-                'currency' => [
-                    'HNL',
-                ],
+                'currency' =>
+                    [
+                        'HNL',
+                    ],
             ],
+
             [
                 'name' => 'Hong Kong',
-                'alpha2' => 'HK',
-                'alpha3' => 'HKG',
+                'alpha2' => 'hk',
+                'alpha3' => 'hkg',
                 'numeric' => '344',
-                'currency' => [
-                    'HKD',
-                ],
+                'currency' =>
+                    [
+                        'HKD',
+                    ],
             ],
+
             [
                 'name' => 'Hungary',
-                'alpha2' => 'HU',
-                'alpha3' => 'HUN',
+                'alpha2' => 'hu',
+                'alpha3' => 'hun',
                 'numeric' => '348',
-                'currency' => [
-                    'HUF',
-                ],
+                'currency' =>
+                    [
+                        'HUF',
+                    ],
             ],
+
             [
                 'name' => 'Iceland',
-                'alpha2' => 'IS',
-                'alpha3' => 'ISL',
+                'alpha2' => 'is',
+                'alpha3' => 'isl',
                 'numeric' => '352',
-                'currency' => [
-                    'ISK',
-                ],
+                'currency' =>
+                    [
+                        'ISK',
+                    ],
             ],
+
             [
                 'name' => 'India',
-                'alpha2' => 'IN',
-                'alpha3' => 'IND',
+                'alpha2' => 'in',
+                'alpha3' => 'ind',
                 'numeric' => '356',
-                'currency' => [
-                    'INR',
-                ],
+                'currency' =>
+                    [
+                        'INR',
+                    ],
             ],
+
             [
                 'name' => 'Indonesia',
-                'alpha2' => 'ID',
-                'alpha3' => 'IDN',
+                'alpha2' => 'id',
+                'alpha3' => 'idn',
                 'numeric' => '360',
-                'currency' => [
-                    'IDR',
-                ],
+                'currency' =>
+                    [
+                        'IDR',
+                    ],
             ],
+
             [
                 'name' => 'Iran (Islamic Republic of)',
-                'alpha2' => 'IR',
-                'alpha3' => 'IRN',
+                'alpha2' => 'ir',
+                'alpha3' => 'irn',
                 'numeric' => '364',
-                'currency' => [
-                    'IRR',
-                ],
+                'currency' =>
+                    [
+                        'IRR',
+                    ],
             ],
+
             [
                 'name' => 'Iraq',
-                'alpha2' => 'IQ',
-                'alpha3' => 'IRQ',
+                'alpha2' => 'iq',
+                'alpha3' => 'irq',
                 'numeric' => '368',
-                'currency' => [
-                    'IQD',
-                ],
+                'currency' =>
+                    [
+                        'IQD',
+                    ],
             ],
+
             [
                 'name' => 'Ireland',
-                'alpha2' => 'IE',
-                'alpha3' => 'IRL',
+                'alpha2' => 'ie',
+                'alpha3' => 'irl',
                 'numeric' => '372',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Isle of Man',
-                'alpha2' => 'IM',
-                'alpha3' => 'IMN',
+                'alpha2' => 'im',
+                'alpha3' => 'imn',
                 'numeric' => '833',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'Israel',
-                'alpha2' => 'IL',
-                'alpha3' => 'ISR',
+                'alpha2' => 'il',
+                'alpha3' => 'isr',
                 'numeric' => '376',
-                'currency' => [
-                    'ILS',
-                ],
+                'currency' =>
+                    [
+                        'ILS',
+                    ],
             ],
+
             [
                 'name' => 'Italy',
-                'alpha2' => 'IT',
-                'alpha3' => 'ITA',
+                'alpha2' => 'it',
+                'alpha3' => 'ita',
                 'numeric' => '380',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Jamaica',
-                'alpha2' => 'JM',
-                'alpha3' => 'JAM',
+                'alpha2' => 'jm',
+                'alpha3' => 'jam',
                 'numeric' => '388',
-                'currency' => [
-                    'JMD',
-                ],
+                'currency' =>
+                    [
+                        'JMD',
+                    ],
             ],
+
             [
                 'name' => 'Japan',
-                'alpha2' => 'JP',
-                'alpha3' => 'JPN',
+                'alpha2' => 'jp',
+                'alpha3' => 'jpn',
                 'numeric' => '392',
-                'currency' => [
-                    'JPY',
-                ],
+                'currency' =>
+                    [
+                        'JPY',
+                    ],
             ],
+
             [
                 'name' => 'Jersey',
-                'alpha2' => 'JE',
-                'alpha3' => 'JEY',
+                'alpha2' => 'je',
+                'alpha3' => 'jey',
                 'numeric' => '832',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'Jordan',
-                'alpha2' => 'JO',
-                'alpha3' => 'JOR',
+                'alpha2' => 'jo',
+                'alpha3' => 'jor',
                 'numeric' => '400',
-                'currency' => [
-                    'JOD',
-                ],
+                'currency' =>
+                    [
+                        'JOD',
+                    ],
             ],
+
             [
                 'name' => 'Kazakhstan',
-                'alpha2' => 'KZ',
-                'alpha3' => 'KAZ',
+                'alpha2' => 'kz',
+                'alpha3' => 'kaz',
                 'numeric' => '398',
-                'currency' => [
-                    'KZT',
-                ],
+                'currency' =>
+                    [
+                        'KZT',
+                    ],
             ],
+
             [
                 'name' => 'Kenya',
-                'alpha2' => 'KE',
-                'alpha3' => 'KEN',
+                'alpha2' => 'ke',
+                'alpha3' => 'ken',
                 'numeric' => '404',
-                'currency' => [
-                    'KES',
-                ],
+                'currency' =>
+                    [
+                        'KES',
+                    ],
             ],
+
             [
                 'name' => 'Kiribati',
-                'alpha2' => 'KI',
-                'alpha3' => 'KIR',
+                'alpha2' => 'ki',
+                'alpha3' => 'kir',
                 'numeric' => '296',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Korea (Democratic People\'s Republic of)',
-                'alpha2' => 'KP',
-                'alpha3' => 'PRK',
+                'alpha2' => 'kp',
+                'alpha3' => 'prk',
                 'numeric' => '408',
-                'currency' => [
-                    'KPW',
-                ],
+                'currency' =>
+                    [
+                        'KPW',
+                    ],
             ],
+
             [
                 'name' => 'Korea (Republic of)',
-                'alpha2' => 'KR',
-                'alpha3' => 'KOR',
+                'alpha2' => 'kr',
+                'alpha3' => 'kor',
                 'numeric' => '410',
-                'currency' => [
-                    'KRW',
-                ],
+                'currency' =>
+                    [
+                        'KRW',
+                    ],
             ],
+
             [
                 'name' => 'Kuwait',
-                'alpha2' => 'KW',
-                'alpha3' => 'KWT',
+                'alpha2' => 'kw',
+                'alpha3' => 'kwt',
                 'numeric' => '414',
-                'currency' => [
-                    'KWD',
-                ],
+                'currency' =>
+                    [
+                        'KWD',
+                    ],
             ],
+
             [
                 'name' => 'Kyrgyzstan',
-                'alpha2' => 'KG',
-                'alpha3' => 'KGZ',
+                'alpha2' => 'kg',
+                'alpha3' => 'kgz',
                 'numeric' => '417',
-                'currency' => [
-                    'KGS',
-                ],
+                'currency' =>
+                    [
+                        'KGS',
+                    ],
             ],
+
             [
                 'name' => 'Lao People\'s Democratic Republic',
-                'alpha2' => 'LA',
-                'alpha3' => 'LAO',
+                'alpha2' => 'la',
+                'alpha3' => 'lao',
                 'numeric' => '418',
-                'currency' => [
-                    'LAK',
-                ],
+                'currency' =>
+                    [
+                        'LAK',
+                    ],
             ],
+
             [
                 'name' => 'Latvia',
-                'alpha2' => 'LV',
-                'alpha3' => 'LVA',
+                'alpha2' => 'lv',
+                'alpha3' => 'lva',
                 'numeric' => '428',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Lebanon',
-                'alpha2' => 'LB',
-                'alpha3' => 'LBN',
+                'alpha2' => 'lb',
+                'alpha3' => 'lbn',
                 'numeric' => '422',
-                'currency' => [
-                    'LBP',
-                ],
+                'currency' =>
+                    [
+                        'LBP',
+                    ],
             ],
+
             [
                 'name' => 'Lesotho',
-                'alpha2' => 'LS',
-                'alpha3' => 'LSO',
+                'alpha2' => 'ls',
+                'alpha3' => 'lso',
                 'numeric' => '426',
-                'currency' => [
-                    'LSL',
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'LSL',
+                        'ZAR',
+                    ],
             ],
+
             [
                 'name' => 'Liberia',
-                'alpha2' => 'LR',
-                'alpha3' => 'LBR',
+                'alpha2' => 'lr',
+                'alpha3' => 'lbr',
                 'numeric' => '430',
-                'currency' => [
-                    'LRD',
-                ],
+                'currency' =>
+                    [
+                        'LRD',
+                    ],
             ],
+
             [
                 'name' => 'Libya',
-                'alpha2' => 'LY',
-                'alpha3' => 'LBY',
+                'alpha2' => 'ly',
+                'alpha3' => 'lby',
                 'numeric' => '434',
-                'currency' => [
-                    'LYD',
-                ],
+                'currency' =>
+                    [
+                        'LYD',
+                    ],
             ],
+
             [
                 'name' => 'Liechtenstein',
-                'alpha2' => 'LI',
-                'alpha3' => 'LIE',
+                'alpha2' => 'li',
+                'alpha3' => 'lie',
                 'numeric' => '438',
-                'currency' => [
-                    'CHF',
-                ],
+                'currency' =>
+                    [
+                        'CHF',
+                    ],
             ],
+
             [
                 'name' => 'Lithuania',
-                'alpha2' => 'LT',
-                'alpha3' => 'LTU',
+                'alpha2' => 'lt',
+                'alpha3' => 'ltu',
                 'numeric' => '440',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Luxembourg',
-                'alpha2' => 'LU',
-                'alpha3' => 'LUX',
+                'alpha2' => 'lu',
+                'alpha3' => 'lux',
                 'numeric' => '442',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Macao',
-                'alpha2' => 'MO',
-                'alpha3' => 'MAC',
+                'alpha2' => 'mo',
+                'alpha3' => 'mac',
                 'numeric' => '446',
-                'currency' => [
-                    'MOP',
-                ],
+                'currency' =>
+                    [
+                        'MOP',
+                    ],
             ],
+
             [
                 'name' => 'North Macedonia',
-                'alpha2' => 'MK',
-                'alpha3' => 'MKD',
+                'alpha2' => 'mk',
+                'alpha3' => 'mkd',
                 'numeric' => '807',
-                'currency' => [
-                    'MKD',
-                ],
+                'currency' =>
+                    [
+                        'MKD',
+                    ],
             ],
+
             [
                 'name' => 'Madagascar',
-                'alpha2' => 'MG',
-                'alpha3' => 'MDG',
+                'alpha2' => 'mg',
+                'alpha3' => 'mdg',
                 'numeric' => '450',
-                'currency' => [
-                    'MGA',
-                ],
+                'currency' =>
+                    [
+                        'MGA',
+                    ],
             ],
+
             [
                 'name' => 'Malawi',
-                'alpha2' => 'MW',
-                'alpha3' => 'MWI',
+                'alpha2' => 'mw',
+                'alpha3' => 'mwi',
                 'numeric' => '454',
-                'currency' => [
-                    'MWK',
-                ],
+                'currency' =>
+                    [
+                        'MWK',
+                    ],
             ],
+
             [
                 'name' => 'Malaysia',
-                'alpha2' => 'MY',
-                'alpha3' => 'MYS',
+                'alpha2' => 'my',
+                'alpha3' => 'mys',
                 'numeric' => '458',
-                'currency' => [
-                    'MYR',
-                ],
+                'currency' =>
+                    [
+                        'MYR',
+                    ],
             ],
+
             [
                 'name' => 'Maldives',
-                'alpha2' => 'MV',
-                'alpha3' => 'MDV',
+                'alpha2' => 'mv',
+                'alpha3' => 'mdv',
                 'numeric' => '462',
-                'currency' => [
-                    'MVR',
-                ],
+                'currency' =>
+                    [
+                        'MVR',
+                    ],
             ],
+
             [
                 'name' => 'Mali',
-                'alpha2' => 'ML',
-                'alpha3' => 'MLI',
+                'alpha2' => 'ml',
+                'alpha3' => 'mli',
                 'numeric' => '466',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Malta',
-                'alpha2' => 'MT',
-                'alpha3' => 'MLT',
+                'alpha2' => 'mt',
+                'alpha3' => 'mlt',
                 'numeric' => '470',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Marshall Islands',
-                'alpha2' => 'MH',
-                'alpha3' => 'MHL',
+                'alpha2' => 'mh',
+                'alpha3' => 'mhl',
                 'numeric' => '584',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Martinique',
-                'alpha2' => 'MQ',
-                'alpha3' => 'MTQ',
+                'alpha2' => 'mq',
+                'alpha3' => 'mtq',
                 'numeric' => '474',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Mauritania',
-                'alpha2' => 'MR',
-                'alpha3' => 'MRT',
+                'alpha2' => 'mr',
+                'alpha3' => 'mrt',
                 'numeric' => '478',
-                'currency' => [
-                    'MRO',
-                ],
+                'currency' =>
+                    [
+                        'MRO',
+                    ],
             ],
+
             [
                 'name' => 'Mauritius',
-                'alpha2' => 'MU',
-                'alpha3' => 'MUS',
+                'alpha2' => 'mu',
+                'alpha3' => 'mus',
                 'numeric' => '480',
-                'currency' => [
-                    'MUR',
-                ],
+                'currency' =>
+                    [
+                        'MUR',
+                    ],
             ],
+
             [
                 'name' => 'Mayotte',
-                'alpha2' => 'YT',
-                'alpha3' => 'MYT',
+                'alpha2' => 'yt',
+                'alpha3' => 'myt',
                 'numeric' => '175',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Mexico',
-                'alpha2' => 'MX',
-                'alpha3' => 'MEX',
+                'alpha2' => 'mx',
+                'alpha3' => 'mex',
                 'numeric' => '484',
-                'currency' => [
-                    'MXN',
-                ],
+                'currency' =>
+                    [
+                        'MXN',
+                    ],
             ],
+
             [
                 'name' => 'Micronesia (Federated States of)',
-                'alpha2' => 'FM',
-                'alpha3' => 'FSM',
+                'alpha2' => 'fm',
+                'alpha3' => 'fsm',
                 'numeric' => '583',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Moldova (Republic of)',
-                'alpha2' => 'MD',
-                'alpha3' => 'MDA',
+                'alpha2' => 'md',
+                'alpha3' => 'mda',
                 'numeric' => '498',
-                'currency' => [
-                    'MDL',
-                ],
+                'currency' =>
+                    [
+                        'MDL',
+                    ],
             ],
+
             [
                 'name' => 'Monaco',
-                'alpha2' => 'MC',
-                'alpha3' => 'MCO',
+                'alpha2' => 'mc',
+                'alpha3' => 'mco',
                 'numeric' => '492',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Mongolia',
-                'alpha2' => 'MN',
-                'alpha3' => 'MNG',
+                'alpha2' => 'mn',
+                'alpha3' => 'mng',
                 'numeric' => '496',
-                'currency' => [
-                    'MNT',
-                ],
+                'currency' =>
+                    [
+                        'MNT',
+                    ],
             ],
+
             [
                 'name' => 'Montenegro',
-                'alpha2' => 'ME',
-                'alpha3' => 'MNE',
+                'alpha2' => 'me',
+                'alpha3' => 'mne',
                 'numeric' => '499',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Montserrat',
-                'alpha2' => 'MS',
-                'alpha3' => 'MSR',
+                'alpha2' => 'ms',
+                'alpha3' => 'msr',
                 'numeric' => '500',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Morocco',
-                'alpha2' => 'MA',
-                'alpha3' => 'MAR',
+                'alpha2' => 'ma',
+                'alpha3' => 'mar',
                 'numeric' => '504',
-                'currency' => [
-                    'MAD',
-                ],
+                'currency' =>
+                    [
+                        'MAD',
+                    ],
             ],
+
             [
                 'name' => 'Mozambique',
-                'alpha2' => 'MZ',
-                'alpha3' => 'MOZ',
+                'alpha2' => 'mz',
+                'alpha3' => 'moz',
                 'numeric' => '508',
-                'currency' => [
-                    'MZN',
-                ],
+                'currency' =>
+                    [
+                        'MZN',
+                    ],
             ],
+
             [
                 'name' => 'Myanmar',
-                'alpha2' => 'MM',
-                'alpha3' => 'MMR',
+                'alpha2' => 'mm',
+                'alpha3' => 'mmr',
                 'numeric' => '104',
-                'currency' => [
-                    'MMK',
-                ],
+                'currency' =>
+                    [
+                        'MMK',
+                    ],
             ],
+
             [
                 'name' => 'Namibia',
-                'alpha2' => 'NA',
-                'alpha3' => 'NAM',
+                'alpha2' => 'na',
+                'alpha3' => 'nam',
                 'numeric' => '516',
-                'currency' => [
-                    'NAD',
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'NAD',
+                        'ZAR',
+                    ],
             ],
+
             [
                 'name' => 'Nauru',
-                'alpha2' => 'NR',
-                'alpha3' => 'NRU',
+                'alpha2' => 'nr',
+                'alpha3' => 'nru',
                 'numeric' => '520',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Nepal',
-                'alpha2' => 'NP',
-                'alpha3' => 'NPL',
+                'alpha2' => 'np',
+                'alpha3' => 'npl',
                 'numeric' => '524',
-                'currency' => [
-                    'NPR',
-                ],
+                'currency' =>
+                    [
+                        'NPR',
+                    ],
             ],
+
             [
                 'name' => 'Netherlands',
-                'alpha2' => 'NL',
-                'alpha3' => 'NLD',
+                'alpha2' => 'nl',
+                'alpha3' => 'nld',
                 'numeric' => '528',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'New Caledonia',
-                'alpha2' => 'NC',
-                'alpha3' => 'NCL',
+                'alpha2' => 'nc',
+                'alpha3' => 'ncl',
                 'numeric' => '540',
-                'currency' => [
-                    'XPF',
-                ],
+                'currency' =>
+                    [
+                        'XPF',
+                    ],
             ],
+
             [
                 'name' => 'New Zealand',
-                'alpha2' => 'NZ',
-                'alpha3' => 'NZL',
+                'alpha2' => 'nz',
+                'alpha3' => 'nzl',
                 'numeric' => '554',
-                'currency' => [
-                    'NZD',
-                ],
+                'currency' =>
+                    [
+                        'NZD',
+                    ],
             ],
+
             [
                 'name' => 'Nicaragua',
-                'alpha2' => 'NI',
-                'alpha3' => 'NIC',
+                'alpha2' => 'ni',
+                'alpha3' => 'nic',
                 'numeric' => '558',
-                'currency' => [
-                    'NIO',
-                ],
+                'currency' =>
+                    [
+                        'NIO',
+                    ],
             ],
+
             [
                 'name' => 'Niger',
-                'alpha2' => 'NE',
-                'alpha3' => 'NER',
+                'alpha2' => 'ne',
+                'alpha3' => 'ner',
                 'numeric' => '562',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Nigeria',
-                'alpha2' => 'NG',
-                'alpha3' => 'NGA',
+                'alpha2' => 'ng',
+                'alpha3' => 'nga',
                 'numeric' => '566',
-                'currency' => [
-                    'NGN',
-                ],
+                'currency' =>
+                    [
+                        'NGN',
+                    ],
             ],
+
             [
                 'name' => 'Niue',
-                'alpha2' => 'NU',
-                'alpha3' => 'NIU',
+                'alpha2' => 'nu',
+                'alpha3' => 'niu',
                 'numeric' => '570',
-                'currency' => [
-                    'NZD',
-                ],
+                'currency' =>
+                    [
+                        'NZD',
+                    ],
             ],
+
             [
                 'name' => 'Norfolk Island',
-                'alpha2' => 'NF',
-                'alpha3' => 'NFK',
+                'alpha2' => 'nf',
+                'alpha3' => 'nfk',
                 'numeric' => '574',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Northern Mariana Islands',
-                'alpha2' => 'MP',
-                'alpha3' => 'MNP',
+                'alpha2' => 'mp',
+                'alpha3' => 'mnp',
                 'numeric' => '580',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Norway',
-                'alpha2' => 'NO',
-                'alpha3' => 'NOR',
+                'alpha2' => 'no',
+                'alpha3' => 'nor',
                 'numeric' => '578',
-                'currency' => [
-                    'NOK',
-                ],
+                'currency' =>
+                    [
+                        'NOK',
+                    ],
             ],
+
             [
                 'name' => 'Oman',
-                'alpha2' => 'OM',
-                'alpha3' => 'OMN',
+                'alpha2' => 'om',
+                'alpha3' => 'omn',
                 'numeric' => '512',
-                'currency' => [
-                    'OMR',
-                ],
+                'currency' =>
+                    [
+                        'OMR',
+                    ],
             ],
+
             [
                 'name' => 'Pakistan',
-                'alpha2' => 'PK',
-                'alpha3' => 'PAK',
+                'alpha2' => 'pk',
+                'alpha3' => 'pak',
                 'numeric' => '586',
-                'currency' => [
-                    'PKR',
-                ],
+                'currency' =>
+                    [
+                        'PKR',
+                    ],
             ],
+
             [
                 'name' => 'Palau',
-                'alpha2' => 'PW',
-                'alpha3' => 'PLW',
+                'alpha2' => 'pw',
+                'alpha3' => 'plw',
                 'numeric' => '585',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Palestine, State of',
-                'alpha2' => 'PS',
-                'alpha3' => 'PSE',
+                'alpha2' => 'ps',
+                'alpha3' => 'pse',
                 'numeric' => '275',
-                'currency' => [
-                    'ILS',
-                ],
+                'currency' =>
+                    [
+                        'ILS',
+                    ],
             ],
+
             [
                 'name' => 'Panama',
-                'alpha2' => 'PA',
-                'alpha3' => 'PAN',
+                'alpha2' => 'pa',
+                'alpha3' => 'pan',
                 'numeric' => '591',
-                'currency' => [
-                    'PAB',
-                ],
+                'currency' =>
+                    [
+                        'PAB',
+                    ],
             ],
+
             [
                 'name' => 'Papua New Guinea',
-                'alpha2' => 'PG',
-                'alpha3' => 'PNG',
+                'alpha2' => 'pg',
+                'alpha3' => 'png',
                 'numeric' => '598',
-                'currency' => [
-                    'PGK',
-                ],
+                'currency' =>
+                    [
+                        'PGK',
+                    ],
             ],
+
             [
                 'name' => 'Paraguay',
-                'alpha2' => 'PY',
-                'alpha3' => 'PRY',
+                'alpha2' => 'py',
+                'alpha3' => 'pry',
                 'numeric' => '600',
-                'currency' => [
-                    'PYG',
-                ],
+                'currency' =>
+                    [
+                        'PYG',
+                    ],
             ],
+
             [
                 'name' => 'Peru',
-                'alpha2' => 'PE',
-                'alpha3' => 'PER',
+                'alpha2' => 'pe',
+                'alpha3' => 'per',
                 'numeric' => '604',
-                'currency' => [
-                    'PEN',
-                ],
+                'currency' =>
+                    [
+                        'PEN',
+                    ],
             ],
+
             [
                 'name' => 'Philippines',
-                'alpha2' => 'PH',
-                'alpha3' => 'PHL',
+                'alpha2' => 'ph',
+                'alpha3' => 'phl',
                 'numeric' => '608',
-                'currency' => [
-                    'PHP',
-                ],
+                'currency' =>
+                    [
+                        'PHP',
+                    ],
             ],
+
             [
                 'name' => 'Pitcairn',
-                'alpha2' => 'PN',
-                'alpha3' => 'PCN',
+                'alpha2' => 'pn',
+                'alpha3' => 'pcn',
                 'numeric' => '612',
-                'currency' => [
-                    'NZD',
-                ],
+                'currency' =>
+                    [
+                        'NZD',
+                    ],
             ],
+
             [
                 'name' => 'Poland',
-                'alpha2' => 'PL',
-                'alpha3' => 'POL',
+                'alpha2' => 'pl',
+                'alpha3' => 'pol',
                 'numeric' => '616',
-                'currency' => [
-                    'PLN',
-                ],
+                'currency' =>
+                    [
+                        'PLN',
+                    ],
             ],
+
             [
                 'name' => 'Portugal',
-                'alpha2' => 'PT',
-                'alpha3' => 'PRT',
+                'alpha2' => 'pt',
+                'alpha3' => 'prt',
                 'numeric' => '620',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Puerto Rico',
-                'alpha2' => 'PR',
-                'alpha3' => 'PRI',
+                'alpha2' => 'pr',
+                'alpha3' => 'pri',
                 'numeric' => '630',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Qatar',
-                'alpha2' => 'QA',
-                'alpha3' => 'QAT',
+                'alpha2' => 'qa',
+                'alpha3' => 'qat',
                 'numeric' => '634',
-                'currency' => [
-                    'QAR',
-                ],
+                'currency' =>
+                    [
+                        'QAR',
+                    ],
             ],
+
             [
                 'name' => 'Réunion',
-                'alpha2' => 'RE',
-                'alpha3' => 'REU',
+                'alpha2' => 're',
+                'alpha3' => 'reu',
                 'numeric' => '638',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Romania',
-                'alpha2' => 'RO',
-                'alpha3' => 'ROU',
+                'alpha2' => 'ro',
+                'alpha3' => 'rou',
                 'numeric' => '642',
-                'currency' => [
-                    'RON',
-                ],
+                'currency' =>
+                    [
+                        'RON',
+                    ],
             ],
+
             [
                 'name' => 'Russian Federation',
-                'alpha2' => 'RU',
-                'alpha3' => 'RUS',
+                'alpha2' => 'ru',
+                'alpha3' => 'rus',
                 'numeric' => '643',
-                'currency' => [
-                    'RUB',
-                ],
+                'currency' =>
+                    [
+                        'RUB',
+                    ],
             ],
+
             [
                 'name' => 'Rwanda',
-                'alpha2' => 'RW',
-                'alpha3' => 'RWA',
+                'alpha2' => 'rw',
+                'alpha3' => 'rwa',
                 'numeric' => '646',
-                'currency' => [
-                    'RWF',
-                ],
+                'currency' =>
+                    [
+                        'RWF',
+                    ],
             ],
+
             [
                 'name' => 'Saint Barthélemy',
-                'alpha2' => 'BL',
-                'alpha3' => 'BLM',
+                'alpha2' => 'bl',
+                'alpha3' => 'blm',
                 'numeric' => '652',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Saint Helena, Ascension and Tristan da Cunha',
-                'alpha2' => 'SH',
-                'alpha3' => 'SHN',
+                'alpha2' => 'sh',
+                'alpha3' => 'shn',
                 'numeric' => '654',
-                'currency' => [
-                    'SHP',
-                ],
+                'currency' =>
+                    [
+                        'SHP',
+                    ],
             ],
+
             [
                 'name' => 'Saint Kitts and Nevis',
-                'alpha2' => 'KN',
-                'alpha3' => 'KNA',
+                'alpha2' => 'kn',
+                'alpha3' => 'kna',
                 'numeric' => '659',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Saint Lucia',
-                'alpha2' => 'LC',
-                'alpha3' => 'LCA',
+                'alpha2' => 'lc',
+                'alpha3' => 'lca',
                 'numeric' => '662',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Saint Martin (French part)',
-                'alpha2' => 'MF',
-                'alpha3' => 'MAF',
+                'alpha2' => 'mf',
+                'alpha3' => 'maf',
                 'numeric' => '663',
-                'currency' => [
-                    'EUR',
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Saint Pierre and Miquelon',
-                'alpha2' => 'PM',
-                'alpha3' => 'SPM',
+                'alpha2' => 'pm',
+                'alpha3' => 'spm',
                 'numeric' => '666',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Saint Vincent and the Grenadines',
-                'alpha2' => 'VC',
-                'alpha3' => 'VCT',
+                'alpha2' => 'vc',
+                'alpha3' => 'vct',
                 'numeric' => '670',
-                'currency' => [
-                    'XCD',
-                ],
+                'currency' =>
+                    [
+                        'XCD',
+                    ],
             ],
+
             [
                 'name' => 'Samoa',
-                'alpha2' => 'WS',
-                'alpha3' => 'WSM',
+                'alpha2' => 'ws',
+                'alpha3' => 'wsm',
                 'numeric' => '882',
-                'currency' => [
-                    'WST',
-                ],
+                'currency' =>
+                    [
+                        'WST',
+                    ],
             ],
+
             [
                 'name' => 'San Marino',
-                'alpha2' => 'SM',
-                'alpha3' => 'SMR',
+                'alpha2' => 'sm',
+                'alpha3' => 'smr',
                 'numeric' => '674',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Sao Tome and Principe',
-                'alpha2' => 'ST',
-                'alpha3' => 'STP',
+                'alpha2' => 'st',
+                'alpha3' => 'stp',
                 'numeric' => '678',
-                'currency' => [
-                    'STD',
-                ],
+                'currency' =>
+                    [
+                        'STD',
+                    ],
             ],
+
             [
                 'name' => 'Saudi Arabia',
-                'alpha2' => 'SA',
-                'alpha3' => 'SAU',
+                'alpha2' => 'sa',
+                'alpha3' => 'sau',
                 'numeric' => '682',
-                'currency' => [
-                    'SAR',
-                ],
+                'currency' =>
+                    [
+                        'SAR',
+                    ],
             ],
+
             [
                 'name' => 'Senegal',
-                'alpha2' => 'SN',
-                'alpha3' => 'SEN',
+                'alpha2' => 'sn',
+                'alpha3' => 'sen',
                 'numeric' => '686',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Serbia',
-                'alpha2' => 'RS',
-                'alpha3' => 'SRB',
+                'alpha2' => 'rs',
+                'alpha3' => 'srb',
                 'numeric' => '688',
-                'currency' => [
-                    'RSD',
-                ],
+                'currency' =>
+                    [
+                        'RSD',
+                    ],
             ],
+
             [
                 'name' => 'Seychelles',
-                'alpha2' => 'SC',
-                'alpha3' => 'SYC',
+                'alpha2' => 'sc',
+                'alpha3' => 'syc',
                 'numeric' => '690',
-                'currency' => [
-                    'SCR',
-                ],
+                'currency' =>
+                    [
+                        'SCR',
+                    ],
             ],
+
             [
                 'name' => 'Sierra Leone',
-                'alpha2' => 'SL',
-                'alpha3' => 'SLE',
+                'alpha2' => 'sl',
+                'alpha3' => 'sle',
                 'numeric' => '694',
-                'currency' => [
-                    'SLL',
-                ],
+                'currency' =>
+                    [
+                        'SLL',
+                    ],
             ],
+
             [
                 'name' => 'Singapore',
-                'alpha2' => 'SG',
-                'alpha3' => 'SGP',
+                'alpha2' => 'sg',
+                'alpha3' => 'sgp',
                 'numeric' => '702',
-                'currency' => [
-                    'SGD',
-                ],
+                'currency' =>
+                    [
+                        'SGD',
+                    ],
             ],
+
             [
                 'name' => 'Sint Maarten (Dutch part)',
-                'alpha2' => 'SX',
-                'alpha3' => 'SXM',
+                'alpha2' => 'sx',
+                'alpha3' => 'sxm',
                 'numeric' => '534',
-                'currency' => [
-                    'ANG',
-                ],
+                'currency' =>
+                    [
+                        'ANG',
+                    ],
             ],
+
             [
                 'name' => 'Slovakia',
-                'alpha2' => 'SK',
-                'alpha3' => 'SVK',
+                'alpha2' => 'sk',
+                'alpha3' => 'svk',
                 'numeric' => '703',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Slovenia',
-                'alpha2' => 'SI',
-                'alpha3' => 'SVN',
+                'alpha2' => 'si',
+                'alpha3' => 'svn',
                 'numeric' => '705',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Solomon Islands',
-                'alpha2' => 'SB',
-                'alpha3' => 'SLB',
+                'alpha2' => 'sb',
+                'alpha3' => 'slb',
                 'numeric' => '090',
-                'currency' => [
-                    'SBD',
-                ],
+                'currency' =>
+                    [
+                        'SBD',
+                    ],
             ],
+
             [
                 'name' => 'Somalia',
-                'alpha2' => 'SO',
-                'alpha3' => 'SOM',
+                'alpha2' => 'so',
+                'alpha3' => 'som',
                 'numeric' => '706',
-                'currency' => [
-                    'SOS',
-                ],
+                'currency' =>
+                    [
+                        'SOS',
+                    ],
             ],
+
             [
                 'name' => 'South Africa',
-                'alpha2' => 'ZA',
-                'alpha3' => 'ZAF',
+                'alpha2' => 'za',
+                'alpha3' => 'zaf',
                 'numeric' => '710',
-                'currency' => [
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'ZAR',
+                    ],
             ],
+
             [
                 'name' => 'South Georgia and the South Sandwich Islands',
-                'alpha2' => 'GS',
-                'alpha3' => 'SGS',
+                'alpha2' => 'gs',
+                'alpha3' => 'sgs',
                 'numeric' => '239',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'South Sudan',
-                'alpha2' => 'SS',
-                'alpha3' => 'SSD',
+                'alpha2' => 'ss',
+                'alpha3' => 'ssd',
                 'numeric' => '728',
-                'currency' => [
-                    'SSP',
-                ],
+                'currency' =>
+                    [
+                        'SSP',
+                    ],
             ],
+
             [
                 'name' => 'Spain',
-                'alpha2' => 'ES',
-                'alpha3' => 'ESP',
+                'alpha2' => 'es',
+                'alpha3' => 'esp',
                 'numeric' => '724',
-                'currency' => [
-                    'EUR',
-                ],
+                'currency' =>
+                    [
+                        'EUR',
+                    ],
             ],
+
             [
                 'name' => 'Sri Lanka',
-                'alpha2' => 'LK',
-                'alpha3' => 'LKA',
+                'alpha2' => 'lk',
+                'alpha3' => 'lka',
                 'numeric' => '144',
-                'currency' => [
-                    'LKR',
-                ],
+                'currency' =>
+                    [
+                        'LKR',
+                    ],
             ],
+
             [
                 'name' => 'Sudan',
-                'alpha2' => 'SD',
-                'alpha3' => 'SDN',
+                'alpha2' => 'sd',
+                'alpha3' => 'sdn',
                 'numeric' => '729',
-                'currency' => [
-                    'SDG',
-                ],
+                'currency' =>
+                    [
+                        'SDG',
+                    ],
             ],
+
             [
                 'name' => 'Suriname',
-                'alpha2' => 'SR',
-                'alpha3' => 'SUR',
+                'alpha2' => 'sr',
+                'alpha3' => 'sur',
                 'numeric' => '740',
-                'currency' => [
-                    'SRD',
-                ],
+                'currency' =>
+                    [
+                        'SRD',
+                    ],
             ],
+
             [
                 'name' => 'Svalbard and Jan Mayen',
-                'alpha2' => 'SJ',
-                'alpha3' => 'SJM',
+                'alpha2' => 'sj',
+                'alpha3' => 'sjm',
                 'numeric' => '744',
-                'currency' => [
-                    'NOK',
-                ],
+                'currency' =>
+                    [
+                        'NOK',
+                    ],
             ],
+
             [
                 'name' => 'Sweden',
-                'alpha2' => 'SE',
-                'alpha3' => 'SWE',
+                'alpha2' => 'se',
+                'alpha3' => 'swe',
                 'numeric' => '752',
-                'currency' => [
-                    'SEK',
-                ],
+                'currency' =>
+                    [
+                        'SEK',
+                    ],
             ],
+
             [
                 'name' => 'Switzerland',
-                'alpha2' => 'CH',
-                'alpha3' => 'CHE',
+                'alpha2' => 'ch',
+                'alpha3' => 'che',
                 'numeric' => '756',
-                'currency' => [
-                    'CHF',
-                ],
+                'currency' =>
+                    [
+                        'CHF',
+                    ],
             ],
+
             [
                 'name' => 'Syrian Arab Republic',
-                'alpha2' => 'SY',
-                'alpha3' => 'SYR',
+                'alpha2' => 'sy',
+                'alpha3' => 'syr',
                 'numeric' => '760',
-                'currency' => [
-                    'SYP',
-                ],
+                'currency' =>
+                    [
+                        'SYP',
+                    ],
             ],
+
             [
                 'name' => 'Taiwan (Province of China)',
-                'alpha2' => 'TW',
-                'alpha3' => 'TWN',
+                'alpha2' => 'tw',
+                'alpha3' => 'twn',
                 'numeric' => '158',
-                'currency' => [
-                    'TWD',
-                ],
+                'currency' =>
+                    [
+                        'TWD',
+                    ],
             ],
+
             [
                 'name' => 'Tajikistan',
-                'alpha2' => 'TJ',
-                'alpha3' => 'TJK',
+                'alpha2' => 'tj',
+                'alpha3' => 'tjk',
                 'numeric' => '762',
-                'currency' => [
-                    'TJS',
-                ],
+                'currency' =>
+                    [
+                        'TJS',
+                    ],
             ],
+
             [
                 'name' => 'Tanzania, United Republic of',
-                'alpha2' => 'TZ',
-                'alpha3' => 'TZA',
+                'alpha2' => 'tz',
+                'alpha3' => 'tza',
                 'numeric' => '834',
-                'currency' => [
-                    'TZS',
-                ],
+                'currency' =>
+                    [
+                        'TZS',
+                    ],
             ],
+
             [
                 'name' => 'Thailand',
-                'alpha2' => 'TH',
-                'alpha3' => 'THA',
+                'alpha2' => 'th',
+                'alpha3' => 'tha',
                 'numeric' => '764',
-                'currency' => [
-                    'THB',
-                ],
+                'currency' =>
+                    [
+                        'THB',
+                    ],
             ],
+
             [
                 'name' => 'Timor-Leste',
-                'alpha2' => 'TL',
-                'alpha3' => 'TLS',
+                'alpha2' => 'tl',
+                'alpha3' => 'tls',
                 'numeric' => '626',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Togo',
-                'alpha2' => 'TG',
-                'alpha3' => 'TGO',
+                'alpha2' => 'tg',
+                'alpha3' => 'tgo',
                 'numeric' => '768',
-                'currency' => [
-                    'XOF',
-                ],
+                'currency' =>
+                    [
+                        'XOF',
+                    ],
             ],
+
             [
                 'name' => 'Tokelau',
-                'alpha2' => 'TK',
-                'alpha3' => 'TKL',
+                'alpha2' => 'tk',
+                'alpha3' => 'tkl',
                 'numeric' => '772',
-                'currency' => [
-                    'NZD',
-                ],
+                'currency' =>
+                    [
+                        'NZD',
+                    ],
             ],
+
             [
                 'name' => 'Tonga',
-                'alpha2' => 'TO',
-                'alpha3' => 'TON',
+                'alpha2' => 'to',
+                'alpha3' => 'ton',
                 'numeric' => '776',
-                'currency' => [
-                    'TOP',
-                ],
+                'currency' =>
+                    [
+                        'TOP',
+                    ],
             ],
+
             [
                 'name' => 'Trinidad and Tobago',
-                'alpha2' => 'TT',
-                'alpha3' => 'TTO',
+                'alpha2' => 'tt',
+                'alpha3' => 'tto',
                 'numeric' => '780',
-                'currency' => [
-                    'TTD',
-                ],
+                'currency' =>
+                    [
+                        'TTD',
+                    ],
             ],
+
             [
                 'name' => 'Tunisia',
-                'alpha2' => 'TN',
-                'alpha3' => 'TUN',
+                'alpha2' => 'tn',
+                'alpha3' => 'tun',
                 'numeric' => '788',
-                'currency' => [
-                    'TND',
-                ],
+                'currency' =>
+                    [
+                        'TND',
+                    ],
             ],
+
             [
                 'name' => 'Turkey',
-                'alpha2' => 'TR',
-                'alpha3' => 'TUR',
+                'alpha2' => 'tr',
+                'alpha3' => 'tur',
                 'numeric' => '792',
-                'currency' => [
-                    'TRY',
-                ],
+                'currency' =>
+                    [
+                        'TRY',
+                    ],
             ],
+
             [
                 'name' => 'Turkmenistan',
-                'alpha2' => 'TM',
-                'alpha3' => 'TKM',
+                'alpha2' => 'tm',
+                'alpha3' => 'tkm',
                 'numeric' => '795',
-                'currency' => [
-                    'TMT',
-                ],
+                'currency' =>
+                    [
+                        'TMT',
+                    ],
             ],
+
             [
                 'name' => 'Turks and Caicos Islands',
-                'alpha2' => 'TC',
-                'alpha3' => 'TCA',
+                'alpha2' => 'tc',
+                'alpha3' => 'tca',
                 'numeric' => '796',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Tuvalu',
-                'alpha2' => 'TV',
-                'alpha3' => 'TUV',
+                'alpha2' => 'tv',
+                'alpha3' => 'tuv',
                 'numeric' => '798',
-                'currency' => [
-                    'AUD',
-                ],
+                'currency' =>
+                    [
+                        'AUD',
+                    ],
             ],
+
             [
                 'name' => 'Uganda',
-                'alpha2' => 'UG',
-                'alpha3' => 'UGA',
+                'alpha2' => 'ug',
+                'alpha3' => 'uga',
                 'numeric' => '800',
-                'currency' => [
-                    'UGX',
-                ],
+                'currency' =>
+                    [
+                        'UGX',
+                    ],
             ],
+
             [
                 'name' => 'Ukraine',
-                'alpha2' => 'UA',
-                'alpha3' => 'UKR',
+                'alpha2' => 'ua',
+                'alpha3' => 'ukr',
                 'numeric' => '804',
-                'currency' => [
-                    'UAH',
-                ],
+                'currency' =>
+                    [
+                        'UAH',
+                    ],
             ],
+
             [
                 'name' => 'United Arab Emirates',
-                'alpha2' => 'AE',
-                'alpha3' => 'ARE',
+                'alpha2' => 'ae',
+                'alpha3' => 'are',
                 'numeric' => '784',
-                'currency' => [
-                    'AED',
-                ],
+                'currency' =>
+                    [
+                        'AED',
+                    ],
             ],
+
             [
                 'name' => 'United Kingdom of Great Britain and Northern Ireland',
-                'alpha2' => 'GB',
-                'alpha3' => 'GBR',
+                'alpha2' => 'gb',
+                'alpha3' => 'gbr',
                 'numeric' => '826',
-                'currency' => [
-                    'GBP',
-                ],
+                'currency' =>
+                    [
+                        'GBP',
+                    ],
             ],
+
             [
                 'name' => 'United States of America',
-                'alpha2' => 'US',
-                'alpha3' => 'USA',
+                'alpha2' => 'us',
+                'alpha3' => 'usa',
                 'numeric' => '840',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'United States Minor Outlying Islands',
-                'alpha2' => 'UM',
-                'alpha3' => 'UMI',
+                'alpha2' => 'um',
+                'alpha3' => 'umi',
                 'numeric' => '581',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Uruguay',
-                'alpha2' => 'UY',
-                'alpha3' => 'URY',
+                'alpha2' => 'uy',
+                'alpha3' => 'ury',
                 'numeric' => '858',
-                'currency' => [
-                    'UYU',
-                ],
+                'currency' =>
+                    [
+                        'UYU',
+                    ],
             ],
+
             [
                 'name' => 'Uzbekistan',
-                'alpha2' => 'UZ',
-                'alpha3' => 'UZB',
+                'alpha2' => 'uz',
+                'alpha3' => 'uzb',
                 'numeric' => '860',
-                'currency' => [
-                    'UZS',
-                ],
+                'currency' =>
+                    [
+                        'UZS',
+                    ],
             ],
+
             [
                 'name' => 'Vanuatu',
-                'alpha2' => 'VU',
-                'alpha3' => 'VUT',
+                'alpha2' => 'vu',
+                'alpha3' => 'vut',
                 'numeric' => '548',
-                'currency' => [
-                    'VUV',
-                ],
+                'currency' =>
+                    [
+                        'VUV',
+                    ],
             ],
+
             [
                 'name' => 'Venezuela (Bolivarian Republic of)',
-                'alpha2' => 'VE',
-                'alpha3' => 'VEN',
+                'alpha2' => 've',
+                'alpha3' => 'ven',
                 'numeric' => '862',
-                'currency' => [
-                    'VEF',
-                ],
+                'currency' =>
+                    [
+                        'VEF',
+                    ],
             ],
+
             [
                 'name' => 'Viet Nam',
-                'alpha2' => 'VN',
-                'alpha3' => 'VNM',
+                'alpha2' => 'vn',
+                'alpha3' => 'vnm',
                 'numeric' => '704',
-                'currency' => [
-                    'VND',
-                ],
+                'currency' =>
+                    [
+                        'VND',
+                    ],
             ],
+
             [
                 'name' => 'Virgin Islands (British)',
-                'alpha2' => 'VG',
-                'alpha3' => 'VGB',
+                'alpha2' => 'vg',
+                'alpha3' => 'vgb',
                 'numeric' => '092',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Virgin Islands (U.S.)',
-                'alpha2' => 'VI',
-                'alpha3' => 'VIR',
+                'alpha2' => 'vi',
+                'alpha3' => 'vir',
                 'numeric' => '850',
-                'currency' => [
-                    'USD',
-                ],
+                'currency' =>
+                    [
+                        'USD',
+                    ],
             ],
+
             [
                 'name' => 'Wallis and Futuna',
-                'alpha2' => 'WF',
-                'alpha3' => 'WLF',
+                'alpha2' => 'wf',
+                'alpha3' => 'wlf',
                 'numeric' => '876',
-                'currency' => [
-                    'XPF',
-                ],
+                'currency' =>
+                    [
+                        'XPF',
+                    ],
             ],
+
             [
                 'name' => 'Western Sahara',
-                'alpha2' => 'EH',
-                'alpha3' => 'ESH',
+                'alpha2' => 'eh',
+                'alpha3' => 'esh',
                 'numeric' => '732',
-                'currency' => [
-                    'MAD',
-                ],
+                'currency' =>
+                    [
+                        'MAD',
+                    ],
             ],
+
             [
                 'name' => 'Yemen',
-                'alpha2' => 'YE',
-                'alpha3' => 'YEM',
+                'alpha2' => 'ye',
+                'alpha3' => 'yem',
                 'numeric' => '887',
-                'currency' => [
-                    'YER',
-                ],
+                'currency' =>
+                    [
+                        'YER',
+                    ],
             ],
+
             [
                 'name' => 'Zambia',
-                'alpha2' => 'ZM',
-                'alpha3' => 'ZMB',
+                'alpha2' => 'zm',
+                'alpha3' => 'zmb',
                 'numeric' => '894',
-                'currency' => [
-                    'ZMW',
-                ],
+                'currency' =>
+                    [
+                        'ZMW',
+                    ],
             ],
+
             [
                 'name' => 'Zimbabwe',
-                'alpha2' => 'ZW',
-                'alpha3' => 'ZWE',
+                'alpha2' => 'zw',
+                'alpha3' => 'zwe',
                 'numeric' => '716',
-                'currency' => [
-                    'BWP',
-                    'EUR',
-                    'GBP',
-                    'USD',
-                    'ZAR',
-                ],
+                'currency' =>
+                    [
+                        'BWP',
+                        'EUR',
+                        'GBP',
+                        'USD',
+                        'ZAR',
+                    ],
             ],
         ];
+
     }
     
 }
