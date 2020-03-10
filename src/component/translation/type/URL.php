@@ -187,7 +187,7 @@ class URL extends Type implements interfaces\URL
 
         foreach ($translates[$before] as $language => &$translate) {
             $translate = $prefix . $translate . $suffix;
-            $translate = $this->context->context->localization
+            $translate = $this->context->context->localization->languages
                 ->addLanguageToUrl(
                     $translate,
                     $language,
@@ -233,7 +233,7 @@ class URL extends Type implements interfaces\URL
 
         $url = isset($parts['path']) ? $parts['path'] : '';
 
-        $url = $this->context->context->localization->removeScriptNameFromUrl($url);
+        $url = $this->context->context->localization->languages->removeScriptNameFromUrl($url);
 
         $url = rtrim($url, '/');
 
@@ -460,7 +460,7 @@ class URL extends Type implements interfaces\URL
 
         $result[$before] = \NovemBit\i18n\system\helpers\URL::removeQueryVars(
             $result[$before],
-            $this->context->context->localization->getLanguageQueryKey()
+            $this->context->context->localization->languages->getLanguageQueryKey()
         );
 
         return parent::validateAfterReTranslate(
