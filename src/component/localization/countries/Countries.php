@@ -9,12 +9,12 @@ use NovemBit\i18n\system\helpers\Arrays;
 
 class Countries extends Component implements interfaces\Countries
 {
-    public $all_countries;
+    public $all;
 
     public static function defaultConfig(): array
     {
         return [
-            'all_countries' => \NovemBit\i18n\system\helpers\Countries::getData()
+            'all' => \NovemBit\i18n\system\helpers\Countries::getData()
         ];
     }
 
@@ -30,7 +30,7 @@ class Countries extends Component implements interfaces\Countries
         string $by,
         ?string $return
     ) {
-        return Arrays::find($this->all_countries, $key, $by, $return);
+        return Arrays::find($this->all, $key, $by, $return);
     }
 
     /**
@@ -41,6 +41,6 @@ class Countries extends Component implements interfaces\Countries
      */
     public function getCountriesMap(string $key, string $value): array
     {
-        return Arrays::map($this->all_countries, $key, $value);
+        return Arrays::map($this->all, $key, $value);
     }
 }
