@@ -5,8 +5,8 @@ namespace NovemBit\i18n\system\helpers;
 class Countries extends LocalData
 {
     /**
-     * @param string $key
-     * @param string $by
+     * @param string      $key
+     * @param string      $by
      * @param string|null $return
      *
      * @return mixed|null
