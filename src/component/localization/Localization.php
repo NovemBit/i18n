@@ -15,6 +15,7 @@ namespace NovemBit\i18n\component\localization;
 
 use NovemBit\i18n\component\localization\countries\Countries;
 use NovemBit\i18n\component\localization\languages\Languages;
+use NovemBit\i18n\component\localization\regions\Regions;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Environment;
@@ -45,8 +46,9 @@ class Localization extends Component implements interfaces\Localization
     public static function defaultConfig(): array
     {
         return [
-            'languages'=>['class'=>Languages::class],
-            'countries'=>['class'=>Countries::class],
+            'languages' => ['class' => Languages::class],
+            'countries' => ['class' => Countries::class],
+            'regions' => ['class' => Regions::class],
         ];
     }
 }
