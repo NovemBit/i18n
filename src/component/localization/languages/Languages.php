@@ -13,7 +13,7 @@ use NovemBit\i18n\system\helpers\URL;
 class Languages extends Component implements interfaces\Languages
 {
 
-    public $all_languages;
+    public $all;
 
     /**
      * @return array
@@ -21,7 +21,7 @@ class Languages extends Component implements interfaces\Languages
     public static function defaultConfig(): array
     {
         return [
-            'all_languages' => \NovemBit\i18n\system\helpers\Languages::getData()
+            'all' => \NovemBit\i18n\system\helpers\Languages::getData()
         ];
     }
 
@@ -37,18 +37,18 @@ class Languages extends Component implements interfaces\Languages
         string $by,
         ?string $return
     ) {
-        return Arrays::find($this->all_languages, $key, $by, $return);
+        return Arrays::find($this->all, $key, $by, $return);
     }
 
-      /**
-       * @param string $key
-       * @param string $value
-       *
-       * @return array
-       */
+    /**
+     * @param string $key
+     * @param string $value
+     *
+     * @return array
+     */
     public function getLanguagesMap(string $key, string $value): array
     {
-        return Arrays::map($this->all_languages, $key, $value);
+        return Arrays::map($this->all, $key, $value);
     }
 
     /**
@@ -404,7 +404,6 @@ class Languages extends Component implements interfaces\Languages
         bool $assoc = false,
         ?string $base_domain = null
     ): array {
-
         $config = $this->getDefaultConfig($base_domain);
 
         if (isset($config['accept_languages'])
@@ -465,7 +464,7 @@ class Languages extends Component implements interfaces\Languages
     public function getDefaultConfig(?string $base_domain = null): array
     {
         $config = [
-            'languages'=>[
+            'languages' => [
                 'class' => Languages::class
             ],
         ];
@@ -520,7 +519,7 @@ class Languages extends Component implements interfaces\Languages
     public function getDefaultCountry(?string $base_domain = null): ?string
     {
         $config = $this->getDefaultConfig($base_domain);
-        return $config['country'] ?? null;
+        return $config['countries'][0] ?? null;
     }
 
     /**
@@ -643,8 +642,8 @@ class Languages extends Component implements interfaces\Languages
         $flag = $this->getLanguage(
             $code,
             'alpha1',
-            'flag'
-        ) ?? null;
+            'countries'
+        )[0] ?? null;
 
         if ($flag === null) {
             throw new LanguageException("Language flag property not found!");
