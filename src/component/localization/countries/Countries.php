@@ -1,16 +1,17 @@
 <?php
 
-
 namespace NovemBit\i18n\component\localization\countries;
 
-
+use NovemBit\i18n\component\localization\Localization;
+use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 
-class Countries extends Component implements interfaces\Countries
+/**
+ * @property Localization $context
+ * */
+class Countries extends LocalizationType implements interfaces\Countries
 {
-    public $all;
-
     public static function defaultConfig(): array
     {
         return [
@@ -19,18 +20,12 @@ class Countries extends Component implements interfaces\Countries
     }
 
     /**
-     * @param string      $key
-     * @param string      $by
-     * @param string|null $return
-     *
-     * @return mixed|null
+     * @param string|null $base_domain
+     * @return array|mixed|null
      */
-    public function getCountry(
-        string $key,
-        string $by,
-        ?string $return
-    ) {
-        return Arrays::find($this->all, $key, $by, $return);
+    public function getConfig(?string $base_domain = null, ?string $value = null)
+    {
+        return $this->get($base_domain, 'domain', $value);
     }
 
     /**
@@ -42,5 +37,18 @@ class Countries extends Component implements interfaces\Countries
     public function getCountriesMap(string $key, string $value): array
     {
         return Arrays::map($this->all, $key, $value);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string|null $base_domain Base domain
+     *
+     * @return string
+     */
+    public function getDefaultCountry(?string $base_domain = null): ?string
+    {
+        $config = $this->context->getConfig($base_domain);
+        return $config['countries'][0] ?? null;
     }
 }
