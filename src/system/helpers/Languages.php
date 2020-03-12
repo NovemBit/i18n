@@ -1,8 +1,6 @@
 <?php
 
-
 namespace NovemBit\i18n\system\helpers;
-
 
 class Languages extends LocalData
 {
@@ -21,6 +19,9 @@ class Languages extends LocalData
         return self::get($key, $by, $return);
     }
 
+    /**
+     * @return array
+     */
     public static function getLanguages()
     {
         return self::getData();

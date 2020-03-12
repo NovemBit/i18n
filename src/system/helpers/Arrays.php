@@ -1,8 +1,6 @@
 <?php
 
-
 namespace NovemBit\i18n\system\helpers;
-
 
 class Arrays
 {
@@ -24,9 +22,27 @@ class Arrays
         ?string $return
     ) {
         foreach ($data as $item) {
-            if (isset($item[$by])
+            if (
+                isset($item[$by])
                 && is_string($item[$by])
-                && $item[$by] == strtolower($key)
+                && $item[$by] == $key
+            ) {
+                if ($return != null) {
+                    return $item[$return] ?? null;
+                } else {
+                    return $item;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static function ufind(array $data, string $key, string $by, ?string $return, callable $callback)
+    {
+        foreach ($data as $item) {
+            if (
+                isset($item[$by])
+                && $callback($key, $item[$by])
             ) {
                 if ($return != null) {
                     return $item[$return] ?? null;
