@@ -1,16 +1,30 @@
 <?php
 
-
 namespace NovemBit\i18n\component\localization\languages;
 
-
 use NovemBit\i18n\component\localization\exceptions\LanguageException;
+use NovemBit\i18n\component\localization\Localization;
+use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 
-class Languages extends Component implements interfaces\Languages
+/**
+ * Setting default languages
+ *  from language - main website content language
+ *  default language - default language for request
+ *  accept languages - languages list for translations
+ *
+ * @category Component
+ * @package  Component
+ * @author   Aaron Yordanyan <aaron.yor@gmail.com>
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @link     https://github.com/NovemBit/i18n
+ *
+ * @property Localization $context
+ * */
+class Languages extends LocalizationType implements interfaces\Languages
 {
 
     public $all;
@@ -23,21 +37,6 @@ class Languages extends Component implements interfaces\Languages
         return [
             'all' => \NovemBit\i18n\system\helpers\Languages::getData()
         ];
-    }
-
-    /**
-     * @param string      $key
-     * @param string      $by
-     * @param string|null $return
-     *
-     * @return mixed|null
-     */
-    public function getLanguage(
-        string $key,
-        string $by,
-        ?string $return
-    ) {
-        return Arrays::find($this->all, $key, $by, $return);
     }
 
     /**
@@ -64,6 +63,11 @@ class Languages extends Component implements interfaces\Languages
      * @var array[string][string]
      * */
     public $localization_config;
+
+    /**
+     * @var bool
+     * */
+    public $localize_host = true;
 
     /**
      * Accepted languages
@@ -108,7 +112,7 @@ class Languages extends Component implements interfaces\Languages
      *
      * @var string
      * */
-    private static $_script_url;
+    private static $script_url;
 
     /**
      * Getting language code from url query string
@@ -124,7 +128,8 @@ class Languages extends Component implements interfaces\Languages
 
         if (isset($parts['query'])) {
             parse_str($parts['query'], $query);
-            if (isset($query[$this->language_query_key])
+            if (
+                isset($query[$this->language_query_key])
                 && $this->validateLanguage($query[$this->language_query_key])
             ) {
                 return $query[$this->language_query_key];
@@ -177,8 +182,8 @@ class Languages extends Component implements interfaces\Languages
      */
     private static function _getScriptUrl(): ?string
     {
-        if (isset(self::$_script_url)) {
-            return self::$_script_url;
+        if (isset(self::$script_url)) {
+            return self::$script_url;
         }
 
         $request_uri = Environment::server('REQUEST_URI');
@@ -199,9 +204,9 @@ class Languages extends Component implements interfaces\Languages
 
         $str = trim($str, '/');
 
-        self::$_script_url = $str;
+        self::$script_url = $str;
 
-        return self::$_script_url;
+        return self::$script_url;
     }
 
     /**
@@ -271,12 +276,8 @@ class Languages extends Component implements interfaces\Languages
             return null;
         }
 
-        /**
-         * # Notice
-         * > This is hard logic.
-         * > Notice Dont change this code if you not fully understanding method
-         * */
-        if (isset($base_domain)
+        if (
+            isset($base_domain)
             && !isset($this->getDefaultConfig($base_domain)['is_default'])
         ) {
             $parts = parse_url($url);
@@ -285,6 +286,16 @@ class Languages extends Component implements interfaces\Languages
              * */
             if (isset($parts['host'])) {
                 $parts['host'] = $base_domain;
+            }
+
+            if ($this->localize_host) {
+//                    $region = $this->context->regions->get($language);
+                $domain = $this->context->countries->get($language, 'languages', 'domain');
+
+                if ($domain) {
+                    $parts['scheme'] = $parts['scheme'] ?? 'https';
+                    $parts['host'] = $domain;
+                }
             }
 
             if ($this->getDefaultLanguage($base_domain) != $language) {
@@ -310,7 +321,8 @@ class Languages extends Component implements interfaces\Languages
                     $path_parts = explode('/', $parts['path']);
                     $path_parts = array_filter($path_parts);
 
-                    if ((!empty($path_parts) || !empty($parts['query']))
+                    if (
+                        (!empty($path_parts) || !empty($parts['query']))
                         || (empty($path_parts) && !isset($parts['fragment']))
                     ) {
                         array_unshift($path_parts, $language);
@@ -320,7 +332,8 @@ class Languages extends Component implements interfaces\Languages
             }
 
             $url = URL::buildUrl($parts);
-        } elseif ($this->language_on_path == true
+        } elseif (
+            $this->language_on_path == true
             && trim($url, '/') == $this->removeScriptNameFromUrl($url)
         ) {
             /**
@@ -338,7 +351,8 @@ class Languages extends Component implements interfaces\Languages
             $path_parts = explode('/', $parts['path']);
             $path_parts = array_filter($path_parts);
 
-            if ((!empty($path_parts) || !empty($parts['query']))
+            if (
+                (!empty($path_parts) || !empty($parts['query']))
                 || (empty($path_parts) && !isset($parts['fragment']))
             ) {
                 array_unshift($path_parts, $language);
@@ -406,7 +420,8 @@ class Languages extends Component implements interfaces\Languages
     ): array {
         $config = $this->getDefaultConfig($base_domain);
 
-        if (isset($config['accept_languages'])
+        if (
+            isset($config['accept_languages'])
             && !empty($config['accept_languages'])
         ) {
             $accept_languages = $config['accept_languages'];
@@ -463,24 +478,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getDefaultConfig(?string $base_domain = null): array
     {
-        $config = [
-            'languages' => [
-                'class' => Languages::class
-            ],
-        ];
-
-        foreach ($this->localization_config as $domain_pattern => $_config) {
-            if (preg_match("/$domain_pattern/", $base_domain)) {
-                $config = $_config;
-                break;
-            }
-        }
-        if (!isset($config) && isset($this->localization_config['default'])) {
-            $config = $this->localization_config['default'];
-            $config['is_default'] = true;
-        }
-
-        return $config;
+        return $this->context->getConfig($base_domain);
     }
 
     /**
@@ -507,32 +505,6 @@ class Languages extends Component implements interfaces\Languages
         } else {
             throw new LanguageException('Invalid default language parameter.');
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string|null $base_domain Base domain
-     *
-     * @return string
-     */
-    public function getDefaultCountry(?string $base_domain = null): ?string
-    {
-        $config = $this->getDefaultConfig($base_domain);
-        return $config['countries'][0] ?? null;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string|null $base_domain Base domain
-     *
-     * @return string
-     */
-    public function getDefaultRegion(?string $base_domain = null): ?string
-    {
-        $config = $this->getDefaultConfig($base_domain);
-        return $config['region'] ?? null;
     }
 
     /**
@@ -572,7 +544,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getLanguageNameByCode(string $code): string
     {
-        $name = $this->getLanguage(
+        $name = $this->get(
             $code,
             'alpha1',
             'name'
@@ -593,7 +565,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getLanguageDirectionByCode(string $code): string
     {
-        $dir = $this->getLanguage(
+        $dir = $this->get(
             $code,
             'alpha1',
             'dir'
@@ -612,7 +584,7 @@ class Languages extends Component implements interfaces\Languages
      */
     public function getLanguageNativeNameByCode(string $code): string
     {
-        $name = $this->getLanguage(
+        $name = $this->get(
             $code,
             'alpha1',
             'native'
@@ -639,7 +611,7 @@ class Languages extends Component implements interfaces\Languages
         $rectangle = true,
         $html = false
     ): string {
-        $flag = $this->getLanguage(
+        $flag = $this->get(
             $code,
             'alpha1',
             'countries'
@@ -663,5 +635,4 @@ class Languages extends Component implements interfaces\Languages
             ? "<img alt=\"$name\" title=\"$name\" src=\"$base64\"/>"
             : $base64;
     }
-
 }
