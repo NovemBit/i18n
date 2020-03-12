@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Url translation component
  * php version 7.2.10
@@ -118,8 +119,8 @@ class URL extends Type implements interfaces\URL
             $this->save_translations = false;
         }
 
-        if ($this->base_domain === null && isset($_SERVER['HTTP_HOST'])) {
-            $this->base_domain = $_SERVER['HTTP_HOST'];
+        if ($this->base_domain === null && Environment::server('HTTP_HOST')) {
+            $this->base_domain = Environment::server('HTTP_HOST');
         }
 
         parent::mainInit();
@@ -212,7 +213,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    protected function prepareUrlToProcess(string &$url):bool
+    protected function prepareUrlToProcess(string &$url): bool
     {
         $url = trim($url, ' ');
 
@@ -503,5 +504,4 @@ class URL extends Type implements interfaces\URL
 
         return $prefix . parent::getCacheKey($from_language, $to_languages, $texts);
     }
-
 }
