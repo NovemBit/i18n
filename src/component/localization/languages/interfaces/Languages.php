@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NovemBit\i18n\component\localization\languages\interfaces;
 
 /**
@@ -8,7 +7,7 @@ namespace NovemBit\i18n\component\localization\languages\interfaces;
  * */
 interface Languages
 {
-    public function getLanguage(
+    public function get(
         string $key,
         string $by,
         ?string $return
@@ -95,24 +94,6 @@ interface Languages
     public function getDefaultLanguage(?string $base_domain = null): string;
 
     /**
-     * Get default country
-     *
-     * @param string|null $base_domain Base domain
-     *
-     * @return string
-     * */
-    public function getDefaultCountry(?string $base_domain = null): ?string;
-
-    /**
-     * Get default country
-     *
-     * @param string|null $base_domain Base domain
-     *
-     * @return string
-     * */
-    public function getDefaultRegion(?string $base_domain = null): ?string;
-
-    /**
      * Remove executable file from url path
      *
      * @param string $url Initial URL
@@ -177,5 +158,4 @@ interface Languages
      * @return string
      */
     public function getLanguageNameByCode(string $code): string;
-
 }
