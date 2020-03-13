@@ -257,8 +257,8 @@ class Languages extends LocalizationType implements interfaces\Languages
     /**
      * {@inheritDoc}
      *
-     * @param string      $url         Simple url
-     * @param string      $language    language code
+     * @param string $url Simple url
+     * @param string $language language code
      * @param string|null $base_domain Base domain name
      *
      * @return null|string
@@ -278,9 +278,20 @@ class Languages extends LocalizationType implements interfaces\Languages
 
         if (
             isset($base_domain)
-            && !isset($this->getDefaultConfig($base_domain)['is_default'])
+            && !isset($this->getLocalizationConfig($base_domain)['is_default'])
         ) {
             $parts = parse_url($url);
+
+
+            if ($this->localize_host) {
+//                    $region = $this->context->regions->get($language);
+                $domain = $this->context->countries->get($language, 'languages', 'domain');
+                $domain = $domain ?? $this->context->regions->get($language, 'languages', 'domain');
+
+                $base_domain = $domain ?? $base_domain;
+                $parts['host'] = $domain ?? $parts['host'] ?? null;
+            }
+
             /**
              * Change host of url
              * */
@@ -288,14 +299,9 @@ class Languages extends LocalizationType implements interfaces\Languages
                 $parts['host'] = $base_domain;
             }
 
-            if ($this->localize_host) {
-//                    $region = $this->context->regions->get($language);
-                $domain = $this->context->countries->get($language, 'languages', 'domain');
-
-                if ($domain) {
-                    $parts['scheme'] = $parts['scheme'] ?? 'https';
-                    $parts['host'] = $domain;
-                }
+            if (!empty($parts['host']) && empty($parts['scheme'])) {
+                $scheme = stripos(Environment::server('SERVER_PROTOCOL'), 'https') === 0 ? 'https' : 'http';
+                $parts['scheme'] = $scheme;
             }
 
             if ($this->getDefaultLanguage($base_domain) != $language) {
@@ -418,7 +424,7 @@ class Languages extends LocalizationType implements interfaces\Languages
         bool $assoc = false,
         ?string $base_domain = null
     ): array {
-        $config = $this->getDefaultConfig($base_domain);
+        $config = $this->getLocalizationConfig($base_domain);
 
         if (
             isset($config['accept_languages'])
@@ -476,7 +482,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      *
      * @return array
      */
-    public function getDefaultConfig(?string $base_domain = null): array
+    public function getLocalizationConfig(?string $base_domain = null): array
     {
         return $this->context->getConfig($base_domain);
     }
@@ -492,13 +498,13 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
-        $config = $this->getDefaultConfig($base_domain);
+        $language = $this->context->countries->getConfig($base_domain, 'languages')[0] ?? null;
 
-        if (isset($config['language'])) {
-            $language = $config['language'];
-        } else {
-            $language = $this->getFromLanguage();
-        }
+        $language = $language ?? $this->context->regions->getConfig($base_domain, 'languages')[0] ?? null;
+
+        $config = $this->getLocalizationConfig($base_domain);
+
+        $language = $language ?? $config['language'] ?? $this->getFromLanguage();
 
         if ($this->validateLanguage($language)) {
             return $language;
@@ -599,9 +605,9 @@ class Languages extends LocalizationType implements interfaces\Languages
     /**
      * {@inheritDoc}
      *
-     * @param string $code      Language code
-     * @param bool   $rectangle Rectangle format image
-     * @param bool   $html      Return html <img src="..
+     * @param string $code Language code
+     * @param bool $rectangle Rectangle format image
+     * @param bool $html Return html <img src="..
      *
      * @return string
      * @throws LanguageException
