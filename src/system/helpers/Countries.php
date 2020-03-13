@@ -31,7 +31,7 @@ class Countries extends LocalData
                 'alpha3' => 'afg',
                 'numeric' => '004',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AFN',
                 ],
@@ -42,7 +42,7 @@ class Countries extends LocalData
                 'alpha3' => 'ala',
                 'numeric' => '248',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -53,7 +53,7 @@ class Countries extends LocalData
                 'alpha3' => 'alb',
                 'numeric' => '008',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ALL',
                 ],
@@ -64,7 +64,7 @@ class Countries extends LocalData
                 'alpha3' => 'dza',
                 'numeric' => '012',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DZD',
                 ],
@@ -75,7 +75,7 @@ class Countries extends LocalData
                 'alpha3' => 'asm',
                 'numeric' => '016',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -86,7 +86,7 @@ class Countries extends LocalData
                 'alpha3' => 'and',
                 'numeric' => '020',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -97,7 +97,7 @@ class Countries extends LocalData
                 'alpha3' => 'ago',
                 'numeric' => '024',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AOA',
                 ],
@@ -108,7 +108,7 @@ class Countries extends LocalData
                 'alpha3' => 'aia',
                 'numeric' => '660',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -119,7 +119,7 @@ class Countries extends LocalData
                 'alpha3' => 'ata',
                 'numeric' => '010',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ARS',
                     'AUD',
@@ -154,7 +154,7 @@ class Countries extends LocalData
                 'alpha3' => 'atg',
                 'numeric' => '028',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -165,7 +165,7 @@ class Countries extends LocalData
                 'alpha3' => 'arg',
                 'numeric' => '032',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ARS',
                 ],
@@ -176,7 +176,7 @@ class Countries extends LocalData
                 'alpha3' => 'arm',
                 'numeric' => '051',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AMD',
                 ],
@@ -187,7 +187,7 @@ class Countries extends LocalData
                 'alpha3' => 'abw',
                 'numeric' => '533',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AWG',
                 ],
@@ -198,7 +198,7 @@ class Countries extends LocalData
                 'alpha3' => 'aus',
                 'numeric' => '036',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -209,7 +209,7 @@ class Countries extends LocalData
                 'alpha3' => 'aut',
                 'numeric' => '040',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -220,7 +220,7 @@ class Countries extends LocalData
                 'alpha3' => 'aze',
                 'numeric' => '031',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AZN',
                 ],
@@ -231,7 +231,7 @@ class Countries extends LocalData
                 'alpha3' => 'bhs',
                 'numeric' => '044',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BSD',
                 ],
@@ -242,7 +242,7 @@ class Countries extends LocalData
                 'alpha3' => 'bhr',
                 'numeric' => '048',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BHD',
                 ],
@@ -253,7 +253,7 @@ class Countries extends LocalData
                 'alpha3' => 'bgd',
                 'numeric' => '050',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BDT',
                 ],
@@ -264,7 +264,7 @@ class Countries extends LocalData
                 'alpha3' => 'brb',
                 'numeric' => '052',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BBD',
                 ],
@@ -275,7 +275,7 @@ class Countries extends LocalData
                 'alpha3' => 'blr',
                 'numeric' => '112',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BYN',
                 ],
@@ -286,7 +286,7 @@ class Countries extends LocalData
                 'alpha3' => 'bel',
                 'numeric' => '056',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -297,7 +297,7 @@ class Countries extends LocalData
                 'alpha3' => 'blz',
                 'numeric' => '084',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BZD',
                 ],
@@ -308,7 +308,7 @@ class Countries extends LocalData
                 'alpha3' => 'ben',
                 'numeric' => '204',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -319,7 +319,7 @@ class Countries extends LocalData
                 'alpha3' => 'bmu',
                 'numeric' => '060',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BMD',
                 ],
@@ -330,7 +330,7 @@ class Countries extends LocalData
                 'alpha3' => 'btn',
                 'numeric' => '064',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BTN',
                 ],
@@ -341,7 +341,7 @@ class Countries extends LocalData
                 'alpha3' => 'bol',
                 'numeric' => '068',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BOB',
                 ],
@@ -352,7 +352,7 @@ class Countries extends LocalData
                 'alpha3' => 'bes',
                 'numeric' => '535',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -363,7 +363,7 @@ class Countries extends LocalData
                 'alpha3' => 'bih',
                 'numeric' => '070',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BAM',
                 ],
@@ -374,7 +374,7 @@ class Countries extends LocalData
                 'alpha3' => 'bwa',
                 'numeric' => '072',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BWP',
                 ],
@@ -385,7 +385,7 @@ class Countries extends LocalData
                 'alpha3' => 'bvt',
                 'numeric' => '074',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NOK',
                 ],
@@ -396,7 +396,7 @@ class Countries extends LocalData
                 'alpha3' => 'bra',
                 'numeric' => '076',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BRL',
                 ],
@@ -407,7 +407,7 @@ class Countries extends LocalData
                 'alpha3' => 'iot',
                 'numeric' => '086',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -418,7 +418,7 @@ class Countries extends LocalData
                 'alpha3' => 'brn',
                 'numeric' => '096',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BND',
                     'SGD',
@@ -430,7 +430,7 @@ class Countries extends LocalData
                 'alpha3' => 'bgr',
                 'numeric' => '100',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BGN',
                 ],
@@ -441,7 +441,7 @@ class Countries extends LocalData
                 'alpha3' => 'bfa',
                 'numeric' => '854',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -452,7 +452,7 @@ class Countries extends LocalData
                 'alpha3' => 'bdi',
                 'numeric' => '108',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BIF',
                 ],
@@ -463,7 +463,7 @@ class Countries extends LocalData
                 'alpha3' => 'cpv',
                 'numeric' => '132',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CVE',
                 ],
@@ -474,7 +474,7 @@ class Countries extends LocalData
                 'alpha3' => 'khm',
                 'numeric' => '116',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KHR',
                 ],
@@ -485,7 +485,7 @@ class Countries extends LocalData
                 'alpha3' => 'cmr',
                 'numeric' => '120',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -496,7 +496,7 @@ class Countries extends LocalData
                 'alpha3' => 'can',
                 'numeric' => '124',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CAD',
                 ],
@@ -507,7 +507,7 @@ class Countries extends LocalData
                 'alpha3' => 'cym',
                 'numeric' => '136',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KYD',
                 ],
@@ -518,7 +518,7 @@ class Countries extends LocalData
                 'alpha3' => 'caf',
                 'numeric' => '140',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -529,7 +529,7 @@ class Countries extends LocalData
                 'alpha3' => 'tcd',
                 'numeric' => '148',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -540,7 +540,7 @@ class Countries extends LocalData
                 'alpha3' => 'chl',
                 'numeric' => '152',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CLP',
                 ],
@@ -551,7 +551,7 @@ class Countries extends LocalData
                 'alpha3' => 'chn',
                 'numeric' => '156',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CNY',
                 ],
@@ -562,7 +562,7 @@ class Countries extends LocalData
                 'alpha3' => 'cxr',
                 'numeric' => '162',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -573,7 +573,7 @@ class Countries extends LocalData
                 'alpha3' => 'cck',
                 'numeric' => '166',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -584,7 +584,7 @@ class Countries extends LocalData
                 'alpha3' => 'col',
                 'numeric' => '170',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'COP',
                 ],
@@ -595,7 +595,7 @@ class Countries extends LocalData
                 'alpha3' => 'com',
                 'numeric' => '174',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KMF',
                 ],
@@ -606,7 +606,7 @@ class Countries extends LocalData
                 'alpha3' => 'cog',
                 'numeric' => '178',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -617,7 +617,7 @@ class Countries extends LocalData
                 'alpha3' => 'cod',
                 'numeric' => '180',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CDF',
                 ],
@@ -628,7 +628,7 @@ class Countries extends LocalData
                 'alpha3' => 'cok',
                 'numeric' => '184',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NZD',
                 ],
@@ -639,7 +639,7 @@ class Countries extends LocalData
                 'alpha3' => 'cri',
                 'numeric' => '188',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CRC',
                 ],
@@ -650,7 +650,7 @@ class Countries extends LocalData
                 'alpha3' => 'civ',
                 'numeric' => '384',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -661,7 +661,7 @@ class Countries extends LocalData
                 'alpha3' => 'hrv',
                 'numeric' => '191',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'HRK',
                 ],
@@ -672,7 +672,7 @@ class Countries extends LocalData
                 'alpha3' => 'cub',
                 'numeric' => '192',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CUC',
                     'CUP',
@@ -684,7 +684,7 @@ class Countries extends LocalData
                 'alpha3' => 'cuw',
                 'numeric' => '531',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ANG',
                 ],
@@ -695,7 +695,7 @@ class Countries extends LocalData
                 'alpha3' => 'cyp',
                 'numeric' => '196',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -706,7 +706,7 @@ class Countries extends LocalData
                 'alpha3' => 'cze',
                 'numeric' => '203',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CZK',
                 ],
@@ -717,7 +717,7 @@ class Countries extends LocalData
                 'alpha3' => 'dnk',
                 'numeric' => '208',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DKK',
                 ],
@@ -728,7 +728,7 @@ class Countries extends LocalData
                 'alpha3' => 'dji',
                 'numeric' => '262',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DJF',
                 ],
@@ -739,7 +739,7 @@ class Countries extends LocalData
                 'alpha3' => 'dma',
                 'numeric' => '212',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -750,7 +750,7 @@ class Countries extends LocalData
                 'alpha3' => 'dom',
                 'numeric' => '214',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DOP',
                 ],
@@ -761,7 +761,7 @@ class Countries extends LocalData
                 'alpha3' => 'ecu',
                 'numeric' => '218',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -772,7 +772,7 @@ class Countries extends LocalData
                 'alpha3' => 'egy',
                 'numeric' => '818',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EGP',
                 ],
@@ -783,7 +783,7 @@ class Countries extends LocalData
                 'alpha3' => 'slv',
                 'numeric' => '222',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -794,7 +794,7 @@ class Countries extends LocalData
                 'alpha3' => 'gnq',
                 'numeric' => '226',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -805,7 +805,7 @@ class Countries extends LocalData
                 'alpha3' => 'eri',
                 'numeric' => '232',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ERN',
                 ],
@@ -816,7 +816,7 @@ class Countries extends LocalData
                 'alpha3' => 'est',
                 'numeric' => '233',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -827,7 +827,7 @@ class Countries extends LocalData
                 'alpha3' => 'eth',
                 'numeric' => '231',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ETB',
                 ],
@@ -838,7 +838,7 @@ class Countries extends LocalData
                 'alpha3' => 'swz',
                 'numeric' => '748',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SZL',
                     'ZAR',
@@ -850,7 +850,7 @@ class Countries extends LocalData
                 'alpha3' => 'flk',
                 'numeric' => '238',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'FKP',
                 ],
@@ -861,7 +861,7 @@ class Countries extends LocalData
                 'alpha3' => 'fro',
                 'numeric' => '234',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DKK',
                 ],
@@ -872,7 +872,7 @@ class Countries extends LocalData
                 'alpha3' => 'fji',
                 'numeric' => '242',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'FJD',
                 ],
@@ -883,7 +883,7 @@ class Countries extends LocalData
                 'alpha3' => 'fin',
                 'numeric' => '246',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -894,7 +894,7 @@ class Countries extends LocalData
                 'alpha3' => 'fra',
                 'numeric' => '250',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -905,7 +905,7 @@ class Countries extends LocalData
                 'alpha3' => 'guf',
                 'numeric' => '254',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -916,7 +916,7 @@ class Countries extends LocalData
                 'alpha3' => 'pyf',
                 'numeric' => '258',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XPF',
                 ],
@@ -927,7 +927,7 @@ class Countries extends LocalData
                 'alpha3' => 'atf',
                 'numeric' => '260',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -938,7 +938,7 @@ class Countries extends LocalData
                 'alpha3' => 'gab',
                 'numeric' => '266',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XAF',
                 ],
@@ -949,7 +949,7 @@ class Countries extends LocalData
                 'alpha3' => 'gmb',
                 'numeric' => '270',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GMD',
                 ],
@@ -960,7 +960,7 @@ class Countries extends LocalData
                 'alpha3' => 'geo',
                 'numeric' => '268',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GEL',
                 ],
@@ -971,7 +971,7 @@ class Countries extends LocalData
                 'alpha3' => 'deu',
                 'numeric' => '276',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -982,7 +982,7 @@ class Countries extends LocalData
                 'alpha3' => 'gha',
                 'numeric' => '288',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GHS',
                 ],
@@ -993,7 +993,7 @@ class Countries extends LocalData
                 'alpha3' => 'gib',
                 'numeric' => '292',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GIP',
                 ],
@@ -1004,7 +1004,7 @@ class Countries extends LocalData
                 'alpha3' => 'grc',
                 'numeric' => '300',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1015,7 +1015,7 @@ class Countries extends LocalData
                 'alpha3' => 'grl',
                 'numeric' => '304',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'DKK',
                 ],
@@ -1026,7 +1026,7 @@ class Countries extends LocalData
                 'alpha3' => 'grd',
                 'numeric' => '308',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -1037,7 +1037,7 @@ class Countries extends LocalData
                 'alpha3' => 'glp',
                 'numeric' => '312',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1048,7 +1048,7 @@ class Countries extends LocalData
                 'alpha3' => 'gum',
                 'numeric' => '316',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -1059,7 +1059,7 @@ class Countries extends LocalData
                 'alpha3' => 'gtm',
                 'numeric' => '320',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GTQ',
                 ],
@@ -1070,7 +1070,7 @@ class Countries extends LocalData
                 'alpha3' => 'ggy',
                 'numeric' => '831',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -1081,7 +1081,7 @@ class Countries extends LocalData
                 'alpha3' => 'gin',
                 'numeric' => '324',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GNF',
                 ],
@@ -1092,7 +1092,7 @@ class Countries extends LocalData
                 'alpha3' => 'gnb',
                 'numeric' => '624',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -1103,7 +1103,7 @@ class Countries extends LocalData
                 'alpha3' => 'guy',
                 'numeric' => '328',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GYD',
                 ],
@@ -1114,7 +1114,7 @@ class Countries extends LocalData
                 'alpha3' => 'hti',
                 'numeric' => '332',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'HTG',
                 ],
@@ -1125,7 +1125,7 @@ class Countries extends LocalData
                 'alpha3' => 'hmd',
                 'numeric' => '334',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -1136,7 +1136,7 @@ class Countries extends LocalData
                 'alpha3' => 'vat',
                 'numeric' => '336',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1147,7 +1147,7 @@ class Countries extends LocalData
                 'alpha3' => 'hnd',
                 'numeric' => '340',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'HNL',
                 ],
@@ -1158,7 +1158,7 @@ class Countries extends LocalData
                 'alpha3' => 'hkg',
                 'numeric' => '344',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'HKD',
                 ],
@@ -1169,7 +1169,7 @@ class Countries extends LocalData
                 'alpha3' => 'hun',
                 'numeric' => '348',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'HUF',
                 ],
@@ -1180,7 +1180,7 @@ class Countries extends LocalData
                 'alpha3' => 'isl',
                 'numeric' => '352',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ISK',
                 ],
@@ -1191,7 +1191,7 @@ class Countries extends LocalData
                 'alpha3' => 'ind',
                 'numeric' => '356',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'INR',
                 ],
@@ -1202,7 +1202,7 @@ class Countries extends LocalData
                 'alpha3' => 'idn',
                 'numeric' => '360',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'IDR',
                 ],
@@ -1213,7 +1213,7 @@ class Countries extends LocalData
                 'alpha3' => 'irn',
                 'numeric' => '364',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'IRR',
                 ],
@@ -1224,7 +1224,7 @@ class Countries extends LocalData
                 'alpha3' => 'irq',
                 'numeric' => '368',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'IQD',
                 ],
@@ -1235,7 +1235,7 @@ class Countries extends LocalData
                 'alpha3' => 'irl',
                 'numeric' => '372',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1246,7 +1246,7 @@ class Countries extends LocalData
                 'alpha3' => 'imn',
                 'numeric' => '833',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -1257,7 +1257,7 @@ class Countries extends LocalData
                 'alpha3' => 'isr',
                 'numeric' => '376',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ILS',
                 ],
@@ -1268,7 +1268,7 @@ class Countries extends LocalData
                 'alpha3' => 'ita',
                 'numeric' => '380',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1279,7 +1279,7 @@ class Countries extends LocalData
                 'alpha3' => 'jam',
                 'numeric' => '388',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'JMD',
                 ],
@@ -1290,7 +1290,7 @@ class Countries extends LocalData
                 'alpha3' => 'jpn',
                 'numeric' => '392',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'JPY',
                 ],
@@ -1301,7 +1301,7 @@ class Countries extends LocalData
                 'alpha3' => 'jey',
                 'numeric' => '832',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -1312,7 +1312,7 @@ class Countries extends LocalData
                 'alpha3' => 'jor',
                 'numeric' => '400',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'JOD',
                 ],
@@ -1323,7 +1323,7 @@ class Countries extends LocalData
                 'alpha3' => 'kaz',
                 'numeric' => '398',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KZT',
                 ],
@@ -1334,7 +1334,7 @@ class Countries extends LocalData
                 'alpha3' => 'ken',
                 'numeric' => '404',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KES',
                 ],
@@ -1345,7 +1345,7 @@ class Countries extends LocalData
                 'alpha3' => 'kir',
                 'numeric' => '296',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -1356,7 +1356,7 @@ class Countries extends LocalData
                 'alpha3' => 'prk',
                 'numeric' => '408',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KPW',
                 ],
@@ -1367,7 +1367,7 @@ class Countries extends LocalData
                 'alpha3' => 'kor',
                 'numeric' => '410',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KRW',
                 ],
@@ -1378,7 +1378,7 @@ class Countries extends LocalData
                 'alpha3' => 'kwt',
                 'numeric' => '414',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KWD',
                 ],
@@ -1389,7 +1389,7 @@ class Countries extends LocalData
                 'alpha3' => 'kgz',
                 'numeric' => '417',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'KGS',
                 ],
@@ -1400,7 +1400,7 @@ class Countries extends LocalData
                 'alpha3' => 'lao',
                 'numeric' => '418',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LAK',
                 ],
@@ -1411,7 +1411,7 @@ class Countries extends LocalData
                 'alpha3' => 'lva',
                 'numeric' => '428',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1422,7 +1422,7 @@ class Countries extends LocalData
                 'alpha3' => 'lbn',
                 'numeric' => '422',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LBP',
                 ],
@@ -1433,7 +1433,7 @@ class Countries extends LocalData
                 'alpha3' => 'lso',
                 'numeric' => '426',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LSL',
                     'ZAR',
@@ -1445,7 +1445,7 @@ class Countries extends LocalData
                 'alpha3' => 'lbr',
                 'numeric' => '430',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LRD',
                 ],
@@ -1456,7 +1456,7 @@ class Countries extends LocalData
                 'alpha3' => 'lby',
                 'numeric' => '434',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LYD',
                 ],
@@ -1467,7 +1467,7 @@ class Countries extends LocalData
                 'alpha3' => 'lie',
                 'numeric' => '438',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CHF',
                 ],
@@ -1478,7 +1478,7 @@ class Countries extends LocalData
                 'alpha3' => 'ltu',
                 'numeric' => '440',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1489,7 +1489,7 @@ class Countries extends LocalData
                 'alpha3' => 'lux',
                 'numeric' => '442',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1500,7 +1500,7 @@ class Countries extends LocalData
                 'alpha3' => 'mac',
                 'numeric' => '446',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MOP',
                 ],
@@ -1511,7 +1511,7 @@ class Countries extends LocalData
                 'alpha3' => 'mkd',
                 'numeric' => '807',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MKD',
                 ],
@@ -1522,7 +1522,7 @@ class Countries extends LocalData
                 'alpha3' => 'mdg',
                 'numeric' => '450',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MGA',
                 ],
@@ -1533,7 +1533,7 @@ class Countries extends LocalData
                 'alpha3' => 'mwi',
                 'numeric' => '454',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MWK',
                 ],
@@ -1544,7 +1544,7 @@ class Countries extends LocalData
                 'alpha3' => 'mys',
                 'numeric' => '458',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MYR',
                 ],
@@ -1555,7 +1555,7 @@ class Countries extends LocalData
                 'alpha3' => 'mdv',
                 'numeric' => '462',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MVR',
                 ],
@@ -1566,7 +1566,7 @@ class Countries extends LocalData
                 'alpha3' => 'mli',
                 'numeric' => '466',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -1577,7 +1577,7 @@ class Countries extends LocalData
                 'alpha3' => 'mlt',
                 'numeric' => '470',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1588,7 +1588,7 @@ class Countries extends LocalData
                 'alpha3' => 'mhl',
                 'numeric' => '584',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -1599,7 +1599,7 @@ class Countries extends LocalData
                 'alpha3' => 'mtq',
                 'numeric' => '474',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1610,7 +1610,7 @@ class Countries extends LocalData
                 'alpha3' => 'mrt',
                 'numeric' => '478',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MRO',
                 ],
@@ -1621,7 +1621,7 @@ class Countries extends LocalData
                 'alpha3' => 'mus',
                 'numeric' => '480',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MUR',
                 ],
@@ -1632,7 +1632,7 @@ class Countries extends LocalData
                 'alpha3' => 'myt',
                 'numeric' => '175',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1643,7 +1643,7 @@ class Countries extends LocalData
                 'alpha3' => 'mex',
                 'numeric' => '484',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MXN',
                 ],
@@ -1654,7 +1654,7 @@ class Countries extends LocalData
                 'alpha3' => 'fsm',
                 'numeric' => '583',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -1665,7 +1665,7 @@ class Countries extends LocalData
                 'alpha3' => 'mda',
                 'numeric' => '498',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MDL',
                 ],
@@ -1676,7 +1676,7 @@ class Countries extends LocalData
                 'alpha3' => 'mco',
                 'numeric' => '492',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1687,7 +1687,7 @@ class Countries extends LocalData
                 'alpha3' => 'mng',
                 'numeric' => '496',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MNT',
                 ],
@@ -1698,7 +1698,7 @@ class Countries extends LocalData
                 'alpha3' => 'mne',
                 'numeric' => '499',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1709,7 +1709,7 @@ class Countries extends LocalData
                 'alpha3' => 'msr',
                 'numeric' => '500',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -1720,7 +1720,7 @@ class Countries extends LocalData
                 'alpha3' => 'mar',
                 'numeric' => '504',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MAD',
                 ],
@@ -1731,7 +1731,7 @@ class Countries extends LocalData
                 'alpha3' => 'moz',
                 'numeric' => '508',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MZN',
                 ],
@@ -1742,7 +1742,7 @@ class Countries extends LocalData
                 'alpha3' => 'mmr',
                 'numeric' => '104',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MMK',
                 ],
@@ -1753,7 +1753,7 @@ class Countries extends LocalData
                 'alpha3' => 'nam',
                 'numeric' => '516',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NAD',
                     'ZAR',
@@ -1765,7 +1765,7 @@ class Countries extends LocalData
                 'alpha3' => 'nru',
                 'numeric' => '520',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -1776,7 +1776,7 @@ class Countries extends LocalData
                 'alpha3' => 'npl',
                 'numeric' => '524',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NPR',
                 ],
@@ -1787,7 +1787,7 @@ class Countries extends LocalData
                 'alpha3' => 'nld',
                 'numeric' => '528',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -1798,7 +1798,7 @@ class Countries extends LocalData
                 'alpha3' => 'ncl',
                 'numeric' => '540',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XPF',
                 ],
@@ -1809,7 +1809,7 @@ class Countries extends LocalData
                 'alpha3' => 'nzl',
                 'numeric' => '554',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NZD',
                 ],
@@ -1820,7 +1820,7 @@ class Countries extends LocalData
                 'alpha3' => 'nic',
                 'numeric' => '558',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NIO',
                 ],
@@ -1831,7 +1831,7 @@ class Countries extends LocalData
                 'alpha3' => 'ner',
                 'numeric' => '562',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -1842,7 +1842,7 @@ class Countries extends LocalData
                 'alpha3' => 'nga',
                 'numeric' => '566',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NGN',
                 ],
@@ -1853,7 +1853,7 @@ class Countries extends LocalData
                 'alpha3' => 'niu',
                 'numeric' => '570',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NZD',
                 ],
@@ -1864,7 +1864,7 @@ class Countries extends LocalData
                 'alpha3' => 'nfk',
                 'numeric' => '574',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -1875,7 +1875,7 @@ class Countries extends LocalData
                 'alpha3' => 'mnp',
                 'numeric' => '580',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -1886,7 +1886,7 @@ class Countries extends LocalData
                 'alpha3' => 'nor',
                 'numeric' => '578',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NOK',
                 ],
@@ -1897,7 +1897,7 @@ class Countries extends LocalData
                 'alpha3' => 'omn',
                 'numeric' => '512',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'OMR',
                 ],
@@ -1908,7 +1908,7 @@ class Countries extends LocalData
                 'alpha3' => 'pak',
                 'numeric' => '586',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PKR',
                 ],
@@ -1919,7 +1919,7 @@ class Countries extends LocalData
                 'alpha3' => 'plw',
                 'numeric' => '585',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -1930,7 +1930,7 @@ class Countries extends LocalData
                 'alpha3' => 'pse',
                 'numeric' => '275',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ILS',
                 ],
@@ -1941,7 +1941,7 @@ class Countries extends LocalData
                 'alpha3' => 'pan',
                 'numeric' => '591',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PAB',
                 ],
@@ -1952,7 +1952,7 @@ class Countries extends LocalData
                 'alpha3' => 'png',
                 'numeric' => '598',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PGK',
                 ],
@@ -1963,7 +1963,7 @@ class Countries extends LocalData
                 'alpha3' => 'pry',
                 'numeric' => '600',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PYG',
                 ],
@@ -1974,7 +1974,7 @@ class Countries extends LocalData
                 'alpha3' => 'per',
                 'numeric' => '604',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PEN',
                 ],
@@ -1985,7 +1985,7 @@ class Countries extends LocalData
                 'alpha3' => 'phl',
                 'numeric' => '608',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PHP',
                 ],
@@ -1996,7 +1996,7 @@ class Countries extends LocalData
                 'alpha3' => 'pcn',
                 'numeric' => '612',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NZD',
                 ],
@@ -2007,7 +2007,7 @@ class Countries extends LocalData
                 'alpha3' => 'pol',
                 'numeric' => '616',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'PLN',
                 ],
@@ -2018,7 +2018,7 @@ class Countries extends LocalData
                 'alpha3' => 'prt',
                 'numeric' => '620',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2029,7 +2029,7 @@ class Countries extends LocalData
                 'alpha3' => 'pri',
                 'numeric' => '630',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2040,7 +2040,7 @@ class Countries extends LocalData
                 'alpha3' => 'qat',
                 'numeric' => '634',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'QAR',
                 ],
@@ -2051,7 +2051,7 @@ class Countries extends LocalData
                 'alpha3' => 'reu',
                 'numeric' => '638',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2062,7 +2062,7 @@ class Countries extends LocalData
                 'alpha3' => 'rou',
                 'numeric' => '642',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'RON',
                 ],
@@ -2073,7 +2073,7 @@ class Countries extends LocalData
                 'alpha3' => 'rus',
                 'numeric' => '643',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'RUB',
                 ],
@@ -2084,7 +2084,7 @@ class Countries extends LocalData
                 'alpha3' => 'rwa',
                 'numeric' => '646',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'RWF',
                 ],
@@ -2095,7 +2095,7 @@ class Countries extends LocalData
                 'alpha3' => 'blm',
                 'numeric' => '652',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2106,7 +2106,7 @@ class Countries extends LocalData
                 'alpha3' => 'shn',
                 'numeric' => '654',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SHP',
                 ],
@@ -2117,7 +2117,7 @@ class Countries extends LocalData
                 'alpha3' => 'kna',
                 'numeric' => '659',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -2128,7 +2128,7 @@ class Countries extends LocalData
                 'alpha3' => 'lca',
                 'numeric' => '662',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -2139,7 +2139,7 @@ class Countries extends LocalData
                 'alpha3' => 'maf',
                 'numeric' => '663',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                     'USD',
@@ -2151,7 +2151,7 @@ class Countries extends LocalData
                 'alpha3' => 'spm',
                 'numeric' => '666',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2162,7 +2162,7 @@ class Countries extends LocalData
                 'alpha3' => 'vct',
                 'numeric' => '670',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XCD',
                 ],
@@ -2173,7 +2173,7 @@ class Countries extends LocalData
                 'alpha3' => 'wsm',
                 'numeric' => '882',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'WST',
                 ],
@@ -2184,7 +2184,7 @@ class Countries extends LocalData
                 'alpha3' => 'smr',
                 'numeric' => '674',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2195,7 +2195,7 @@ class Countries extends LocalData
                 'alpha3' => 'stp',
                 'numeric' => '678',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'STD',
                 ],
@@ -2206,7 +2206,7 @@ class Countries extends LocalData
                 'alpha3' => 'sau',
                 'numeric' => '682',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SAR',
                 ],
@@ -2217,7 +2217,7 @@ class Countries extends LocalData
                 'alpha3' => 'sen',
                 'numeric' => '686',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -2228,7 +2228,7 @@ class Countries extends LocalData
                 'alpha3' => 'srb',
                 'numeric' => '688',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'RSD',
                 ],
@@ -2239,7 +2239,7 @@ class Countries extends LocalData
                 'alpha3' => 'syc',
                 'numeric' => '690',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SCR',
                 ],
@@ -2250,7 +2250,7 @@ class Countries extends LocalData
                 'alpha3' => 'sle',
                 'numeric' => '694',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SLL',
                 ],
@@ -2261,7 +2261,7 @@ class Countries extends LocalData
                 'alpha3' => 'sgp',
                 'numeric' => '702',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SGD',
                 ],
@@ -2272,7 +2272,7 @@ class Countries extends LocalData
                 'alpha3' => 'sxm',
                 'numeric' => '534',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ANG',
                 ],
@@ -2283,7 +2283,7 @@ class Countries extends LocalData
                 'alpha3' => 'svk',
                 'numeric' => '703',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2294,7 +2294,7 @@ class Countries extends LocalData
                 'alpha3' => 'svn',
                 'numeric' => '705',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2305,7 +2305,7 @@ class Countries extends LocalData
                 'alpha3' => 'slb',
                 'numeric' => '090',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SBD',
                 ],
@@ -2316,7 +2316,7 @@ class Countries extends LocalData
                 'alpha3' => 'som',
                 'numeric' => '706',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SOS',
                 ],
@@ -2327,7 +2327,7 @@ class Countries extends LocalData
                 'alpha3' => 'zaf',
                 'numeric' => '710',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ZAR',
                 ],
@@ -2338,7 +2338,7 @@ class Countries extends LocalData
                 'alpha3' => 'sgs',
                 'numeric' => '239',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -2349,7 +2349,7 @@ class Countries extends LocalData
                 'alpha3' => 'ssd',
                 'numeric' => '728',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SSP',
                 ],
@@ -2360,7 +2360,7 @@ class Countries extends LocalData
                 'alpha3' => 'esp',
                 'numeric' => '724',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'EUR',
                 ],
@@ -2371,7 +2371,7 @@ class Countries extends LocalData
                 'alpha3' => 'lka',
                 'numeric' => '144',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'LKR',
                 ],
@@ -2382,7 +2382,7 @@ class Countries extends LocalData
                 'alpha3' => 'sdn',
                 'numeric' => '729',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SDG',
                 ],
@@ -2393,7 +2393,7 @@ class Countries extends LocalData
                 'alpha3' => 'sur',
                 'numeric' => '740',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SRD',
                 ],
@@ -2404,7 +2404,7 @@ class Countries extends LocalData
                 'alpha3' => 'sjm',
                 'numeric' => '744',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NOK',
                 ],
@@ -2415,7 +2415,7 @@ class Countries extends LocalData
                 'alpha3' => 'swe',
                 'numeric' => '752',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SEK',
                 ],
@@ -2426,7 +2426,7 @@ class Countries extends LocalData
                 'alpha3' => 'che',
                 'numeric' => '756',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'CHF',
                 ],
@@ -2437,7 +2437,7 @@ class Countries extends LocalData
                 'alpha3' => 'syr',
                 'numeric' => '760',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'SYP',
                 ],
@@ -2448,7 +2448,7 @@ class Countries extends LocalData
                 'alpha3' => 'twn',
                 'numeric' => '158',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TWD',
                 ],
@@ -2459,7 +2459,7 @@ class Countries extends LocalData
                 'alpha3' => 'tjk',
                 'numeric' => '762',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TJS',
                 ],
@@ -2470,7 +2470,7 @@ class Countries extends LocalData
                 'alpha3' => 'tza',
                 'numeric' => '834',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TZS',
                 ],
@@ -2481,7 +2481,7 @@ class Countries extends LocalData
                 'alpha3' => 'tha',
                 'numeric' => '764',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'THB',
                 ],
@@ -2492,7 +2492,7 @@ class Countries extends LocalData
                 'alpha3' => 'tls',
                 'numeric' => '626',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2503,7 +2503,7 @@ class Countries extends LocalData
                 'alpha3' => 'tgo',
                 'numeric' => '768',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XOF',
                 ],
@@ -2514,7 +2514,7 @@ class Countries extends LocalData
                 'alpha3' => 'tkl',
                 'numeric' => '772',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'NZD',
                 ],
@@ -2525,7 +2525,7 @@ class Countries extends LocalData
                 'alpha3' => 'ton',
                 'numeric' => '776',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TOP',
                 ],
@@ -2536,7 +2536,7 @@ class Countries extends LocalData
                 'alpha3' => 'tto',
                 'numeric' => '780',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TTD',
                 ],
@@ -2547,7 +2547,7 @@ class Countries extends LocalData
                 'alpha3' => 'tun',
                 'numeric' => '788',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TND',
                 ],
@@ -2558,7 +2558,7 @@ class Countries extends LocalData
                 'alpha3' => 'tur',
                 'numeric' => '792',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TRY',
                 ],
@@ -2569,7 +2569,7 @@ class Countries extends LocalData
                 'alpha3' => 'tkm',
                 'numeric' => '795',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'TMT',
                 ],
@@ -2580,7 +2580,7 @@ class Countries extends LocalData
                 'alpha3' => 'tca',
                 'numeric' => '796',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2591,7 +2591,7 @@ class Countries extends LocalData
                 'alpha3' => 'tuv',
                 'numeric' => '798',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AUD',
                 ],
@@ -2602,7 +2602,7 @@ class Countries extends LocalData
                 'alpha3' => 'uga',
                 'numeric' => '800',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'UGX',
                 ],
@@ -2613,7 +2613,7 @@ class Countries extends LocalData
                 'alpha3' => 'ukr',
                 'numeric' => '804',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'UAH',
                 ],
@@ -2624,7 +2624,7 @@ class Countries extends LocalData
                 'alpha3' => 'are',
                 'numeric' => '784',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'AED',
                 ],
@@ -2635,7 +2635,7 @@ class Countries extends LocalData
                 'alpha3' => 'gbr',
                 'numeric' => '826',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'GBP',
                 ],
@@ -2646,7 +2646,7 @@ class Countries extends LocalData
                 'alpha3' => 'usa',
                 'numeric' => '840',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2657,7 +2657,7 @@ class Countries extends LocalData
                 'alpha3' => 'umi',
                 'numeric' => '581',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2668,7 +2668,7 @@ class Countries extends LocalData
                 'alpha3' => 'ury',
                 'numeric' => '858',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'UYU',
                 ],
@@ -2679,7 +2679,7 @@ class Countries extends LocalData
                 'alpha3' => 'uzb',
                 'numeric' => '860',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'UZS',
                 ],
@@ -2690,7 +2690,7 @@ class Countries extends LocalData
                 'alpha3' => 'vut',
                 'numeric' => '548',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'VUV',
                 ],
@@ -2701,7 +2701,7 @@ class Countries extends LocalData
                 'alpha3' => 'ven',
                 'numeric' => '862',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'VEF',
                 ],
@@ -2712,7 +2712,7 @@ class Countries extends LocalData
                 'alpha3' => 'vnm',
                 'numeric' => '704',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'VND',
                 ],
@@ -2723,7 +2723,7 @@ class Countries extends LocalData
                 'alpha3' => 'vgb',
                 'numeric' => '092',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2734,7 +2734,7 @@ class Countries extends LocalData
                 'alpha3' => 'vir',
                 'numeric' => '850',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'USD',
                 ],
@@ -2745,7 +2745,7 @@ class Countries extends LocalData
                 'alpha3' => 'wlf',
                 'numeric' => '876',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'XPF',
                 ],
@@ -2756,7 +2756,7 @@ class Countries extends LocalData
                 'alpha3' => 'esh',
                 'numeric' => '732',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'MAD',
                 ],
@@ -2767,7 +2767,7 @@ class Countries extends LocalData
                 'alpha3' => 'yem',
                 'numeric' => '887',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'YER',
                 ],
@@ -2778,7 +2778,7 @@ class Countries extends LocalData
                 'alpha3' => 'zmb',
                 'numeric' => '894',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'ZMW',
                 ],
@@ -2789,7 +2789,7 @@ class Countries extends LocalData
                 'alpha3' => 'zwe',
                 'numeric' => '716',
                 'regions' => ['oc'],
-                'languages' => ['en'],
+                'languages' => [],
                 'currency' => [
                     'BWP',
                     'EUR',
