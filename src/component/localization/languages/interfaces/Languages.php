@@ -129,7 +129,7 @@ interface Languages
      *
      * @return array
      */
-    public function getDefaultConfig(?string $base_domain = null): array;
+    public function getLocalizationConfig(?string $base_domain = null): array;
 
     /**
      * Get flag of language country
