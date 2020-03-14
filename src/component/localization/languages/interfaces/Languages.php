@@ -7,11 +7,6 @@ namespace NovemBit\i18n\component\localization\languages\interfaces;
  * */
 interface Languages
 {
-    public function get(
-        string $key,
-        string $by,
-        ?string $return
-    );
 
     public function getLanguagesMap(string $key, string $value): array;
 
