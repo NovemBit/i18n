@@ -284,12 +284,13 @@ class Languages extends LocalizationType implements interfaces\Languages
 
 
             if ($this->localize_host) {
-//                    $region = $this->context->regions->get($language);
-                $domain = $this->context->countries->get($language, 'languages', 'domain');
-                $domain = $domain ?? $this->context->regions->get($language, 'languages', 'domain');
-
-                $base_domain = $domain ?? $base_domain;
-                $parts['host'] = $domain ?? $parts['host'] ?? null;
+                $base_languages = $this->context->countries->getByPrimary($base_domain, 'domain', 'languages');
+                if (!in_array($language, $base_languages)) {
+                    $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
+                    $domain = $domain ?? $this->context->regions->getByPrimary($language, 'languages', 'domain');
+                    $base_domain = $domain ?? $base_domain;
+                    $parts['host'] = $domain ?? $parts['host'] ?? null;
+                }
             }
 
             /**
@@ -550,7 +551,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getLanguageNameByCode(string $code): string
     {
-        $name = $this->get(
+        $name = $this->getByPrimary(
             $code,
             'alpha1',
             'name'
@@ -571,7 +572,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getLanguageDirectionByCode(string $code): string
     {
-        $dir = $this->get(
+        $dir = $this->getByPrimary(
             $code,
             'alpha1',
             'dir'
@@ -590,7 +591,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getLanguageNativeNameByCode(string $code): string
     {
-        $name = $this->get(
+        $name = $this->getByPrimary(
             $code,
             'alpha1',
             'native'
@@ -617,7 +618,7 @@ class Languages extends LocalizationType implements interfaces\Languages
         $rectangle = true,
         $html = false
     ): string {
-        $flag = $this->get(
+        $flag = $this->getByPrimary(
             $code,
             'alpha1',
             'countries'
