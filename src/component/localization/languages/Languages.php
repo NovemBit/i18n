@@ -255,6 +255,23 @@ class Languages extends LocalizationType implements interfaces\Languages
     }
 
     /**
+     * @param $parts
+     * @param $language
+     */
+    private function addLanguageToPath(&$parts, $language)
+    {
+        $path_parts = explode('/', $parts['path']);
+        $path_parts = array_filter($path_parts);
+
+        if (
+            (!empty($path_parts) || !empty($parts['query']))
+            || (empty($path_parts) && !isset($parts['fragment']))
+        ) {
+            array_unshift($path_parts, $language);
+            $parts['path'] = '/' . implode('/', $path_parts);
+        }
+    }
+    /**
      * {@inheritDoc}
      *
      * @param string $url Simple url
@@ -282,9 +299,15 @@ class Languages extends LocalizationType implements interfaces\Languages
         ) {
             $parts = parse_url($url);
 
-
             if ($this->localize_host) {
+
+                /**
+                 * Get current base domain active languages
+                 * */
                 $base_languages = $this->context->countries->getByPrimary($base_domain, 'domain', 'languages');
+                $base_languages = $base_languages ??
+                    $this->context->regions->getByPrimary($base_domain, 'domain', 'languages');
+
                 if (!in_array($language, $base_languages)) {
                     $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
                     $domain = $domain ?? $this->context->regions->getByPrimary($language, 'languages', 'domain');
@@ -300,6 +323,9 @@ class Languages extends LocalizationType implements interfaces\Languages
                 $parts['host'] = $base_domain;
             }
 
+            /**
+             * Normalize scheme
+             * */
             if (!empty($parts['host']) && empty($parts['scheme'])) {
                 $scheme = stripos(Environment::server('SERVER_PROTOCOL'), 'https') === 0 ? 'https' : 'http';
                 $parts['scheme'] = $scheme;
@@ -325,16 +351,7 @@ class Languages extends LocalizationType implements interfaces\Languages
                         $language
                     );
                 } else {
-                    $path_parts = explode('/', $parts['path']);
-                    $path_parts = array_filter($path_parts);
-
-                    if (
-                        (!empty($path_parts) || !empty($parts['query']))
-                        || (empty($path_parts) && !isset($parts['fragment']))
-                    ) {
-                        array_unshift($path_parts, $language);
-                        $parts['path'] = '/' . implode('/', $path_parts);
-                    }
+                    $this->addLanguageToPath($parts, $language);
                 }
             }
 
@@ -355,16 +372,7 @@ class Languages extends LocalizationType implements interfaces\Languages
                 $parts['path'] = '';
             }
 
-            $path_parts = explode('/', $parts['path']);
-            $path_parts = array_filter($path_parts);
-
-            if (
-                (!empty($path_parts) || !empty($parts['query']))
-                || (empty($path_parts) && !isset($parts['fragment']))
-            ) {
-                array_unshift($path_parts, $language);
-                $parts['path'] = '/' . implode('/', $path_parts);
-            }
+            $this->addLanguageToPath($parts, $language);
 
             $url = URL::buildUrl($parts);
         } else {
