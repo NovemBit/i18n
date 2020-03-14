@@ -306,7 +306,7 @@ class Languages extends LocalizationType implements interfaces\Languages
                  * */
                 $base_languages = $this->context->countries->getByPrimary($base_domain, 'domain', 'languages');
                 $base_languages = $base_languages ??
-                    $this->context->regions->getByPrimary($base_domain, 'domain', 'languages');
+                    $this->context->regions->getByPrimary($base_domain, 'domain', 'languages') ?? [];
 
                 if (!in_array($language, $base_languages)) {
                     $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
