@@ -25,7 +25,7 @@ class Countries extends LocalizationType implements interfaces\Countries
      */
     public function getConfig(?string $base_domain = null, ?string $value = null)
     {
-        return $this->get($base_domain, 'domain', $value);
+        return $this->getByPrimary($base_domain, 'domain', $value);
     }
 
     /**
