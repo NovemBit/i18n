@@ -34,7 +34,7 @@ class Localization extends Component implements interfaces\Localization
      *
      * @var array[string][string]
      * */
-    public $localization_config;
+    public $localization_config = [];
 
     /**
      * @return array
