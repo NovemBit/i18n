@@ -12,7 +12,7 @@ class Regions extends LocalData
      *
      * @return mixed|null
      */
-    public static function getCountry(
+    public static function getRegion(
         string $key,
         string $by = 'code',
         ?string $return = 'name'

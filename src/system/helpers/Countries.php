@@ -2630,7 +2630,7 @@ class Countries extends LocalData
                 ],
             ],
             [
-                'name' => 'United Kingdom of Great Britain and Northern Ireland',
+                'name' => 'United Kingdom of Great Britain',
                 'alpha2' => 'gb',
                 'alpha3' => 'gbr',
                 'numeric' => '826',
