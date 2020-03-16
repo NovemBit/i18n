@@ -281,6 +281,11 @@ class Request extends Component implements interfaces\Request
     public $restore_non_translated_urls = true;
 
     /**
+     * @var bool
+     * */
+    public $localization_redirects = true;
+
+    /**
      * Get allowed request methods
      *
      * @return array
@@ -424,7 +429,29 @@ class Request extends Component implements interfaces\Request
         );
 
         $dest = urldecode($dest);
+
         $this->setDestination($dest);
+
+        /**
+         * Make sure the localized url is equals to current
+         * Destination url, if not then redirects to localized url
+         * */
+        if ($this->localization_redirects) {
+            $localized_url = $this->context->localization->languages->addLanguageToUrl(
+                $dest,
+                $this->getLanguage(),
+                Environment::server('HTTP_HOST')
+            );
+
+            $localized_url_parts = parse_url($localized_url);
+
+            if (
+                isset($localized_url_parts['host'])
+                && $localized_url_parts['host'] !== Environment::server('HTTP_HOST')
+            ) {
+                $this->redirect($localized_url);
+            }
+        }
 
         return true;
     }

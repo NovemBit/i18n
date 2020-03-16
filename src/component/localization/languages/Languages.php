@@ -271,6 +271,7 @@ class Languages extends LocalizationType implements interfaces\Languages
             $parts['path'] = '/' . implode('/', $path_parts);
         }
     }
+
     /**
      * {@inheritDoc}
      *
