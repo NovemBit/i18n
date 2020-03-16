@@ -47,7 +47,7 @@ abstract class Component implements interfaces\Component
      *
      * @var array
      * */
-    public $config = [];
+    public $config;
 
     /**
      * Context (parent) component of current component
@@ -149,24 +149,24 @@ abstract class Component implements interfaces\Component
     /**
      * @param array|null $config
      */
-    private function mergeAndSetConfig(?array $config = null)
+    private function mergeAndSetConfig(array $config = [])
     {
-        if ($config != null) {
-            $default = static::defaultConfig();
+        $default = static::defaultConfig();
 
-            $this->config = Arrays::arrayMergeRecursiveDistinct(
-                $default,
-                $config
-            );
-        }
+        $this->config = Arrays::arrayMergeRecursiveDistinct(
+            $default,
+            $config
+        );
     }
 
     /**
      * @param array|null $config
      */
-    public function reInit(?array $config = null): void
+    public function reInit(?array $config = []): void
     {
-        $this->mergeAndSetConfig($config);
+        if ($config !== null) {
+            $this->mergeAndSetConfig($config);
+        }
         $this->extractConfig();
     }
 
