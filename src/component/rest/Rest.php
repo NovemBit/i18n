@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -89,7 +90,6 @@ class Rest extends Component implements interfaces\Rest
         $re = '/^' . preg_quote($this->endpoint, '/') . "(.*)$/";
 
         if (preg_match($re, $endpoint, $matches)) {
-
             $action = trim($matches[1], '/');
 
             $actionMethodParts = array_filter(explode('-', $action));
@@ -114,7 +114,6 @@ class Rest extends Component implements interfaces\Rest
                 die;
             }
         }
-
     }
 
     /**
@@ -142,18 +141,17 @@ class Rest extends Component implements interfaces\Rest
             'message' => 'Invalid parameters.'
         ];
 
-        if (isset($_POST['texts'])
+        if (
+            isset($_POST['texts'])
             && isset($_POST['languages'])
         ) {
 
             /**
              * Setting language component configuration
              * */
-            $languages_config = $_POST['languages_config'] ?? [];
+            $localization_config = $_POST['localization_config'] ?? null;
 
-            foreach ($languages_config as $key => $value) {
-                $this->context->localization->languages->{$key} = $value;
-            }
+            $this->context->localization->reInit($localization_config);
 
             try {
                 $translate = $this->context
@@ -180,7 +178,6 @@ class Rest extends Component implements interfaces\Rest
                     'message' => $e->getMessage()
                 ];
             }
-
         }
 
         return $result;
@@ -206,5 +203,4 @@ class Rest extends Component implements interfaces\Rest
         http_response_code(403);
         return ['messages' => 'You don\'t have access to this endpoint.'];
     }
-
 }
