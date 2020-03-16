@@ -183,7 +183,17 @@ class Rest extends Method
             throw new TranslationException("Localization config not found.");
         }
 
-        unset($config['class']);
+        /**
+         * Unset runtime and class props
+         * */
+        unset(
+            $config['languages']['class'],
+            $config['languages']['runtime_dir'],
+            $config['regions']['class'],
+            $config['regions']['runtime_dir'],
+            $config['countries']['class'],
+            $config['countries']['runtime_dir']
+        );
 
         return $config;
     }
