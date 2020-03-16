@@ -2,10 +2,12 @@
 
 namespace NovemBit\i18n\component\localization\languages\interfaces;
 
+use NovemBit\i18n\component\localization\interfaces\LocalizationType;
+
 /**
  * @property
  * */
-interface Languages
+interface Languages extends LocalizationType
 {
 
     public function getLanguagesMap(string $key, string $value): array;

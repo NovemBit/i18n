@@ -2,7 +2,9 @@
 
 namespace NovemBit\i18n\component\localization\countries\interfaces;
 
-interface Countries
+use NovemBit\i18n\component\localization\interfaces\LocalizationType;
+
+interface Countries extends LocalizationType
 {
     /**
      * Get default country
