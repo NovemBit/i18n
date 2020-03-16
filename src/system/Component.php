@@ -47,7 +47,7 @@ abstract class Component implements interfaces\Component
      *
      * @var array
      * */
-    public $config;
+    public $config = [];
 
     /**
      * Context (parent) component of current component
