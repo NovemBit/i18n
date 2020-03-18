@@ -77,12 +77,4 @@ class Localization extends Component implements interfaces\Localization
 
         return $config;
     }
-
-
-//    public function getLanguage(?string $base_domain = null)
-//    {
-//
-//        $region_config = $this->regions->getDefaultRegion()
-//
-//    }
 }

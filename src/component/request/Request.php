@@ -281,6 +281,8 @@ class Request extends Component implements interfaces\Request
     public $restore_non_translated_urls = true;
 
     /**
+     * Redirect from https://test.com/fr/ to https://test.fr
+     *
      * @var bool
      * */
     public $localization_redirects = true;

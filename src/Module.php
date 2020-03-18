@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main i18n module
  *
@@ -27,9 +28,9 @@
 
 namespace NovemBit\i18n;
 
-
 use Exception;
 use NovemBit\i18n\component\localization\interfaces\Localization;
+use NovemBit\i18n\component\localization\languages\Languages;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
@@ -68,6 +69,12 @@ class Module extends system\Component
 {
 
     /**
+     * @deprecated
+     * @var Languages
+     * */
+    public $languages;
+
+    /**
      * Main instance of Module
      * Using singleton pattern only for main instance
      *
@@ -95,19 +102,19 @@ class Module extends system\Component
     {
 
         return [
-            'localization'=>[
+            'localization' => [
                 'class' => component\localization\Localization::class,
             ],
-            'translation'=>[
+            'translation' => [
                 'class' => component\translation\Translation::class,
             ],
-            'request'=>[
+            'request' => [
                 'class' => component\request\Request::class,
             ],
-            'rest'=>[
+            'rest' => [
                 'class' => component\rest\Rest::class,
             ],
-            'db'=>[
+            'db' => [
                 'class' => DB::class,
             ]
         ];
@@ -121,6 +128,7 @@ class Module extends system\Component
      */
     public function mainInit(): void
     {
+        $this->languages = $this->localization->languages;
     }
 
     /**
@@ -156,11 +164,10 @@ class Module extends system\Component
     public static function instance(?array $config = null): ?self
     {
 
-        if ( !isset(self::$instance) && ($config != null)) {
+        if (!isset(self::$instance) && ($config != null)) {
             self::$instance = new self($config);
         }
 
         return self::$instance;
     }
-
 }
