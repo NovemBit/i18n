@@ -508,6 +508,8 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
+        $base_domain = $base_domain ?? $this->context->context->request->getDefaultHttpHost();
+
         $language = $this->context->countries->getConfig($base_domain, 'languages')[0] ?? null;
 
         $language = $language ?? $this->context->regions->getConfig($base_domain, 'languages')[0] ?? null;

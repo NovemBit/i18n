@@ -23,7 +23,7 @@ class Countries extends LocalizationType implements interfaces\Countries
      * @param string|null $base_domain
      * @return array|mixed|null
      */
-    public function getConfig(?string $base_domain = null, ?string $value = null)
+    public function getConfig(string $base_domain = null, ?string $value = null)
     {
         return $this->getByPrimary($base_domain, 'domain', $value);
     }
