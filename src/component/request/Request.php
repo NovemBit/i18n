@@ -316,6 +316,14 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultHttpHost(): string
+    {
+        return $this->default_http_host;
+    }
+
+    /**
      * Get orig request uri
      *
      * @return string
