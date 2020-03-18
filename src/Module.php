@@ -128,7 +128,19 @@ class Module extends system\Component
      */
     public function mainInit(): void
     {
-        $this->languages = $this->localization->languages;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public function commonInit(): void
+    {
+
+        $this->languages = &$this->localization->languages;
+
+        parent::commonInit();
     }
 
     /**
