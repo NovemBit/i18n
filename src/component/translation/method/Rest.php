@@ -112,6 +112,7 @@ class Rest extends Method
             'localization_config' => $this->getLocalizationConfig(),
             'texts' => $texts,
         ];
+        
 
         $data = http_build_query(
             $query
@@ -189,10 +190,14 @@ class Rest extends Method
         unset(
             $config['languages']['class'],
             $config['languages']['runtime_dir'],
+            $config['languages']['runtime_dir'],
+            $config['languages']['all'],
             $config['regions']['class'],
             $config['regions']['runtime_dir'],
+            $config['regions']['all'],
             $config['countries']['class'],
-            $config['countries']['runtime_dir']
+            $config['countries']['runtime_dir'],
+            $config['countries']['all']
         );
 
         return $config;
