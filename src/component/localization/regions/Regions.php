@@ -88,6 +88,7 @@ class Regions extends LocalizationType implements interfaces\Regions
             }
         }
         $languages = array_unique($languages);
-        return $languages;
+
+        return empty($languages) ? null : $languages;
     }
 }
