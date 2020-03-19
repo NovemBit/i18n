@@ -51,4 +51,13 @@ class Countries extends LocalizationType implements interfaces\Countries
         $config = $this->context->getConfig($base_domain);
         return $config['countries'][0] ?? null;
     }
+
+    /**
+     * @param string|null $base_domain
+     * @return array|null
+     */
+    public function getActiveLanguages(?string $base_domain = null): ?array
+    {
+        return $this->getByPrimary($base_domain, 'domain', 'languages') ?? [];
+    }
 }

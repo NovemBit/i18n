@@ -6,6 +6,7 @@ use NovemBit\i18n\component\localization\interfaces\LocalizationType;
 
 interface Countries extends LocalizationType
 {
+    public function getActiveLanguages(?string $base_domain = null): ?array;
     /**
      * Get default country
      *
