@@ -416,7 +416,7 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
-     * Prepare Destination to finding source
+     * Prepare Destination to find source
      *
      * @return bool
      */
@@ -446,7 +446,10 @@ class Request extends Component implements interfaces\Request
          * Make sure the localized url is equals to current
          * Destination url, if not then redirects to localized url
          * */
-        if ($this->localization_redirects) {
+        if (
+            $this->localization_redirects
+            && Environment::server('HTTP_HOST') !== $this->context->localization->getGlobalDomain()
+        ) {
             $localized_url = $this->context->localization->languages->addLanguageToUrl(
                 $dest,
                 $this->getLanguage(),
@@ -464,7 +467,6 @@ class Request extends Component implements interfaces\Request
              * */
             if (
                 isset($localized_url_parts['host'])
-                && Environment::server('HTTP_HOST') !== $this->getDefaultHttpHost()
                 && $localized_url_parts['host'] !== Environment::server('HTTP_HOST')
             ) {
                 $this->redirect($localized_url);
