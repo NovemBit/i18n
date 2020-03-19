@@ -54,6 +54,24 @@ class Arrays
         return null;
     }
 
+    public static function ufindAll(array $data, string $key, string $by, ?string $return, callable $callback)
+    {
+        $result = [];
+        foreach ($data as $item) {
+            if (
+                isset($item[$by])
+                && $callback($key, $item[$by])
+            ) {
+                if ($return != null) {
+                    $result[] = $item[$return] ?? null;
+                } else {
+                    $result[] = $item;
+                }
+            }
+        }
+        return $result;
+    }
+
     /**
      * @param array $data
      * @param string $key
