@@ -455,8 +455,16 @@ class Request extends Component implements interfaces\Request
 
             $localized_url_parts = parse_url($localized_url);
 
+            /**
+             * 1. If in localized url parts exists hosts
+             * 2. If current host is not default host
+             * Because default host should be used as global domain
+             * And support all languages
+             * 3. If localized url host is not equal server current http host
+             * */
             if (
                 isset($localized_url_parts['host'])
+                && Environment::server('HTTP_HOST') !== $this->getDefaultHttpHost()
                 && $localized_url_parts['host'] !== Environment::server('HTTP_HOST')
             ) {
                 $this->redirect($localized_url);
