@@ -300,7 +300,7 @@ class Languages extends LocalizationType implements interfaces\Languages
         ) {
             $parts = parse_url($url);
 
-            if ($this->localize_host) {
+            if ($this->localize_host && $base_domain !== $this->context->getGlobalDomain()) {
 
                 /**
                  * Get current base domain active languages
@@ -311,8 +311,8 @@ class Languages extends LocalizationType implements interfaces\Languages
                 if (!in_array($language, $base_languages)) {
                     $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
                     $domain = $domain ?? $this->context->regions->getByPrimary($language, 'languages', 'domain');
-                    $base_domain = $domain ?? $this->context->context->request->getDefaultHttpHost() ?? $base_domain;
-                    $parts['host'] = $domain ?? $this->context->context->request->getDefaultHttpHost() ?? null;
+                    $base_domain = $domain ?? $this->context->getGlobalDomain() ?? $base_domain;
+                    $parts['host'] = $domain ?? $this->context->getGlobalDomain() ?? null;
                 }
             }
 
