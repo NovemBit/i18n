@@ -311,8 +311,8 @@ class Languages extends LocalizationType implements interfaces\Languages
                 if (!in_array($language, $base_languages)) {
                     $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
                     $domain = $domain ?? $this->context->regions->getByPrimary($language, 'languages', 'domain');
-                    $base_domain = $domain ?? $base_domain;
-                    $parts['host'] = $domain ?? $parts['host'] ?? null;
+                    $base_domain = $domain ?? $this->context->context->request->getDefaultHttpHost() ?? $base_domain;
+                    $parts['host'] = $domain ?? $this->context->context->request->getDefaultHttpHost() ?? null;
                 }
             }
 
