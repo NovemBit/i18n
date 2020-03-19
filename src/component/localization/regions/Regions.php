@@ -12,6 +12,9 @@ use NovemBit\i18n\system\helpers\Arrays;
  * */
 class Regions extends LocalizationType implements interfaces\Regions
 {
+    public const DONT_INCLUDE_CHILD_LANGUAGES = 0;
+    public const INCLUDE_CHILD_PRIMARY_LANGUAGES = 1;
+    public const INCLUDE_CHILD_ALL_LANGUAGES = 2;
 
     /**
      * @return array
@@ -54,5 +57,37 @@ class Regions extends LocalizationType implements interfaces\Regions
     {
         $config = $this->getConfig($base_domain);
         return $config['name'] ?? null;
+    }
+
+    /**
+     * @param string|null $base_domain
+     * @return array|null
+     */
+    public function getActiveLanguages(?string $base_domain = null): ?array
+    {
+        $region = $this->getByPrimary($base_domain, 'domain') ?? [];
+
+        $languages = $region['languages'] ?? [];
+
+
+        $include = $region['include_languages'] ?? self::DONT_INCLUDE_CHILD_LANGUAGES;
+
+        if ($include == self::INCLUDE_CHILD_PRIMARY_LANGUAGES || $include == self::INCLUDE_CHILD_ALL_LANGUAGES) {
+            $countries_languages = $this->context->countries->getByPrimary(
+                $region['code'],
+                'regions',
+                'languages',
+                true
+            ) ?? [];
+            foreach ($countries_languages as $country_languages) {
+                if ($include == self::INCLUDE_CHILD_PRIMARY_LANGUAGES && isset($country_languages[0])) {
+                    $languages[] = $country_languages[0];
+                } elseif ($include == self::INCLUDE_CHILD_ALL_LANGUAGES) {
+                    $languages = array_merge($languages, $country_languages);
+                }
+            }
+        }
+        $languages = array_unique($languages);
+        return $languages;
     }
 }
