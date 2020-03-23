@@ -65,7 +65,13 @@ class Regions extends LocalizationType implements interfaces\Regions
      */
     public function getActiveLanguages(?string $base_domain = null): ?array
     {
-        $region = $this->getByPrimary($base_domain, 'domain') ?? [];
+        return $this->getLanguages($base_domain, 'domain');
+    }
+    
+    public function getLanguages($key, $by = 'code'): ?array
+    {
+        
+        $region = $this->getByPrimary($key, $by) ?? [];
 
         $languages = $region['languages'] ?? [];
 
