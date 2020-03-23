@@ -302,6 +302,7 @@ class Languages extends LocalizationType implements interfaces\Languages
 
             if ($this->localize_host && $base_domain !== $this->context->getGlobalDomain()) {
 
+
                 /**
                  * Get current base domain active languages
                  * */
@@ -310,9 +311,26 @@ class Languages extends LocalizationType implements interfaces\Languages
 
                 if (!in_array($language, $base_languages)) {
                     $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
-                    $domain = $domain ?? $this->context->regions->getByPrimary($language, 'languages', 'domain');
-                    $base_domain = $domain ?? $this->context->getGlobalDomain() ?? $base_domain;
-                    $parts['host'] = $domain ?? $this->context->getGlobalDomain() ?? null;
+
+                    $domain = $domain ?: $this->context->regions->getByPrimary($language, 'languages', 'domain');
+
+                    if (empty($domain)) {
+                        $country_regions = $this->context->countries->getActiveRegions($base_domain) ?? [];
+
+                        foreach ($country_regions as $country_region) {
+                            $region_languages = $this->context->regions->getLanguages($country_region, 'code');
+                            if (in_array($language, $region_languages)) {
+                                $domain = $this->context->regions->getByPrimary($country_region, 'code', 'domain');
+                            }
+                        }
+                    }
+
+
+                    $base_domain = $domain ?: $this->context->getGlobalDomain() ?: $base_domain;
+
+
+
+                    $parts['host'] = $domain ?: $this->context->getGlobalDomain() ?? null;
                 }
             }
 
@@ -509,9 +527,9 @@ class Languages extends LocalizationType implements interfaces\Languages
     {
         $base_domain = $base_domain ?? $this->context->context->request->getDefaultHttpHost();
 
-        $language = $this->context->countries->getConfig($base_domain, 'languages')[0] ?? null;
+        $language = $this->context->countries->getActiveLanguages($base_domain)[0] ?? null;
 
-        $language = $language ?? $this->context->regions->getConfig($base_domain, 'languages')[0] ?? null;
+        $language = $language ?? $this->context->regions->getActiveLanguages($base_domain)[0] ?? null;
 
         $config = $this->getLocalizationConfig($base_domain);
 
