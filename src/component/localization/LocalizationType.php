@@ -56,7 +56,6 @@ abstract class LocalizationType extends Component implements interfaces\Localiza
         ?string $return = null,
         bool $all = false
     ) {
-
         return call_user_func_array(
             [Arrays::class, $all ? 'ufindAll' : 'ufind'],
             [

@@ -155,7 +155,7 @@ class Languages extends LocalData
             ['alpha1' => 'nb', 'name' => 'Norwegian Bokmål', 'native' => 'Norwegian Bokmål', 'countries' => ['nb']],
             ['alpha1' => 'nn', 'name' => 'Norwegian Nynorsk', 'native' => 'Norwegian Nynorsk', 'countries' => ['nn']],
             ['alpha1' => 'ii', 'name' => 'Nuosu', 'native' => 'Nuosu', 'countries' => ['ii']],
-            ['alpha1' => 'oc', 'name' => 'Occitan (post 1500)', 'native' => 'Occitan (post 1500)', 'countries' => ['oc']],
+            ['alpha1' => 'oc', 'name' => 'Occitan (post 1500)', 'native' => 'Occitan', 'countries' => ['oc']],
             ['alpha1' => 'oj', 'name' => 'Ojibwa', 'native' => 'Ojibwa', 'countries' => ['oj']],
             ['alpha1' => 'or', 'name' => 'Oriya', 'native' => 'Oriya', 'countries' => ['or']],
             ['alpha1' => 'om', 'name' => 'Oromo', 'native' => 'Oromo', 'countries' => ['om']],
