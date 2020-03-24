@@ -13,6 +13,7 @@ class Arrays
      * @param string      $by     By
      * @param string|null $return Return
      *
+     * @deprecated
      * @return mixed|null
      */
     public static function find(
@@ -37,6 +38,16 @@ class Arrays
         return null;
     }
 
+    /**
+     * Find one element from array with custom logic
+     *
+     * @param array $data
+     * @param string $key
+     * @param string $by
+     * @param string|null $return
+     * @param callable $callback
+     * @return mixed|null
+     */
     public static function ufind(array $data, string $key, string $by, ?string $return, callable $callback)
     {
         foreach ($data as $item) {
@@ -54,6 +65,17 @@ class Arrays
         return null;
     }
 
+    /**
+     * Find all elements from array with custom logic
+     *
+     * @param array $data
+     * @param string $key
+     * @param string $by
+     * @param string|null $return
+     * @param callable $callback
+     *
+     * @return array
+     */
     public static function ufindAll(array $data, string $key, string $by, ?string $return, callable $callback)
     {
         $result = [];
