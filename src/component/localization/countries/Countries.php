@@ -60,8 +60,7 @@ class Countries extends LocalizationType implements interfaces\Countries
     {
         return $this->getByPrimary($base_domain, 'domain', 'languages');
     }
-
-
+    
     /**
      * @param string|null $base_domain
      * @return array|null
