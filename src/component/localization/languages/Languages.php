@@ -529,7 +529,7 @@ class Languages extends LocalizationType implements interfaces\Languages
         if ($this->validateLanguage($language)) {
             return $language;
         } else {
-            throw new LanguageException('Invalid default language parameter.');
+            throw new LanguageException('Invalid default language parameter "' . $language . '"');
         }
     }
 
