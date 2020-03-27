@@ -16,5 +16,5 @@ use NovemBit\i18n\system\interfaces\Component;
  * */
 interface Localization extends Component
 {
-    public function getGlobalDomain(): string;
+    public function getGlobalDomains(): array;
 }

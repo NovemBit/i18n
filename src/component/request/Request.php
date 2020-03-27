@@ -448,7 +448,7 @@ class Request extends Component implements interfaces\Request
          * */
         if (
             $this->localization_redirects
-            && Environment::server('HTTP_HOST') !== $this->context->localization->getGlobalDomain()
+            && !in_array(Environment::server('HTTP_HOST'), $this->context->localization->getGlobalDomains())
         ) {
             $localized_url = $this->context->localization->languages->addLanguageToUrl(
                 $dest,
@@ -587,7 +587,7 @@ class Request extends Component implements interfaces\Request
         if (
             $this->getLanguage() == $this->getFromLanguage()
             || $is_root_path
-            || ! $this->getTranslation()->url->isPathTranslation()
+            || !$this->getTranslation()->url->isPathTranslation()
         ) {
             $this->setUrlTranslations(
                 $this->getTranslation()
@@ -682,7 +682,7 @@ class Request extends Component implements interfaces\Request
          * */
         register_shutdown_function(
             function () {
-                if (! in_array(http_response_code(), [400, 401, 402, 403, 404])) {
+                if (!in_array(http_response_code(), [400, 401, 402, 403, 404])) {
                     $this->getTranslation()
                         ->setLanguages(
                             $this->getAcceptLanguages()
@@ -730,12 +730,12 @@ class Request extends Component implements interfaces\Request
          * Get translation from source
          * */
         $url = $this->getTranslation()->setLanguages([$language])->url
-            ->translate(
-                [$url],
-                $verbose,
-                true,
-                true
-            )[$url][$language] ?? null;
+                ->translate(
+                    [$url],
+                    $verbose,
+                    true,
+                    true
+                )[$url][$language] ?? null;
 
         if ($url == null) {
             return null;
@@ -780,11 +780,11 @@ class Request extends Component implements interfaces\Request
         $this->setFromLanguage($this->context->localization->languages->getFromLanguage());
 
         return $this->prepareLanguage()
-               && $this->prepareRegion()
-               && $this->prepareCountry()
-               && $this->prepareDestination()
-               && $this->prepareSourceUrl()
-               && $this->prepareReferer();
+            && $this->prepareRegion()
+            && $this->prepareCountry()
+            && $this->prepareDestination()
+            && $this->prepareSourceUrl()
+            && $this->prepareReferer();
     }
 
     /**
@@ -997,7 +997,7 @@ class Request extends Component implements interfaces\Request
     {
         $country = $this->context->localization->countries
             ->getConfig(Environment::server('HTTP_HOST'), 'name');
-        
+
         $this->setCountry($country);
 
         $this->getTranslation()->setCountry($this->getCountry());
@@ -1039,8 +1039,8 @@ class Request extends Component implements interfaces\Request
                 unset($path[0]);
             }
             $parts['path'] = implode('/', $path);
-            $new_url       = URL::buildUrl($parts);
-            $uri           = empty($new_url) ? '/' : $new_url;
+            $new_url = URL::buildUrl($parts);
+            $uri = empty($new_url) ? '/' : $new_url;
         }
 
         return $uri;
@@ -1135,19 +1135,19 @@ class Request extends Component implements interfaces\Request
                  * @var Translator $translator
                  * */
                 $content = $translator
-                    ->translate(
-                        [$content],
-                        $verbose,
-                        false,
-                        $this->isEditor()
-                    )[$content][$this->getLanguage()]
-                           ?? $content;
+                        ->translate(
+                            [$content],
+                            $verbose,
+                            false,
+                            $this->isEditor()
+                        )[$content][$this->getLanguage()]
+                    ?? $content;
             }
         }
 
-        $this->verbose['end']      = microtime(true);
+        $this->verbose['end'] = microtime(true);
         $this->verbose['duration'] = $this->verbose['start']
-                                      - $this->verbose['end'];
+            - $this->verbose['end'];
 
         return $content;
     }
@@ -1218,7 +1218,7 @@ class Request extends Component implements interfaces\Request
         if (
             $this->isCli()
             || $this->isExclusion()
-            || ! in_array(
+            || !in_array(
                 Environment::server('REQUEST_METHOD'),
                 $this->getAcceptRequestMethods()
             )
@@ -1226,7 +1226,7 @@ class Request extends Component implements interfaces\Request
             return;
         }
 
-        if (! $this->prepare()) {
+        if (!$this->prepare()) {
             return;
         }
 
@@ -1287,8 +1287,8 @@ class Request extends Component implements interfaces\Request
      * Get <link rel="alternate"...> tags
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1325,8 +1325,8 @@ class Request extends Component implements interfaces\Request
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1337,23 +1337,23 @@ class Request extends Component implements interfaces\Request
         $config = json_encode(
             [
                 'i18n' => [
-                    'current_language'     => $this->getLanguage(),
-                    'default_language'     => $this->getDefaultLanguage(),
-                    'accept_languages'     => $this->getAcceptLanguages(true),
-                    'language_query_key'   => $this->context->localization->languages
+                    'current_language' => $this->getLanguage(),
+                    'default_language' => $this->getDefaultLanguage(),
+                    'accept_languages' => $this->getAcceptLanguages(true),
+                    'language_query_key' => $this->context->localization->languages
                         ->getLanguageQueryKey(),
-                    'editor'               => [
-                        'is_editor'        => $this->isEditor(),
-                        'query_key'        => $this->editor_query_key,
+                    'editor' => [
+                        'is_editor' => $this->isEditor(),
+                        'query_key' => $this->editor_query_key,
                         'url_translations' => $this->getEditorUrlTranslations()
                     ],
-                    'prefix'               => $this->context->prefix,
-                    'orig_request_uri'     => $this->getOrigRequestUri(),
-                    'destination'          => $this->getDestination(),
-                    'uri'                  => $this->getSourceUrl(),
-                    'orig_referer'         => $this->getReferer(),
-                    'referer'              => $this->getRefererSourceUrl(),
-                    'url_translations'     => $this->getUrlTranslations(),
+                    'prefix' => $this->context->prefix,
+                    'orig_request_uri' => $this->getOrigRequestUri(),
+                    'destination' => $this->getDestination(),
+                    'uri' => $this->getSourceUrl(),
+                    'orig_referer' => $this->getReferer(),
+                    'referer' => $this->getRefererSourceUrl(),
+                    'url_translations' => $this->getUrlTranslations(),
                     'referer_translations' => $this->getRefererTranslations(),
                 ]
             ]
@@ -1370,14 +1370,14 @@ class Request extends Component implements interfaces\Request
      * Get Editor JS <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
     private function addEditorAssets(DOMDocument $dom, DOMNode $parent): void
     {
-        $script     = file_get_contents(__DIR__ . '/assets/js/editor.js');
+        $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
         $scriptNode = $dom->createElement('script');
         $scriptNode->appendChild($dom->createTextNode($script));
         $scriptNode->setAttribute('type', 'application/javascript');
@@ -1413,8 +1413,8 @@ class Request extends Component implements interfaces\Request
      * Get XHR(ajax) Manipulation javascript <script> tag
      * To add on HTML document <head>
      *
-     * @param DOMDocument $dom    Document object
-     * @param DOMNode     $parent Parent element
+     * @param DOMDocument $dom Document object
+     * @param DOMNode $parent Parent element
      *
      * @return void
      */
@@ -1423,7 +1423,7 @@ class Request extends Component implements interfaces\Request
         DOMNode $parent
     ): void {
         $script = file_get_contents(__DIR__ . '/assets/js/xhr.js');
-        $node   = $dom->createElement('script');
+        $node = $dom->createElement('script');
         $node->appendChild($dom->createTextNode($script));
         $node->setAttribute('type', 'application/javascript');
         $parent->appendChild($node);
