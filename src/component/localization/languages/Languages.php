@@ -304,12 +304,11 @@ class Languages extends LocalizationType implements interfaces\Languages
                 /**
                  * Get current base domain active languages
                  * */
-                $base_languages = $this->context->countries->getActiveLanguages($base_domain);
-                $base_languages = $base_languages ?? $this->context->regions->getActiveLanguages($base_domain) ?? [];
+                $base_languages = $this->context->getActiveLanguages($base_domain);
 
                 if (!in_array($language, $base_languages)) {
-                    $domain = $this->context->countries->getByPrimary($language, 'languages', 'domain');
-                    $domain = $domain ?: $this->context->regions->getByPrimary($language, 'languages', 'domain');
+                    $domain = $this->context->getActiveDomain($language);
+
                     if (empty($domain)) {
                         $country_regions = $this->context->countries->getActiveRegions($base_domain) ?? [];
                         foreach ($country_regions as $country_region) {
@@ -436,6 +435,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      *
      * @return array|null
      * @throws LanguageException
+     * @deprecated use localization->getAcceptLanguages()
      */
     public function getAcceptLanguages(
         bool $assoc = false,
