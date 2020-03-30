@@ -34,4 +34,8 @@ interface Request extends Component
     public function isAllowEditor(): bool;
 
     public function getDefaultHttpHost(): string;
+
+    public function getActiveLanguages(): array;
+
+    public function getAcceptLanguages(bool $assoc = false): array;
 }

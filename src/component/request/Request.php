@@ -1005,6 +1005,7 @@ class Request extends Component implements interfaces\Request
         return true;
     }
 
+
     /**
      * Prepare region
      *
@@ -1312,13 +1313,23 @@ class Request extends Component implements interfaces\Request
      *
      * @return array
      */
-    public function getAcceptLanguages(bool $assoc = false)
+    public function getAcceptLanguages(bool $assoc = false): array
     {
         return $this->context->localization->languages
             ->getAcceptLanguages(
                 $assoc,
                 Environment::server('HTTP_HOST')
             );
+    }
+
+    /**
+     * @return array
+     */
+    public function getActiveLanguages(): array
+    {
+        return $this->context->localization->getActiveLanguages(
+            Environment::server('HTTP_HOST')
+        );
     }
 
     /**
@@ -1504,6 +1515,7 @@ class Request extends Component implements interfaces\Request
     {
         return $this->language;
     }
+
 
     /**
      * Set Request current language
