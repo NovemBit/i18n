@@ -19,4 +19,5 @@ interface Localization extends Component
     public function getGlobalDomains(): array;
     public function getActiveDomain(string $language): ?string;
     public function getActiveLanguages(?string $base_domain = null): array;
+    public function isGlobalDomain(string $domain): bool;
 }

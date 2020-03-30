@@ -168,6 +168,11 @@ class Localization extends Component implements interfaces\Localization
         return $domain;
     }
 
+    public function isGlobalDomain(string $domain): bool
+    {
+        return in_array($domain, $this->getGlobalDomains());
+    }
+
     /**
      * @return mixed
      */
