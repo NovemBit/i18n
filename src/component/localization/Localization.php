@@ -15,6 +15,7 @@
 namespace NovemBit\i18n\component\localization;
 
 use NovemBit\i18n\component\localization\countries\Countries;
+use NovemBit\i18n\component\localization\exceptions\LanguageException;
 use NovemBit\i18n\component\localization\languages\Languages;
 use NovemBit\i18n\component\localization\regions\Regions;
 use NovemBit\i18n\Module;
@@ -93,6 +94,78 @@ class Localization extends Component implements interfaces\Localization
         }
 
         return $config;
+    }
+
+
+    /**
+     * @param string|null $base_domain
+     * @param bool $assoc
+     * @return array
+     * @throws exceptions\LanguageException
+     */
+    public function getActiveLanguages(string $base_domain = null, bool $assoc = false): array
+    {
+        $base_languages = $this->countries->getActiveLanguages($base_domain);
+        $base_languages = $base_languages ?? $this->regions->getActiveLanguages($base_domain) ?? [];
+
+        if (!$assoc) {
+            return $base_languages;
+        }
+
+        $result = array_flip($base_languages);
+
+        foreach ($result as $key => &$language) {
+            $language = $this->languages->getLanguageData($key);
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param bool $assoc include whole data
+     *
+     * @return array|null
+     * @throws LanguageException
+     */
+    public function getAcceptLanguages(
+        ?string $base_domain = null,
+        bool $assoc = false
+    ): array {
+        $config = $this->languages->getLocalizationConfig($base_domain);
+
+        if (
+            isset($config['accept_languages'])
+            && !empty($config['accept_languages'])
+        ) {
+            $accept_languages = $config['accept_languages'];
+        } else {
+            $accept_languages = $this->languages->accept_languages;
+        }
+
+        if (!$assoc) {
+            return $accept_languages;
+        }
+
+        $result = array_flip($accept_languages);
+
+        foreach ($result as $key => &$language) {
+            $language = $this->languages->getLanguageData($key);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $language
+     * @return string|null
+     */
+    public function getActiveDomain(string $language): ?string
+    {
+        $domain = $this->countries->getByPrimary($language, 'languages', 'domain');
+        $domain = $domain ?: $this->regions->getByPrimary($language, 'languages', 'domain');
+        return $domain;
     }
 
     /**
