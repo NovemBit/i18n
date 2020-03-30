@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -12,7 +13,6 @@
  */
 
 namespace NovemBit\i18n\component\translation;
-
 
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
@@ -100,7 +100,7 @@ class Translation extends Component implements interfaces\Translation
      */
     public function setLanguages(array $_languages): interfaces\Translation
     {
-        if ($this->context->localization->languages->validateLanguages($_languages)) {
+        if ($this->context->localization->validateLanguages($_languages)) {
             $this->_languages = $_languages;
             return $this;
         } else {
@@ -176,6 +176,6 @@ class Translation extends Component implements interfaces\Translation
      */
     public function getFromLanguage(): string
     {
-        return $this->context->localization->languages->getFromLanguage();
+        return $this->context->localization->getFromLanguage();
     }
 }
