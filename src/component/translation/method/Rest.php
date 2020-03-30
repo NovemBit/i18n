@@ -180,7 +180,7 @@ class Rest extends Method
     {
         $config = $this->context->context->localization->config ?? null;
 
-        if ($config == null) {
+        if ($config === null) {
             throw new TranslationException("Localization config not found.");
         }
 
@@ -188,8 +188,8 @@ class Rest extends Method
          * Unset runtime and class props
          * */
         unset(
+            $config['runtime_dir'],
             $config['languages']['class'],
-            $config['languages']['runtime_dir'],
             $config['languages']['runtime_dir'],
             $config['languages']['all'],
             $config['regions']['class'],
