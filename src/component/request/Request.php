@@ -430,7 +430,7 @@ class Request extends Component implements interfaces\Request
         $dest = '/' . trim($request_uri, '/');
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->localization->languages->getLanguageQueryKey()
+            $this->context->localization->getLanguageQueryKey()
         );
 
         $dest = URL::removeQueryVars(
@@ -450,7 +450,7 @@ class Request extends Component implements interfaces\Request
             $this->localization_redirects
             && !in_array(Environment::server('HTTP_HOST'), $this->context->localization->getGlobalDomains())
         ) {
-            $localized_url = $this->context->localization->languages->addLanguageToUrl(
+            $localized_url = $this->context->localization->addLanguageToUrl(
                 $dest,
                 $this->getLanguage(),
                 Environment::server('HTTP_HOST')
@@ -514,7 +514,7 @@ class Request extends Component implements interfaces\Request
             $referer = trim($http_referer, '/');
             $referer = URL::removeQueryVars(
                 $referer,
-                $this->context->localization->languages->getLanguageQueryKey()
+                $this->context->localization->getLanguageQueryKey()
             );
 
             $referer = urldecode($referer);
@@ -777,7 +777,7 @@ class Request extends Component implements interfaces\Request
     private function prepare(): bool
     {
         $this->setTranslation($this->context->translation);
-        $this->setFromLanguage($this->context->localization->languages->getFromLanguage());
+        $this->setFromLanguage($this->context->localization->getFromLanguage());
 
         return $this->prepareLanguage()
             && $this->prepareRegion()
@@ -830,7 +830,6 @@ class Request extends Component implements interfaces\Request
          * Taking language from current `$_SERVER['REQUEST_URI']`
          * */
         $language = $this->context->localization
-            ->languages
             ->getLanguageFromUrl($http_referer);
 
         /**
@@ -839,7 +838,6 @@ class Request extends Component implements interfaces\Request
         if ($language == null) {
             $language = $this->context
                 ->localization
-                ->languages
                 ->getDefaultLanguage(
                     Environment::server('HTTP_HOST')
                 );
@@ -887,14 +885,14 @@ class Request extends Component implements interfaces\Request
         }
 
         $this->setDefaultLanguage(
-            $this->context->localization->languages
+            $this->context->localization
                 ->getDefaultLanguage(Environment::server('HTTP_HOST'))
         );
 
         /**
          * Taking language from current @REQUEST_URI
          * */
-        $language = $this->context->localization->languages
+        $language = $this->context->localization
             ->getLanguageFromUrl($request_uri);
 
         /**
@@ -1036,7 +1034,7 @@ class Request extends Component implements interfaces\Request
         if (isset($parts['path'])) {
             $path = explode('/', ltrim($parts['path'], '/'));
 
-            if ($this->context->localization->languages->validateLanguage($path[0])) {
+            if ($this->context->localization->validateLanguage($path[0])) {
                 unset($path[0]);
             }
             $parts['path'] = implode('/', $path);
@@ -1341,6 +1339,7 @@ class Request extends Component implements interfaces\Request
             Environment::server('HTTP_HOST')
         );
     }
+
     /**
      * Get main JS object <script> tag
      * To add on HTML document <head>
@@ -1360,8 +1359,7 @@ class Request extends Component implements interfaces\Request
                     'current_language' => $this->getLanguage(),
                     'default_language' => $this->getDefaultLanguage(),
                     'accept_languages' => $this->getAcceptLanguages(true),
-                    'language_query_key' => $this->context->localization->languages
-                        ->getLanguageQueryKey(),
+                    'language_query_key' => $this->context->localization->getLanguageQueryKey(),
                     'editor' => [
                         'is_editor' => $this->isEditor(),
                         'query_key' => $this->editor_query_key,

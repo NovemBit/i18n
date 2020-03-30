@@ -51,225 +51,29 @@ class Languages extends LocalizationType implements interfaces\Languages
     }
 
     /**
-     * Main content language
-     *
-     * @var string
-     * */
-    public $from_language = 'en';
-
-    /**
-     * Default language
-     *
-     * @var array[string][string]
-     * */
-    public $localization_config;
-
-    /**
-     * @var bool
-     * */
-    public $localize_host = true;
-
-    /**
-     * Accepted languages
-     *
-     * @var string[]
-     * */
-    public $accept_languages = ['fr', 'it', 'de'];
-
-    /**
-     * Add language code on url path
-     *
-     * @example https://novembit.com/fr/my/post/url
-     *
-     * @var bool
-     * */
-    public $language_on_path = true;
-
-    /**
-     * Language query variable key
-     *
-     * @example https://novembit.com/my/post/url?language=fr
-     *
-     * @var string
-     * */
-    public $language_query_key = 'i18n-language';
-
-    /**
-     * Pattern to exclude paths from url
-     *
-     * Example to exclude .php file paths
-     *  '.*\.php\/',
-     *
-     * To exclude wp-admin in wordpress
-     *  '^wp-admin(\/|$)'
-     *
-     * @var string[]
-     * */
-    public $path_exclusion_patterns = [];
-
-    /**
-     * Current script path in url
-     *
-     * @var string
-     * */
-    private static $script_url;
-
-    /**
-     * Getting language code from url query string
-     *
-     * @param string $url simple url
-     *
-     * @return string|null
-     * @throws LanguageException
-     */
-    private function _getLanguageFromUrlQuery(string $url): ?string
-    {
-        $parts = parse_url($url);
-
-        if (isset($parts['query'])) {
-            parse_str($parts['query'], $query);
-            if (
-                isset($query[$this->language_query_key])
-                && $this->validateLanguage($query[$this->language_query_key])
-            ) {
-                return $query[$this->language_query_key];
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Get current language from URL path
-     * f.e. https://novembit.com/fr/my/post/path
-     *
-     * {fr} is valid language
-     *
-     * Getting {fr} from URL then removing them from path
-     * After removing changing global REQUEST_URI
-     *
-     * @param string $url Simple url
-     *
-     * @return string|null
-     * @throws LanguageException
-     */
-    private function _getLanguageFromUrlPath(string $url): ?string
-    {
-        $url = $this->removeScriptNameFromUrl($url);
-
-        $uri_parts = parse_url($url);
-
-        if (!isset($uri_parts['path'])) {
-            return null;
-        }
-
-        $path = explode('/', trim($uri_parts['path'], '/'));
-
-        if (isset($path[0]) && $this->validateLanguage($path[0])) {
-            $language = $path[0];
-
-            return $language;
-        }
-
-        return null;
-    }
-
-    /**
-     * Get script url
-     * F.e. /path/to/my/dir/index.php or /path/to/my/dir
-     *
-     * @return string|null
-     */
-    private static function _getScriptUrl(): ?string
-    {
-        if (isset(self::$script_url)) {
-            return self::$script_url;
-        }
-
-        $request_uri = Environment::server('REQUEST_URI');
-        $script_name = Environment::server('SCRIPT_NAME');
-
-        if ($request_uri === null || $script_name === null) {
-            return null;
-        }
-
-        if (strpos($request_uri, $script_name) === 0) {
-            $str = $script_name;
-        } else {
-            $paths = explode('/', $script_name);
-
-            unset($paths[count($paths) - 1]);
-            $str = implode('/', $paths);
-        }
-
-        $str = trim($str, '/');
-
-        self::$script_url = $str;
-
-        return self::$script_url;
-    }
-
-    /**
      * {@inheritDoc}
      *
      * @param string|null $url Simple URL
      *
      * @return string|null
+     * @deprecated
      * @throws LanguageException
      */
     public function getLanguageFromUrl(string $url): ?string
     {
-        $language = $this->_getLanguageFromUrlQuery($url);
-
-        if ($language == null && $this->language_on_path) {
-            $language = $this->_getLanguageFromUrlPath($url);
-        }
-
-        return $language;
+        return $this->context->getLanguageFromUrl($url);
     }
 
     /**
      * {@inheritDoc}
      *
      * @param string $url Simple url
-     *
+     * @deprecated
      * @return string
      */
     public function removeScriptNameFromUrl(string $url): string
     {
-        $url = ltrim($url, '/ ');
-        $url = preg_replace(
-            "/^" . preg_quote($this->_getScriptUrl(), '/') . "/",
-            '',
-            $url
-        );
-        $url = ltrim($url, '/ ');
-
-        foreach ($this->path_exclusion_patterns as $pattern) {
-            $url = preg_replace("/$pattern/", '', $url);
-        }
-
-        $url = trim($url, '/ ');
-
-        return $url;
-    }
-
-    /**
-     * @param $parts
-     * @param $language
-     */
-    private function addLanguageToPath(&$parts, $language)
-    {
-        $path_parts = explode('/', $parts['path']);
-        $path_parts = array_filter($path_parts);
-
-        if (
-            (!empty($path_parts) || !empty($parts['query']))
-            || (empty($path_parts) && !isset($parts['fragment']))
-        ) {
-            array_unshift($path_parts, $language);
-            $parts['path'] = '/' . implode('/', $path_parts);
-        }
+        return $this->context->removeScriptNameFromUrl($url);
     }
 
     /**
@@ -281,115 +85,14 @@ class Languages extends LocalizationType implements interfaces\Languages
      *
      * @return null|string
      * @throws LanguageException
+     * @deprecated
      */
     public function addLanguageToUrl(
         string $url,
         string $language,
         ?string $base_domain = null
     ): ?string {
-        /**
-         * Make sure language is valid
-         * */
-        if (!$this->validateLanguage($language)) {
-            return null;
-        }
-
-        if (
-            isset($base_domain)
-            && !isset($this->getLocalizationConfig($base_domain)['is_default'])
-        ) {
-            $parts = parse_url($url);
-
-            if ($this->localize_host && !in_array($base_domain, $this->context->getGlobalDomains())) {
-                /**
-                 * Get current base domain active languages
-                 * */
-                $base_languages = $this->context->getActiveLanguages($base_domain);
-
-                if (!in_array($language, $base_languages)) {
-                    $domain = $this->context->getActiveDomain($language);
-
-                    if (empty($domain)) {
-                        $country_regions = $this->context->countries->getActiveRegions($base_domain) ?? [];
-                        foreach ($country_regions as $country_region) {
-                            $region_languages = $this->context->regions->getLanguages($country_region, 'code');
-                            if (in_array($language, $region_languages)) {
-                                $domain = $this->context->regions->getByPrimary($country_region, 'code', 'domain');
-                            }
-                        }
-                    }
-                    $base_domain = $domain ?: $this->context->getGlobalDomains()[0] ?: $base_domain;
-                    $parts['host'] = $domain ?: $this->context->getGlobalDomains()[0] ?? null;
-                }
-            }
-
-            /**
-             * Change host of url
-             * */
-            if (isset($parts['host'])) {
-                $parts['host'] = $base_domain;
-            }
-
-            /**
-             * Normalize scheme
-             * */
-            if (!empty($parts['host']) && empty($parts['scheme'])) {
-                $scheme = stripos(Environment::server('SERVER_PROTOCOL'), 'https') === 0 ? 'https' : 'http';
-                $parts['scheme'] = $scheme;
-            }
-
-            if ($this->getDefaultLanguage($base_domain) != $language) {
-                if (!isset($parts['path'])) {
-                    $parts['path'] = '';
-                }
-
-                $exclude = false;
-                foreach ($this->path_exclusion_patterns as $pattern) {
-                    if (preg_match("/$pattern/", $parts['path'])) {
-                        $exclude = true;
-                        break;
-                    }
-                }
-
-                if ($exclude) {
-                    return URL::addQueryVars(
-                        $url,
-                        $this->language_query_key,
-                        $language
-                    );
-                } else {
-                    $this->addLanguageToPath($parts, $language);
-                }
-            }
-
-            $url = URL::buildUrl($parts);
-        } elseif (
-            $this->language_on_path == true
-            && trim($url, '/') == $this->removeScriptNameFromUrl($url)
-        ) {
-            /**
-             * Add language code to url path
-             * If $language_on_path is true
-             * */
-            $url = $this->removeScriptNameFromUrl($url);
-
-            $parts = parse_url($url);
-
-            if (!isset($parts['path'])) {
-                $parts['path'] = '';
-            }
-
-            $this->addLanguageToPath($parts, $language);
-
-            $url = URL::buildUrl($parts);
-        } else {
-            /**
-             * Adding query language variable
-             * */
-            $url = URL::addQueryVars($url, $this->language_query_key, $language);
-        }
-
-        return $url;
+        return $this->context->addLanguageToUrl($url, $language, $base_domain);
     }
 
     /**
@@ -399,14 +102,11 @@ class Languages extends LocalizationType implements interfaces\Languages
      *
      * @return bool
      * @throws LanguageException
+     * @deprecated use `localization->validateLanguage()`
      */
     public function validateLanguage(string $language): bool
     {
-        if (in_array($language, $this->getAcceptLanguages(false))) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->context->validateLanguage($language);
     }
 
     /**
@@ -416,16 +116,11 @@ class Languages extends LocalizationType implements interfaces\Languages
      *
      * @return bool
      * @throws LanguageException
+     * @deprecated use `localization->validateLanguages()`
      */
     public function validateLanguages(array $languages): bool
     {
-        foreach ($languages as $language) {
-            if (!$this->validateLanguage($language)) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->context->validateLanguages($languages);
     }
 
     /**
@@ -441,28 +136,7 @@ class Languages extends LocalizationType implements interfaces\Languages
         bool $assoc = false,
         ?string $base_domain = null
     ): array {
-        $config = $this->getLocalizationConfig($base_domain);
-
-        if (
-            isset($config['accept_languages'])
-            && !empty($config['accept_languages'])
-        ) {
-            $accept_languages = $config['accept_languages'];
-        } else {
-            $accept_languages = $this->accept_languages;
-        }
-
-        if (!$assoc) {
-            return $accept_languages;
-        }
-
-        $result = array_flip($accept_languages);
-
-        foreach ($result as $key => &$language) {
-            $language = $this->getLanguageData($key);
-        }
-
-        return $result;
+        return $this->context->getAcceptLanguages($base_domain, $assoc);
     }
 
     /**
@@ -486,10 +160,11 @@ class Languages extends LocalizationType implements interfaces\Languages
      * {@inheritDoc}
      *
      * @return mixed
+     * @deprecated
      */
     public function getFromLanguage(): string
     {
-        return $this->from_language;
+        return $this->context->getFromLanguage();
     }
 
     /**
@@ -511,35 +186,22 @@ class Languages extends LocalizationType implements interfaces\Languages
      *                                 (usually $_SERVER['HTTP_HOST'])
      *
      * @return string
+     * @deprecated
      * @throws LanguageException
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
-        $base_domain = $base_domain ?? $this->context->context->request->getDefaultHttpHost();
-
-        $language = $this->context->countries->getActiveLanguages($base_domain)[0] ?? null;
-
-        $language = $language ?? $this->context->regions->getActiveLanguages($base_domain)[0] ?? null;
-
-        $config = $this->getLocalizationConfig($base_domain);
-
-        $language = $language ?? $config['language'] ?? $this->getFromLanguage();
-
-        if ($this->validateLanguage($language)) {
-            return $language;
-        } else {
-            throw new LanguageException('Invalid default language parameter "' . $language . '"');
-        }
+        return $this->context->getDefaultLanguage($base_domain);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * @deprecated
      * @return mixed
      */
     public function getLanguageQueryKey(): string
     {
-        return $this->language_query_key;
+        return $this->context->getLanguageQueryKey();
     }
 
     /**
@@ -548,15 +210,12 @@ class Languages extends LocalizationType implements interfaces\Languages
      * @param string $from_language From language code
      *
      * @return void
+     * @deprecated
      * @throws LanguageException
      */
     public function setFromLanguage(string $from_language): void
     {
-        if ($this->validateLanguage($from_language)) {
-            $this->from_language = $from_language;
-        } else {
-            throw new LanguageException('Unknown from language parameter.');
-        }
+        $this->context->setFromLanguage($from_language);
     }
 
     /**

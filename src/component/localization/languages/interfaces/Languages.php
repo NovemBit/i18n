@@ -10,14 +10,19 @@ use NovemBit\i18n\component\localization\interfaces\LocalizationType;
 interface Languages extends LocalizationType
 {
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @return array
+     */
     public function getLanguagesMap(string $key, string $value): array;
 
     /**
      * Get language code from url
      *
      * @param string|null $url Initial URL
-     *
      * @return string
+     * @deprecated
      */
     public function getLanguageFromUrl(string $url);
 
@@ -32,11 +37,11 @@ interface Languages extends LocalizationType
      * Script name or directory path then adding only
      * Query parameter of language
      *
-     * @param string      $url         Initial Url
-     * @param string      $language    Language code
+     * @param string $url Initial Url
+     * @param string $language Language code
      * @param string|null $base_domain Base domain
-     *
      * @return string
+     * @deprecated
      */
     public function addLanguageToUrl(
         string $url,
@@ -51,6 +56,7 @@ interface Languages extends LocalizationType
      * @param string $language Language code
      *
      * @return mixed
+     * @deprecated
      */
     public function validateLanguage(string $language): bool;
 
@@ -62,13 +68,14 @@ interface Languages extends LocalizationType
      * @param string[] $languages language codes
      *
      * @return bool
+     * @deprecated
      */
     public function validateLanguages(array $languages): bool;
 
     /**
      * Get main content (from) language
-     *
      * @return string
+     * @deprecated
      */
     public function getFromLanguage(): string;
 
@@ -76,8 +83,8 @@ interface Languages extends LocalizationType
      * Set main from language
      *
      * @param string $from_language from language code
-     *
      * @return void
+     * @deprecated
      */
     public function setFromLanguage(string $from_language): void;
 
@@ -85,8 +92,8 @@ interface Languages extends LocalizationType
      * Get default language
      *
      * @param string|null $base_domain Base domain
-     *
      * @return string
+     * @deprecated
      */
     public function getDefaultLanguage(?string $base_domain = null): string;
 
@@ -101,19 +108,19 @@ interface Languages extends LocalizationType
 
     /**
      * Get language query key
-     *
      * @return string
+     * @deprecated
      */
     public function getLanguageQueryKey(): string;
 
     /**
      * Get accept languages
      *
-     * @param bool        $assoc       Return assoc with whole data
+     * @param bool $assoc Return assoc with whole data
      * @param string|null $base_domain Base Domain
      *
-     * @deprecated use localization->getAcceptLanguages()
      * @return array
+     * @deprecated use localization->getAcceptLanguages()
      */
     public function getAcceptLanguages(
         bool $assoc = false,
@@ -124,8 +131,8 @@ interface Languages extends LocalizationType
      * Get default config by `$base_domain` name
      *
      * @param string|null $base_domain base domain name
-     *
      * @return array
+     * @deprecated
      */
     public function getLocalizationConfig(?string $base_domain = null): array;
 
@@ -133,7 +140,7 @@ interface Languages extends LocalizationType
      * Get flag of language country
      *
      * @param string $code Language code
-     * @param bool   $html return html <img src="..
+     * @param bool $html return html <img src="..
      *
      * @return string
      */
