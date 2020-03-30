@@ -1333,6 +1333,15 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @return bool
+     */
+    public function isGlobalDomain(): bool
+    {
+        return $this->context->localization->isGlobalDomain(
+            Environment::server('HTTP_HOST')
+        );
+    }
+    /**
      * Get main JS object <script> tag
      * To add on HTML document <head>
      *

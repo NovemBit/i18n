@@ -38,4 +38,6 @@ interface Request extends Component
     public function getActiveLanguages(): array;
 
     public function getAcceptLanguages(bool $assoc = false): array;
+
+    public function isGlobalDomain(): bool;
 }
