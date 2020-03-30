@@ -112,6 +112,7 @@ interface Languages extends LocalizationType
      * @param bool        $assoc       Return assoc with whole data
      * @param string|null $base_domain Base Domain
      *
+     * @deprecated use localization->getAcceptLanguages()
      * @return array
      */
     public function getAcceptLanguages(

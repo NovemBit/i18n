@@ -1315,10 +1315,10 @@ class Request extends Component implements interfaces\Request
      */
     public function getAcceptLanguages(bool $assoc = false): array
     {
-        return $this->context->localization->languages
+        return $this->context->localization
             ->getAcceptLanguages(
-                $assoc,
-                Environment::server('HTTP_HOST')
+                Environment::server('HTTP_HOST'),
+                $assoc
             );
     }
 
