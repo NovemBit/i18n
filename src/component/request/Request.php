@@ -182,7 +182,7 @@ class Request extends Component implements interfaces\Request
      *
      * @var string
      * */
-    public $editor_query_key = "editor";
+    public $editor_query_key = 'editor';
 
     /**
      * Callback function to run after editor save
@@ -408,11 +408,7 @@ class Request extends Component implements interfaces\Request
             ->url
             ->reTranslate([$translate]);
 
-        if (isset($re_translate[$translate])) {
-            return $re_translate[$translate];
-        }
-
-        return null;
+        return $re_translate[$translate] ?? null;
     }
 
     /**
@@ -435,7 +431,7 @@ class Request extends Component implements interfaces\Request
 
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->prefix . "-" . $this->editor_query_key
+            $this->context->prefix . '-' . $this->editor_query_key
         );
 
         $dest = urldecode($dest);
@@ -448,7 +444,11 @@ class Request extends Component implements interfaces\Request
          * */
         if (
             $this->localization_redirects
-            && !in_array(Environment::server('HTTP_HOST'), $this->context->localization->getGlobalDomains())
+            && !in_array(
+                Environment::server('HTTP_HOST'),
+                $this->context->localization->getGlobalDomains(),
+                true
+            )
         ) {
             $localized_url = $this->context->localization->addLanguageToUrl(
                 $dest,
@@ -540,7 +540,7 @@ class Request extends Component implements interfaces\Request
          * If current language is default language
          * Then translate current url for all languages
          * */
-        if ($this->getRefererLanguage() == $this->getFromLanguage()) {
+        if ($this->getRefererLanguage() === $this->getFromLanguage()) {
             $this->setRefererSourceUrl($this->getReferer());
         } else {
             /*
@@ -574,8 +574,6 @@ class Request extends Component implements interfaces\Request
      */
     private function prepareSourceUrl(): bool
     {
-        $is_root_path = parse_url($this->getDestination(), PHP_URL_PATH) == '/';
-
         $db_connection = $this->context->db->getConnection();
 
         $db_connection->beginTransaction();
@@ -585,8 +583,8 @@ class Request extends Component implements interfaces\Request
          * Then translate current url for all languages
          * */
         if (
-            $this->getLanguage() == $this->getFromLanguage()
-            || $is_root_path
+            $this->getLanguage() === $this->getFromLanguage()
+            || parse_url($this->getDestination(), PHP_URL_PATH) === '/' // Is root path
             || !$this->getTranslation()->url->isPathTranslation()
         ) {
             $this->setUrlTranslations(
@@ -643,7 +641,7 @@ class Request extends Component implements interfaces\Request
          * Handling 404 action page
          * Running page_not_found callable
          * */
-        if ($this->getDestination() != null && $this->getSourceUrl() == null) {
+        if ($this->getDestination() !== null && $this->getSourceUrl() === null) {
             if ($this->restore_non_translated_urls === true) {
                 $restored_url = $this->restoreNonTranslatedUrl(
                     $this->getDestination(),
@@ -665,9 +663,9 @@ class Request extends Component implements interfaces\Request
                 call_user_func($this->on_page_not_found, $this);
 
                 return false;
-            } else {
-                throw new  RequestException("404 Not Found", 404);
             }
+
+            throw new  RequestException('404 Not Found', 404);
         }
 
         try {
@@ -705,9 +703,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function redirect(string $url)
+    private function redirect(string $url): void
     {
-        header("Location: " . $url);
+        header('Location: ' . $url);
         exit;
     }
 
@@ -737,7 +735,7 @@ class Request extends Component implements interfaces\Request
                     true
                 )[$url][$language] ?? null;
 
-        if ($url == null) {
+        if ($url === null) {
             return null;
         }
 
@@ -754,9 +752,11 @@ class Request extends Component implements interfaces\Request
     {
         foreach ($this->exclusions as $exclusion) {
             if (is_callable($exclusion)) {
-                return call_user_func($exclusion, $this);
-            } else {
-                return $exclusion;
+                if ($exclusion($this) === true) {
+                    return true;
+                }
+            } elseif ($exclusion === true) {
+                return true;
             }
         }
 
@@ -835,7 +835,7 @@ class Request extends Component implements interfaces\Request
         /**
          * If language does not exists in `$http_referer`
          * */
-        if ($language == null) {
+        if ($language === null) {
             $language = $this->context
                 ->localization
                 ->getDefaultLanguage(
@@ -898,7 +898,7 @@ class Request extends Component implements interfaces\Request
         /**
          * If language does not exists in @URL
          * */
-        if ($language == null) {
+        if ($language === null) {
             $language = $this->getDefaultLanguage();
         }
 
@@ -928,8 +928,8 @@ class Request extends Component implements interfaces\Request
          * @since 1.1.0
          * */
         if (
-            rtrim($new_url, '/') != rtrim($url, '/')
-            && $this->getDefaultLanguage() == $this->getLanguage()
+            rtrim($new_url, '/') !== rtrim($url, '/')
+            && $this->getDefaultLanguage() === $this->getLanguage()
         ) {
             $this->redirect($new_url);
         }
@@ -1050,8 +1050,8 @@ class Request extends Component implements interfaces\Request
     /**
      * Get type of response
      *
-     * @param $source  null|string Source
-     * @param $content null|string Content
+     * @param null|string $source Source
+     * @param null|string $content Content
      *
      * @return string|null
      */
@@ -1083,7 +1083,7 @@ class Request extends Component implements interfaces\Request
         /*
          * If response status is success
          * */
-        if (in_array($status, range(200, 299))) {
+        if (in_array($status, range(200, 299), true)) {
             $type = $this->getType($this->getSourceUrl(), $content);
 
             if ($type !== null) {
@@ -1106,7 +1106,7 @@ class Request extends Component implements interfaces\Request
                     $translator->setHelperAttributes(true);
                 }
 
-                if ($type == "html") {
+                if ($type === 'html') {
                     /**
                      * Define type of HTML translator
                      *
@@ -1158,12 +1158,8 @@ class Request extends Component implements interfaces\Request
      */
     private function editorSave(): bool
     {
-        if (
-            $this->isEditor()
-            && isset($_POST[$this->context->prefix . '-form'])
-        ) {
-            $nodes = $_POST[$this->context->prefix . '-form'];
-
+        $nodes = Environment::post($this->context->prefix . '-form');
+        if ($nodes !== null && $this->isEditor()) {
             $result = [];
 
             foreach ($nodes as $source => $translate) {
@@ -1217,10 +1213,7 @@ class Request extends Component implements interfaces\Request
         if (
             $this->isCli()
             || $this->isExclusion()
-            || !in_array(
-                Environment::server('REQUEST_METHOD'),
-                $this->getAcceptRequestMethods()
-            )
+            || !in_array(Environment::server('REQUEST_METHOD'), $this->getAcceptRequestMethods(), true)
         ) {
             return;
         }
@@ -1240,14 +1233,14 @@ class Request extends Component implements interfaces\Request
              * */
             if ($this->getUrlTranslations() !== null) {
                 foreach ($this->getUrlTranslations() as $language => $url) {
-                    if ($language == $this->getFromLanguage()) {
+                    if ($language === $this->getFromLanguage()) {
                         continue;
                     }
 
                     $this->editor_url_translations[$language] = URL::addQueryVars(
                         $url,
                         sprintf(
-                            "%s-%s",
+                            '%s-%s',
                             $this->context->prefix,
                             $this->editor_query_key
                         ),
@@ -1257,8 +1250,8 @@ class Request extends Component implements interfaces\Request
             }
 
             if (
-                isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
-                && ($this->getLanguage() != $this->getFromLanguage())
+                Environment::get($this->context->prefix . '-' . $this->editor_query_key) !== null
+                && ($this->getLanguage() !== $this->getFromLanguage())
             ) {
                 $this->is_editor = true;
             }
@@ -1274,8 +1267,8 @@ class Request extends Component implements interfaces\Request
          * Prevent pages with main(from_language) and default language translation
          * */
         if (
-            ($this->getFromLanguage() !== $this->getLanguage())
-            || ($this->default_http_host != Environment::server('HTTP_HOST'))
+            ($this->default_http_host !== Environment::server('HTTP_HOST'))
+            || ($this->getFromLanguage() !== $this->getLanguage())
         ) {
             ob_start([$this, 'translateBuffer']);
         }
@@ -1350,7 +1343,7 @@ class Request extends Component implements interfaces\Request
      * @return void
      */
     private function addMainJavaScriptNode(
-        DOMDocument &$dom,
+        DOMDocument $dom,
         DOMNode $parent
     ): void {
         $config = json_encode(
@@ -1406,14 +1399,14 @@ class Request extends Component implements interfaces\Request
         $css = str_replace('__PREFIX', $this->context->prefix, $css);
         foreach ($this->custom_translation_level_colors as $level => $color) {
             $css .= sprintf(
-                "%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }",
+                '%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }',
                 PHP_EOL,
                 $this->context->prefix,
                 $level,
                 $color
             );
             $css .= sprintf(
-                "%s#%s-editor-wrapper .level-%d { color: %s; }",
+                '%s#%s-editor-wrapper .level-%d { color: %s; }',
                 PHP_EOL,
                 $this->context->prefix,
                 $level,
