@@ -19,7 +19,6 @@ use DOMElement;
 use DOMText;
 use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\system\helpers\Languages;
 
 /**
  * HTML type for translation component
@@ -52,7 +51,7 @@ class HTML extends XML implements interfaces\HTML
      *
      * @var string|callable
      * */
-    public $title_tag_template = "{translate} | {language_name}, {country}";
+    public $title_tag_template = '{translate} | {language_name}, {country}';
 
     /**
      * Model class name of ActiveRecord
@@ -98,7 +97,7 @@ class HTML extends XML implements interfaces\HTML
                  * Set html dir="rtl" attribute
                  * When language dir set rtl
                  * */
-                if ($dir == 'rtl') {
+                if ($dir === 'rtl') {
                     $html->setAttribute('dir', 'rtl');
                 }
             }

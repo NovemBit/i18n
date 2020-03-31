@@ -21,14 +21,6 @@ use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
 
 /**
- * Translation component
- *
- * @category Component
- * @package  Component
- * @author   Aaron Yordanyan <aaron.yor@gmail.com>
- * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link     https://github.com/NovemBit/i18n
- *
  * @property Module $context
  */
 class Translation extends Component implements interfaces\Translation
