@@ -74,7 +74,7 @@ class Rest extends Component implements interfaces\Rest
      *
      * @var string
      * */
-    private $_api_key;
+    private $api_key;
 
     /**
      * Start rest request
@@ -98,7 +98,7 @@ class Rest extends Component implements interfaces\Rest
 
             $this->_validateAPI();
 
-            if (!isset($this->_api_key)) {
+            if (!isset($this->api_key)) {
                 $actionMethod .= $this->restrictAction;
             } elseif (empty($actionMethodParts)) {
                 $actionMethod .= $this->defaultAction;
@@ -124,7 +124,7 @@ class Rest extends Component implements interfaces\Rest
     private function _validateAPI()
     {
         if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys)) {
-            $this->_api_key = $_GET['api_key'];
+            $this->api_key = $_GET['api_key'];
         }
     }
 
@@ -190,7 +190,7 @@ class Rest extends Component implements interfaces\Rest
      */
     public function actionIndex()
     {
-        return ['api_key' => $this->_api_key];
+        return ['api_key' => $this->api_key];
     }
 
     /**
