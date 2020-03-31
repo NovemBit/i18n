@@ -5,10 +5,7 @@ namespace NovemBit\i18n\component\localization\languages;
 use NovemBit\i18n\component\localization\exceptions\LanguageException;
 use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
-use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
-use NovemBit\i18n\system\helpers\Environment;
-use NovemBit\i18n\system\helpers\URL;
 
 /**
  * Setting default languages

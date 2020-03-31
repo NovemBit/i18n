@@ -21,7 +21,6 @@ use NovemBit\i18n\component\localization\regions\Regions;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\exception\Exception;
-use NovemBit\i18n\system\helpers\Arrays;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 
@@ -291,10 +290,10 @@ class Localization extends Component implements interfaces\Localization
      */
     public function getLanguageFromUrl(string $url): ?string
     {
-        $language = $this->_getLanguageFromUrlQuery($url);
+        $language = $this->getLanguageFromUrlQuery($url);
 
         if ($language == null && $this->language_on_path) {
-            $language = $this->_getLanguageFromUrlPath($url);
+            $language = $this->getLanguageFromUrlPath($url);
         }
 
         return $language;
@@ -308,7 +307,7 @@ class Localization extends Component implements interfaces\Localization
      * @return string|null
      * @throws LanguageException
      */
-    private function _getLanguageFromUrlQuery(string $url): ?string
+    private function getLanguageFromUrlQuery(string $url): ?string
     {
         $parts = parse_url($url);
 
@@ -331,7 +330,7 @@ class Localization extends Component implements interfaces\Localization
      *
      * @return string|null
      */
-    private static function _getScriptUrl(): ?string
+    private static function getScriptUrl(): ?string
     {
         if (isset(self::$script_url)) {
             return self::$script_url;
@@ -371,7 +370,7 @@ class Localization extends Component implements interfaces\Localization
     {
         $url = ltrim($url, '/ ');
         $url = preg_replace(
-            "/^" . preg_quote($this->_getScriptUrl(), '/') . "/",
+            "/^" . preg_quote($this->getScriptUrl(), '/') . "/",
             '',
             $url
         );
@@ -400,7 +399,7 @@ class Localization extends Component implements interfaces\Localization
      * @return string|null
      * @throws LanguageException
      */
-    private function _getLanguageFromUrlPath(string $url): ?string
+    private function getLanguageFromUrlPath(string $url): ?string
     {
         $url = $this->removeScriptNameFromUrl($url);
 
@@ -413,9 +412,7 @@ class Localization extends Component implements interfaces\Localization
         $path = explode('/', trim($uri_parts['path'], '/'));
 
         if (isset($path[0]) && $this->validateLanguage($path[0])) {
-            $language = $path[0];
-
-            return $language;
+            return $path[0];
         }
 
         return null;
