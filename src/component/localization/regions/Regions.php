@@ -4,12 +4,13 @@ namespace NovemBit\i18n\component\localization\regions;
 
 use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
-use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 
 /**
+ * Class Regions
+ * @package NovemBit\i18n\component\localization\regions
  * @property Localization $context
- * */
+ */
 class Regions extends LocalizationType implements interfaces\Regions
 {
     public const DONT_INCLUDE_CHILD_LANGUAGES = 0;
@@ -39,6 +40,7 @@ class Regions extends LocalizationType implements interfaces\Regions
 
     /**
      * @param string|null $base_domain
+     * @param string|null $value
      * @return array|mixed|null
      */
     public function getConfig(?string $base_domain = null, ?string $value = null)
@@ -47,10 +49,7 @@ class Regions extends LocalizationType implements interfaces\Regions
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param string|null $base_domain Base domain
-     *
      * @return string
      */
     public function getDefaultRegion(?string $base_domain = null): ?string
@@ -94,18 +93,20 @@ class Regions extends LocalizationType implements interfaces\Regions
 
         $include = $region['include_languages'] ?? self::DONT_INCLUDE_CHILD_LANGUAGES;
 
-        if ($include == self::INCLUDE_CHILD_PRIMARY_LANGUAGES || $include == self::INCLUDE_CHILD_ALL_LANGUAGES) {
+        if (in_array($include, [self::INCLUDE_CHILD_PRIMARY_LANGUAGES, self::INCLUDE_CHILD_ALL_LANGUAGES], true)) {
             $countries_languages = $this->context->countries->getByPrimary(
                 $region['code'],
                 'regions',
                 'languages',
                 true
             ) ?? [];
-            foreach ($countries_languages as $country_languages) {
-                if ($include == self::INCLUDE_CHILD_PRIMARY_LANGUAGES && isset($country_languages[0])) {
-                    $languages[] = $country_languages[0];
-                } elseif ($include == self::INCLUDE_CHILD_ALL_LANGUAGES) {
-                    $languages = array_merge($languages, $country_languages);
+            if ($include === self::INCLUDE_CHILD_ALL_LANGUAGES) {
+                $languages = array_merge($languages, ...$countries_languages);
+            } elseif ($include === self::INCLUDE_CHILD_PRIMARY_LANGUAGES) {
+                foreach ($countries_languages as $country_languages) {
+                    if (isset($country_languages[0])) {
+                        $languages[] = $country_languages[0];
+                    }
                 }
             }
         }

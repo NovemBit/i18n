@@ -8,13 +8,10 @@ use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\helpers\Arrays;
 
 /**
- * Setting default languages
- *  from language - main website content language
- *  default language - default language for request
- *  accept languages - languages list for translations
+ * Localization language sub component
  *
- * @category Component
- * @package  Component
+ * @category Component\Localization
+ * @package  Component\Localization
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
@@ -232,14 +229,12 @@ class Languages extends LocalizationType implements interfaces\Languages
         );
 
         if ($name === null) {
-            throw new LanguageException("Language name property not found!");
+            throw new LanguageException('Language name property not found!');
         }
         return $name;
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param string $code Language code
      *
      * @return mixed|null
@@ -252,14 +247,11 @@ class Languages extends LocalizationType implements interfaces\Languages
             'dir'
         );
 
-        return $dir == null ? 'ltr' : 'rtl';
+        return $dir === null ? 'ltr' : 'rtl';
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param string $code Language code
-     *
      * @return mixed|null
      * @throws LanguageException
      */
@@ -269,10 +261,10 @@ class Languages extends LocalizationType implements interfaces\Languages
             $code,
             'alpha1',
             'native'
-        ) ?? null;
+        );
 
         if ($name === null) {
-            throw new LanguageException("Language native property not found!");
+            throw new LanguageException('Language native property not found!');
         }
         return $name;
     }
@@ -299,16 +291,16 @@ class Languages extends LocalizationType implements interfaces\Languages
         )[0] ?? null;
 
         if ($flag === null) {
-            throw new LanguageException("Language flag property not found!");
+            throw new LanguageException('Language flag property not found!');
         }
 
         $name = $this->getLanguageNameByCode($code);
 
-        $size = $rectangle ? "4x3" : "1x1";
+        $size = $rectangle ? '4x3' : '1x1';
         $path = __DIR__ . '/../assets/images/flags/' . $size . '/' . $flag . '.svg';
 
         $base64 = sprintf(
-            "data:image/svg+xml;base64,%s",
+            'data:image/svg+xml;base64,%s',
             base64_encode(file_get_contents($path))
         );
 

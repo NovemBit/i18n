@@ -5,6 +5,10 @@ namespace NovemBit\i18n\component\localization;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 
+/**
+ * Class LocalizationType
+ * @package NovemBit\i18n\component\localization
+ */
 abstract class LocalizationType extends Component implements interfaces\LocalizationType
 {
     public $all;
