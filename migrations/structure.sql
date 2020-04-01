@@ -1,3 +1,4 @@
+--https://ww9.github.io/mysql2sqlite/
 CREATE TABLE `i18n_translations`
 (
     `id`             int(10) unsigned                                  NOT NULL AUTO_INCREMENT,
