@@ -34,7 +34,8 @@
   },
   "autoload": {
     "psr-4": {
-      "NovemBit\\i18n\\": "src/"
+      "NovemBit\\i18n\\": "src/",
+      "NovemBit\\tests\\i18n\\": "tests/"
     }
   },
   "scripts": {
