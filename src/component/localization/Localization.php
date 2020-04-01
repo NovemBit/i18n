@@ -478,7 +478,7 @@ class Localization extends Component implements interfaces\Localization
                     if (empty($domain)) {
                         $country_regions = $this->countries->getActiveRegions($base_domain) ?? [];
                         foreach ($country_regions as $country_region) {
-                            $region_languages = $this->regions->getLanguages($country_region, 'code');
+                            $region_languages = $this->regions->getLanguages($country_region, 'code') ?? [];
                             if (in_array($language, $region_languages, true)) {
                                 $domain = $this->regions->getByPrimary($country_region, 'code', 'domain');
                             }

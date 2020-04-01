@@ -91,7 +91,7 @@ class Module extends system\Component
      * @var string
      * */
     public $prefix = 'i18n';
-    
+
     /**
      * Default component configuration
      *
@@ -100,7 +100,6 @@ class Module extends system\Component
      */
     public static function defaultConfig(): array
     {
-
         return [
             'localization' => [
                 'class' => component\localization\Localization::class,
@@ -137,7 +136,6 @@ class Module extends system\Component
      */
     public function commonInit(): void
     {
-
         $this->languages = &$this->localization->languages;
 
         parent::commonInit();
@@ -175,11 +173,9 @@ class Module extends system\Component
      */
     public static function instance(?array $config = null): ?self
     {
-
-        if (!isset(self::$instance) && ($config != null)) {
+        if (!isset(self::$instance) && ($config !== null)) {
             self::$instance = new self($config);
         }
-
         return self::$instance;
     }
 }
