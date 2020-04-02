@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -13,21 +14,13 @@
 
 namespace NovemBit\i18n\component\translation;
 
-
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
 
 /**
- * Translation component
- *
- * @category Component
- * @package  Component
- * @author   Aaron Yordanyan <aaron.yor@gmail.com>
- * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
- * @link     https://github.com/NovemBit/i18n
- *
  * @property Module $context
  */
 class Translation extends Component implements interfaces\Translation
@@ -73,50 +66,50 @@ class Translation extends Component implements interfaces\Translation
      *
      * @var array
      * */
-    private $_languages;
+    private $languages;
 
     /**
      * Country name
      *
      * @var string
      * */
-    private $_country;
+    private $country;
 
     /**
      * Region name
      *
      * @var string
      * */
-    private $_region;
+    private $region;
 
     /**
      * Set languages for translation
      *
-     * @param array|string $_languages list of languages
+     * @param array|string $languages list of languages
      *
      * @return self
      * @throws TranslationException
      */
-    public function setLanguages(array $_languages) : interfaces\Translation
+    public function setLanguages(array $languages): interfaces\Translation
     {
-        if ($this->context->languages->validateLanguages($_languages)) {
-            $this->_languages = $_languages;
+        if ($this->context->localization->validateLanguages($languages)) {
+            $this->languages = $languages;
             return $this;
         } else {
-            throw new TranslationException('Language not supporting.');
+            throw new UnsupportedLanguagesException($languages);
         }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param string $_country Country
+     * @param string $country Country
      *
      * @return interfaces\Translation
      */
-    public function setCountry(?string $_country): interfaces\Translation
+    public function setCountry(?string $country): interfaces\Translation
     {
-        $this->_country = $_country;
+        $this->country = $country;
         return $this;
     }
 
@@ -125,21 +118,21 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getCountry():?string
+    public function getCountry(): ?string
     {
-        return $this->_country;
+        return $this->country;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param string $_region Region
+     * @param string $region Region
      *
      * @return interfaces\Translation
      */
-    public function setRegion(?string $_region): interfaces\Translation
+    public function setRegion(?string $region): interfaces\Translation
     {
-        $this->_region = $_region;
+        $this->region = $region;
         return $this;
     }
 
@@ -148,9 +141,9 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getRegion():?string
+    public function getRegion(): ?string
     {
-        return $this->_region;
+        return $this->region;
     }
 
     /**
@@ -159,10 +152,10 @@ class Translation extends Component implements interfaces\Translation
      * @return mixed
      * @throws TranslationException
      */
-    public function getLanguages() : array
+    public function getLanguages(): array
     {
-        if (isset($this->_languages)) {
-            return $this->_languages;
+        if (isset($this->languages)) {
+            return $this->languages;
         } else {
             throw new TranslationException('Languages not set.');
         }
@@ -173,8 +166,8 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return string
      */
-    public function getFromLanguage() : string
+    public function getFromLanguage(): string
     {
-        return $this->context->languages->getFromLanguage();
+        return $this->context->localization->getFromLanguage();
     }
 }

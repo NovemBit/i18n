@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -14,6 +15,7 @@
 namespace NovemBit\i18n\system;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Exception;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\StreamHandler;
@@ -55,25 +57,30 @@ abstract class Component implements interfaces\Component
     public $context;
 
     /**
-     * PSR Logger
+     * Logger with PSR interface
      *
      * @var LoggerInterface
      * */
     public $logger;
 
     /**
-     * PSR logging level
+     * Logging level
      *
      * @var int
      * */
     public $logging_level = Logger::WARNING;
 
     /**
+     * Cache Pool with PSR interface
+     *
      * @var CacheInterface
      * */
     public $cache_pool;
 
     /**
+     * Runtime directory
+     * Should be used as main caching and runtime temp files
+     *
      * @var string
      * */
     public $runtime_dir = __DIR__ . '/../../runtime';
@@ -81,33 +88,25 @@ abstract class Component implements interfaces\Component
     /**
      * Component constructor.
      *
-     * @param array $config Configuration array
+     * @param array          $config  Configuration array
      * @param null|Component $context Context (parent) Component
      */
-    public function __construct($config = [], & $context = null)
+    public function __construct($config = [], &$context = null)
     {
-
         $this->context = $context;
 
         if (!isset($this->config)) {
-
-            $default = static::defaultConfig();
-
-            $this->config = Arrays::arrayMergeRecursiveDistinct(
-                $default,
-                $config
-            );
+            $this->mergeAndSetConfig($config);
         }
 
         if ($this->isCli()) {
-
             global $argv, $argc;
 
             $this->commonLateInit();
 
             $this->cliLateInit($argv, $argc);
 
-            $this->_extractConfig();
+            $this->extractConfig();
 
             $this->commonInit();
 
@@ -116,19 +115,17 @@ abstract class Component implements interfaces\Component
             if (isset($argv[1]) && $argv[1] == get_called_class()) {
                 $this->cli($argv, $argc);
             }
-
         } else {
             $this->commonLateInit();
 
             $this->mainLateInit();
 
-            $this->_extractConfig();
+            $this->extractConfig();
 
             $this->commonInit();
 
             $this->mainInit();
         }
-
     }
 
     /**
@@ -136,7 +133,7 @@ abstract class Component implements interfaces\Component
      *
      * @return void
      */
-    private function _extractConfig(): void
+    private function extractConfig(): void
     {
         foreach ($this->config as $key => $value) {
             if (is_array($value) && isset($value['class'])) {
@@ -149,18 +146,53 @@ abstract class Component implements interfaces\Component
         }
     }
 
-    protected function commonLateInit(): void
+    /**
+     * @param array|null $config
+     */
+    private function mergeAndSetConfig(array $config = [])
     {
+        $default = static::defaultConfig();
 
-    }
-
-    protected function commonInit(): void
-    {
-
+        $this->config = Arrays::arrayMergeRecursiveDistinct(
+            $default,
+            $config
+        );
     }
 
     /**
-     * Common init method running before
+     * @param array|null $config
+     */
+    public function reInit(?array $config = []): void
+    {
+        if ($config !== null) {
+            $this->mergeAndSetConfig($config);
+        }
+        $this->extractConfig();
+    }
+
+    /**
+     * Common late init method
+     * Running first, before all other actions
+     * And before sub components init
+     *
+     * @return void
+     */
+    protected function commonLateInit(): void
+    {
+    }
+
+    /**
+     * Common init method
+     * Running after sub components init
+     *
+     * @return void
+     */
+    protected function commonInit(): void
+    {
+    }
+
+    /**
+     * Main init method running before
      * Initialization of child components
      *
      * @return void
@@ -170,8 +202,7 @@ abstract class Component implements interfaces\Component
     }
 
     /**
-     * Component init method
-     * Non CLI
+     * Main init method
      * Running after child component initialization
      *
      * @return void
@@ -185,7 +216,7 @@ abstract class Component implements interfaces\Component
      * Only on cli script
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
@@ -198,7 +229,7 @@ abstract class Component implements interfaces\Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
@@ -210,14 +241,13 @@ abstract class Component implements interfaces\Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int $argc Count of cli arguments
+     * @param int   $argc Count of cli arguments
      *
      * @return void
      */
     protected function cliLateInit($argv, $argc): void
     {
     }
-
 
     /**
      * Check if script running on CLI
@@ -230,14 +260,18 @@ abstract class Component implements interfaces\Component
     }
 
     /**
+     * Get current component logger
+     *
      * @return LoggerInterface
-     * @throws \Exception
+     * @throws Exception
      */
     public function getLogger(): LoggerInterface
     {
         if (!isset($this->logger)) {
             /**
              * Runtime directory
+             *
+             * @see $runtime_dir
              **/
             $path = trim(str_replace('\\', '/', static::class), '/');
             $log_dir = $this->getRuntimeDir() . "/logs/" . $path;
@@ -256,7 +290,11 @@ abstract class Component implements interfaces\Component
 
 
     /**
-     * @param LoggerInterface $logger
+     * Set logger
+     *
+     * @param LoggerInterface $logger Logger with PSR interface
+     *
+     * @return void
      */
     public function setLogger(LoggerInterface $logger): void
     {
@@ -264,6 +302,8 @@ abstract class Component implements interfaces\Component
     }
 
     /**
+     * Get runtime directory
+     *
      * @return string
      */
     public function getRuntimeDir(): string
@@ -272,7 +312,11 @@ abstract class Component implements interfaces\Component
     }
 
     /**
-     * @param string $runtime_dir
+     * Set runtime directory
+     *
+     * @param string $runtime_dir Runtime directory
+     *
+     * @return void
      */
     public function setRuntimeDir(string $runtime_dir): void
     {
@@ -280,7 +324,11 @@ abstract class Component implements interfaces\Component
     }
 
     /**
-     * @param CacheInterface $cache_pool
+     * Setting cache pool with PSR interface
+     *
+     * @param CacheInterface $cache_pool Cache pool
+     *
+     * @return void
      */
     public function setCachePool(CacheInterface $cache_pool): void
     {
@@ -288,12 +336,13 @@ abstract class Component implements interfaces\Component
     }
 
     /**
+     * Get cache pool
+     *
      * @return CacheInterface
      */
     public function getCachePool(): CacheInterface
     {
         if (!isset($this->cache_pool)) {
-
             $path = trim(str_replace('\\', '/', static::class), '/');
             $cache_dir = $this->getRuntimeDir() . "/cache/" . $path;
 
@@ -314,10 +363,13 @@ abstract class Component implements interfaces\Component
     {
     }
 
+    /**
+     * Default config for current component
+     *
+     * @return array
+     */
     public static function defaultConfig(): array
     {
         return [];
     }
-
-
 }

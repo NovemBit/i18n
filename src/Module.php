@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main i18n module
  *
@@ -27,9 +28,9 @@
 
 namespace NovemBit\i18n;
 
-
 use Exception;
-use NovemBit\i18n\component\languages\interfaces\Languages;
+use NovemBit\i18n\component\localization\interfaces\Localization;
+use NovemBit\i18n\component\localization\languages\Languages;
 use NovemBit\i18n\component\request\interfaces\Request;
 use NovemBit\i18n\component\rest\interfaces\Rest;
 use NovemBit\i18n\component\translation\interfaces\Translation;
@@ -59,7 +60,7 @@ use NovemBit\i18n\component\db\DB;
  * @link     https://github.com/NovemBit/i18n
  *
  * @property Translation translation
- * @property Languages languages
+ * @property Localization localization
  * @property Request request
  * @property Rest rest
  * @property DB db
@@ -68,12 +69,18 @@ class Module extends system\Component
 {
 
     /**
+     * @deprecated
+     * @var Languages
+     * */
+    public $languages;
+
+    /**
      * Main instance of Module
      * Using singleton pattern only for main instance
      *
      * @var Module
      * */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Prefix for any script public action
@@ -85,7 +92,6 @@ class Module extends system\Component
      * */
     public $prefix = 'i18n';
 
-
     /**
      * Default component configuration
      *
@@ -94,21 +100,20 @@ class Module extends system\Component
      */
     public static function defaultConfig(): array
     {
-
         return [
-            'languages'=>[
-                'class' => component\languages\Languages::class,
+            'localization' => [
+                'class' => component\localization\Localization::class,
             ],
-            'translation'=>[
+            'translation' => [
                 'class' => component\translation\Translation::class,
             ],
-            'request'=>[
+            'request' => [
                 'class' => component\request\Request::class,
             ],
-            'rest'=>[
+            'rest' => [
                 'class' => component\rest\Rest::class,
             ],
-            'db'=>[
+            'db' => [
                 'class' => DB::class,
             ]
         ];
@@ -125,10 +130,19 @@ class Module extends system\Component
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
-     * Load Yii framework container to use some libraries that not
-     * Allowed to use standalone
+     * @return void
+     */
+    public function commonInit(): void
+    {
+        $this->languages = &$this->localization->languages;
+
+        parent::commonInit();
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * @return void
      */
@@ -138,11 +152,13 @@ class Module extends system\Component
     }
 
     /**
-     * Start request translation
+     * Main start method of module
+     * * Starting request component
+     * * Starting rest component
      *
      * @return void
      */
-    public function start()
+    public function start(): void
     {
         $this->rest->start();
         $this->request->start();
@@ -155,14 +171,11 @@ class Module extends system\Component
      *
      * @return self
      */
-    public static function instance($config = null): ?self
+    public static function instance(?array $config = null): ?self
     {
-
-        if (!isset(self::$_instance) && ($config != null)) {
-            self::$_instance = new self($config);
+        if (!isset(self::$instance) && ($config !== null)) {
+            self::$instance = new self($config);
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -11,9 +12,7 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-
 namespace NovemBit\i18n\component\translation\method;
-
 
 use \NovemBit\i18n\component\translation\exceptions\TranslationException;
 use \NovemBit\i18n\component\rest\interfaces\Rest as RestComponentInterface;
@@ -84,10 +83,10 @@ class Rest extends Method
      * @param array $texts Array of texts to translate
      * @param string $from_language
      * @param array $to_languages
+     * @param bool $ignore_cache
      *
      * @return array
      * @throws TranslationException
-     * @throws \Exception
      */
     protected function doTranslate(
         array $texts,
@@ -110,9 +109,10 @@ class Rest extends Method
 
         $query = [
             'languages' => $to_languages,
-            'languages_config' => $this->getLanguagesConfig(),
+            'localization_config' => $this->getLocalizationConfig(),
             'texts' => $texts,
         ];
+        
 
         $data = http_build_query(
             $query
@@ -128,7 +128,7 @@ class Rest extends Method
 
         //A given cURL operation should only take
         //30 seconds max.
-        curl_setopt($ch, CURLOPT_TIMEOUT,  ($this->request_timeout+7));
+        curl_setopt($ch, CURLOPT_TIMEOUT, ($this->request_timeout + 7));
         $result = curl_exec($ch);
 
         if ($result === false) {
@@ -152,20 +152,16 @@ class Rest extends Method
         $translation = [];
 
         if ($status == RestComponentInterface::STATUS_DONE) {
-
             $translation = $result['translation'] ?? [];
         } elseif ($status == RestComponentInterface::STATUS_ERROR) {
-
             $this->getLogger()->warning(
                 $result['message'] ?? 'Rest endpoint: unexpected error.'
             );
         } elseif ($status == RestComponentInterface::STATUS_EMPTY) {
-
             $this->getLogger()->warning(
                 $result['message'] ?? 'Rest endpoint: empty response.'
             );
         } else {
-
             $this->getLogger()->warning(
                 'Rest endpoint: negative response.'
             );
@@ -180,18 +176,30 @@ class Rest extends Method
      * @return array
      * @throws TranslationException
      */
-    public function getLanguagesConfig(): array
+    public function getLocalizationConfig(): array
     {
-        $config = $this->context->context->config['languages'] ?? null;
+        $config = $this->context->context->localization->config ?? null;
 
-        if ($config == null) {
-
-            throw new TranslationException("Languages config not found.");
+        if ($config === null) {
+            throw new TranslationException("Localization config not found.");
         }
 
-        unset($config['class']);
+        /**
+         * Unset runtime and class props
+         * */
+        unset(
+            $config['runtime_dir'],
+            $config['languages']['class'],
+            $config['languages']['runtime_dir'],
+            $config['languages']['all'],
+            $config['regions']['class'],
+            $config['regions']['runtime_dir'],
+            $config['regions']['all'],
+            $config['countries']['class'],
+            $config['countries']['runtime_dir'],
+            $config['countries']['all']
+        );
 
         return $config;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -13,10 +14,12 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Arrays;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * JSON type for translation component
@@ -29,7 +32,7 @@ use NovemBit\i18n\system\helpers\Arrays;
  *
  * @property Translation context
  */
-class JSON extends Type
+class JSON extends Type implements interfaces\JSON
 {
     /**
      * {@inheritdoc}
@@ -91,7 +94,7 @@ class JSON extends Type
         }
 
         if ($this->type_autodetect === true && $type === null) {
-            $type = $this->_getFieldTypeAutomatically($value);
+            $type = $this->getFieldTypeAutomatically($value);
         }
 
         return $type;
@@ -104,9 +107,9 @@ class JSON extends Type
      *
      * @return string|null
      */
-    private function _getFieldTypeAutomatically(?string $str): ?string
+    private function getFieldTypeAutomatically(?string $str): ?string
     {
-        if ($str == null) {
+        if ($str === null) {
             return null;
         }
 
@@ -135,7 +138,12 @@ class JSON extends Type
      *
      * @param array $jsons Jsons string array
      *
+     * @param string $from_language
+     * @param array $to_languages
+     * @param bool $ignore_cache
      * @return array
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     protected function doTranslate(
         array $jsons,
@@ -163,7 +171,6 @@ class JSON extends Type
 
                     if (is_string($type)) {
                         if ($type !== null) {
-
                             if (in_array($type, ['html', 'html_fragment'])) {
                                 $val = $maybe_html_value;
                             }
@@ -173,13 +180,14 @@ class JSON extends Type
                     }
                 }
             );
-
         }
 
         foreach ($to_translate as $type => $values) {
 
             /** @var Translator $translator */
             $translator = $this->context->{$type};
+            
+            $translator->setHelperAttributes($this->getHelperAttributes());
 
             $translations[$type] = $translator->translate(
                 $values,
@@ -191,7 +199,6 @@ class JSON extends Type
 
         foreach ($this->_objects as $json => &$object) {
             foreach ($to_languages as $language) {
-
                 Arrays::arrayWalkWithRoute(
                     $object,
                     function ($key, &$val, $route) use ($translations, $language) {
@@ -200,11 +207,9 @@ class JSON extends Type
 
                         if ($type !== null) {
                             if (is_string($type)) {
-                                $val = isset($translations[$type][$val][$language])
-                                    ? $translations[$type][$val][$language] :
-                                    $val;
+                                $val = $translations[$type][$val][$language] ?? $val;
                             } elseif (is_callable($type)) {
-                                $val = call_user_func($type, $val, $language);
+                                $val = $type($val, $language);
                             }
                         }
                     }
@@ -214,7 +219,6 @@ class JSON extends Type
         }
 
         return $result;
-
     }
 
     /**
@@ -224,7 +228,7 @@ class JSON extends Type
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$json): bool
+    protected function validateBeforeTranslate(string &$json): bool
     {
         $obj = json_decode($json, true);
         if (is_array($obj)) {

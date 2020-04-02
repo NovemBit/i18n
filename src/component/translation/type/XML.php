@@ -13,12 +13,14 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use Doctrine\DBAL\ConnectionException;
 use DOMAttr;
 use DOMElement;
 use DOMNode;
 use DOMText;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
+use Psr\SimpleCache\InvalidArgumentException;
 
 
 /**
@@ -32,7 +34,7 @@ use NovemBit\i18n\component\translation\interfaces\Translator;
  *
  * @property Translation context
  */
-class XML extends Type
+class XML extends Type implements interfaces\XML
 {
     /**
      * {@inheritdoc}
@@ -41,14 +43,6 @@ class XML extends Type
 
 
     public $xpath_query_map = [];
-
-    /**
-     * Show helper attributes that contains
-     * All information about current node and child Text/Attr nodes
-     *
-     * @var bool
-     * */
-    private $_helper_attributes = false;
 
     /**
      * Save translations
@@ -105,7 +99,7 @@ class XML extends Type
     /**
      * Get Html parser. Create new instance of HTML parser
      *
-     * @param string $xml XML content
+     * @param string $xml      XML content
      * @param string $language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
@@ -114,7 +108,6 @@ class XML extends Type
         string $xml,
         string $language
     ): \NovemBit\i18n\system\parsers\XML {
-
         $parser = new \NovemBit\i18n\system\parsers\XML(
             $xml,
             $this->xpath_query_map,
@@ -138,7 +131,7 @@ class XML extends Type
      * Get node value with node type
      *
      * @param DOMNode $node Node element
-     * @param string $type type of node content
+     * @param string  $type type of node content
      *
      * @return string|null
      */
@@ -210,7 +203,6 @@ class XML extends Type
         array $params,
         array &$data
     ) {
-
         /**
          * Define type of $node
          *
@@ -237,7 +229,6 @@ class XML extends Type
             ?? null;
 
         if ($this->getHelperAttributes()) {
-
             /**
              * Define node type
              *
@@ -271,7 +262,7 @@ class XML extends Type
 
                 if ($translate !== null) {
                     $text[] = [
-                        $node_value,
+                        $_verbose['after'] ?? null,
                         $_verbose[$data['language']]['translate'] ?? null,
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,
@@ -284,11 +275,11 @@ class XML extends Type
                     );
                 }
             } elseif ($node_type == 'attr') {
-
                 /**
+                 * Define node type
+                 *
                  * @var DOMAttr $node
                  */
-
                 if ($parent->hasAttribute(
                     $this->context->context->prefix . '-attr'
                 )
@@ -304,7 +295,7 @@ class XML extends Type
                 }
                 if ($translate !== null) {
                     $attr[$node->name] = [
-                        $node_value,
+                        $_verbose['after'] ?? null,
                         $_verbose[$data['language']]['translate'] ?? null,
                         $type,
                         $_verbose[$data['language']]['level'] ?? null,
@@ -339,11 +330,14 @@ class XML extends Type
      * And send to translation:
      * Using custom type of translation for each type of node
      *
-     * @param array $xml_list list of translatable HTML strings
-     * @param string $from_language
-     * @param array $to_languages
+     * @param array  $xml_list      list of translatable HTML strings
+     * @param string $from_language From Language
+     * @param array  $to_languages  To Languages
+     * @param bool   $ignore_cache  Ignore Cache
      *
      * @return mixed
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      * @see    DOMText
      * @see    DOMAttr
      */
@@ -353,7 +347,6 @@ class XML extends Type
         array $to_languages,
         bool $ignore_cache
     ): array {
-
         $result = [];
 
         $translations = [];
@@ -370,9 +363,7 @@ class XML extends Type
          * Finding translatable node values and attributes
          * */
         foreach ($xml_list as $key => $html) {
-
             foreach ($to_languages as $language) {
-
                 $parsed_dom[$key][$language] = $this->getParser(
                     $html,
                     $language
@@ -394,6 +385,11 @@ class XML extends Type
              * @var Translator $translator
              */
             $translator = $this->context->{$type};
+            
+            /**
+             * Enable helper attributes for sub-translators
+             * */
+            $translator->setHelperAttributes($this->getHelperAttributes());
 
             $translations[$type] = $translator->translate(
                 $texts,
@@ -409,9 +405,7 @@ class XML extends Type
          * Translated values
          * */
         foreach ($xml_list as $key => $html) {
-
             foreach ($to_languages as $language) {
-
                 $parsed_dom[$key][$language]->fetch(
                     [$this, 'replaceTranslatedFields'],
                     [
@@ -430,33 +424,18 @@ class XML extends Type
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return bool
-     * */
-    public function getHelperAttributes(): bool
-    {
-        return $this->_helper_attributes;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param bool $status If true then
-     *                     html translation including additional attributes
-     *
-     * @return void
-     * */
-    public function setHelperAttributes(bool $status): void
-    {
-        $this->_helper_attributes = $status;
-    }
-
+     * Adding functions before parse
+     * 
+     * @param callable $callback Callable closure
+     */
     public function addBeforeParseCallback(callable $callback): void
     {
         $this->_before_parse_callbacks[] = $callback;
     }
 
+    /**
+     * @param callable $callback
+     */
     public function addAfterParseCallback(callable $callback): void
     {
         $this->_after_parse_callbacks[] = $callback;

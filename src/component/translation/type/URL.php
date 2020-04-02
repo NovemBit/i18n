@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Url translation component
  * php version 7.2.10
@@ -118,8 +119,8 @@ class URL extends Type implements interfaces\URL
             $this->save_translations = false;
         }
 
-        if ($this->base_domain === null && isset($_SERVER['HTTP_HOST'])) {
-            $this->base_domain = $_SERVER['HTTP_HOST'];
+        if ($this->base_domain === null && Environment::server('HTTP_HOST')) {
+            $this->base_domain = Environment::server('HTTP_HOST');
         }
 
         parent::mainInit();
@@ -187,7 +188,7 @@ class URL extends Type implements interfaces\URL
 
         foreach ($translates[$before] as $language => &$translate) {
             $translate = $prefix . $translate . $suffix;
-            $translate = $this->context->context->languages
+            $translate = $this->context->context->localization
                 ->addLanguageToUrl(
                     $translate,
                     $language,
@@ -204,24 +205,19 @@ class URL extends Type implements interfaces\URL
     }
 
     /**
-     * Validate before translate
-     * Take parts that must be preserved to concat
-     * after translate paths
+     * Prepare Url to process
+     * Remove all exclusions from URL
+     * Use validation rules to validate parts of uri
      *
-     *  Removing script name from url to make avoid
-     *  that translatable part of url is only working path
-     *
-     * @param string $url Translatable url
+     * @param string $url URL
      *
      * @return bool
      */
-    protected function validateBeforeTranslate(&$url): bool
+    protected function prepareUrlToProcess(string &$url): bool
     {
         $url = trim($url, ' ');
 
-        foreach ($this->path_exclusion_patterns as $pattern) {
-            $url = preg_replace($pattern, '', $url);
-        }
+        $url = $this->removeExclusionsFromUrl($url);
 
         $parts = parse_url($url);
 
@@ -238,11 +234,28 @@ class URL extends Type implements interfaces\URL
 
         $url = isset($parts['path']) ? $parts['path'] : '';
 
-        $url = $this->context->context->languages->removeScriptNameFromUrl($url);
+        $url = $this->context->context->localization->removeScriptNameFromUrl($url);
 
         $url = rtrim($url, '/');
 
         return true;
+    }
+
+    /**
+     * Validate before translate
+     * Take parts that must be preserved to concat
+     * after translate paths
+     *
+     *  Removing script name from url to make avoid
+     *  that translatable part of url is only working path
+     *
+     * @param string $url Translatable url
+     *
+     * @return bool
+     */
+    protected function validateBeforeTranslate(string &$url): bool
+    {
+        return $this->prepareUrlToProcess($url);
     }
 
 
@@ -399,6 +412,24 @@ class URL extends Type implements interfaces\URL
     }
 
     /**
+     * Remove exclusions from url
+     *
+     * @param string $url URL
+     *
+     * @return string
+     */
+    protected function removeExclusionsFromUrl(string $url): string
+    {
+        $path_exclusion_patterns = array_filter($this->path_exclusion_patterns);
+
+        foreach ($path_exclusion_patterns as $pattern) {
+            $url = preg_replace($pattern, '', $url);
+        }
+
+        return $url ?? '';
+    }
+
+    /**
      * Validate URL before ReTranslate
      *
      * @param string $url Re translatable URL
@@ -407,32 +438,7 @@ class URL extends Type implements interfaces\URL
      */
     protected function validateBeforeReTranslate(&$url): bool
     {
-        $url = trim($url, ' ');
-
-        foreach ($this->path_exclusion_patterns as $pattern) {
-            $url = preg_replace($pattern, '', $url);
-        }
-
-        $parts = parse_url($url);
-
-        foreach ($this->url_validation_rules as $key => $rules) {
-            if (!isset($parts[$key])) {
-                $parts[$key] = '';
-            }
-            foreach ($rules as $rule) {
-                if (!preg_match("/$rule/", $parts[$key])) {
-                    return false;
-                }
-            }
-        }
-
-        $url = isset($parts['path']) ? $parts['path'] : '';
-
-        $url = $this->context->context->languages->removeScriptNameFromUrl($url);
-
-        $url = rtrim($url, '/');
-
-        return true;
+        return $this->prepareUrlToProcess($url);
     }
 
     /**
@@ -455,7 +461,7 @@ class URL extends Type implements interfaces\URL
 
         $result[$before] = \NovemBit\i18n\system\helpers\URL::removeQueryVars(
             $result[$before],
-            $this->context->context->languages->getLanguageQueryKey()
+            $this->context->context->localization->getLanguageQueryKey()
         );
 
         return parent::validateAfterReTranslate(
@@ -498,5 +504,4 @@ class URL extends Type implements interfaces\URL
 
         return $prefix . parent::getCacheKey($from_language, $to_languages, $texts);
     }
-
 }

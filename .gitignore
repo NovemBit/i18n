@@ -4,3 +4,5 @@ composer.lock
 composer.phar
 config.php
 runtime/*
+/.php_cs.cache
+/.phpunit.result.cache

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace NovemBit\i18n\system\interfaces;
-
 
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
@@ -23,4 +21,5 @@ interface Component
 
     public static function defaultConfig(): array;
 
+    public function reInit(?array $config = null): void;
 }
