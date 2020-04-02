@@ -2,8 +2,11 @@
 
 namespace NovemBit\tests\i18n;
 
+use Doctrine\DBAL\ConnectionException;
+use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use NovemBit\i18n\Module;
 use PHPUnit\Framework\TestCase;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Class BasicTest
@@ -15,9 +18,9 @@ class BasicTest extends TestCase
      * @param $url
      * @param $language
      * @param $final
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws ConnectionException
+     * @throws UnsupportedLanguagesException
+     * @throws InvalidArgumentException
      */
     public function testAdd($url, $language, $final): void
     {
