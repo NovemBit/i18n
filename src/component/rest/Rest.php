@@ -35,6 +35,11 @@ class Rest extends Component implements interfaces\Rest
 {
 
     /**
+     * @var string
+     */
+    public $welcome = 'NovemBit I18n v1.3';
+
+    /**
      * Api keys list
      *
      * @var string[]
@@ -96,7 +101,7 @@ class Rest extends Component implements interfaces\Rest
 
             $actionMethod = $this->actionPrefix;
 
-            $this->_validateAPI();
+            $this->validateAPI();
 
             if (!isset($this->api_key)) {
                 $actionMethod .= $this->restrictAction;
@@ -121,7 +126,7 @@ class Rest extends Component implements interfaces\Rest
      *
      * @return void
      */
-    private function _validateAPI()
+    private function validateAPI(): void
     {
         if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys)) {
             $this->api_key = $_GET['api_key'];
@@ -180,6 +185,8 @@ class Rest extends Component implements interfaces\Rest
             }
         }
 
+        $result['welcome'] = $this->welcome;
+        
         return $result;
     }
 
