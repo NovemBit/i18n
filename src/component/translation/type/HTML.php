@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -13,12 +14,11 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use DOMDocument;
 use DOMElement;
 use DOMText;
 use DOMXPath;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\system\helpers\Languages;
-
 
 /**
  * HTML type for translation component
@@ -51,7 +51,7 @@ class HTML extends XML implements interfaces\HTML
      *
      * @var string|callable
      * */
-    public $title_tag_template = "{translate} | {language_name}, {country}";
+    public $title_tag_template = '{translate} | {language_name}, {country}';
 
     /**
      * Model class name of ActiveRecord
@@ -74,7 +74,6 @@ class HTML extends XML implements interfaces\HTML
         string $xml,
         string $language
     ): \NovemBit\i18n\system\parsers\XML {
-
         $this->addAfterParseCallback(
             function ($xpath) use ($language) {
                 /**
@@ -85,25 +84,27 @@ class HTML extends XML implements interfaces\HTML
                  */
                 $html = $xpath->query('//html')->item(0);
 
-                if (! $html) {
+                if (!$html) {
                     return;
                 }
 
                 $html->setAttribute('lang', $language);
-                $dir = Languages::getLanguage($language, 'alpha1', 'dir');
+                $dir = $this->context->context->localization->languages->getByPrimary($language, 'alpha1', 'dir');
+
+                //$dir = Languages::getLanguage($language, 'alpha1', 'dir');
 
                 /**
                  * Set html dir="rtl" attribute
                  * When language dir set rtl
                  * */
-                if ($dir == 'rtl') {
+                if ($dir === 'rtl') {
                     $html->setAttribute('dir', 'rtl');
                 }
             }
         );
 
         $this->addAfterParseCallback(
-            function (DOMXPath $xpath, \DOMDocument $dom) use ($language) {
+            function (DOMXPath $xpath, DOMDocument $dom) use ($language) {
                 /**
                  * Setting var types
                  *
@@ -112,11 +113,9 @@ class HTML extends XML implements interfaces\HTML
                  */
                 $title = $xpath->query('//html/head/title/text()')->item(0);
                 if ($title !== null) {
-
-                    $language_name = $this->context->context->languages
-                        ->getLanguageNameByCode($language);
-                    $country_name  = $this->context->getCountry();
-                    $region_name   = $this->context->getRegion();
+                    $language_name = $this->context->context->localization->languages->getLanguageNameByCode($language);
+                    $country_name = $this->context->getCountry();
+                    $region_name = $this->context->getRegion();
 
                     $translator = $this->getTranslation()->text;
 
@@ -128,50 +127,48 @@ class HTML extends XML implements interfaces\HTML
                         ->translate([$language_name, $country_name, $region_name]);
 
                     $language_native_name = $_translations[$language_name][$language]
-                                            ?? $language_name;
+                        ?? $language_name;
 
                     $country_native_name = $_translations[$country_name][$language]
-                                           ?? $country_name;
+                        ?? $country_name;
 
                     $region_native_name = $_translations[$region_name][$language]
-                                          ?? $region_name;
+                        ?? $region_name;
 
                     if (is_callable($this->title_tag_template)) {
                         $title->data = call_user_func(
                             $this->title_tag_template,
                             [
-                                'translate'       => $title->data,
-                                'language_code'   => $language,
-                                'language_name'   => $language_name,
+                                'translate' => $title->data,
+                                'language_code' => $language,
+                                'language_name' => $language_name,
                                 'language_native' => $language_native_name,
-                                'country'         => $country_name,
-                                'country_native'  => $country_native_name,
-                                'region'          => $region_name,
-                                'region_native'   => $region_native_name
+                                'country' => $country_name,
+                                'country_native' => $country_native_name,
+                                'region' => $region_name,
+                                'region_native' => $region_native_name
                             ]
                         );
                     } else {
                         $title->data = strtr(
-                            $this->title_tag_template, [
-                                '{translate}'       => $title->data,
-                                '{language_code}'   => $language,
-                                '{language_name}'   => $language_name,
+                            $this->title_tag_template,
+                            [
+                                '{translate}' => $title->data,
+                                '{language_code}' => $language,
+                                '{language_name}' => $language_name,
                                 '{language_native}' => $language_native_name,
-                                '{country}'         => $country_name,
-                                '{country_native}'  => $country_native_name,
-                                '{region}'          => $region_name,
-                                '{region_native}'   => $region_native_name
+                                '{country}' => $country_name,
+                                '{country_native}' => $country_native_name,
+                                '{region}' => $region_name,
+                                '{region_native}' => $region_native_name
                             ]
                         );
                     }
                 }
-
             }
         );
 
 
         return parent::getParser($xml, $language);
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Request component
  * php version 7.2.10
@@ -13,6 +14,7 @@
 
 namespace NovemBit\i18n\component\request;
 
+use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use Psr\SimpleCache\InvalidArgumentException;
 use Doctrine\DBAL\ConnectionException;
 use DOMDocument;
@@ -54,119 +56,119 @@ class Request extends Component implements interfaces\Request
      *
      * @var Translation
      * */
-    private $_translation;
+    private $translation;
 
     /**
      * Main content language
      *
      * @var string
      * */
-    private $_from_language;
+    private $from_language;
 
     /**
      * Languages of URL
      *
      * @var string
      * */
-    private $_language;
+    private $language;
 
     /**
      * Default language for current host
      *
      * @var string
      * */
-    private $_default_language;
+    private $default_language;
 
     /**
      * Country name
      *
      * @var string
      * */
-    private $_country;
+    private $country;
 
     /**
      * Region name
      *
      * @var string
      * */
-    private $_region;
+    private $region;
 
     /**
      * Ready status
      *
      * @var bool
      * */
-    private $_ready = false;
+    private $ready = false;
 
     /**
      * Language of Referer
      *
      * @var string
      * */
-    private $_referer_language;
+    private $referer_language;
 
     /**
      * Original Destination (REQUEST_URI)
      *
      * @var string
      * */
-    private $_destination;
+    private $destination;
 
     /**
      * Original Referer (HTTP_REFERER)
      *
      * @var string
      * */
-    private $_referer;
+    private $referer;
 
     /**
      * Source url
      *
      * @var string
      * */
-    private $_source_url;
+    private $source_url;
 
     /**
      * Referer Source url
      *
      * @var string
      * */
-    private $_referer_source_url;
+    private $referer_source_url;
 
     /**
      * Translations of url
      *
      * @var array
      * */
-    private $_url_translations;
+    private $url_translations;
 
     /**
      * Editor urls
      *
      * @var array
      * */
-    private $_editor_url_translations = [];
+    private $editor_url_translations = [];
 
     /**
      * Translations of referer
      *
      * @var array
      * */
-    private $_referer_translations;
+    private $referer_translations;
 
     /**
      * Editor status (enabled/disabled)
      *
      * @var bool
      * */
-    private $_is_editor = false;
+    private $is_editor = false;
 
     /**
      * Orig request uri
      *
      * @var string
      * */
-    private $_orig_request_uri;
+    private $orig_request_uri;
 
     /**
      * Allow to use editor
@@ -180,7 +182,7 @@ class Request extends Component implements interfaces\Request
      *
      * @var string
      * */
-    public $editor_query_key = "editor";
+    public $editor_query_key = 'editor';
 
     /**
      * Callback function to run after editor save
@@ -279,6 +281,13 @@ class Request extends Component implements interfaces\Request
     public $restore_non_translated_urls = true;
 
     /**
+     * Redirect from https://test.com/fr/ to https://test.fr
+     *
+     * @var bool
+     * */
+    public $localization_redirects = true;
+
+    /**
      * Get allowed request methods
      *
      * @return array
@@ -295,7 +304,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getVerbose(): array
     {
-        return $this->_verbose;
+        return $this->verbose;
     }
 
     /**
@@ -307,13 +316,21 @@ class Request extends Component implements interfaces\Request
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultHttpHost(): string
+    {
+        return $this->default_http_host;
+    }
+
+    /**
      * Get orig request uri
      *
      * @return string
      */
     public function getOrigRequestUri(): string
     {
-        return $this->_orig_request_uri;
+        return $this->orig_request_uri;
     }
 
     /**
@@ -323,9 +340,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setOrigRequestUri(string $orig_request_uri): void
+    private function setOrigRequestUri(string $orig_request_uri): void
     {
-        $this->_orig_request_uri = $orig_request_uri;
+        $this->orig_request_uri = $orig_request_uri;
     }
 
     /**
@@ -335,7 +352,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getRefererSourceUrl(): ?string
     {
-        return $this->_referer_source_url;
+        return $this->referer_source_url;
     }
 
     /**
@@ -345,9 +362,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setRefererSourceUrl(?string $_referer_source_url): void
+    private function setRefererSourceUrl(?string $_referer_source_url): void
     {
-        $this->_referer_source_url = $_referer_source_url;
+        $this->referer_source_url = $_referer_source_url;
     }
 
     /**
@@ -357,7 +374,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getRefererTranslations(): ?array
     {
-        return $this->_referer_translations;
+        return $this->referer_translations;
     }
 
     /**
@@ -367,9 +384,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setRefererTranslations(array $_referer_translations): void
+    private function setRefererTranslations(array $_referer_translations): void
     {
-        $this->_referer_translations = $_referer_translations;
+        $this->referer_translations = $_referer_translations;
     }
 
     /**
@@ -380,8 +397,9 @@ class Request extends Component implements interfaces\Request
      * @param string $to_language Language of translated string
      *
      * @return string|null
+     * @throws UnsupportedLanguagesException
      */
-    private function _getSourceUrlFromTranslate(
+    private function getSourceUrlFromTranslate(
         string $translate,
         string $to_language
     ): ?string {
@@ -390,19 +408,15 @@ class Request extends Component implements interfaces\Request
             ->url
             ->reTranslate([$translate]);
 
-        if (isset($re_translate[$translate])) {
-            return $re_translate[$translate];
-        }
-
-        return null;
+        return $re_translate[$translate] ?? null;
     }
 
     /**
-     * Prepare Destination to finding source
+     * Prepare Destination to find source
      *
      * @return bool
      */
-    private function _prepareDestination(): bool
+    private function prepareDestination(): bool
     {
         $request_uri = Environment::server('REQUEST_URI');
         if ($request_uri === null) {
@@ -412,16 +426,52 @@ class Request extends Component implements interfaces\Request
         $dest = '/' . trim($request_uri, '/');
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->languages->getLanguageQueryKey()
+            $this->context->localization->getLanguageQueryKey()
         );
 
         $dest = URL::removeQueryVars(
             $dest,
-            $this->context->prefix . "-" . $this->editor_query_key
+            $this->context->prefix . '-' . $this->editor_query_key
         );
 
         $dest = urldecode($dest);
-        $this->_setDestination($dest);
+
+        $this->setDestination($dest);
+
+        /**
+         * Make sure the localized url is equals to current
+         * Destination url, if not then redirects to localized url
+         * */
+        if (
+            $this->localization_redirects
+            && !in_array(
+                Environment::server('HTTP_HOST'),
+                $this->context->localization->getGlobalDomains(),
+                true
+            )
+        ) {
+            $localized_url = $this->context->localization->addLanguageToUrl(
+                $dest,
+                $this->getLanguage(),
+                Environment::server('HTTP_HOST')
+            );
+
+            $localized_url_parts = parse_url($localized_url);
+
+            /**
+             * 1. If in localized url parts exists hosts
+             * 2. If current host is not default host
+             * Because default host should be used as global domain
+             * And support all languages
+             * 3. If localized url host is not equal server current http host
+             * */
+            if (
+                isset($localized_url_parts['host'])
+                && $localized_url_parts['host'] !== Environment::server('HTTP_HOST')
+            ) {
+                $this->redirect($localized_url);
+            }
+        }
 
         return true;
     }
@@ -433,7 +483,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getReferer(): ?string
     {
-        return $this->_referer;
+        return $this->referer;
     }
 
     /**
@@ -443,9 +493,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setReferer(string $_referer): void
+    private function setReferer(string $_referer): void
     {
-        $this->_referer = $_referer;
+        $this->referer = $_referer;
     }
 
     /**
@@ -453,24 +503,25 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
+     * @throws UnsupportedLanguagesException
      */
-    private function _prepareReferer(): bool
+    private function prepareReferer(): bool
     {
         $http_referer = Environment::server('HTTP_REFERER');
         if ($http_referer !== null) {
-            $this->_prepareRefererLanguage();
+            $this->prepareRefererLanguage();
 
             $referer = trim($http_referer, '/');
             $referer = URL::removeQueryVars(
                 $referer,
-                $this->context->languages->getLanguageQueryKey()
+                $this->context->localization->getLanguageQueryKey()
             );
 
             $referer = urldecode($referer);
 
-            $this->_setReferer($referer);
+            $this->setReferer($referer);
 
-            $this->_prepareRefererSourceUrl();
+            $this->prepareRefererSourceUrl();
         }
 
         return true;
@@ -481,21 +532,22 @@ class Request extends Component implements interfaces\Request
      * To create response document
      *
      * @return bool
+     * @throws UnsupportedLanguagesException
      */
-    private function _prepareRefererSourceUrl(): bool
+    private function prepareRefererSourceUrl(): bool
     {
         /*
          * If current language is default language
          * Then translate current url for all languages
          * */
-        if ($this->getRefererLanguage() == $this->getFromLanguage()) {
-            $this->_setRefererSourceUrl($this->getReferer());
+        if ($this->getRefererLanguage() === $this->getFromLanguage()) {
+            $this->setRefererSourceUrl($this->getReferer());
         } else {
             /*
             * Set referrer source origin URL
             * */
-            $this->_setRefererSourceUrl(
-                $this->_getSourceUrlFromTranslate(
+            $this->setRefererSourceUrl(
+                $this->getSourceUrlFromTranslate(
                     $this->getReferer(),
                     $this->getRefererLanguage()
                 )
@@ -518,11 +570,10 @@ class Request extends Component implements interfaces\Request
      * @throws RequestException
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws UnsupportedLanguagesException
      */
-    private function _prepareSourceUrl(): bool
+    private function prepareSourceUrl(): bool
     {
-        $is_root_path = parse_url($this->getDestination(), PHP_URL_PATH) == '/';
-
         $db_connection = $this->context->db->getConnection();
 
         $db_connection->beginTransaction();
@@ -531,11 +582,12 @@ class Request extends Component implements interfaces\Request
          * If current language is from_language
          * Then translate current url for all languages
          * */
-        if ($this->getLanguage() == $this->getFromLanguage()
-            || $is_root_path
+        if (
+            $this->getLanguage() === $this->getFromLanguage()
+            || parse_url($this->getDestination(), PHP_URL_PATH) === '/' // Is root path
             || !$this->getTranslation()->url->isPathTranslation()
         ) {
-            $this->_setUrlTranslations(
+            $this->setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->getAcceptLanguages())
                     ->url->translate(
@@ -550,13 +602,13 @@ class Request extends Component implements interfaces\Request
             /**
              * Set source origin URL
              * */
-            $this->_setSourceUrl($this->getDestination());
+            $this->setSourceUrl($this->getDestination());
         } else {
             /**
              * Set source origin URL
              * */
-            $this->_setSourceUrl(
-                $this->_getSourceUrlFromTranslate(
+            $this->setSourceUrl(
+                $this->getSourceUrlFromTranslate(
                     $this->getDestination(),
                     $this->getLanguage()
                 )
@@ -566,7 +618,7 @@ class Request extends Component implements interfaces\Request
             /**
              * Set current url all translations
              * */
-            $this->_setUrlTranslations(
+            $this->setUrlTranslations(
                 $this->getTranslation()
                     ->setLanguages($this->getAcceptLanguages())
                     ->url
@@ -589,29 +641,31 @@ class Request extends Component implements interfaces\Request
          * Handling 404 action page
          * Running page_not_found callable
          * */
-        if ($this->getDestination() != null && $this->getSourceUrl() == null) {
+        if ($this->getDestination() !== null && $this->getSourceUrl() === null) {
             if ($this->restore_non_translated_urls === true) {
-                $restored_url = $this->_restoreNonTranslatedUrl(
+                $restored_url = $this->restoreNonTranslatedUrl(
                     $this->getDestination(),
                     $this->getLanguage()
                 );
 
                 if ($restored_url !== null) {
-                    $this->_redirect($restored_url);
+                    $this->redirect($restored_url);
                 }
             }
 
             $db_connection->rollBack();
 
 
-            if (isset($this->on_page_not_found)
+            if (
+                isset($this->on_page_not_found)
                 && is_callable($this->on_page_not_found)
             ) {
                 call_user_func($this->on_page_not_found, $this);
+
                 return false;
-            } else {
-                throw new  RequestException("404 Not Found", 404);
             }
+
+            throw new  RequestException('404 Not Found', 404);
         }
 
         try {
@@ -638,6 +692,7 @@ class Request extends Component implements interfaces\Request
                 }
             }
         );
+
         return true;
     }
 
@@ -648,9 +703,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _redirect(string $url)
+    private function redirect(string $url): void
     {
-        header("Location: " . $url);
+        header('Location: ' . $url);
         exit;
     }
 
@@ -663,8 +718,9 @@ class Request extends Component implements interfaces\Request
      * @return string|null
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws UnsupportedLanguagesException
      */
-    private function _restoreNonTranslatedUrl(
+    private function restoreNonTranslatedUrl(
         ?string $url,
         string $language
     ): ?string {
@@ -679,7 +735,7 @@ class Request extends Component implements interfaces\Request
                     true
                 )[$url][$language] ?? null;
 
-        if ($url == null) {
+        if ($url === null) {
             return null;
         }
 
@@ -692,15 +748,18 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _isExclusion(): bool
+    private function isExclusion(): bool
     {
         foreach ($this->exclusions as $exclusion) {
             if (is_callable($exclusion)) {
-                return call_user_func($exclusion, $this);
-            } else {
-                return $exclusion;
+                if ($exclusion($this) === true) {
+                    return true;
+                }
+            } elseif ($exclusion === true) {
+                return true;
             }
         }
+
         return false;
     }
 
@@ -708,23 +767,24 @@ class Request extends Component implements interfaces\Request
      * Prepare all components to start request translation
      * And to create response document
      *
-     * @return boolean
+     * @return bool
      *
      * @throws RequestException
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws UnsupportedLanguagesException
      */
-    private function _prepare(): bool
+    private function prepare(): bool
     {
-        $this->_setTranslation($this->context->translation);
-        $this->_setFromLanguage($this->context->languages->getFromLanguage());
+        $this->setTranslation($this->context->translation);
+        $this->setFromLanguage($this->context->localization->getFromLanguage());
 
-        return $this->_prepareLanguage()
-            && $this->_prepareRegion()
-            && $this->_prepareCountry()
-            && $this->_prepareDestination()
-            && $this->_prepareSourceUrl()
-            && $this->_prepareReferer();
+        return $this->prepareLanguage()
+            && $this->prepareRegion()
+            && $this->prepareCountry()
+            && $this->prepareDestination()
+            && $this->prepareSourceUrl()
+            && $this->prepareReferer();
     }
 
     /**
@@ -734,7 +794,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getRefererLanguage(): string
     {
-        return $this->_referer_language;
+        return $this->referer_language;
     }
 
     /**
@@ -744,9 +804,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setRefererLanguage(string $_referer_language): void
+    private function setRefererLanguage(string $_referer_language): void
     {
-        $this->_referer_language = $_referer_language;
+        $this->referer_language = $_referer_language;
     }
 
     /**
@@ -754,7 +814,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _prepareRefererLanguage(): bool
+    private function prepareRefererLanguage(): bool
     {
         $http_referer = Environment::server('HTTP_REFERER');
 
@@ -769,15 +829,15 @@ class Request extends Component implements interfaces\Request
         /**
          * Taking language from current `$_SERVER['REQUEST_URI']`
          * */
-        $language = $this->context->languages
+        $language = $this->context->localization
             ->getLanguageFromUrl($http_referer);
 
         /**
          * If language does not exists in `$http_referer`
          * */
-        if ($language == null) {
+        if ($language === null) {
             $language = $this->context
-                ->languages
+                ->localization
                 ->getDefaultLanguage(
                     Environment::server('HTTP_HOST')
                 );
@@ -786,12 +846,12 @@ class Request extends Component implements interfaces\Request
         /*
          * Setting current instance language
          * */
-        $this->_setRefererLanguage($language);
+        $this->setRefererLanguage($language);
 
         /*
          * Remove Language from URI
          * */
-        $http_referer = $this->_removeLanguageFromURI($http_referer);
+        $http_referer = $this->removeLanguageFromURI($http_referer);
 
         /**
          * Change HTTP_REFERER value
@@ -806,7 +866,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _prepareLanguage(): bool
+    private function prepareLanguage(): bool
     {
         /**
          * Check if tried to access from cli
@@ -816,7 +876,7 @@ class Request extends Component implements interfaces\Request
         if ($request_uri !== null) {
             Environment::server('ORIG_REQUEST_URI', $request_uri);
 
-            $this->_setOrigRequestUri(
+            $this->setOrigRequestUri(
                 URL::removeQueryVars(
                     $request_uri,
                     $this->context->prefix . '-' . $this->editor_query_key
@@ -824,36 +884,35 @@ class Request extends Component implements interfaces\Request
             );
         }
 
-        $this->_setDefaultLanguage(
-            $this->context
-                ->languages
+        $this->setDefaultLanguage(
+            $this->context->localization
                 ->getDefaultLanguage(Environment::server('HTTP_HOST'))
         );
 
         /**
          * Taking language from current @REQUEST_URI
          * */
-        $language = $this->context->languages
+        $language = $this->context->localization
             ->getLanguageFromUrl($request_uri);
 
         /**
          * If language does not exists in @URL
          * */
-        if ($language == null) {
+        if ($language === null) {
             $language = $this->getDefaultLanguage();
         }
 
         /**
          * Setting current instance language
          * */
-        $this->_setLanguage($language);
+        $this->setLanguage($language);
 
         $url = Environment::server('REQUEST_URI');
 
         /**
          * Remove Language from URI
          * */
-        $new_url = $this->_removeLanguageFromURI($url);
+        $new_url = $this->removeLanguageFromURI($url);
 
         /**
          * When user trying to access url that contains `domain`
@@ -868,10 +927,11 @@ class Request extends Component implements interfaces\Request
          *
          * @since 1.1.0
          * */
-        if (rtrim($new_url, '/') != rtrim($url, '/')
-            && $this->getDefaultLanguage() == $this->getLanguage()
+        if (
+            rtrim($new_url, '/') !== rtrim($url, '/')
+            && $this->getDefaultLanguage() === $this->getLanguage()
         ) {
-            $this->_redirect($new_url);
+            $this->redirect($new_url);
         }
 
         /**
@@ -889,7 +949,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getCountry(): ?string
     {
-        return $this->_country;
+        return $this->country;
     }
 
     /**
@@ -899,9 +959,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setCountry(?string $country): void
+    private function setCountry(?string $country): void
     {
-        $this->_country = $country;
+        $this->country = $country;
     }
 
     /**
@@ -911,9 +971,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setRegion(?string $region): void
+    private function setRegion(?string $region): void
     {
-        $this->_region = $region;
+        $this->region = $region;
     }
 
     /**
@@ -923,7 +983,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getRegion(): ?string
     {
-        return $this->_region;
+        return $this->region;
     }
 
     /**
@@ -931,31 +991,30 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _prepareCountry(): bool
+    private function prepareCountry(): bool
     {
-        $country = $this->context
-            ->languages
-            ->getDefaultCountry(Environment::server('HTTP_HOST'));
+        $country = $this->context->localization->countries
+            ->getConfig(Environment::server('HTTP_HOST'), 'name');
 
-        $this->_setCountry($country);
+        $this->setCountry($country);
 
         $this->getTranslation()->setCountry($this->getCountry());
 
         return true;
     }
 
+
     /**
-     * Prepare country
+     * Prepare region
      *
      * @return bool
      */
-    private function _prepareRegion(): bool
+    private function prepareRegion(): bool
     {
-        $country = $this->context
-            ->languages
-            ->getDefaultRegion(Environment::server('HTTP_HOST') ?? null);
+        $region = $this->context->localization->regions
+            ->getConfig(Environment::server('HTTP_HOST'), 'name');
 
-        $this->_setRegion($country);
+        $this->setRegion($region);
 
         $this->getTranslation()->setRegion($this->getRegion());
 
@@ -969,13 +1028,13 @@ class Request extends Component implements interfaces\Request
      *
      * @return string
      */
-    private function _removeLanguageFromURI(?string $uri): string
+    private function removeLanguageFromURI(?string $uri): string
     {
         $parts = parse_url(trim($uri, '/'));
         if (isset($parts['path'])) {
             $path = explode('/', ltrim($parts['path'], '/'));
 
-            if ($this->context->languages->validateLanguage($path[0])) {
+            if ($this->context->localization->validateLanguage($path[0])) {
                 unset($path[0]);
             }
             $parts['path'] = implode('/', $path);
@@ -991,12 +1050,12 @@ class Request extends Component implements interfaces\Request
     /**
      * Get type of response
      *
-     * @param $source  null|string Source
-     * @param $content null|string Content
+     * @param null|string $source Source
+     * @param null|string $content Content
      *
      * @return string|null
      */
-    private function _getType(?string $source, ?string $content): ?string
+    private function getType(?string $source, ?string $content): ?string
     {
         foreach ($this->source_type_map as $pattern => $type) {
             if (preg_match($pattern, $source)) {
@@ -1015,16 +1074,17 @@ class Request extends Component implements interfaces\Request
      * @return string
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws UnsupportedLanguagesException
      */
-    private function _translateBuffer(?string $content): ?string
+    private function translateBuffer(?string $content): ?string
     {
         $status = http_response_code();
 
         /*
          * If response status is success
          * */
-        if (in_array($status, range(200, 299))) {
-            $type = $this->_getType($this->getSourceUrl(), $content);
+        if (in_array($status, range(200, 299), true)) {
+            $type = $this->getType($this->getSourceUrl(), $content);
 
             if ($type !== null) {
                 /**
@@ -1046,7 +1106,7 @@ class Request extends Component implements interfaces\Request
                     $translator->setHelperAttributes(true);
                 }
 
-                if ($type == "html") {
+                if ($type === 'html') {
                     /**
                      * Define type of HTML translator
                      *
@@ -1057,11 +1117,11 @@ class Request extends Component implements interfaces\Request
                         function (DOMXPath $xpath, DOMDocument $dom) {
                             $head = $xpath->query('//html/head')->item(0);
                             if ($head !== null) {
-                                $this->_addMainJavaScriptNode($dom, $head);
-                                $this->_addXHRManipulationJavaScript($dom, $head);
-                                $this->_addAlternateLinkNodes($dom, $head);
+                                $this->addMainJavaScriptNode($dom, $head);
+                                $this->addXHRManipulationJavaScript($dom, $head);
+                                $this->addAlternateLinkNodes($dom, $head);
                                 if ($this->allow_editor) {
-                                    $this->_addEditorAssets($dom, $head);
+                                    $this->addEditorAssets($dom, $head);
                                 }
                             }
                         }
@@ -1084,9 +1144,9 @@ class Request extends Component implements interfaces\Request
             }
         }
 
-        $this->_verbose['end'] = microtime(true);
-        $this->_verbose['duration'] = $this->_verbose['start']
-            - $this->_verbose['end'];
+        $this->verbose['end'] = microtime(true);
+        $this->verbose['duration'] = $this->verbose['start']
+            - $this->verbose['end'];
 
         return $content;
     }
@@ -1096,13 +1156,10 @@ class Request extends Component implements interfaces\Request
      *
      * @return bool
      */
-    private function _editorSave(): bool
+    private function editorSave(): bool
     {
-        if ($this->isEditor()
-            && isset($_POST[$this->context->prefix . '-form'])
-        ) {
-            $nodes = $_POST[$this->context->prefix . '-form'];
-
+        $nodes = Environment::post($this->context->prefix . '-form');
+        if ($nodes !== null && $this->isEditor()) {
             $result = [];
 
             foreach ($nodes as $source => $translate) {
@@ -1123,7 +1180,8 @@ class Request extends Component implements interfaces\Request
 
             if (is_callable($this->editor_after_save_callback)) {
                 call_user_func_array(
-                    $this->editor_after_save_callback, [&$verbose, $this]
+                    $this->editor_after_save_callback,
+                    [&$verbose, $this]
                 );
             }
 
@@ -1137,7 +1195,7 @@ class Request extends Component implements interfaces\Request
     }
 
 
-    private $_verbose = [];
+    private $verbose = [];
 
     /**
      * Start request translation
@@ -1146,22 +1204,21 @@ class Request extends Component implements interfaces\Request
      * @throws RequestException
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws UnsupportedLanguagesException
      */
     public function start(): void
     {
-        $this->_verbose['start'] = microtime(true);
+        $this->verbose['start'] = microtime(true);
 
-        if ($this->isCli()
-            || $this->_isExclusion()
-            || !in_array(
-                Environment::server('REQUEST_METHOD'),
-                $this->getAcceptRequestMethods()
-            )
+        if (
+            $this->isCli()
+            || $this->isExclusion()
+            || !in_array(Environment::server('REQUEST_METHOD'), $this->getAcceptRequestMethods(), true)
         ) {
             return;
         }
 
-        if (!$this->_prepare()) {
+        if (!$this->prepare()) {
             return;
         }
 
@@ -1176,14 +1233,14 @@ class Request extends Component implements interfaces\Request
              * */
             if ($this->getUrlTranslations() !== null) {
                 foreach ($this->getUrlTranslations() as $language => $url) {
-                    if ($language == $this->getFromLanguage()) {
+                    if ($language === $this->getFromLanguage()) {
                         continue;
                     }
 
-                    $this->_editor_url_translations[$language] = URL::addQueryVars(
+                    $this->editor_url_translations[$language] = URL::addQueryVars(
                         $url,
                         sprintf(
-                            "%s-%s",
+                            '%s-%s',
                             $this->context->prefix,
                             $this->editor_query_key
                         ),
@@ -1192,26 +1249,28 @@ class Request extends Component implements interfaces\Request
                 }
             }
 
-            if (isset($_GET[$this->context->prefix . '-' . $this->editor_query_key])
-                && ($this->getLanguage() != $this->getFromLanguage())
+            if (
+                Environment::get($this->context->prefix . '-' . $this->editor_query_key) !== null
+                && ($this->getLanguage() !== $this->getFromLanguage())
             ) {
-                $this->_is_editor = true;
+                $this->is_editor = true;
             }
 
-            if ($this->_editorSave()) {
+            if ($this->editorSave()) {
                 die;
             }
         }
 
-        $this->_setReady(true);
+        $this->setReady(true);
 
         /**
          * Prevent pages with main(from_language) and default language translation
          * */
-        if (($this->getFromLanguage() !== $this->getLanguage())
-            || ($this->default_http_host != Environment::server('HTTP_HOST'))
+        if (
+            ($this->default_http_host !== Environment::server('HTTP_HOST'))
+            || ($this->getFromLanguage() !== $this->getLanguage())
         ) {
-            ob_start([$this, '_translateBuffer']);
+            ob_start([$this, 'translateBuffer']);
         }
     }
 
@@ -1225,7 +1284,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _addAlternateLinkNodes(DOMDocument $dom, DOMNode $parent): void
+    private function addAlternateLinkNodes(DOMDocument $dom, DOMNode $parent): void
     {
         if ($this->getUrlTranslations() !== null) {
             foreach ($this->getUrlTranslations() as $language => $translate) {
@@ -1242,16 +1301,36 @@ class Request extends Component implements interfaces\Request
      * Get Accepted languages
      *
      * @param bool $assoc Return all related info for language
-     * 
+     *
      * @return array
      */
-    public function getAcceptLanguages(bool $assoc = false)
+    public function getAcceptLanguages(bool $assoc = false): array
     {
-        return $this->context->languages
+        return $this->context->localization
             ->getAcceptLanguages(
-                $assoc,
-                Environment::server('HTTP_HOST')
+                Environment::server('HTTP_HOST'),
+                $assoc
             );
+    }
+
+    /**
+     * @return array
+     */
+    public function getActiveLanguages(): array
+    {
+        return $this->context->localization->getActiveLanguages(
+            Environment::server('HTTP_HOST')
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGlobalDomain(): bool
+    {
+        return $this->context->localization->isGlobalDomain(
+            Environment::server('HTTP_HOST')
+        );
     }
 
     /**
@@ -1263,8 +1342,8 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _addMainJavaScriptNode(
-        DOMDocument &$dom,
+    private function addMainJavaScriptNode(
+        DOMDocument $dom,
         DOMNode $parent
     ): void {
         $config = json_encode(
@@ -1273,8 +1352,7 @@ class Request extends Component implements interfaces\Request
                     'current_language' => $this->getLanguage(),
                     'default_language' => $this->getDefaultLanguage(),
                     'accept_languages' => $this->getAcceptLanguages(true),
-                    'language_query_key' => $this->context->languages
-                        ->getLanguageQueryKey(),
+                    'language_query_key' => $this->context->localization->getLanguageQueryKey(),
                     'editor' => [
                         'is_editor' => $this->isEditor(),
                         'query_key' => $this->editor_query_key,
@@ -1308,7 +1386,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _addEditorAssets(DOMDocument $dom, DOMNode $parent): void
+    private function addEditorAssets(DOMDocument $dom, DOMNode $parent): void
     {
         $script = file_get_contents(__DIR__ . '/assets/js/editor.js');
         $scriptNode = $dom->createElement('script');
@@ -1321,14 +1399,14 @@ class Request extends Component implements interfaces\Request
         $css = str_replace('__PREFIX', $this->context->prefix, $css);
         foreach ($this->custom_translation_level_colors as $level => $color) {
             $css .= sprintf(
-                "%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }",
+                '%s#%s-editor-wrapper .level-%d-bg { background-color: %s; }',
                 PHP_EOL,
                 $this->context->prefix,
                 $level,
                 $color
             );
             $css .= sprintf(
-                "%s#%s-editor-wrapper .level-%d { color: %s; }",
+                '%s#%s-editor-wrapper .level-%d { color: %s; }',
                 PHP_EOL,
                 $this->context->prefix,
                 $level,
@@ -1351,7 +1429,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _addXHRManipulationJavaScript(
+    private function addXHRManipulationJavaScript(
         DOMDocument $dom,
         DOMNode $parent
     ): void {
@@ -1369,7 +1447,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getDestination(): string
     {
-        return $this->_destination;
+        return $this->destination;
     }
 
     /**
@@ -1379,9 +1457,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setDestination(string $destination): void
+    private function setDestination(string $destination): void
     {
-        $this->_destination = $destination;
+        $this->destination = $destination;
     }
 
     /**
@@ -1391,7 +1469,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getSourceUrl(): ?string
     {
-        return $this->_source_url;
+        return $this->source_url;
     }
 
     /**
@@ -1401,9 +1479,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setSourceUrl(?string $source_url): void
+    private function setSourceUrl(?string $source_url): void
     {
-        $this->_source_url = $source_url;
+        $this->source_url = $source_url;
     }
 
     /**
@@ -1413,7 +1491,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getUrlTranslations(): ?array
     {
-        return $this->_url_translations;
+        return $this->url_translations;
     }
 
     /**
@@ -1423,9 +1501,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setUrlTranslations(?array $url_translations): void
+    private function setUrlTranslations(?array $url_translations): void
     {
-        $this->_url_translations = $url_translations;
+        $this->url_translations = $url_translations;
     }
 
     /**
@@ -1435,8 +1513,9 @@ class Request extends Component implements interfaces\Request
      */
     public function getLanguage(): string
     {
-        return $this->_language;
+        return $this->language;
     }
+
 
     /**
      * Set Request current language
@@ -1445,9 +1524,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setLanguage(string $language): void
+    private function setLanguage(string $language): void
     {
-        $this->_language = $language;
+        $this->language = $language;
     }
 
     /**
@@ -1457,7 +1536,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getTranslation(): Translation
     {
-        return $this->_translation;
+        return $this->translation;
     }
 
     /**
@@ -1467,9 +1546,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setTranslation(Translation $translation): void
+    private function setTranslation(Translation $translation): void
     {
-        $this->_translation = $translation;
+        $this->translation = $translation;
     }
 
     /**
@@ -1479,7 +1558,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getFromLanguage(): string
     {
-        return $this->_from_language;
+        return $this->from_language;
     }
 
     /**
@@ -1489,9 +1568,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setFromLanguage(string $from_language): void
+    private function setFromLanguage(string $from_language): void
     {
-        $this->_from_language = $from_language;
+        $this->from_language = $from_language;
     }
 
     /**
@@ -1501,7 +1580,7 @@ class Request extends Component implements interfaces\Request
      */
     public function isEditor(): bool
     {
-        return $this->_is_editor;
+        return $this->is_editor;
     }
 
     /**
@@ -1511,7 +1590,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getEditorUrlTranslations(): array
     {
-        return $this->_editor_url_translations;
+        return $this->editor_url_translations;
     }
 
     /**
@@ -1521,7 +1600,7 @@ class Request extends Component implements interfaces\Request
      */
     public function isReady(): bool
     {
-        return $this->_ready;
+        return $this->ready;
     }
 
     /**
@@ -1531,9 +1610,9 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setReady(bool $ready): void
+    private function setReady(bool $ready): void
     {
-        $this->_ready = $ready;
+        $this->ready = $ready;
     }
 
     /**
@@ -1544,7 +1623,7 @@ class Request extends Component implements interfaces\Request
      */
     public function getDefaultLanguage(): string
     {
-        return $this->_default_language;
+        return $this->default_language;
     }
 
     /**
@@ -1554,8 +1633,8 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function _setDefaultLanguage(string $default_language): void
+    private function setDefaultLanguage(string $default_language): void
     {
-        $this->_default_language = $default_language;
+        $this->default_language = $default_language;
     }
 }

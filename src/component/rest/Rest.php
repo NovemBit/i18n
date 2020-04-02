@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -32,6 +33,11 @@ use Psr\SimpleCache\InvalidArgumentException;
  */
 class Rest extends Component implements interfaces\Rest
 {
+
+    /**
+     * @var string
+     */
+    public $welcome = 'NovemBit I18n v1.3';
 
     /**
      * Api keys list
@@ -73,7 +79,7 @@ class Rest extends Component implements interfaces\Rest
      *
      * @var string
      * */
-    private $_api_key;
+    private $api_key;
 
     /**
      * Start rest request
@@ -89,16 +95,15 @@ class Rest extends Component implements interfaces\Rest
         $re = '/^' . preg_quote($this->endpoint, '/') . "(.*)$/";
 
         if (preg_match($re, $endpoint, $matches)) {
-
             $action = trim($matches[1], '/');
 
             $actionMethodParts = array_filter(explode('-', $action));
 
             $actionMethod = $this->actionPrefix;
 
-            $this->_validateAPI();
+            $this->validateAPI();
 
-            if (!isset($this->_api_key)) {
+            if (!isset($this->api_key)) {
                 $actionMethod .= $this->restrictAction;
             } elseif (empty($actionMethodParts)) {
                 $actionMethod .= $this->defaultAction;
@@ -114,7 +119,6 @@ class Rest extends Component implements interfaces\Rest
                 die;
             }
         }
-
     }
 
     /**
@@ -122,10 +126,10 @@ class Rest extends Component implements interfaces\Rest
      *
      * @return void
      */
-    private function _validateAPI()
+    private function validateAPI(): void
     {
         if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys)) {
-            $this->_api_key = $_GET['api_key'];
+            $this->api_key = $_GET['api_key'];
         }
     }
 
@@ -142,18 +146,17 @@ class Rest extends Component implements interfaces\Rest
             'message' => 'Invalid parameters.'
         ];
 
-        if (isset($_POST['texts'])
+        if (
+            isset($_POST['texts'])
             && isset($_POST['languages'])
         ) {
 
             /**
              * Setting language component configuration
              * */
-            $languages_config = $_POST['languages_config'] ?? [];
+            $localization_config = $_POST['localization_config'] ?? null;
 
-            foreach ($languages_config as $key => $value) {
-                $this->context->languages->{$key} = $value;
-            }
+            $this->context->localization->reInit($localization_config);
 
             try {
                 $translate = $this->context
@@ -180,9 +183,10 @@ class Rest extends Component implements interfaces\Rest
                     'message' => $e->getMessage()
                 ];
             }
-
         }
 
+        $result['welcome'] = $this->welcome;
+        
         return $result;
     }
 
@@ -193,7 +197,7 @@ class Rest extends Component implements interfaces\Rest
      */
     public function actionIndex()
     {
-        return ['api_key' => $this->_api_key];
+        return ['api_key' => $this->api_key];
     }
 
     /**
@@ -206,5 +210,4 @@ class Rest extends Component implements interfaces\Rest
         http_response_code(403);
         return ['messages' => 'You don\'t have access to this endpoint.'];
     }
-
 }

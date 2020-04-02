@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -13,7 +14,6 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\Translation;
 
 /**
@@ -40,8 +40,10 @@ class Dummy extends Method
      *
      * @param array $texts Array of texts to translate
      *
+     * @param string $from_language
+     * @param array $to_languages
+     * @param bool $ignore_cache
      * @return array
-     * @throws TranslationException
      */
     protected function doTranslate(
         array $texts,
@@ -53,15 +55,11 @@ class Dummy extends Method
         $result = [];
 
         foreach ($texts as $key => $text) {
-
             foreach ($to_languages as $language) {
                 $result[(string)$text][$language] = $text . '-' . $language;
             }
-
         }
 
         return $result;
-
     }
-
 }

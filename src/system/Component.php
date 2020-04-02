@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -95,12 +96,7 @@ abstract class Component implements interfaces\Component
         $this->context = $context;
 
         if (!isset($this->config)) {
-            $default = static::defaultConfig();
-
-            $this->config = Arrays::arrayMergeRecursiveDistinct(
-                $default,
-                $config
-            );
+            $this->mergeAndSetConfig($config);
         }
 
         if ($this->isCli()) {
@@ -110,7 +106,7 @@ abstract class Component implements interfaces\Component
 
             $this->cliLateInit($argv, $argc);
 
-            $this->_extractConfig();
+            $this->extractConfig();
 
             $this->commonInit();
 
@@ -124,7 +120,7 @@ abstract class Component implements interfaces\Component
 
             $this->mainLateInit();
 
-            $this->_extractConfig();
+            $this->extractConfig();
 
             $this->commonInit();
 
@@ -137,7 +133,7 @@ abstract class Component implements interfaces\Component
      *
      * @return void
      */
-    private function _extractConfig(): void
+    private function extractConfig(): void
     {
         foreach ($this->config as $key => $value) {
             if (is_array($value) && isset($value['class'])) {
@@ -148,6 +144,30 @@ abstract class Component implements interfaces\Component
                 $this->{$key} = $value;
             }
         }
+    }
+
+    /**
+     * @param array|null $config
+     */
+    private function mergeAndSetConfig(array $config = [])
+    {
+        $default = static::defaultConfig();
+
+        $this->config = Arrays::arrayMergeRecursiveDistinct(
+            $default,
+            $config
+        );
+    }
+
+    /**
+     * @param array|null $config
+     */
+    public function reInit(?array $config = []): void
+    {
+        if ($config !== null) {
+            $this->mergeAndSetConfig($config);
+        }
+        $this->extractConfig();
     }
 
     /**
@@ -271,9 +291,9 @@ abstract class Component implements interfaces\Component
 
     /**
      * Set logger
-     * 
+     *
      * @param LoggerInterface $logger Logger with PSR interface
-     * 
+     *
      * @return void
      */
     public function setLogger(LoggerInterface $logger): void
@@ -352,6 +372,4 @@ abstract class Component implements interfaces\Component
     {
         return [];
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Url translation component
  * php version 7.2.10
@@ -118,8 +119,8 @@ class URL extends Type implements interfaces\URL
             $this->save_translations = false;
         }
 
-        if ($this->base_domain === null && isset($_SERVER['HTTP_HOST'])) {
-            $this->base_domain = $_SERVER['HTTP_HOST'];
+        if ($this->base_domain === null && Environment::server('HTTP_HOST')) {
+            $this->base_domain = Environment::server('HTTP_HOST');
         }
 
         parent::mainInit();
@@ -187,7 +188,7 @@ class URL extends Type implements interfaces\URL
 
         foreach ($translates[$before] as $language => &$translate) {
             $translate = $prefix . $translate . $suffix;
-            $translate = $this->context->context->languages
+            $translate = $this->context->context->localization
                 ->addLanguageToUrl(
                     $translate,
                     $language,
@@ -212,7 +213,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return bool
      */
-    protected function prepareUrlToProcess(string &$url):bool
+    protected function prepareUrlToProcess(string &$url): bool
     {
         $url = trim($url, ' ');
 
@@ -233,7 +234,7 @@ class URL extends Type implements interfaces\URL
 
         $url = isset($parts['path']) ? $parts['path'] : '';
 
-        $url = $this->context->context->languages->removeScriptNameFromUrl($url);
+        $url = $this->context->context->localization->removeScriptNameFromUrl($url);
 
         $url = rtrim($url, '/');
 
@@ -460,7 +461,7 @@ class URL extends Type implements interfaces\URL
 
         $result[$before] = \NovemBit\i18n\system\helpers\URL::removeQueryVars(
             $result[$before],
-            $this->context->context->languages->getLanguageQueryKey()
+            $this->context->context->localization->getLanguageQueryKey()
         );
 
         return parent::validateAfterReTranslate(
@@ -503,5 +504,4 @@ class URL extends Type implements interfaces\URL
 
         return $prefix . parent::getCacheKey($from_language, $to_languages, $texts);
     }
-
 }
