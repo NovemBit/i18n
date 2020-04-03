@@ -26,13 +26,13 @@ class Arrays
             if (
                 isset($item[$by])
                 && is_string($item[$by])
-                && $item[$by] == $key
+                && $item[$by] === $key
             ) {
-                if ($return != null) {
+                if ($return !== null) {
                     return $item[$return] ?? null;
-                } else {
-                    return $item;
                 }
+
+                return $item;
             }
         }
         return null;
@@ -55,11 +55,11 @@ class Arrays
                 isset($item[$by])
                 && $callback($key, $item[$by])
             ) {
-                if ($return != null) {
+                if ($return !== null) {
                     return $item[$return] ?? null;
-                } else {
-                    return $item;
                 }
+
+                return $item;
             }
         }
         return null;
@@ -84,7 +84,7 @@ class Arrays
                 isset($item[$by])
                 && $callback($key, $item[$by])
             ) {
-                if ($return != null) {
+                if ($return !== null) {
                     $result[] = $item[$return] ?? null;
                 } else {
                     $result[] = $item;
@@ -129,7 +129,7 @@ class Arrays
         string $separator = '>'
     ): void {
         foreach ($arr as $key => &$val) {
-            $_route = $route == '' ? $key : $route . $separator . $key;
+            $_route = $route === '' ? $key : $route . $separator . $key;
             if (is_array($val)) {
                 self::arrayWalkWithRoute($val, $callback, $_route, $separator);
             } else {
@@ -160,20 +160,26 @@ class Arrays
      * Parameters are passed by reference, though only for performance reasons. They're not
      * altered by this function.
      *
-     * @param  array $array1
-     * @param  array $array2
+     * @param array $array1
+     * @param array $array2
+     * @param bool $only_assoc
      * @return array
      *
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
+     * @author aaron.yor@gmail.com
      */
-    public static function arrayMergeRecursiveDistinct(array &$array1, array &$array2)
+    public static function arrayMergeRecursiveDistinct(array &$array1, array &$array2, bool $only_assoc = false): array
     {
         $merged = $array1;
 
         foreach ($array2 as $key => &$value) {
+            if ($only_assoc && is_int($key)) {
+                continue;
+            }
+
             if (is_array($value) && isset($merged [$key]) && is_array($merged [$key])) {
-                $merged [$key] = self::arrayMergeRecursiveDistinct($merged [$key], $value);
+                $merged [$key] = self::arrayMergeRecursiveDistinct($merged [$key], $value, $only_assoc);
             } else {
                 $merged [$key] = $value;
             }
