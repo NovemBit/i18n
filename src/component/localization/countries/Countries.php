@@ -4,7 +4,6 @@ namespace NovemBit\i18n\component\localization\countries;
 
 use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
-use NovemBit\i18n\system\Component;
 use NovemBit\i18n\system\helpers\Arrays;
 
 /**
@@ -21,6 +20,7 @@ class Countries extends LocalizationType implements interfaces\Countries
 
     /**
      * @param string|null $base_domain
+     * @param string|null $value
      * @return array|mixed|null
      */
     public function getConfig(string $base_domain = null, ?string $value = null)
