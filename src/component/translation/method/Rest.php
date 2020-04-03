@@ -14,10 +14,11 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use \NovemBit\i18n\component\translation\exceptions\TranslationException;
-use \NovemBit\i18n\component\rest\interfaces\Rest as RestComponentInterface;
-use \NovemBit\i18n\system\helpers\URL;
-use \NovemBit\i18n\component\translation\interfaces;
+use Exception;
+use NovemBit\i18n\component\translation\exceptions\TranslationException;
+use NovemBit\i18n\component\rest\interfaces\Rest as RestComponentInterface;
+use NovemBit\i18n\system\helpers\URL;
+use NovemBit\i18n\component\translation\interfaces;
 
 /**
  * Rest Translate method of translation
@@ -38,7 +39,7 @@ class Rest extends Method
      *
      * @var string
      * */
-    public $api_version = "1";
+    public $api_version = '1';
 
     /**
      * Use SSL protocol
@@ -87,6 +88,7 @@ class Rest extends Method
      *
      * @return array
      * @throws TranslationException
+     * @throws Exception
      */
     protected function doTranslate(
         array $texts,
@@ -94,13 +96,11 @@ class Rest extends Method
         array $to_languages,
         bool $ignore_cache
     ): array {
-
-        $translation = [];
         $url = URL::buildUrl(
             [
-                'scheme' => $this->ssl ? "https" : "http",
+                'scheme' => $this->ssl ? 'https' : 'http',
                 'host' => $this->remote_host,
-                'path' => $this->remote_path . "/translate",
+                'path' => $this->remote_path . '/translate',
                 'query' => 'api_key=' . $this->api_key
             ]
         );
@@ -151,13 +151,13 @@ class Rest extends Method
 
         $translation = [];
 
-        if ($status == RestComponentInterface::STATUS_DONE) {
+        if ($status === RestComponentInterface::STATUS_DONE) {
             $translation = $result['translation'] ?? [];
-        } elseif ($status == RestComponentInterface::STATUS_ERROR) {
+        } elseif ($status === RestComponentInterface::STATUS_ERROR) {
             $this->getLogger()->warning(
                 $result['message'] ?? 'Rest endpoint: unexpected error.'
             );
-        } elseif ($status == RestComponentInterface::STATUS_EMPTY) {
+        } elseif ($status === RestComponentInterface::STATUS_EMPTY) {
             $this->getLogger()->warning(
                 $result['message'] ?? 'Rest endpoint: empty response.'
             );
@@ -166,7 +166,6 @@ class Rest extends Method
                 'Rest endpoint: negative response.'
             );
         }
-
         return $translation;
     }
 
@@ -181,7 +180,7 @@ class Rest extends Method
         $config = $this->context->context->localization->config ?? null;
 
         if ($config === null) {
-            throw new TranslationException("Localization config not found.");
+            throw new TranslationException('Localization config not found.');
         }
 
         /**
