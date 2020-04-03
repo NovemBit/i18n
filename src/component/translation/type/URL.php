@@ -40,11 +40,14 @@ class URL extends Type implements interfaces\URL
      * */
     public $name = 'url';
 
+    /**
+     * @var bool
+     */
     public $cache_result = true;
 
     /**
-     * {@inheritdoc}
-     * */
+     * @var string
+     */
     public $model = models\URL::class;
 
     /**
@@ -53,7 +56,7 @@ class URL extends Type implements interfaces\URL
      *
      * @var string
      * */
-    public $path_separator = "-";
+    public $path_separator = '-';
 
     /**
      * If true, then making all path elements lowercase
@@ -96,7 +99,7 @@ class URL extends Type implements interfaces\URL
      *
      * @var string|null
      * */
-    public $base_domain = null;
+    public $base_domain;
 
     /**
      * You can write custom patterns
@@ -148,20 +151,20 @@ class URL extends Type implements interfaces\URL
         $paths_to_translate = [];
 
         foreach ($urls as $url) {
-            $parts = $this->_getUrlParts($url);
-            $path = isset($parts['path']) ? $parts['path'] : "";
-            $to_translate = $this->_getPathParts($path);
+            $parts = $this->getUrlParts($url);
+            $path = $parts['path'] ?? '';
+            $to_translate = $this->getPathParts($path);
             $paths[] = $to_translate;
-            $paths_to_translate = array_merge($paths_to_translate, $to_translate);
+            array_push($paths_to_translate, ...$to_translate);
         }
 
         $translations = $this->path_translation
-            ? $this->_getPathPartTranslations(
-            $paths_to_translate,
-            $ignore_cache
-        ) : [];
+            ? $this->getPathPartTranslations(
+                $paths_to_translate,
+                $ignore_cache
+            ) : [];
 
-        return $this->_buildTranslateResult($paths, $to_languages, $translations);
+        return $this->buildTranslateResult($paths, $to_languages, $translations);
     }
 
     /**
@@ -232,7 +235,7 @@ class URL extends Type implements interfaces\URL
             }
         }
 
-        $url = isset($parts['path']) ? $parts['path'] : '';
+        $url = $parts['path'] ?? '';
 
         $url = $this->context->context->localization->removeScriptNameFromUrl($url);
 
@@ -269,11 +272,11 @@ class URL extends Type implements interfaces\URL
      *
      * @return array
      */
-    private function _buildTranslateResult(
+    private function buildTranslateResult(
         array $paths,
         array $languages,
         array $translations
-    ) {
+    ): array {
         $result = [];
 
         foreach ($paths as $path_parts) {
@@ -290,16 +293,15 @@ class URL extends Type implements interfaces\URL
                      * If translation found
                      * */
                     if (isset($translations[$part])) {
-                        $part = isset($translations[$part][$language]) ?
-                            $translations[$part][$language] :
-                            $part;
+                        $part = $translations[$part][$language] ?? $part;
                         /**
                          * If translator returns string that contains
                          * Unwanted characters, then clarifying string
                          * */
-                        $part = $this->_preparePathPart($part);
+                        $part = $this->preparePathPart($part);
                     }
                 }
+                unset($part);
 
                 /**
                  * Restore path trailing slashes
@@ -327,11 +329,12 @@ class URL extends Type implements interfaces\URL
      * @throws ConnectionException
      * @throws InvalidArgumentException
      */
-    private function _getPathPartTranslations(array $paths, $ignore_cache)
+    private function getPathPartTranslations(array $paths, $ignore_cache)
     {
         foreach ($paths as &$string) {
             $string = (string)$string;
         }
+        unset($string);
 
         $translator = $this->context->text;
 
@@ -351,7 +354,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return array
      */
-    private function _getPathParts($path)
+    private function getPathParts($path): array
     {
         $path = trim($path, '/');
 
@@ -368,7 +371,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return mixed
      */
-    private function _getUrlParts($url)
+    private function getUrlParts($url)
     {
         return parse_url($url);
     }
@@ -381,14 +384,14 @@ class URL extends Type implements interfaces\URL
      *
      * @return string|null
      */
-    private function _preparePathPart($url)
+    private function preparePathPart($url): ?string
     {
         /**
          * Remove all html special characters
          *
          * @source https://stackoverflow.com/a/657670
          * */
-        $url = preg_replace("/&#?[a-z0-9]{2,8};/i", "", $url);
+        $url = preg_replace('/&#?[a-z0-9]{2,8};/i', '', $url);
 
         /**
          * Replace all non-alphanumeric characters to whitespace
@@ -455,7 +458,7 @@ class URL extends Type implements interfaces\URL
     {
         Strings::getStringsDifference($before, $after, $prefix, $suffix);
 
-        if ($before != $after && isset($result[$after])) {
+        if ($before !== $after && isset($result[$after])) {
             $result[$before] = $prefix . $result[$after] . $suffix;
         }
 
@@ -472,7 +475,6 @@ class URL extends Type implements interfaces\URL
     }
 
     /**
-     * {@inheritDoc}
      *
      * @return bool
      */

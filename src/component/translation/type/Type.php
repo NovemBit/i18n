@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation type component main abstract
  * php version 7.2.10
