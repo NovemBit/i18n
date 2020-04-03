@@ -8,13 +8,13 @@ class Arrays
     /**
      * Find from array
      *
-     * @param array       $data   Data
-     * @param string      $key    Key
-     * @param string      $by     By
+     * @param array $data Data
+     * @param string $key Key
+     * @param string $by By
      * @param string|null $return Return
      *
-     * @deprecated
      * @return mixed|null
+     * @deprecated
      */
     public static function find(
         array $data,
@@ -115,10 +115,10 @@ class Arrays
     /**
      * Recursive array walk with callback and route
      *
-     * @param array    $arr       Main array
-     * @param callable $callback  Callback function with 3 params (key/val/route)
-     * @param string   $route     Parent route
-     * @param string   $separator Route separator
+     * @param array $arr Main array
+     * @param callable $callback Callback function with 3 params (key/val/route)
+     * @param string $route Parent route
+     * @param string $separator Route separator
      *
      * @return void
      */
@@ -136,6 +136,18 @@ class Arrays
                 call_user_func_array($callback, [$key, &$val, $_route]);
             }
         }
+    }
+
+    /**
+     * @param array $arr
+     * @return bool
+     */
+    public static function isAssoc(array $arr): bool
+    {
+        if (array() === $arr) {
+            return false;
+        }
+        return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
     /**
@@ -169,16 +181,17 @@ class Arrays
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
      * @author aaron.yor@gmail.com
      */
-    public static function arrayMergeRecursiveDistinct(array &$array1, array &$array2, bool $only_assoc = false): array
+    public static function arrayMergeRecursiveDistinct(array &$array1, array &$array2, $only_assoc = true): array
     {
         $merged = $array1;
 
         foreach ($array2 as $key => &$value) {
-            if ($only_assoc && is_int($key)) {
-                continue;
-            }
-
-            if (is_array($value) && isset($merged [$key]) && is_array($merged [$key])) {
+            if (
+                is_array($value) &&
+                isset($merged [$key]) &&
+                is_array($merged [$key]) &&
+                ($only_assoc && self::isAssoc($value))
+            ) {
                 $merged [$key] = self::arrayMergeRecursiveDistinct($merged [$key], $value, $only_assoc);
             } else {
                 $merged [$key] = $value;
