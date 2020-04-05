@@ -500,7 +500,7 @@ class Localization extends Component implements interfaces\Localization
              * Normalize scheme
              * */
             if (!empty($parts['host']) && empty($parts['scheme'])) {
-                $scheme = stripos(Environment::server('SERVER_PROTOCOL'), 'https') === 0 ? 'https' : 'http';
+                $scheme = $this->context->isSsl() ? 'https' : 'http';
                 $parts['scheme'] = $scheme;
             }
 
