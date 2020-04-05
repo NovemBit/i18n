@@ -93,6 +93,11 @@ class Module extends system\Component
     public $prefix = 'i18n';
 
     /**
+     * @var boolean
+     * */
+    public $ssl = false;
+
+    /**
      * Default component configuration
      *
      * @return array
@@ -177,5 +182,13 @@ class Module extends system\Component
             self::$instance = new self($config);
         }
         return self::$instance;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSsl(): bool
+    {
+        return $this->ssl;
     }
 }
