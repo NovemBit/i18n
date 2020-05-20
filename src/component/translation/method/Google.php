@@ -79,8 +79,8 @@ class Google extends Method
     ): array {
         $result = [];
 
-     $timestamp = $this->_getMutex();
-      
+        $timestamp = $this->getMutex();
+
         foreach ($to_languages as $language) {
             if ($from_language === $language) {
                 foreach ($texts as $text) {
@@ -96,22 +96,32 @@ class Google extends Method
 
         return $result;
     }
-    private function _getMutexPath() {
-        return sys_get_temp_dir() . "/i18n-" . md5(self::class) . '_mutex';
+
+    /**
+     * @return string
+     */
+    private function getMutexPath(): string
+    {
+        return sys_get_temp_dir() . '/i18n-' . md5(self::class) . '_mutex';
     }
 
-    private function _getMutex()
+    /**
+     * @return int|null
+     */
+    private function getMutex(): ?int
     {
-      if (!file_exists($this->_getMutexPath())) {
-        return null;
-      }
-      return (int) file_get_contents($this->_getMutexPath());
+        if (!file_exists($this->getMutexPath())) {
+            return null;
+        }
+        return (int)file_get_contents($this->getMutexPath());
     }
-  
-   private function _setMutex()
+
+    /**
+     * @return void
+     */
+    private function setMutex(): void
     {
-        return $this->getRuntimeDir() . "/" . md5(self::class) . '_mutex';
-        file_put_contents($this->_getMutexPath(), time());
+        file_put_contents($this->getMutexPath(), time());
     }
 
     /**
@@ -157,7 +167,7 @@ class Google extends Method
         } catch (GoogleException $e) {
             $message = json_decode($e->getMessage(), true) ?? [];
 
-            $this->_setMutex();
+            $this->setMutex();
 
             $this->getLogger()->warning(
                 sprintf(
