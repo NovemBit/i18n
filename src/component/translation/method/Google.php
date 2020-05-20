@@ -79,12 +79,8 @@ class Google extends Method
     ): array {
         $result = [];
 
-        $timestamp = null;
-
-        if (file_exists($this->getMutexPath())) {
-            $timestamp = (int) file_get_contents($this->getMutexPath());
-        }
-
+     $timestamp = $this->_getMutex();
+      
         foreach ($to_languages as $language) {
             if ($from_language === $language) {
                 foreach ($texts as $text) {
@@ -100,10 +96,22 @@ class Google extends Method
 
         return $result;
     }
+    private function _getMutexPath() {
+        return sys_get_temp_dir() . "/i18n-" . md5(self::class) . '_mutex';
+    }
 
-    private function getMutexPath(): string
+    private function _getMutex()
     {
-        return $this->getRuntimeDir() . '/' . md5(self::class) . '_mutex';
+      if (!file_exists($this->_getMutexPath())) {
+        return null;
+      }
+      return (int) file_get_contents($this->_getMutexPath());
+    }
+  
+   private function _setMutex()
+    {
+        return $this->getRuntimeDir() . "/" . md5(self::class) . '_mutex';
+        file_put_contents($this->_getMutexPath(), time());
     }
 
     /**
@@ -149,7 +157,7 @@ class Google extends Method
         } catch (GoogleException $e) {
             $message = json_decode($e->getMessage(), true) ?? [];
 
-            file_put_contents($this->getMutexPath(), time());
+            $this->_setMutex();
 
             $this->getLogger()->warning(
                 sprintf(

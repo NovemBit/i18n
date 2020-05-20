@@ -18,7 +18,7 @@ use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Exception;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use Monolog\Handler\StreamHandler;
+use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 use NovemBit\i18n\system\helpers\Arrays;
 use Psr\Log\LoggerInterface;
@@ -270,19 +270,14 @@ abstract class Component implements interfaces\Component
     {
         if (!isset($this->logger)) {
             /**
-             * Runtime directory
-             *
-             * @see $runtime_dir
+             * Log via standard PHP error_log by default. Consumer can `setLogger` as required.
              **/
             $path = trim(str_replace('\\', '/', static::class), '/');
             $log_dir = $this->getRuntimeDir() . '/logs/' . $path;
             $log_file = $log_dir . '/' . date('Y-m-d') . '.log';
             $logger = new Logger('default');
             $logger->pushHandler(
-                new StreamHandler(
-                    $log_file,
-                    $this->logging_level
-                )
+                new ErrorLogHandler()
             );
             $this->setLogger($logger);
         }
