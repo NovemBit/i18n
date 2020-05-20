@@ -41,7 +41,7 @@ class Languages extends LocalData
             ['alpha1' => 'ak', 'name' => 'Akan', 'native' => 'Akan', 'countries' => ['ak']],
             ['alpha1' => 'sq', 'name' => 'Albanian', 'native' => 'Albanian', 'countries' => ['sq']],
             ['alpha1' => 'am', 'name' => 'Amharic', 'native' => 'Amharic', 'countries' => ['am']],
-            ['alpha1' => 'ar', 'name' => 'Arabic', 'native' => 'Arabic', 'countries' => ['ae'], "dir" => "rtl"],
+            ['alpha1' => 'ar', 'name' => 'Arabic', 'native' => 'Arabic', 'countries' => ['ae'], 'dir' => 'rtl'],
             ['alpha1' => 'an', 'name' => 'Aragonese', 'native' => 'Aragonese', 'countries' => ['an']],
             ['alpha1' => 'hy', 'name' => 'Armenian', 'native' => 'Armenian', 'countries' => ['am']],
             ['alpha1' => 'as', 'name' => 'Assamese', 'native' => 'Assamese', 'countries' => ['as']],

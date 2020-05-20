@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -14,7 +15,7 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use \NovemBit\i18n\system\parsers;
+use NovemBit\i18n\system\parsers;
 
 /**
  * HTML type for translation component
@@ -36,13 +37,5 @@ class HTMLFragment extends HTML implements interfaces\HTMLFragment
 
     public $cache_result = true;
 
-    /**
-     * Model class name of ActiveRecord
-     *
-     * @var \NovemBit\i18n\component\translation\models\Translation
-     * */
-    public $model_class = models\HTML::class;
-
     protected $parser_type = parsers\interfaces\XML::HTML_FRAGMENT;
-
 }

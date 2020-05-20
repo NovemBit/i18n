@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -13,10 +14,9 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
+use Exception;
 use Google\Cloud\Core\Exception\GoogleException;
-//use Google\Cloud\Translate\TranslateClient;
 use Google\Cloud\Translate\V2\TranslateClient;
-use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\method\exceptions\MethodException;
 use NovemBit\i18n\component\translation\Translation;
 
@@ -69,7 +69,7 @@ class Google extends Method
      * @param bool $ignore_cache
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     protected function doTranslate(
         array $texts,
@@ -79,25 +79,23 @@ class Google extends Method
     ): array {
         $result = [];
 
-        $timestamp = $this->_getMutex();
-
+     $timestamp = $this->_getMutex();
+      
         foreach ($to_languages as $language) {
-            if ($from_language == $language) {
+            if ($from_language === $language) {
                 foreach ($texts as $text) {
                     $result[$text][$language] = $text;
                 }
                 continue;
             }
 
-            if ($timestamp==null || $timestamp + $this->api_limit_expire_delay < time()) {
-                $this->_translateOneLanguage($texts, $from_language, $language, $result);
+            if ($timestamp === null || $timestamp + $this->api_limit_expire_delay < time()) {
+                $this->translateOneLanguage($texts, $from_language, $language, $result);
             }
-
         }
 
         return $result;
     }
-
     private function _getMutexPath() {
         return sys_get_temp_dir() . "/i18n-" . md5(self::class) . '_mutex';
     }
@@ -109,9 +107,10 @@ class Google extends Method
       }
       return (int) file_get_contents($this->_getMutexPath());
     }
-
-    private function _setMutex()
+  
+   private function _setMutex()
     {
+        return $this->getRuntimeDir() . "/" . md5(self::class) . '_mutex';
         file_put_contents($this->_getMutexPath(), time());
     }
 
@@ -124,15 +123,14 @@ class Google extends Method
      * @param array $result Referenced variable of results
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
-    private function _translateOneLanguage(
+    private function translateOneLanguage(
         array $texts,
         string $from_language,
         string $to_language,
         array &$result
     ): void {
-
         $request_data = array(
             'key' => $this->api_key,
             'source' => $from_language,
@@ -152,21 +150,18 @@ class Google extends Method
         try {
             // todo: count the character
             $chunks = array_chunk($texts, 100);
+
             foreach ($chunks as $chunk) {
-                $translations = array_merge(
-                    $translations,
-                    $gt_client->translateBatch($chunk)
-                );
+                array_push($translations, ...$gt_client->translateBatch($chunk));
             }
         } catch (GoogleException $e) {
-
             $message = json_decode($e->getMessage(), true) ?? [];
 
             $this->_setMutex();
 
             $this->getLogger()->warning(
                 sprintf(
-                    "%s: %s | Lang: %s | Texts: [%s]",
+                    '%s: %s | Lang: %s | Texts: [%s]',
                     $message['error']['code'] ?? '000',
                     $message['error']['message'] ?? 'Google Translate: Undefined.',
                     $to_language,

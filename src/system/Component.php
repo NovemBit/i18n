@@ -112,7 +112,7 @@ abstract class Component implements interfaces\Component
 
             $this->cliInit($argv, $argc);
 
-            if (isset($argv[1]) && $argv[1] == get_called_class()) {
+            if (isset($argv[1]) && $argv[1] === static::class) {
                 $this->cli($argv, $argc);
             }
         } else {
@@ -149,13 +149,14 @@ abstract class Component implements interfaces\Component
     /**
      * @param array|null $config
      */
-    private function mergeAndSetConfig(array $config = [])
+    private function mergeAndSetConfig(array $config = []): void
     {
         $default = static::defaultConfig();
 
         $this->config = Arrays::arrayMergeRecursiveDistinct(
             $default,
-            $config
+            $config,
+            true
         );
     }
 
@@ -256,7 +257,7 @@ abstract class Component implements interfaces\Component
      */
     public function isCli(): bool
     {
-        return php_sapi_name() === 'cli';
+        return PHP_SAPI === 'cli';
     }
 
     /**
@@ -272,8 +273,8 @@ abstract class Component implements interfaces\Component
              * Log via standard PHP error_log by default. Consumer can `setLogger` as required.
              **/
             $path = trim(str_replace('\\', '/', static::class), '/');
-            $log_dir = $this->getRuntimeDir() . "/logs/" . $path;
-            $log_file = $log_dir . '/' . date("Y-m-d") . '.log';
+            $log_dir = $this->getRuntimeDir() . '/logs/' . $path;
+            $log_file = $log_dir . '/' . date('Y-m-d') . '.log';
             $logger = new Logger('default');
             $logger->pushHandler(
                 new ErrorLogHandler()
@@ -339,7 +340,7 @@ abstract class Component implements interfaces\Component
     {
         if (!isset($this->cache_pool)) {
             $path = trim(str_replace('\\', '/', static::class), '/');
-            $cache_dir = $this->getRuntimeDir() . "/cache/" . $path;
+            $cache_dir = $this->getRuntimeDir() . '/cache/' . $path;
 
             $filesystemAdapter = new Local($cache_dir);
             $filesystem = new Filesystem($filesystemAdapter);

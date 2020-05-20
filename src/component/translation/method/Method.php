@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -11,12 +12,10 @@
  * @link     https://github.com/NovemBit/i18n
  */
 
-
 namespace NovemBit\i18n\component\translation\method;
 
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\Translator;
-
 
 /**
  * Main Translation method abstract

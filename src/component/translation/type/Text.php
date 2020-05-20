@@ -13,9 +13,10 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Strings;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Text type for Translation component
@@ -90,8 +91,8 @@ class Text extends Type
      * @param bool $ignore_cache
      *
      * @return array
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
      */
     protected function doTranslate(
         array $texts,
@@ -99,7 +100,6 @@ class Text extends Type
         array $to_languages,
         bool $ignore_cache
     ): array {
-
         $translator = $this->context->method;
 
         $translations = $translator->translate(
@@ -134,7 +134,6 @@ class Text extends Type
         &$translates,
         ?array &$verbose
     ): bool {
-
         Strings::getStringsDifference(
             $before,
             $after,
@@ -145,11 +144,10 @@ class Text extends Type
         $verbose[$before]['prefix'] = $prefix;
         $verbose[$before]['suffix'] = $suffix;
 
-        if ($before != $after && isset($translates[$before])) {
+        if ($before !== $after && isset($translates[$before])) {
             foreach ($translates[$before] as $language => &$translate) {
                 $translate = $prefix . $translate . $suffix;
             }
-
         }
 
         return parent::validateAfterTranslate(
@@ -171,17 +169,15 @@ class Text extends Type
      */
     protected function validateBeforeTranslate(string &$text): bool
     {
-
         foreach ($this->dont_translate_patterns as $pattern) {
             if (preg_match("/$pattern/", $text)) {
                 return false;
             }
         }
 
-        $text = preg_replace('/^\s+|\s+$/', '', $text);
+        $text = trim($text);
         $text = preg_replace('/\s+/', ' ', $text);
 
         return parent::validateBeforeTranslate($text);
     }
-
 }

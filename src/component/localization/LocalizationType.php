@@ -27,22 +27,22 @@ abstract class LocalizationType extends Component implements interfaces\Localiza
         ?string $return = null,
         bool $all = false
     ) {
-        return call_user_func_array(
+        return call_user_func(
             [Arrays::class, $all ? 'ufindAll' : 'ufind'],
-            [
-                $this->all,
-                $key,
-                $by,
-                $return,
-                function ($key, $value) {
-                    if (is_string($value) && $key === $value) {
-                        return true;
-                    } elseif (is_array($value) && isset($value[0]) && $value[0] === $key) {
-                        return true;
-                    }
-                    return false;
+            $this->all,
+            $key,
+            $by,
+            $return,
+            static function ($key, $value) {
+                if (is_string($value) && $key === $value) {
+                    return true;
                 }
-            ]
+
+                if (is_array($value) && isset($value[0]) && $value[0] === $key) {
+                    return true;
+                }
+                return false;
+            }
         );
     }
 
@@ -60,22 +60,20 @@ abstract class LocalizationType extends Component implements interfaces\Localiza
         ?string $return = null,
         bool $all = false
     ) {
-        return call_user_func_array(
+        return call_user_func(
             [Arrays::class, $all ? 'ufindAll' : 'ufind'],
-            [
-                $this->all,
-                $key,
-                $by,
-                $return,
-                function ($key, $value) {
-                    if (is_string($value) && $key === $value) {
-                        return true;
-                    } elseif (is_array($value) && in_array($key, $value)) {
-                        return true;
-                    }
-                    return false;
+            $this->all,
+            $key,
+            $by,
+            $return,
+            static function ($key, $value) {
+                if (is_string($value) && $key === $value) {
+                    return true;
+                } elseif (is_array($value) && in_array($key, $value)) {
+                    return true;
                 }
-            ]
+                return false;
+            }
         );
     }
 }

@@ -40,8 +40,8 @@ class JSON extends Type implements interfaces\JSON
     public $name = 'json';
 
     /**
-     * {@inheritdoc}
-     * */
+     * @var string
+     */
     public $model = models\JSON::class;
 
     /**
@@ -75,7 +75,7 @@ class JSON extends Type implements interfaces\JSON
      *
      * @var array
      * */
-    private $_objects = [];
+    private $objects = [];
 
     /**
      * Get field type
@@ -85,12 +85,12 @@ class JSON extends Type implements interfaces\JSON
      *
      * @return string|callable|null
      */
-    private function _getFieldType(?string $value, ?string $route)
+    private function getFieldType(?string $value, ?string $route)
     {
         $type = null;
 
         if ($route !== null) {
-            $type = $this->_getFieldTypeByRoute($route);
+            $type = $this->getFieldTypeByRoute($route);
         }
 
         if ($this->type_autodetect === true && $type === null) {
@@ -123,7 +123,7 @@ class JSON extends Type implements interfaces\JSON
      *
      * @return string|callable|null
      */
-    private function _getFieldTypeByRoute(string $route)
+    private function getFieldTypeByRoute(string $route)
     {
         foreach ($this->fields_to_translate as $pattern => $type) {
             if (preg_match($pattern, $route)) {
@@ -158,7 +158,7 @@ class JSON extends Type implements interfaces\JSON
 
         foreach ($jsons as $json) {
             Arrays::arrayWalkWithRoute(
-                $this->_objects[$json],
+                $this->objects[$json],
                 function ($key, &$val, $route) use (&$to_translate) {
 
                     $maybe_html_value = html_entity_decode(
@@ -167,16 +167,14 @@ class JSON extends Type implements interfaces\JSON
                         'UTF-8'
                     );
 
-                    $type = $this->_getFieldType($maybe_html_value, $route);
+                    $type = $this->getFieldType($maybe_html_value, $route);
 
-                    if (is_string($type)) {
-                        if ($type !== null) {
-                            if (in_array($type, ['html', 'html_fragment'])) {
-                                $val = $maybe_html_value;
-                            }
-
-                            $to_translate[$type][] = $val;
+                    if (is_string($type) && $type !== null) {
+                        if (in_array($type, ['html', 'html_fragment'])) {
+                            $val = $maybe_html_value;
                         }
+
+                        $to_translate[$type][] = $val;
                     }
                 }
             );
@@ -197,13 +195,13 @@ class JSON extends Type implements interfaces\JSON
             );
         }
 
-        foreach ($this->_objects as $json => &$object) {
+        foreach ($this->objects as $json => &$object) {
             foreach ($to_languages as $language) {
                 Arrays::arrayWalkWithRoute(
                     $object,
                     function ($key, &$val, $route) use ($translations, $language) {
 
-                        $type = $this->_getFieldType($val, $route);
+                        $type = $this->getFieldType($val, $route);
 
                         if ($type !== null) {
                             if (is_string($type)) {
@@ -232,7 +230,7 @@ class JSON extends Type implements interfaces\JSON
     {
         $obj = json_decode($json, true);
         if (is_array($obj)) {
-            $this->_objects[$json] = $obj;
+            $this->objects[$json] = $obj;
             return true;
         }
         return false;

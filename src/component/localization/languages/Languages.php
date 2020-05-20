@@ -20,7 +20,6 @@ use NovemBit\i18n\system\helpers\Arrays;
  * */
 class Languages extends LocalizationType implements interfaces\Languages
 {
-
     public $all;
 
     /**
@@ -247,7 +246,11 @@ class Languages extends LocalizationType implements interfaces\Languages
             'dir'
         );
 
-        return $dir === null ? 'ltr' : 'rtl';
+        if (!in_array($dir, ['rtl','ltr'])) {
+            $dir = 'ltr';
+        }
+
+        return $dir;
     }
 
     /**

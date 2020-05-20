@@ -89,9 +89,7 @@ class HTML extends XML implements interfaces\HTML
                 }
 
                 $html->setAttribute('lang', $language);
-                $dir = $this->context->context->localization->languages->getByPrimary($language, 'alpha1', 'dir');
-
-                //$dir = Languages::getLanguage($language, 'alpha1', 'dir');
+                $dir = $this->context->context->localization->languages->getLanguageDirectionByCode($language);
 
                 /**
                  * Set html dir="rtl" attribute

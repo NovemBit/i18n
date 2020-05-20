@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DB component
  *
@@ -20,6 +21,7 @@ namespace NovemBit\i18n\component\db;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
+use Exception;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use Doctrine\DBAL\Connection;
@@ -62,7 +64,7 @@ class DB extends Component
      * @see https://www.doctrine-project.org/projects/dbal.html
      * @var Connection
      * */
-    private $_connection;
+    private $connection;
 
     /**
      * {@inheritdoc}
@@ -71,7 +73,7 @@ class DB extends Component
      *
      * @return void
      * @throws DBALException
-     * @throws \Exception
+     * @throws Exception
      */
     public function commonInit(): void
     {
@@ -82,13 +84,12 @@ class DB extends Component
             new SQLFileLogger($this->getLogger())
         );
 
-        $this->_setConnection(
+        $this->setConnection(
             DriverManager::getConnection(
                 $this->getConnectionParams(),
                 $config
             )
         );
-
     }
 
     /**
@@ -98,7 +99,7 @@ class DB extends Component
      */
     public function getConnection(): Connection
     {
-        return $this->_connection;
+        return $this->connection;
     }
 
     /**
@@ -108,9 +109,9 @@ class DB extends Component
      *
      * @return void
      */
-    private function _setConnection(Connection $_connection): void
+    private function setConnection(Connection $connection): void
     {
-        $this->_connection = $_connection;
+        $this->connection = $connection;
     }
 
     /**

@@ -163,4 +163,6 @@ interface Languages extends LocalizationType
      * @return string
      */
     public function getLanguageNameByCode(string $code): string;
+
+    public function getLanguageDirectionByCode(string $code): string;
 }

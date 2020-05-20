@@ -15,7 +15,6 @@ namespace NovemBit\i18n\component\translation\type\models;
 
 use NovemBit\i18n\component\translation\models\Translation;
 
-
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
  *
@@ -27,7 +26,5 @@ use NovemBit\i18n\component\translation\models\Translation;
  * */
 class JSON extends Translation
 {
-
-    const TYPE = 4;
-
+    public const TYPE = 4;
 }
