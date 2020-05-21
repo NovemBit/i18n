@@ -146,16 +146,9 @@ class Google extends Method
             'source' => $from_language,
             'target' => $to_language
         );
-        /*if( ! empty( $credentials[ 'referer' ] ) ){
-            $request_data['restOptions'] = array(
-                'headers' => array(
-                    'referer' => $credentials[ 'referer' ]
-                )
-            );
-        }*/
+
         $gt_client = new  TranslateClient($request_data);
         $translations = [];
-
 
         try {
             // todo: count the character
