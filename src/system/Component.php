@@ -68,7 +68,7 @@ abstract class Component implements interfaces\Component
      *
      * @var int
      * */
-    public $logging_level = Logger::WARNING;
+    public $logging_level = Logger::ERROR;
 
     /**
      * Cache Pool with PSR interface
