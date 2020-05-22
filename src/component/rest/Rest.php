@@ -128,7 +128,7 @@ class Rest extends Component implements interfaces\Rest
      */
     private function validateAPI(): void
     {
-        if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys)) {
+        if (isset($_GET['api_key']) && in_array($_GET['api_key'], $this->api_keys, true)) {
             $this->api_key = $_GET['api_key'];
         }
     }
@@ -146,10 +146,7 @@ class Rest extends Component implements interfaces\Rest
             'message' => 'Invalid parameters.'
         ];
 
-        if (
-            isset($_POST['texts'])
-            && isset($_POST['languages'])
-        ) {
+        if (isset($_POST['texts'], $_POST['languages'])) {
 
             /**
              * Setting language component configuration
@@ -195,7 +192,7 @@ class Rest extends Component implements interfaces\Rest
      *
      * @return array
      */
-    public function actionIndex()
+    public function actionIndex(): array
     {
         return ['api_key' => $this->api_key];
     }
@@ -205,7 +202,7 @@ class Rest extends Component implements interfaces\Rest
      *
      * @return array
      */
-    public function actionRestrict()
+    public function actionRestrict(): array
     {
         http_response_code(403);
         return ['messages' => 'You don\'t have access to this endpoint.'];

@@ -88,7 +88,7 @@ abstract class Component implements interfaces\Component
     /**
      * Component constructor.
      *
-     * @param array          $config  Configuration array
+     * @param array $config Configuration array
      * @param null|Component $context Context (parent) Component
      */
     public function __construct($config = [], &$context = null)
@@ -217,7 +217,7 @@ abstract class Component implements interfaces\Component
      * Only on cli script
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -230,7 +230,7 @@ abstract class Component implements interfaces\Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -242,7 +242,7 @@ abstract class Component implements interfaces\Component
      * Init method only for CLI
      *
      * @param array $argv Array of cli arguments
-     * @param int   $argc Count of cli arguments
+     * @param int $argc Count of cli arguments
      *
      * @return void
      */
@@ -269,15 +269,9 @@ abstract class Component implements interfaces\Component
     public function getLogger(): LoggerInterface
     {
         if (!isset($this->logger)) {
-            /**
-             * Log via standard PHP error_log by default. Consumer can `setLogger` as required.
-             **/
-            $path = trim(str_replace('\\', '/', static::class), '/');
-            $log_dir = $this->getRuntimeDir() . '/logs/' . $path;
-            $log_file = $log_dir . '/' . date('Y-m-d') . '.log';
             $logger = new Logger('default');
             $logger->pushHandler(
-                new ErrorLogHandler()
+                new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, $this->logging_level)
             );
             $this->setLogger($logger);
         }
