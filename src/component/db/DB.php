@@ -22,6 +22,7 @@ use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Exception;
+use Monolog\Logger;
 use NovemBit\i18n\Module;
 use NovemBit\i18n\system\Component;
 use Doctrine\DBAL\Connection;
@@ -77,12 +78,14 @@ class DB extends Component
      */
     public function commonInit(): void
     {
-
         $config = new Configuration();
 
-        $config->setSQLLogger(
+        /**
+         * @todo Temporary disabled sql Logger
+         * */
+        /*$config->setSQLLogger(
             new SQLFileLogger($this->getLogger())
-        );
+        );*/
 
         $this->setConnection(
             DriverManager::getConnection(
