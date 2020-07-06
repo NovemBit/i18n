@@ -69,7 +69,9 @@ abstract class LocalizationType extends Component implements interfaces\Localiza
             static function ($key, $value) {
                 if (is_string($value) && $key === $value) {
                     return true;
-                } elseif (is_array($value) && in_array($key, $value)) {
+                }
+
+                if (is_array($value) && in_array($key, $value)) {
                     return true;
                 }
                 return false;

@@ -994,7 +994,7 @@ class Request extends Component implements interfaces\Request
     private function prepareCountry(): bool
     {
         $country = $this->context->localization->countries
-            ->getConfig(Environment::server('HTTP_HOST'), 'name');
+            ->getConfig(Environment::server('HTTP_HOST') ?? $this->default_http_host, 'name');
 
         $this->setCountry($country);
 
@@ -1012,7 +1012,7 @@ class Request extends Component implements interfaces\Request
     private function prepareRegion(): bool
     {
         $region = $this->context->localization->regions
-            ->getConfig(Environment::server('HTTP_HOST'), 'name');
+            ->getConfig(Environment::server('HTTP_HOST') ?? $this->default_http_host, 'name');
 
         $this->setRegion($region);
 
