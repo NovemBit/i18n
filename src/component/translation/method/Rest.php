@@ -135,10 +135,12 @@ class Rest extends Method
 
             /**
              * Error reporting for dynamic hub
+             * Temporary disabled
+             * @todo enable after i18n cluster fix
              * */
-            $this->getLogger()->error(
+            /*$this->getLogger()->error(
                 'Rest endpoint: not responding.'
-            );
+            );*/
 
             return [];
         }
