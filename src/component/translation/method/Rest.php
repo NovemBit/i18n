@@ -121,13 +121,7 @@ class Rest extends Method
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        //Tell cURL that it should only spend 10 seconds
-        //trying to connect to the URL in question.
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->request_timeout);
-
-        //A given cURL operation should only take
-        //30 seconds max.
         curl_setopt($ch, CURLOPT_TIMEOUT, ($this->request_timeout + 7));
         $result = curl_exec($ch);
 
@@ -135,12 +129,10 @@ class Rest extends Method
 
             /**
              * Error reporting for dynamic hub
-             * Temporary disabled
-             * @todo enable after i18n cluster fix
              * */
-            /*$this->getLogger()->error(
+            $this->getLogger()->error(
                 'Rest endpoint: not responding.'
-            );*/
+            );
 
             return [];
         }

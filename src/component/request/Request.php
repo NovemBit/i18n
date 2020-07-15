@@ -358,7 +358,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Set request referer source url
      *
-     * @param string $_referer_source_url Referer source url
+     * @param string|null $_referer_source_url Referer source url
      *
      * @return void
      */
@@ -1024,7 +1024,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Remove language from uri string
      *
-     * @param string $uri Referenced variable of URI string
+     * @param string|null $uri Referenced variable of URI string
      *
      * @return string
      */
@@ -1475,7 +1475,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Set Source Url
      *
-     * @param string $source_url Source Url
+     * @param string|null $source_url Source Url
      *
      * @return void
      */
@@ -1497,7 +1497,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Set Url Translations list
      *
-     * @param array $url_translations Url Translations list
+     * @param array|null $url_translations Url Translations list
      *
      * @return void
      */
