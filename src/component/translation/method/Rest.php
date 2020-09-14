@@ -130,7 +130,7 @@ class Rest extends Method
             /**
              * Error reporting for dynamic hub
              * */
-            $this->getLogger()->error(
+            $this->getLogger()->info(
                 'Rest endpoint: not responding.'
             );
 
