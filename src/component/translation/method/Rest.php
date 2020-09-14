@@ -131,7 +131,7 @@ class Rest extends Method
              * Error reporting for dynamic hub
              * */
             $this->getLogger()->info(
-                'Rest endpoint: not responding.'
+                'NovemBit i18n rest endpoint: not responding.'
             );
 
             return [];
