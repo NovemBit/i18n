@@ -659,9 +659,9 @@ abstract class Translator extends Component implements interfaces\Translator
         usort(
             $this->exclusions, function ($a, $b) {
                 if (strpos($a, $b) !== false) {
-                    return false;
+                    return 0;
                 } else {
-                    return true;
+                    return 1;
                 }
             }
         );
