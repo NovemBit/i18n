@@ -55,14 +55,15 @@
                     let title = document.createElement('div');
                     title.classList.add('title');
 
-                    let description = document.createElement('div');
-                    description.classList.add('description');
-                    description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
-
-                    title.innerText = node.nodeName;
+                    //  let description = document.createElement('div');
+                    //  description.classList.add('description');
+                    // description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
+                    //console.log(node)
+                    title.innerText = this.getNodeType(node) +' '+ '<' + node.nodeName.toLowerCase() + '>';
+                    this.getNodeType(node);
                     inspector.appendChild(unexpand);
                     inspector.appendChild(title);
-                    inspector.appendChild(description);
+                    //inspector.appendChild(description);
 
                     let forms = document.createElement('div'), submit, form;
                     forms.classList.add('forms');
@@ -77,7 +78,7 @@
                     * */
                     if (Object.keys(node.data.text).length > 0) {
                         let title = document.createElement('h4');
-                        title.innerText = "Texts";
+                        title.innerText = "Content";
                         title.classList.add('title');
                         form.appendChild(title);
                     }
@@ -86,7 +87,7 @@
 
                         let input = document.createElement('textarea');
                         let label = document.createElement('label');
-                        label.innerText = "Text " + (i + 1);
+                        //label.innerText = "Text " + (i + 1);
                         input.value = node.data.text[i][1];
                         input.name = window.novembit.i18n.prefix + "-form[" + node.data.text[i][0] + "]";
 
@@ -123,10 +124,10 @@
                     * Attr form
                     * */
                     if (Object.keys(node.data.attr).length > 0) {
-                        let title = document.createElement('div');
-                        title.classList.add('title');
-                        title.innerText = "Attributes";
-                        form.appendChild(title);
+                        // let title = document.createElement('div');
+                        // title.classList.add('title');
+                        // title.innerText = "Attributes";
+                        // form.appendChild(title);
                     }
 
                     for (let attr_key in node.data.attr) {
@@ -135,7 +136,7 @@
 
                         let label = document.createElement('label');
                         label.classList.add('form-label');
-                        label.innerText = attr_key;
+                        label.innerHTML = 'attribute: '+ '<b>' + attr_key + '</b>';
 
                         let original = document.createElement('div');
                         original.classList.add('original');
@@ -156,10 +157,10 @@
 
                         if (node.data.attr[attr_key][2] !== 'text') {
                             input.disabled = true;
-                            let hint = document.createElement('p');
-                            hint.innerText = '* Is not text value.';
+                            let hint = document.createElement('span');
+                            hint.innerText = '* url slug';
                             hint.classList.add('hint');
-                            label.appendChild(hint);
+                            original.appendChild(hint);
                         }
 
                         label.appendChild(input);
@@ -232,6 +233,40 @@
                     attr: this.getNodeAttr(node),
                     text: this.getNodeText(node),
                 };
+            },
+            getNodeType: function (node) {
+                switch (node.nodeName) {
+                    case 'A':
+                        return 'Anchor';
+                        break;
+                    case 'P':
+                        return 'Paragraph';
+                    case 'IMG':
+                        return 'Image';
+                        break;
+                    case 'BUTTON':
+                        return 'Button';
+                        break;
+                    case 'H1':
+                    case 'H2':
+                    case 'H3':
+                    case 'H4':
+                    case 'H5':
+                    case 'H6':
+                        return 'Heading';
+                        break;
+                    case 'VIDEO':
+                        return 'Video';
+                        break;
+                    case 'AUDIO':
+                        return 'Audio';
+                        break;
+                    case 'FORM':
+                        return 'Form';
+                        break;
+                    default:
+                        return 'Text';
+                }
             },
             activeSelector: function (node) {
                 let siblings = node.selector.parentElement.getElementsByClassName('active');

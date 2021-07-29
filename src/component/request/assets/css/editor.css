@@ -1,7 +1,6 @@
 .__PREFIX-active {
-    outline: solid 1px;
+    outline: 2px solid #007cba;
     outline-offset: 5px;
-    color: #ba0000 !important;
     visibility: visible;
 }
 
@@ -9,12 +8,30 @@
     opacity: 0.5;
 }
 
-#__PREFIX-editor-wrapper * {
+#__PREFIX-editor-wrapper *,
+#__PREFIX-editor-wrapper *:after,
+#__PREFIX-editor-wrapper *:before {
     all: unset;
+    box-sizing: border-box;
+}
+#__PREFIX-editor-wrapper b {
+    font-weight: bolder;
+}
+#__PREFIX-editor-wrapper > div {
+    background: #898989;
+    opacity: 0;
+    width: 0 !important;
+    border: solid 1px #ddd;
+    height: 0 !important;
+    border-radius: 100% !important;
+    font-size: 0;
+    line-height: 0;
+    z-index: 0;
+    word-break: unset;
 }
 
 #__PREFIX-editor-wrapper > div:before {
-    content: "";
+    /*content: "";*/
     border-radius: 100%;
     border: solid 2px #fff;
     width: 8px;
@@ -23,21 +40,6 @@
     left: calc((100% - 12px) / 2);
     top: calc((100% - 12px) / 2);
     display: inline-block;
-}
-
-#__PREFIX-editor-wrapper > div {
-    background: #898989;
-    opacity: 0.9;
-    width: 10px !important;
-    border: solid 1px #ddd;
-    height: 10px !important;
-    border-radius: 100% !important;
-    cursor: pointer;
-    font-size: 0;
-    line-height: 0;
-    z-index: 1000000;
-    word-break: unset;
-    transition: 0.3s ease all;
 }
 
 #__PREFIX-editor-wrapper > div.active {
@@ -65,7 +67,7 @@
 }
 
 #__PREFIX-editor-wrapper > div > .inspector {
-    transition: 0.5s cubic-bezier(0.43, 0.27, 0.21, 1.02) all;
+    /*transition: 0.5s cubic-bezier(0.43, 0.27, 0.21, 1.02) all;*/
     display: none;
 }
 
@@ -73,61 +75,53 @@
     font-size: 16px;
     line-height: 20px;
     cursor: default;
-    padding: 10px;
-    border-radius: 15px 0 0;
     width: 300px;
-    height: 65px;
     position: fixed;
     bottom: 0;
     right: 0;
     background: #ffffff;
     opacity: 0.9;
-    box-shadow: 0 0 1px #707070;
-    border-left: solid 1px;
-    border-top: solid 1px;
-    border-color: #9a9a9a;
+    box-shadow:  0 1px 1px 0 rgb(66 66 66 / 8%), 0 1px 3px 1px rgb(66 66 66 / 16%);
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .title {
-    color: #ab0000;
+    display: flex;
+    padding: 0 20px;
+    color: #fff;
+    background-color: #000;
     font-size: 1.2em;
-    display: block;
+    align-items: center;
+    height: 40px;
     font-weight: bold;
-    width: 100%;
-    text-align: center;
+    justify-content: center;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .description {
-    color: #fff;
-    background: #616161;
+    color: #616161;
     font-size: 0.8em;
-    text-align: center;
     display: block;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 10px 20px;
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector {
     display: block;
     box-sizing: border-box;
-    width: 90%;
-    height: 90%;
-    min-height: 300px;
-    max-width: 500px;
-    max-height: 500px;
+    width: 500px;
+    max-width: 90vw;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms {
+    position: relative;
     display: none;
-    height: calc(100% - 60px);
-    padding-bottom: 40px;
+    padding: 0 20px 80px;
     box-sizing: border-box;
-    overflow: auto;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form {
-    display: inline-block;
+    display: block;
     width: 100%;
+    max-height: calc(90vh - 60px);
+    overflow: auto;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form.saved {
@@ -141,23 +135,29 @@
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .title {
     display: block;
     margin-top: 20px;
-    font-size: 20px;
+    padding-top: 16px;
+    font-size: 18px;
     line-height: 1em;
+    font-weight: bold;
+    border-top: 1px solid #eee;
 }
-
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .hint {
-    display: block;
-    font-size: 0.7em;
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .form-label {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .title:first-child  {
+    margin-top: 0px;
+    border-top: none;
+}
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label .hint {
     color: #ff0000;
-    text-align: right;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .original {
     display: block;
-    font-size: 0.8em;
-    line-height: 1.3em;
-    text-align: left;
-    margin-top: 10px;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label {
@@ -165,10 +165,7 @@
     display: block;
     box-sizing: border-box;
     margin-top: 10px;
-    padding: 0 0 0 20px;
     font-size: 1em;
-    color: #8e0000;
-    font-weight: bold;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea[disabled] {
@@ -180,7 +177,7 @@
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea {
     background: #fff;
-    border: solid 1px #900000;
+    border: solid 1px #949494;
     font-weight: normal;
     margin-top: 0.7em;
     font-size: 0.9em !important;
@@ -188,40 +185,38 @@
     width: 100%;
     cursor: text;
     display: block;
-    box-sizing: border-box;
     padding: 10px;
 }
 
 #__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit] {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
     font-size: 1em;
+    font-weight: bold;
     clear: both;
     background: green;
     color: #fff;
     cursor: pointer;
-    float: right;
     padding: 10px;
-    margin-top: 20px;
+    text-align: center;
 }
-
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit]:hover {
+    box-shadow: 0 3px 6px -3px rgb(0 0 0 / 33%);
+}
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand {
-    width: 70px;
-    height: 20px;
-    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
     cursor: pointer;
-    color: #474747;
-    text-align: right;
+    color: #fff;
 }
 
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
-    content: "\21F2";
+    content: "\00D7";
     font-size: 1.4em;
     display: inline-block;
 }
-
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:hover {
-    color: #b31a1a;
-}
-
 #__PREFIX-context-menu {
     display: none;
     min-width: 150px;
