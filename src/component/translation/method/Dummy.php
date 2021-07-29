@@ -36,6 +36,11 @@ class Dummy extends Method
     public $exclusion_pattern = '{e-$0-e}';
 
     /**
+     * @var bool
+     */
+    public $save_translations = false;
+
+    /**
      * Doing translation method
      *
      * @param array $texts Array of texts to translate

@@ -288,6 +288,11 @@ class Request extends Component implements interfaces\Request
     public $localization_redirects = true;
 
     /**
+     * @var callable
+     * */
+    public $after_ready_callback;
+
+    /**
      * Get allowed request methods
      *
      * @return array
@@ -415,6 +420,7 @@ class Request extends Component implements interfaces\Request
      * Prepare Destination to find source
      *
      * @return bool
+     * @throws \NovemBit\i18n\component\localization\exceptions\LanguageException
      */
     private function prepareDestination(): bool
     {
@@ -1263,6 +1269,10 @@ class Request extends Component implements interfaces\Request
 
         $this->setReady(true);
 
+        if($this->after_ready_callback){
+            ($this->after_ready_callback)($this);
+        }
+
         /**
          * Prevent pages with main(from_language) and default language translation
          * */
@@ -1568,7 +1578,7 @@ class Request extends Component implements interfaces\Request
      *
      * @return void
      */
-    private function setFromLanguage(string $from_language): void
+    public function setFromLanguage(string $from_language): void
     {
         $this->from_language = $from_language;
     }
