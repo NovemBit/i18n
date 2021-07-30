@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -36,7 +37,15 @@ class Text extends Type
      * */
     public $name = 'text';
 
+    /**
+     * @var bool
+     */
     public $cache_result = true;
+
+    /**
+     * @var bool
+     */
+    public $save_translations = false;
 
     /**
      * {@inheritdoc}
@@ -44,12 +53,16 @@ class Text extends Type
     public $validation = true;
 
     /**
+     * @var bool
+     */
+    public $get_translations_from_db = true;
+
+    /**
      * Dont translate regexp patterns
      *
      * @var string[]
      * */
     public $dont_translate_patterns = [
-
         /*
          * Dont translate texts that contains less then 3 characters
          * Or not contains letters
@@ -66,12 +79,16 @@ class Text extends Type
          * Dp not translate texts that is file name
          * my-custom-file.docx
          * */
-        '^\w+?(?>-\w+)+(?>\.(?>mp3|mp4|wma|wav|jpg|jpeg|png|gif|bmp|webp|pdf|doc|docx|txt|rar|zip|tar|gz))$',
+        '^\w+?(?>-\w+)+(?>\.(?>mp3|mp4|wma|wav|jpg|jpeg|png|gif'
+        . '|bmp|webp|pdf|doc|docx|txt|rar|zip|tar|gz|exe|dmg|iso))$',
 
         /**
          * Do not translate text that contains only url
          * */
-        '^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$'
+        '^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]'
+        . '\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|'
+        . 'https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z'
+        . '0-9]+\.[^\s]{2,})$'
     ];
 
     /**
@@ -121,17 +138,17 @@ class Text extends Type
     /**
      * Reset whitespace
      *
-     * @param string $before Before
-     * @param string $after After
-     * @param array $translates Last result
+     * @param  string  $before Before
+     * @param  string  $after After
+     * @param  array  $translates Last result
      * @param array|null $verbose Verbose
      *
      * @return bool
      */
     protected function validateAfterTranslate(
-        $before,
-        $after,
-        &$translates,
+        string $before,
+        string $after,
+        array &$translates,
         ?array &$verbose
     ): bool {
         Strings::getStringsDifference(
@@ -157,7 +174,6 @@ class Text extends Type
             $verbose
         );
     }
-
 
     /**
      * Using dont_translate_patterns to ignore texts

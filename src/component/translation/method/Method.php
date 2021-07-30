@@ -36,7 +36,21 @@ abstract class Method extends Translator implements interfaces\Method
      * */
     public $name = 'method';
 
+    /**
+     * @var bool
+     */
     public $cache_result = true;
+
+    /**
+     * @var bool
+     */
+    public $save_translations = true;
+
+    /**
+     * @var bool
+     */
+    public $get_translations_from_db = true;
+
     /**
      * Model class name of ActiveRecord
      *

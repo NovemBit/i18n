@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation Component Exception file
  * php version 7.2.10
@@ -12,7 +13,6 @@
  */
 
 namespace NovemBit\i18n\component\translation\exceptions;
-
 
 use NovemBit\i18n\system\exception\Exception;
 

@@ -52,6 +52,11 @@ class XML extends Type implements interfaces\XML
     public $save_translations = false;
 
     /**
+     * @var bool
+     */
+    public $get_translations_from_db = false;
+
+    /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation

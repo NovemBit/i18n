@@ -46,6 +46,11 @@ class URL extends Type implements interfaces\URL
     public $cache_result = true;
 
     /**
+     * @var bool
+     */
+    public $get_translations_from_db = true;
+
+    /**
      * @var string
      */
     public $model = models\URL::class;
@@ -172,17 +177,17 @@ class URL extends Type implements interfaces\URL
      * Concat prefix, body and suffix to avoid that
      * Final url is fully like origin url
      *
-     * @param string     $before     initial type of url
-     * @param string     $after      final type of url
-     * @param array      $translates list of translated urls
+     * @param  string  $before     initial type of url
+     * @param  string  $after      final type of url
+     * @param  array  $translates list of translated urls
      * @param array|null $verbose    Verbose
      *
      * @return bool
      */
     protected function validateAfterTranslate(
-        $before,
-        $after,
-        &$translates,
+        string $before,
+        string $after,
+        array &$translates,
         ?array &$verbose
     ): bool {
         Strings::getStringsDifference($before, $after, $prefix, $suffix);
@@ -448,13 +453,13 @@ class URL extends Type implements interfaces\URL
      * Validate result after ReTranslate
      *  Remove language key from query variables
      *
-     * @param string $before initial url
-     * @param string $after  final url
-     * @param array  $result Referenced variable to receive result
+     * @param  string  $before initial url
+     * @param  string  $after  final url
+     * @param  array  $result Referenced variable to receive result
      *
      * @return bool
      */
-    protected function validateAfterReTranslate($before, $after, &$result): bool
+    protected function validateAfterReTranslate(string $before, string $after, array &$result): bool
     {
         Strings::getStringsDifference($before, $after, $prefix, $suffix);
 

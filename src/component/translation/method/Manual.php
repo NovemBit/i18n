@@ -17,7 +17,7 @@ namespace NovemBit\i18n\component\translation\method;
 use NovemBit\i18n\component\translation\Translation;
 
 /**
- * Dummy method of translation
+ * Manual method of translation
  *
  * @category Component\Translation\Method
  * @package  Component\Translation\Method

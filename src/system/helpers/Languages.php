@@ -77,7 +77,7 @@ class Languages extends LocalData
             ['alpha1' => 'dv', 'name' => 'Divehi', 'native' => 'Divehi', 'countries' => ['dv']],
             ['alpha1' => 'nl', 'name' => 'Dutch', 'native' => 'Dutch', 'countries' => ['nl']],
             ['alpha1' => 'dz', 'name' => 'Dzongkha', 'native' => 'Dzongkha', 'countries' => ['dz']],
-            ['alpha1' => 'en', 'name' => 'English', 'native' => 'English', 'countries' => ['gb']],
+            ['alpha1' => 'en', 'name' => 'English', 'native' => 'English', 'countries' => ['us']],
             ['alpha1' => 'eo', 'name' => 'Esperanto', 'native' => 'Esperanto', 'countries' => ['eo']],
             ['alpha1' => 'et', 'name' => 'Estonian', 'native' => 'Estonian', 'countries' => ['ee']],
             ['alpha1' => 'ee', 'name' => 'Ewe', 'native' => 'Ewe', 'countries' => ['ee']],
