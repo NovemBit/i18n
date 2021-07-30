@@ -124,10 +124,6 @@
     overflow: auto;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form.saved {
-    background: #d6e6d6;
-}
-
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .forms {
     display: block;
 }
@@ -188,7 +184,7 @@
     padding: 10px;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit] {
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button[type=submit] {
     position: absolute;
     bottom: 20px;
     width: calc(100% - 40px);
@@ -201,8 +197,36 @@
     padding: 10px;
     text-align: center;
 }
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > input[type=submit]:hover {
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button[type=submit]:hover {
     box-shadow: 0 3px 6px -3px rgb(0 0 0 / 33%);
+}
+
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button.loading {
+    color: transparent;
+}
+
+#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button.loading:after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    margin: -10px 0 0 -10px;
+    display: block;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-color: currentColor transparent currentColor transparent;
+    animation: loader 1.2s linear infinite;
+}
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 #__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand {
     position: absolute;

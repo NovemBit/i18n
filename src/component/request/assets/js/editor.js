@@ -33,6 +33,8 @@
                 http.onreadystatechange = function () {//Call a function when the state changes.
                     if (http.readyState === 4 && http.status === 200) {
                         form.classList.add('saved');
+                        let submit = form.getElementsByClassName('loading');
+                        submit[0].classList.remove('loading');
                     }
                 };
                 http.send(params);
@@ -60,7 +62,7 @@
                     // description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
                     //console.log(node)
                     title.innerText = this.getNodeType(node) +' '+ '<' + node.nodeName.toLowerCase() + '>';
-                    this.getNodeType(node);
+                    editor.getNodeType(node);
                     inspector.appendChild(unexpand);
                     inspector.appendChild(title);
                     //inspector.appendChild(description);
@@ -76,12 +78,12 @@
                     /*
                     * Texts form
                     * */
-                    if (Object.keys(node.data.text).length > 0) {
-                        let title = document.createElement('h4');
-                        title.innerText = "Content";
-                        title.classList.add('title');
-                        form.appendChild(title);
-                    }
+                    // if (Object.keys(node.data.text).length > 0) {
+                    //     let title = document.createElement('h4');
+                    //     title.innerText = "Content";
+                    //     title.classList.add('title');
+                    //     form.appendChild(title);
+                    // }
 
                     for (let i = 0; i < node.data.text.length; i++) {
 
@@ -167,11 +169,12 @@
                         form.appendChild(label);
                     }
 
-                    submit = document.createElement('input');
+                    submit = document.createElement('button');
                     submit.type = 'submit';
-                    submit.value = "Save";
+                    submit.innerText = "Save";
                     form.appendChild(submit);
                     form.onsubmit = function (e) {
+                        submit.classList.add('loading');
                         e.preventDefault();
                         editor.submitForm(form);
                     };
@@ -327,6 +330,7 @@
                                 editor.expandSelector(node);
                                 editor.context_menu.classList.remove("shown");
                             }
+                            e.stopPropagation();
                         });
 
                         node.selector.onclick = function () {
