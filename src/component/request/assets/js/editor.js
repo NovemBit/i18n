@@ -45,6 +45,7 @@
                 if (typeof inspector === 'undefined' || inspector === null) {
 
                     inspector = document.createElement('div');
+                    inspector.classList.add(window.novembit.i18n.prefix+'-editor-inspector');
                     inspector.classList.add('inspector');
 
                     let unexpand = document.createElement('div');
@@ -296,7 +297,7 @@
             },
             initSelectors: function () {
                 let editor = this;
-                let nodes = document.body.querySelectorAll(this.text_node_selector + ',' + this.attr_node_selector);
+                let nodes = document.querySelectorAll(this.text_node_selector + ',' + this.attr_node_selector);
                 for (let i = 0; i < nodes.length; i++) {
                     this.last_node_index++;
                     let key = this.last_node_index;
@@ -309,6 +310,7 @@
                         node.selector = document.createElement('div');
                         node.setAttribute(this.node_num_attr, key);
                         node.selector.setAttribute('n', key);
+                        node.selector.innerText = '<'+node.tagName.toLowerCase()+'> '+ node.textContent;
 
                         node.onmouseover = function () {
                             editor.initNodeInspector(node);
@@ -353,7 +355,6 @@
                             editor.unMarkNode(node);
                         };
 
-
                         if (node.data.hasOwnProperty('attr')) {
                             for (let _attr in node.data.attr) {
                                 if (node.data.attr.hasOwnProperty(_attr)) {
@@ -375,11 +376,10 @@
                         key = node.getAttribute(this.node_num_attr);
                         node.selector = editor.wrapper.querySelector("[n=\"" + key + "\"]");
                     }
-
-
-                    node.selector.style.position = this.isNodeFixed(node) ? 'fixed' : 'absolute';
-                    node.selector.style.top = nodePos.top + "px";
-                    node.selector.style.left = nodePos.left + "px";
+                    //
+                    // node.selector.style.position = this.isNodeFixed(node) ? 'fixed' : 'absolute';
+                    // node.selector.style.top = nodePos.top + "px";
+                    // node.selector.style.left = nodePos.left + "px";
                 }
             },
             addParameterToURL: function (url, key, value) {
