@@ -3,7 +3,6 @@
 * Request Editor
 * */
 (function () {
-
     window.novembit.i18n.editor = {
         ...window.novembit.i18n.editor,
         ...{
