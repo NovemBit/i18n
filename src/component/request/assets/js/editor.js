@@ -13,6 +13,20 @@
             node_num_attr: window.novembit.i18n.prefix + '-selector-num',
             active_node_class: window.novembit.i18n.prefix + '-active',
             last_node_index: 0,
+            html_tags: {
+              'A' : 'Anchor',
+              'P' : 'Paragraph',
+              'IMG' : 'Image',
+              'BUTTON' : 'Button',
+              'H1' : 'Heading',
+              'H2' : 'Heading',
+              'H3' : 'Heading',
+              'H4' : 'Heading',
+              'H5' : 'Heading',
+              'H6' : 'Heading',
+              'VIDEO' : 'Video',
+              'FORM' : 'Form',
+            },
             updateNodeText: function (node, index, value, prefix, suffix) {
                 if (node.childNodes[index].nodeType !== 3) {
                     index++;
@@ -238,37 +252,10 @@
                 };
             },
             getNodeType: function (node) {
-                switch (node.nodeName) {
-                    case 'A':
-                        return 'Anchor';
-                        break;
-                    case 'P':
-                        return 'Paragraph';
-                    case 'IMG':
-                        return 'Image';
-                        break;
-                    case 'BUTTON':
-                        return 'Button';
-                        break;
-                    case 'H1':
-                    case 'H2':
-                    case 'H3':
-                    case 'H4':
-                    case 'H5':
-                    case 'H6':
-                        return 'Heading';
-                        break;
-                    case 'VIDEO':
-                        return 'Video';
-                        break;
-                    case 'AUDIO':
-                        return 'Audio';
-                        break;
-                    case 'FORM':
-                        return 'Form';
-                        break;
-                    default:
-                        return 'Text';
+                if (this.html_tags[node.nodeName]) {
+                    return this.html_tags[node.nodeName];
+                } else {
+                   return 'Text';
                 }
             },
             activeSelector: function (node) {
