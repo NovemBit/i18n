@@ -123,14 +123,6 @@
 
                         label.appendChild(original);
 
-                        if (node.data.text[i][2] !== 'text') {
-                            input.disabled = true;
-                            let hint = document.createElement('p');
-                            hint.innerText = '* Is not text value.';
-                            hint.classList.add('hint');
-                            label.appendChild(hint);
-                        }
-
                         label.appendChild(input);
                         form.appendChild(label);
                     }
@@ -172,16 +164,6 @@
                             }
                         };
 
-                        if (node.data.attr[attr_key][2] !== 'text'
-                            && !(node.hasAttribute('type') && node.getAttribute('type') === 'i18n-current-url')
-                        ) {
-                            input.disabled = true;
-                            let hint = document.createElement('span');
-                            hint.innerText = '* url slug';
-                            hint.classList.add('hint');
-                            original.appendChild(hint);
-                        }
-
                         label.appendChild(input);
                         form.appendChild(label);
                     }
@@ -196,8 +178,6 @@
                         editor.submitForm(form);
                     };
                     forms.appendChild(form);
-
-
                     inspector.appendChild(forms);
 
                     node.selector.appendChild(inspector);
@@ -405,7 +385,6 @@
 
                 item = document.createElement('a');
                 item.onclick = function () {
-                    editor.initSelectors();
                     let node = document.querySelector('meta[type="i18n-current-url"]');
                     editor.initNodeInspector(node);
                     editor.activeSelector(node);
@@ -458,7 +437,34 @@
 
                 // (E) LOOP THROUGH LIST ITELS - ONLY SHOW ITEMS THAT MATCH SEARCH
                 for (let i of all) {
-                    let item = i.innerHTML.toLowerCase();
+
+                    let label = '';
+                    let content_string = i.innerHTML.toLowerCase();
+
+                    if(!i.hasOwnProperty('mainNode')){
+                        continue;
+                    }
+
+                    const data = i.mainNode.data;
+
+                    for (const type in data) {
+                        if (data.hasOwnProperty(type) && data[type] !== null) {
+                            let contents = data[type];
+                            if (typeof contents === 'object' && contents !== null) {
+                                for (const content_key in contents) {
+                                    if (contents.hasOwnProperty(content_key)) {
+                                        let content = contents[content_key];
+                                        content_string += content.join(', ');
+                                    }
+                                }
+                            } else {
+                                contents.forEach(function (content) {
+                                    content_string += content.join(', ');
+                                });
+                            }
+
+                        }
+                    }
                     if (meta) {
                         if (!editor.meta_tags.includes(i.mainNode.tagName.toLowerCase())) {
                             i.classList.add("hidden");
@@ -466,7 +472,7 @@
                             i.classList.remove("hidden");
                         }
                     } else {
-                        if (item.indexOf(search) === -1) {
+                        if (content_string.indexOf(search) === -1) {
                             i.classList.add("hidden");
                         } else {
                             i.classList.remove("hidden");
