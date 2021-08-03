@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HTML translation type interface file
  * php version 7.2.10
@@ -24,8 +25,9 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
  */
 interface XML extends Type
 {
-    public function addBeforeParseCallback(callable $callback):void;
+    public function addBeforeParseCallback(callable $callback): void;
 
-    public function addAfterParseCallback(callable $callback):void;
+    public function addAfterParseCallback(callable $callback): void;
 
+    public function addXpathQuery(string $xpath, array $config): void;
 }

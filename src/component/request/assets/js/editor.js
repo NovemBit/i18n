@@ -7,6 +7,7 @@
         ...window.novembit.i18n.editor,
         ...{
             wrapper: document.createElement('div'),
+            selectors: document.createElement('div'),
             context_menu: document.createElement('menu'),
             text_node_selector: "[" + window.novembit.i18n.prefix + "-text]",
             attr_node_selector: "[" + window.novembit.i18n.prefix + "-attr]",
@@ -14,18 +15,18 @@
             active_node_class: window.novembit.i18n.prefix + '-active',
             last_node_index: 0,
             html_tags: {
-              'A' : 'Anchor',
-              'P' : 'Paragraph',
-              'IMG' : 'Image',
-              'BUTTON' : 'Button',
-              'H1' : 'Heading',
-              'H2' : 'Heading',
-              'H3' : 'Heading',
-              'H4' : 'Heading',
-              'H5' : 'Heading',
-              'H6' : 'Heading',
-              'VIDEO' : 'Video',
-              'FORM' : 'Form',
+                'a': 'Anchor',
+                'p': 'Paragraph',
+                'img': 'Image',
+                'button': 'Button',
+                'h1': 'Heading',
+                'h2': 'Heading',
+                'h3': 'Heading',
+                'h4': 'Heading',
+                'h5': 'Heading',
+                'h6': 'Heading',
+                'video': 'Video',
+                'form': 'Form',
             },
             updateNodeText: function (node, index, value, prefix, suffix) {
                 if (node.childNodes[index].nodeType !== 3) {
@@ -58,14 +59,14 @@
                 if (typeof inspector === 'undefined' || inspector === null) {
 
                     inspector = document.createElement('div');
-                    inspector.classList.add(window.novembit.i18n.prefix+'-editor-inspector');
+                    inspector.classList.add(window.novembit.i18n.prefix + '-editor-inspector');
                     inspector.classList.add('inspector');
 
                     let unexpand = document.createElement('div');
                     unexpand.classList.add('unexpand');
                     unexpand.onclick = function (e) {
                         e.stopPropagation();
-                        editor.unexpandSelector(node);
+                        editor.unExpandSelector(node);
                     };
 
                     let title = document.createElement('div');
@@ -75,7 +76,7 @@
                     //  description.classList.add('description');
                     // description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
                     //console.log(node)
-                    title.innerText = this.getNodeType(node) +' '+ '<' + node.nodeName.toLowerCase() + '>';
+                    title.innerText = this.getNodeType(node) + ' ' + '<' + node.nodeName.toLowerCase() + '>';
                     editor.getNodeType(node);
                     inspector.appendChild(unexpand);
                     inspector.appendChild(title);
@@ -105,7 +106,7 @@
                         let label = document.createElement('label');
                         //label.innerText = "Text " + (i + 1);
                         input.value = node.data.text[i][1];
-                        input.name = window.novembit.i18n.prefix + "-form[" + node.data.text[i][0] + "]";
+                        input.name = window.novembit.i18n.prefix + "-form[" + node.data.text[i][2] + "][" + node.data.text[i][0] + "]";
 
                         input.oninput = function () {
                             editor.updateNodeText(node, i, this.value, node.data.text[i][4], node.data.text[i][5]);
@@ -152,7 +153,7 @@
 
                         let label = document.createElement('label');
                         label.classList.add('form-label');
-                        label.innerHTML = 'attribute: '+ '<b>' + attr_key + '</b>';
+                        label.innerHTML = 'attribute: ' + '<b>' + attr_key + '</b>';
 
                         let original = document.createElement('div');
                         original.classList.add('original');
@@ -162,7 +163,7 @@
                         label.appendChild(original);
 
                         let input = document.createElement('textarea');
-                        input.name = window.novembit.i18n.prefix + "-form[" + node.data.attr[attr_key][0] + "]";
+                        input.name = window.novembit.i18n.prefix + "-form[" + node.data.attr[attr_key][2] + "][" + node.data.attr[attr_key][0] + "]";
                         input.value = node.data.attr[attr_key][1];
                         input.oninput = function () {
                             editor.updateNodeAttr(node, attr_key, this.value, node.data.attr[attr_key][4], node.data.attr[attr_key][5]);
@@ -171,7 +172,9 @@
                             }
                         };
 
-                        if (node.data.attr[attr_key][2] !== 'text') {
+                        if (node.data.attr[attr_key][2] !== 'text'
+                            && !(node.hasAttribute('type') && node.getAttribute('type') === 'i18n-current-url')
+                        ) {
                             input.disabled = true;
                             let hint = document.createElement('span');
                             hint.innerText = '* url slug';
@@ -252,10 +255,11 @@
                 };
             },
             getNodeType: function (node) {
-                if (this.html_tags[node.nodeName]) {
-                    return this.html_tags[node.nodeName];
+                const nodeName = node.tagName.toLowerCase();
+                if (this.html_tags[nodeName]) {
+                    return this.html_tags[nodeName];
                 } else {
-                   return 'Text';
+                    return 'Text';
                 }
             },
             activeSelector: function (node) {
@@ -275,11 +279,14 @@
                 }
                 node.selector.classList.add('expanded');
             },
-            unexpandSelector: function (node) {
+            unExpandSelector: function (node) {
                 node.selector.classList.remove('expanded');
             },
             showNodeContextMenu: function (node) {
                 let editor = this;
+            },
+            contextMenuHide() {
+                this.context_menu.classList.remove("shown");
             },
             initSelectors: function () {
                 let editor = this;
@@ -294,9 +301,11 @@
                         node.data = editor.getNodeData(node);
 
                         node.selector = document.createElement('div');
+                        node.selector.mainNode = node;
+                        node.selector.classList.add('selector');
                         node.setAttribute(this.node_num_attr, key);
                         node.selector.setAttribute('n', key);
-                        node.selector.innerText = '<'+node.tagName.toLowerCase()+'> '+ node.textContent;
+                        node.selector.innerText = '<' + node.tagName.toLowerCase() + '> ' + node.textContent.replace(/[\n\r]/g, "");
 
                         node.onmouseover = function () {
                             editor.initNodeInspector(node);
@@ -357,15 +366,11 @@
                             node.selector.classList.add('level-' + node.data.text[0][3] + '-bg');
                         }
 
-                        this.wrapper.appendChild(node.selector);
+                        this.selectors.appendChild(node.selector);
                     } else {
                         key = node.getAttribute(this.node_num_attr);
-                        node.selector = editor.wrapper.querySelector("[n=\"" + key + "\"]");
+                        node.selector = editor.selectors.querySelector("[n=\"" + key + "\"]");
                     }
-                    //
-                    // node.selector.style.position = this.isNodeFixed(node) ? 'fixed' : 'absolute';
-                    // node.selector.style.top = nodePos.top + "px";
-                    // node.selector.style.left = nodePos.left + "px";
                 }
             },
             addParameterToURL: function (url, key, value) {
@@ -378,19 +383,49 @@
 
                 this.context_menu.id = window.novembit.i18n.prefix + "-context-menu";
 
-                let item = document.createElement('a');
-                item.href = "javascript:;";
-                item.classList.add("title");
-                item.innerHTML = "<b>Menu</b>";
+                let item;
 
+                item = document.createElement('a');
+                item.classList.add("translate");
+                item.innerText = "Translate node";
+                this.context_menu.appendChild(item);
+
+                item = document.createElement('hr');
                 this.context_menu.appendChild(item);
 
                 item = document.createElement('a');
                 item.href = "javascript:;";
-                item.classList.add("translate");
-                item.innerText = "Translate";
-
+                item.onclick = function () {
+                    editor.filterResults(':meta:');
+                    editor.contextMenuHide();
+                };
+                item.classList.add("translate_meta");
+                item.innerText = "Translate page meta";
                 this.context_menu.appendChild(item);
+
+                item = document.createElement('a');
+                item.onclick = function () {
+                    editor.initSelectors();
+                    let node = document.querySelector('meta[type="i18n-current-url"]');
+                    editor.initNodeInspector(node);
+                    editor.activeSelector(node);
+                    editor.expandSelector(node);
+                    editor.contextMenuHide();
+                };
+                item.classList.add("translate_url_slug");
+                item.innerText = "Translate page URL";
+                this.context_menu.appendChild(item);
+
+                item = document.createElement('a');
+                item.href = "javascript:;";
+                item.onclick = function () {
+                    editor.filterResults('');
+                    editor.contextMenuHide();
+                };
+                item.classList.add("translate_all");
+                item.innerText = "Show all";
+                this.context_menu.appendChild(item);
+
                 document.body.appendChild(this.context_menu);
 
                 document.addEventListener("click", function (e) {
@@ -400,11 +435,72 @@
                         else target = target.parentNode;
                     }
                     editor.context_menu.classList.remove("shown");
-
                 });
+            },
+            meta_tags: [
+                'title',
+                'link',
+                'meta'
+            ],
+            filterResults: function (query) {
+                const editor = window.novembit.i18n.editor;
+
+                // (C) GET THE SEARCH TERM
+                const search = query.toLowerCase();
+
+                // (D) GET ALL LIST ITEMS
+                const all = editor.selectors.querySelectorAll(":scope > div.selector");
+
+                let meta = null;
+                if (query === ':meta:') {
+                    meta = true;
+                }
+
+                // (E) LOOP THROUGH LIST ITELS - ONLY SHOW ITEMS THAT MATCH SEARCH
+                for (let i of all) {
+                    let item = i.innerHTML.toLowerCase();
+                    if (meta) {
+                        if (!editor.meta_tags.includes(i.mainNode.tagName.toLowerCase())) {
+                            i.classList.add("hidden");
+                        } else {
+                            i.classList.remove("hidden");
+                        }
+                    } else {
+                        if (item.indexOf(search) === -1) {
+                            i.classList.add("hidden");
+                        } else {
+                            i.classList.remove("hidden");
+                        }
+                    }
+                }
+
+                return true;
+            },
+            setupSelectorsSearch: function () {
+                const editor = window.novembit.i18n.editor;
+                const searchForm = document.createElement('div');
+                searchForm.classList.add('search-container');
+                const inputField = document.createElement('input');
+
+                let oldValue = inputField.value;
+                setInterval(function () {
+                        if (oldValue !== inputField.value) {
+                            editor.filterResults(inputField.value);
+                            oldValue = inputField.value;
+                        }
+                    }, 150
+                );
+
+                inputField.type = 'text';
+                inputField.placeholder = 'Search texts';
+                searchForm.appendChild(inputField);
+                this.wrapper.appendChild(searchForm);
             },
             start: function () {
                 document.body.appendChild(this.wrapper);
+                this.setupSelectorsSearch();
+                this.selectors.classList.add('selectors');
+                this.wrapper.appendChild(this.selectors);
                 this.wrapper.id = window.novembit.i18n.prefix + "-editor-wrapper";
                 this.initContextMenu();
                 this.initSelectors();
@@ -429,7 +525,9 @@
     }
 
     document.addEventListener("DOMContentLoaded", function (event) {
-        window.novembit.i18n.editor.start();
+        if (window.novembit.i18n.editor.is_editor) {
+            window.novembit.i18n.editor.start();
+        }
     });
 
     stopScroll(window, function () {

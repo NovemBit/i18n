@@ -41,7 +41,6 @@ class XML extends Type implements interfaces\XML
      * */
     public $name = 'xml';
 
-
     public $xpath_query_map = [];
 
     /**
@@ -63,9 +62,9 @@ class XML extends Type implements interfaces\XML
      * */
     public $model_class = models\XML::class;
 
-    private $_before_parse_callbacks = [];
+    private $before_parse_callbacks = [];
 
-    private $_after_parse_callbacks = [];
+    private $after_parse_callbacks = [];
 
     protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
 
@@ -113,7 +112,10 @@ class XML extends Type implements interfaces\XML
         string $xml,
         string $language
     ): \NovemBit\i18n\system\parsers\XML {
-        $parser = new \NovemBit\i18n\system\parsers\XML(
+
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/asdas',var_export($this->xpath_query_map, true));
+
+        return new \NovemBit\i18n\system\parsers\XML(
             $xml,
             $this->xpath_query_map,
             $this->getParserType(),
@@ -128,8 +130,6 @@ class XML extends Type implements interfaces\XML
                 }
             }
         );
-
-        return $parser;
     }
 
     /**
@@ -435,7 +435,7 @@ class XML extends Type implements interfaces\XML
      */
     public function addBeforeParseCallback(callable $callback): void
     {
-        $this->_before_parse_callbacks[] = $callback;
+        $this->before_parse_callbacks[] = $callback;
     }
 
     /**
@@ -443,7 +443,7 @@ class XML extends Type implements interfaces\XML
      */
     public function addAfterParseCallback(callable $callback): void
     {
-        $this->_after_parse_callbacks[] = $callback;
+        $this->after_parse_callbacks[] = $callback;
     }
 
     /**
@@ -451,7 +451,7 @@ class XML extends Type implements interfaces\XML
      */
     public function getBeforeParseCallbacks(): array
     {
-        return $this->_before_parse_callbacks;
+        return $this->before_parse_callbacks;
     }
 
     /**
@@ -459,6 +459,11 @@ class XML extends Type implements interfaces\XML
      */
     public function getAfterParseCallbacks(): array
     {
-        return $this->_after_parse_callbacks;
+        return $this->after_parse_callbacks;
+    }
+
+    public function addXpathQuery(string $xpath, array $config): void
+    {
+        $this->xpath_query_map[$xpath] = $config;
     }
 }

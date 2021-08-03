@@ -13,7 +13,6 @@
     top: 0;
     width: 300px;
     height: 100vh;
-    overflow-y: auto;
     background: #fff;
     z-index: 99999999;
 }
@@ -26,7 +25,7 @@
 #__PREFIX-editor-wrapper b {
     font-weight: bolder;
 }
-#__PREFIX-editor-wrapper > div {
+#__PREFIX-editor-wrapper > div.selectors > div.selector {
     display: block;
     border-bottom: 1px solid #eee;
     padding: 3px;
@@ -34,10 +33,17 @@
     word-break: unset;
 }
 
-#__PREFIX-editor-wrapper > div:hover {
+#__PREFIX-editor-wrapper > div.selectors {
+    height: calc( 100% - 35px ) !important;
+    display: block !important;
+    overflow-y: auto !important;
+    margin-top: 35px !important;
+}
+
+#__PREFIX-editor-wrapper > div.selectors > div.selector:hover {
     background: #eee;
 }
-#__PREFIX-editor-wrapper > div:before {
+#__PREFIX-editor-wrapper > div.selectors > div.selector:before {
     /*content: "";*/
     border-radius: 100%;
     border: solid 2px #fff;
@@ -49,36 +55,36 @@
     display: inline-block;
 }
 
-#__PREFIX-editor-wrapper > div.active {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.active {
     z-index: 1000002;
     opacity: 1;
 }
 
-#__PREFIX-editor-wrapper > div.expanded {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded {
     z-index: 1000001;
     opacity: 1;
 }
 
-#__PREFIX-editor-wrapper > div.active.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.active.expanded > .inspector {
     border-color: #a90000;
     opacity: 1;
 }
 
-#__PREFIX-editor-wrapper > div.active > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.active > .inspector {
     border-color: #a90000;
     display: block;
 }
 
-#__PREFIX-editor-wrapper > div.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector {
     display: block;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector {
     /*transition: 0.5s cubic-bezier(0.43, 0.27, 0.21, 1.02) all;*/
     display: none;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector {
     font-size: 16px;
     line-height: 20px;
     cursor: default;
@@ -91,7 +97,7 @@
     box-shadow:  0 1px 1px 0 rgb(66 66 66 / 8%), 0 1px 3px 1px rgb(66 66 66 / 16%);
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .title {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .title {
     display: flex;
     padding: 0 20px;
     color: #fff;
@@ -103,39 +109,39 @@
     justify-content: center;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .description {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .description {
     color: #616161;
     font-size: 0.8em;
     display: block;
     padding: 10px 20px;
 }
 
-#__PREFIX-editor-wrapper > div.expanded > .inspector {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector {
     display: block;
     box-sizing: border-box;
     width: 500px;
     max-width: 90vw;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms {
     position: relative;
     display: none;
     padding: 0 20px 80px;
     box-sizing: border-box;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form {
     display: block;
     width: 100%;
     max-height: calc(90vh - 60px);
     overflow: auto;
 }
 
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .forms {
     display: block;
 }
 
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .title {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .forms > form > .title {
     display: block;
     margin-top: 20px;
     padding-top: 16px;
@@ -144,26 +150,26 @@
     font-weight: bold;
     border-top: 1px solid #eee;
 }
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .form-label {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .forms > form > .form-label {
     margin-top: 20px;
     padding-top: 16px;
     border-top: 1px solid #eee;
 }
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .forms > form > .title:first-child  {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .forms > form > .title:first-child  {
     margin-top: 0px;
     border-top: none;
 }
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label .hint {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > label .hint {
     color: #ff0000;
     margin-left: 10px;
     display: inline-block;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > .original {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > label > .original {
     display: block;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > label {
     clear: both;
     display: block;
     box-sizing: border-box;
@@ -171,14 +177,14 @@
     font-size: 1em;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea[disabled] {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > label > textarea[disabled] {
     background: #e2e2e2;
     color: #a6a6a6;
     border-color: #999;
     cursor: default;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > label > textarea {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > label > textarea {
     background: #fff;
     border: solid 1px #949494;
     font-weight: normal;
@@ -191,7 +197,7 @@
     padding: 10px;
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button[type=submit] {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > button[type=submit] {
     position: absolute;
     bottom: 20px;
     width: calc(100% - 40px);
@@ -204,15 +210,26 @@
     padding: 10px;
     text-align: center;
 }
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button[type=submit]:hover {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > button[type=submit]:hover {
     box-shadow: 0 3px 6px -3px rgb(0 0 0 / 33%);
 }
 
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button.loading {
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > button.loading {
     color: transparent;
 }
-
-#__PREFIX-editor-wrapper > div > .inspector > .forms > form > button.loading:after {
+#__PREFIX-editor-wrapper>.search-container{
+    position:fixed;
+    width:300px;;
+}
+#__PREFIX-editor-wrapper>.search-container>input {
+    width: 100% !important;
+    border-bottom: solid 1px !important;
+    background:#fff;
+}
+#__PREFIX-editor-wrapper > div.selectors > div.selector.hidden{
+    display: none;
+}
+#__PREFIX-editor-wrapper > div.selectors > div.selector > .inspector > .forms > form > button.loading:after {
     content: " ";
     position: absolute;
     top: 50%;
@@ -235,7 +252,7 @@
         transform: rotate(360deg);
     }
 }
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .unexpand {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -243,7 +260,7 @@
     color: #fff;
 }
 
-#__PREFIX-editor-wrapper > div.expanded > .inspector > .unexpand:before {
+#__PREFIX-editor-wrapper > div.selectors > div.selector.expanded > .inspector > .unexpand:before {
     content: "\00D7";
     font-size: 1.4em;
     display: inline-block;
