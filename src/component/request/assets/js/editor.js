@@ -285,7 +285,8 @@
                         node.selector.classList.add('selector');
                         node.setAttribute(this.node_num_attr, key);
                         node.selector.setAttribute('n', key);
-                        node.selector.innerText = '<' + node.tagName.toLowerCase() + '> ' + node.textContent.replace(/[\n\r]/g, "");
+                        const content_text = editor.getNodeContentData(node).join(', ').replace(/[\n\r]/g, "").substr(0, 40) ;
+                        node.selector.innerText = '<' + node.tagName.toLowerCase() + '> ' + content_text;
 
                         node.onmouseover = function () {
                             editor.initNodeInspector(node);
@@ -421,11 +422,55 @@
                 'link',
                 'meta'
             ],
+            getNodeContentData(node, include_translations = false) {
+                if (!node.hasOwnProperty('data')) {
+                    return;
+                }
+                let result = [];
+                const data = node.data;
+
+                for (const type in data) {
+                    if (data.hasOwnProperty(type) && data[type] !== null) {
+                        let contents = data[type];
+                        if (typeof contents === 'object' && contents !== null) {
+                            for (const content_key in contents) {
+                                if (contents.hasOwnProperty(content_key)) {
+                                    let content = contents[content_key];
+                                    if(content) {
+                                        if(content[0]) {
+                                            result.push(content[0]);
+                                        }
+                                        if(include_translations) {
+                                            if (content[1]) {
+                                                result.push(content[1]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            contents.forEach(function (content) {
+                                if(content) {
+                                    if(content[0]) {
+                                        result.push(content[0].trim());
+                                    }
+                                    if(include_translations) {
+                                        if (content[1]) {
+                                            result.push(content[1].trim());
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                return result;
+            },
             filterResults: function (query) {
                 const editor = window.novembit.i18n.editor;
 
                 // (C) GET THE SEARCH TERM
-                const search = query.toLowerCase();
+                query = query.toLowerCase();
 
                 // (D) GET ALL LIST ITEMS
                 const all = editor.selectors.querySelectorAll(":scope > div.selector");
@@ -439,32 +484,13 @@
                 for (let i of all) {
 
                     let label = '';
-                    let content_string = i.innerHTML.toLowerCase();
 
-                    if(!i.hasOwnProperty('mainNode')){
+                    if (!i.hasOwnProperty('mainNode')) {
                         continue;
                     }
 
-                    const data = i.mainNode.data;
+                    let content_string = editor.getNodeContentData(i.mainNode, true).join(', ').toLowerCase();
 
-                    for (const type in data) {
-                        if (data.hasOwnProperty(type) && data[type] !== null) {
-                            let contents = data[type];
-                            if (typeof contents === 'object' && contents !== null) {
-                                for (const content_key in contents) {
-                                    if (contents.hasOwnProperty(content_key)) {
-                                        let content = contents[content_key];
-                                        content_string += content.join(', ');
-                                    }
-                                }
-                            } else {
-                                contents.forEach(function (content) {
-                                    content_string += content.join(', ');
-                                });
-                            }
-
-                        }
-                    }
                     if (meta) {
                         if (!editor.meta_tags.includes(i.mainNode.tagName.toLowerCase())) {
                             i.classList.add("hidden");
@@ -472,7 +498,7 @@
                             i.classList.remove("hidden");
                         }
                     } else {
-                        if (content_string.indexOf(search) === -1) {
+                        if (content_string.indexOf(query) === -1) {
                             i.classList.add("hidden");
                         } else {
                             i.classList.remove("hidden");
