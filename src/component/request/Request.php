@@ -1128,8 +1128,8 @@ class Request extends Component implements interfaces\Request
                                 if ($this->allow_editor) {
                                     if ($this->isEditor()) {
                                         $this->addCurrentUrlMeta($dom, $head);
+                                        $this->addEditorAssets($dom, $head);
                                     }
-                                    $this->addEditorAssets($dom, $head);
                                 }
                             }
                         }
