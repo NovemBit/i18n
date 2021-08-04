@@ -14,6 +14,7 @@
             node_num_attr: window.novembit.i18n.prefix + '-selector-num',
             active_node_class: window.novembit.i18n.prefix + '-active',
             last_node_index: 0,
+            translation_svg: '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>',
             html_tags: {
                 'a': 'Anchor',
                 'p': 'Paragraph',
@@ -286,7 +287,10 @@
                         node.setAttribute(this.node_num_attr, key);
                         node.selector.setAttribute('n', key);
                         const content_text = editor.getNodeContentData(node).join(', ').replace(/[\n\r]/g, "").substr(0, 40) ;
-                        node.selector.innerText = '<' + node.tagName.toLowerCase() + '> ' + content_text;
+                        const string_bold = document.createElement('b');
+                        string_bold.innerText = '<' + node.tagName.toLowerCase() + '> ';
+                        node.selector.innerText = content_text;
+                        node.selector.prepend(string_bold);
 
                         node.onmouseover = function () {
                             editor.initNodeInspector(node);
@@ -379,6 +383,7 @@
                 item.onclick = function () {
                     editor.filterResults(':meta:');
                     editor.contextMenuHide();
+                    editor.wrapper.classList.add(window.novembit.i18n.prefix + "-show");
                 };
                 item.classList.add("translate_meta");
                 item.innerText = "Translate page meta";
@@ -536,6 +541,7 @@
                 this.wrapper.appendChild(this.selectors);
                 this.wrapper.id = window.novembit.i18n.prefix + "-editor-wrapper";
                 const toggle = document.createElement('button');
+                toggle.innerHTML = this.translation_svg;
                 toggle.className = window.novembit.i18n.prefix + '-wrapper__toggle';
                 this.wrapper.prepend(toggle);
                 this.initContextMenu();
