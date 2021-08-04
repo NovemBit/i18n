@@ -115,7 +115,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @var bool
      * */
-    private $helper_attributes = false;
+    private $helper_attributes = [];
 
     /**
      * {@inheritdoc}
@@ -776,35 +776,31 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Set cache result status
      *
-     * @param bool $status Status
+     * @param bool $cache_status Status
      *
      * @return void
      */
-    public function setCacheResult(?bool $status): void
+    public function setCacheResult(?bool $cache_status): void
     {
-        $this->cache_result = $status;
+        $this->cache_result = $cache_status;
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @return bool
      * */
-    public function getHelperAttributes(): bool
+    public function getHelperAttributes(): array
     {
         return $this->helper_attributes;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param bool $status If true then
-     *                     html translation including additional attributes
+     * @param array $types Types list to get on helper attributes
+     *                     e.g ['text','url']
      *
      * @return void
      * */
-    public function setHelperAttributes(bool $status): void
+    public function setHelperAttributes(array $types): void
     {
-        $this->helper_attributes = $status;
+        $this->helper_attributes = $types;
     }
 }

@@ -686,7 +686,7 @@ class Request extends Component implements interfaces\Request
          * */
         register_shutdown_function(
             function () {
-                if ( ! in_array(http_response_code(), [400, 401, 402, 403, 404])) {
+                if (! in_array(http_response_code(), [400, 401, 402, 403, 404])) {
                     $this->getTranslation()
                          ->setLanguages(
                              $this->getAcceptLanguages()
@@ -1104,12 +1104,14 @@ class Request extends Component implements interfaces\Request
                     ->{$type};
 
                 if ($this->isEditor()) {
-                    /**
-                     * Define translator type
-                     *
-                     * @var HTML $translator
-                     */
-                    $translator->setHelperAttributes(true);
+                    /** @var HTML $translator */
+                    $types_to_show = ['text'];
+
+                    if ($this->context->translation->url->isPathTranslation()) {
+                        $types_to_show[] = 'url';
+                    }
+
+                    $translator->setHelperAttributes($types_to_show);
                 }
 
                 if ($type === 'html') {
@@ -1227,7 +1229,7 @@ class Request extends Component implements interfaces\Request
             return;
         }
 
-        if ( ! $this->prepare()) {
+        if (! $this->prepare()) {
             return;
         }
 

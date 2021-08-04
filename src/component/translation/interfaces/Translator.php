@@ -1,8 +1,6 @@
 <?php
 
-
 namespace NovemBit\i18n\component\translation\interfaces;
-
 
 use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\system\interfaces\Component;
@@ -45,7 +43,7 @@ interface Translator extends Component
 
     public function setCacheResult(?bool $cache_status): void;
 
-    public function getHelperAttributes() : bool;
+    public function getHelperAttributes(): array;
 
-    public function setHelperAttributes(bool $status) : void;
+    public function setHelperAttributes(array $attributes): void;
 }

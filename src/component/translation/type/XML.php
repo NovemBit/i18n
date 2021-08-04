@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Translation component
  * php version 7.2.10
@@ -21,7 +22,6 @@ use DOMText;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use Psr\SimpleCache\InvalidArgumentException;
-
 
 /**
  * HTML type for translation component
@@ -113,7 +113,7 @@ class XML extends Type implements interfaces\XML
         string $language
     ): \NovemBit\i18n\system\parsers\XML {
 
-        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/asdas',var_export($this->xpath_query_map, true));
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/asdas', var_export($this->xpath_query_map, true));
 
         return new \NovemBit\i18n\system\parsers\XML(
             $xml,
@@ -173,7 +173,8 @@ class XML extends Type implements interfaces\XML
 
     private function _getNodeType($node): ?string
     {
-        if ($node->nodeType == XML_TEXT_NODE
+        if (
+            $node->nodeType == XML_TEXT_NODE
             || $node->nodeType == XML_CDATA_SECTION_NODE
         ) {
             return 'text';
@@ -233,7 +234,7 @@ class XML extends Type implements interfaces\XML
             [$type][$node_value][$data['language']]
             ?? null;
 
-        if ($this->getHelperAttributes()) {
+        if (in_array($type, $this->getHelperAttributes())) {
             /**
              * Define node type
              *
@@ -250,10 +251,10 @@ class XML extends Type implements interfaces\XML
                  *
                  * @var DOMText $node
                  */
-
-                if ($parent->hasAttribute(
-                    $this->context->context->prefix . '-text'
-                )
+                if (
+                    $parent->hasAttribute(
+                        $this->context->context->prefix . '-text'
+                    )
                 ) {
                     $text = json_decode(
                         $parent->getAttribute(
@@ -285,9 +286,10 @@ class XML extends Type implements interfaces\XML
                  *
                  * @var DOMAttr $node
                  */
-                if ($parent->hasAttribute(
-                    $this->context->context->prefix . '-attr'
-                )
+                if (
+                    $parent->hasAttribute(
+                        $this->context->context->prefix . '-attr'
+                    )
                 ) {
                     $attr = json_decode(
                         $parent->getAttribute(
@@ -383,14 +385,13 @@ class XML extends Type implements interfaces\XML
 
         foreach ($to_translate as $type => $texts) {
             $verbose[$type] = $this->getHelperAttributes() ? [] : null;
-
             /**
              * Translator method
              *
              * @var Translator $translator
              */
             $translator = $this->context->{$type};
-            
+
             /**
              * Enable helper attributes for sub-translators
              * */
@@ -430,7 +431,7 @@ class XML extends Type implements interfaces\XML
 
     /**
      * Adding functions before parse
-     * 
+     *
      * @param callable $callback Callable closure
      */
     public function addBeforeParseCallback(callable $callback): void
