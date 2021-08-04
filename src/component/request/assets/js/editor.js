@@ -421,6 +421,7 @@
                 item.onclick = function () {
                     editor.filterResults('');
                     editor.contextMenuHide();
+                    editor.wrapper.classList.add(window.novembit.i18n.prefix + "-show");
                 };
                 item.classList.add("translate_all");
                 item.innerText = "Show all";
@@ -502,8 +503,17 @@
                 this.selectors.classList.add('selectors');
                 this.wrapper.appendChild(this.selectors);
                 this.wrapper.id = window.novembit.i18n.prefix + "-editor-wrapper";
+                const toggle = document.createElement('button');
+                toggle.className = window.novembit.i18n.prefix + '-wrapper__toggle';
+                this.wrapper.prepend(toggle);
                 this.initContextMenu();
                 this.initSelectors();
+
+                toggle.addEventListener('click', event => {
+                    this.wrapper.classList.toggle(window.novembit.i18n.prefix + '-show');
+                    event.stopPropagation();
+                });
+
             },
             update: function () {
                 this.initSelectors();
