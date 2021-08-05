@@ -33,14 +33,14 @@ class HTMLFragment extends HTML implements interfaces\HTMLFragment
     /**
      * {@inheritdoc}
      * */
-    public $name = 'html_fragment';
+    public string $name = 'html_fragment';
 
-    public $cache_result = true;
+    public bool $cache_result = true;
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = false;
+    public bool $get_translations_from_db = false;
 
-    protected $parser_type = parsers\interfaces\XML::HTML_FRAGMENT;
+    protected int $parser_type = parsers\interfaces\XML::HTML_FRAGMENT;
 }

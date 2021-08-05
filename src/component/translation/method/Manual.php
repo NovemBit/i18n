@@ -33,12 +33,12 @@ class Manual extends Method
     /**
      * {@inheritdoc}
      * */
-    public $exclusion_pattern = '{e-$0-e}';
+    public string $exclusion_pattern = '{e-$0-e}';
 
     /**
      * @var bool
      */
-    public $save_translations = false;
+    public bool $save_translations = false;
 
     /**
      * Doing translation method

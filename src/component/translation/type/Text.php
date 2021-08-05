@@ -35,34 +35,34 @@ class Text extends Type
     /**
      * {@inheritdoc}
      * */
-    public $name = 'text';
+    public string $name = 'text';
 
     /**
      * @var bool
      */
-    public $cache_result = true;
+    public bool $cache_result = true;
 
     /**
      * @var bool
      */
-    public $save_translations = false;
+    public bool $save_translations = false;
 
     /**
      * {@inheritdoc}
      * */
-    public $validation = true;
+    public bool $validation = true;
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = true;
+    public bool $get_translations_from_db = true;
 
     /**
      * Dont translate regexp patterns
      *
      * @var string[]
      * */
-    public $dont_translate_patterns = [
+    public array $dont_translate_patterns = [
         /*
          * Dont translate texts that contains less then 3 characters
          * Or not contains letters
@@ -96,7 +96,7 @@ class Text extends Type
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public $model_class = models\Text::class;
+    public string $model_class = models\Text::class;
 
     /**
      * Doing translate method

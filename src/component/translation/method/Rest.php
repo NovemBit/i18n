@@ -39,21 +39,21 @@ class Rest extends Method
      *
      * @var string
      * */
-    public $api_version = '1';
+    public string $api_version = '1';
 
     /**
      * Use SSL protocol
      *
      * @var bool
      * */
-    public $ssl = false;
+    public bool $ssl = false;
 
     /**
      * Rest api remote host
      *
      * @var string
      * */
-    public $remote_host;
+    public string $remote_host;
 
     /**
      * Remote path of API
@@ -61,7 +61,7 @@ class Rest extends Method
      * @var string
      * @see Rest::$endpoint
      * */
-    public $remote_path = 'i18n/rest/v1';
+    public string $remote_path = 'i18n/rest/v1';
 
     /**
      * Key of Remote REST api service
@@ -69,14 +69,14 @@ class Rest extends Method
      * @var string
      * @see \NovemBit\i18n\component\rest\Rest::$api_keys
      * */
-    public $api_key;
+    public string $api_key;
 
     /**
      * Timeout of curl request
      *
      * @var int
      * */
-    public $request_timeout = 4;
+    public int $request_timeout = 4;
 
     /**
      * Doing translate method

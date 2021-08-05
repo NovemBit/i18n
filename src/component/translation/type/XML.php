@@ -39,34 +39,34 @@ class XML extends Type implements interfaces\XML
     /**
      * {@inheritdoc}
      * */
-    public $name = 'xml';
+    public string $name = 'xml';
 
-    public $xpath_query_map = [];
+    public array $xpath_query_map = [];
 
     /**
      * Save translations
      *
      * @var bool
      * */
-    public $save_translations = false;
+    public bool $save_translations = false;
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = false;
+    public bool $get_translations_from_db = false;
 
     /**
      * Model class name of ActiveRecord
      *
-     * @var \NovemBit\i18n\component\translation\models\Translation
+     * @var string
      * */
-    public $model_class = models\XML::class;
+    public string $model_class = models\XML::class;
 
-    private $before_parse_callbacks = [];
+    private array $before_parse_callbacks = [];
 
-    private $after_parse_callbacks = [];
+    private array $after_parse_callbacks = [];
 
-    protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
+    protected int $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
 
     /**
      * {@inheritDoc}
@@ -94,6 +94,8 @@ class XML extends Type implements interfaces\XML
 
     /**
      * @param int $parser_type
+     *
+     * @noinspection PhpUnused
      */
     public function setParserType(int $parser_type): void
     {
@@ -132,15 +134,16 @@ class XML extends Type implements interfaces\XML
     /**
      * Get node value with node type
      *
-     * @param DOMNode $node Node element
-     * @param string  $type type of node content
+     * @param  DOMNode  $node  Node element
+     * @param  string  $type  type of node content
+     * @param  null  $node_type
      *
      * @return string|null
      */
-    private function _getNodeValue($node, $type, &$node_type = null): ?string
+    private function getNodeValue($node, $type, &$node_type = null): ?string
     {
         $node_value = null;
-        $node_type = $this->_getNodeType($node);
+        $node_type = $this->getNodeType($node);
 
         if ($node_type == 'text') {
             /**
@@ -168,7 +171,12 @@ class XML extends Type implements interfaces\XML
         return $node_value;
     }
 
-    private function _getNodeType($node): ?string
+    /**
+     * @param $node
+     *
+     * @return string|null
+     */
+    private function getNodeType($node): ?string
     {
         if (
             $node->nodeType == XML_TEXT_NODE
@@ -182,6 +190,11 @@ class XML extends Type implements interfaces\XML
         }
     }
 
+    /**
+     * @param  DOMNode  $node
+     * @param  array  $params
+     * @param  array  $data
+     */
     public function buildToTranslateFields(
         DOMNode &$node,
         array $params,
@@ -194,13 +207,18 @@ class XML extends Type implements interfaces\XML
          */
         $type = $params['type'] ?? 'text';
 
-        $node_value = $this->_getNodeValue($node, $type);
+        $node_value = $this->getNodeValue($node, $type);
 
         if ($node_value !== null) {
             $data['to_translate'][$type][] = $node_value;
         }
     }
 
+    /**
+     * @param  DOMNode  $node
+     * @param  array  $params
+     * @param  array  $data
+     */
     public function replaceTranslatedFields(
         DOMNode &$node,
         array $params,
@@ -208,10 +226,7 @@ class XML extends Type implements interfaces\XML
     ) {
         /**
          * Define type of $node
-         *
-         * @var DOMNode $node
          */
-
         $node_path = $node->getNodePath();
         if (isset($data['parsed_dom_mutex'][$node_path])) {
             return;
@@ -221,7 +236,7 @@ class XML extends Type implements interfaces\XML
 
         $type = $params['type'] ?? 'text';
 
-        $node_value = $this->_getNodeValue($node, $type, $node_type);
+        $node_value = $this->getNodeValue($node, $type, $node_type);
 
         if ($node_type == null) {
             return;

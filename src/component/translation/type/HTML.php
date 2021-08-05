@@ -36,19 +36,19 @@ class HTML extends XML implements interfaces\HTML
     /**
      * {@inheritdoc}
      * */
-    public $name = 'html';
+    public string $name = 'html';
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = false;
+    public bool $get_translations_from_db = false;
 
     /**
      * Xpath Query for parser
      *
      * @var string
      * */
-    public $parser_query = ".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
+    public string $parser_query = ".//*[not(ancestor-or-self::*[@translate='no']) and (text() or @*)]";
 
     /**
      * Title tag template
@@ -61,11 +61,11 @@ class HTML extends XML implements interfaces\HTML
     /**
      * Model class name of ActiveRecord
      *
-     * @var \NovemBit\i18n\component\translation\models\Translation
+     * @var string
      * */
-    public $model_class = models\HTML::class;
+    public string $model_class = models\HTML::class;
 
-    protected $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::HTML;
+    protected int $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::HTML;
 
     /**
      * Get Html parser. Create new instance of HTML parser

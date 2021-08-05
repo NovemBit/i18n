@@ -38,22 +38,22 @@ class URL extends Type implements interfaces\URL
     /**
      * {@inheritdoc}
      * */
-    public $name = 'url';
+    public string $name = 'url';
 
     /**
      * @var bool
      */
-    public $cache_result = true;
+    public bool $cache_result = true;
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = true;
+    public bool $get_translations_from_db = true;
 
     /**
      * @var string
      */
-    public $model = models\URL::class;
+    public string $model = models\URL::class;
 
     /**
      * Path separator
@@ -61,19 +61,19 @@ class URL extends Type implements interfaces\URL
      *
      * @var string
      * */
-    public $path_separator = '-';
+    public string $path_separator = '-';
 
     /**
      * If true, then making all path elements lowercase
      *
      * @var bool
      * */
-    public $path_lowercase = true;
+    public bool $path_lowercase = true;
 
     /**
      * {@inheritdoc}
      * */
-    public $validation = true;
+    public bool $validation = true;
 
     /**
      * Validate url with parts
@@ -82,21 +82,21 @@ class URL extends Type implements interfaces\URL
      *
      * @var array
      * */
-    public $url_validation_rules = [];
+    public array $url_validation_rules = [];
 
     /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public $model_class = models\URL::class;
+    public string $model_class = models\URL::class;
 
     /**
      * Disable Path translation
      *
      * @var bool
      * */
-    public $path_translation = true;
+    public bool $path_translation = true;
 
     /**
      * Base domain name
@@ -104,7 +104,7 @@ class URL extends Type implements interfaces\URL
      *
      * @var string|null
      * */
-    public $base_domain;
+    public ?string $base_domain = null;
 
     /**
      * You can write custom patterns
@@ -113,7 +113,7 @@ class URL extends Type implements interfaces\URL
      *
      * @example `\/var\/.*`
      * */
-    public $path_exclusion_patterns = [];
+    public array $path_exclusion_patterns = [];
 
     /**
      * {@inheritDoc}

@@ -34,32 +34,32 @@ abstract class Method extends Translator implements interfaces\Method
     /**
      * {@inheritdoc}
      * */
-    public $name = 'method';
+    public string $name = 'method';
 
     /**
      * @var bool
      */
-    public $cache_result = true;
+    public bool $cache_result = true;
 
     /**
      * @var bool
      */
-    public $save_translations = true;
+    public bool $save_translations = true;
 
     /**
      * @var bool
      */
-    public $get_translations_from_db = true;
+    public bool $get_translations_from_db = true;
 
     /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public $model_class = models\Method::class;
+    public string $model_class = models\Method::class;
 
     /**
      * {@inheritdoc}
      * */
-    public $validation = false;
+    public bool $validation = false;
 }

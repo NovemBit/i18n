@@ -37,36 +37,36 @@ class JSON extends Type implements interfaces\JSON
     /**
      * @var bool
      */
-    public $get_translations_from_db = false;
+    public bool $get_translations_from_db = false;
 
     /**
      * {@inheritdoc}
      * */
-    public $name = 'json';
+    public string $name = 'json';
 
     /**
      * @var string
      */
-    public $model = models\JSON::class;
+    public string $model = models\JSON::class;
 
     /**
      * {@inheritdoc}
      * */
-    public $validation = true;
+    public bool $validation = true;
 
     /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public $model_class = models\JSON::class;
+    public string $model_class = models\JSON::class;
 
     /**
      * Detect property type automatically
      *
      * @var bool
      * */
-    public $type_autodetect = true;
+    public bool $type_autodetect = true;
 
     /**
      * Fields to translate
@@ -80,7 +80,7 @@ class JSON extends Type implements interfaces\JSON
      *
      * @var array
      * */
-    private $objects = [];
+    private array $objects = [];
 
     /**
      * Get field type

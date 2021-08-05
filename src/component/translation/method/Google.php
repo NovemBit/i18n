@@ -38,14 +38,14 @@ class Google extends Method
      *
      * @var string
      * */
-    public $api_key;
+    public string $api_key;
 
-    public $api_limit_expire_delay = 3600;
+    public int $api_limit_expire_delay = 3600;
 
     /**
      * {@inheritdoc}
      * */
-    public $exclusion_pattern = '<span translate="no">$0</span>';
+    public string $exclusion_pattern = '<span translate="no">$0</span>';
 
     /**
      * {@inheritdoc}

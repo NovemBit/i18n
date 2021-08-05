@@ -36,86 +36,61 @@ abstract class Translator extends Component implements interfaces\Translator
 
     /**
      * Name of public method
-     *
-     * @var string
      * */
-    public $name;
+    public string $name;
 
     /**
      * Cache last result of translation
-     *
-     * @var bool
      * */
-    public $cache_result = null;
+    public bool $cache_result = false;
 
     /**
      * Cache TTL
-     *
-     * @var int
      * */
-    public $cache_result_ttl = 3600;
+    public int $cache_result_ttl = 3600;
 
     /**
      * If true then all translations saving on DB
-     *
-     * @var bool
      * */
-    public $save_translations = true;
+    public bool $save_translations = true;
 
-    /**
-     * @var bool
-     * */
-    public $get_translations_from_db = true;
+    public bool $get_translations_from_db = true;
 
     /**
      * If true then methods before and after validation runes
-     *
-     * @var bool
      * */
-    public $validation = false;
+    public bool $validation = false;
 
     /**
      * Exclusions Array of string exclusions
-     *
-     * @var array
      * */
-    public $exclusions = [];
+    public array $exclusions = [];
 
     /**
      * Model class name of ActiveRecord
-     *
-     * @var models\Translation
      * */
-    public $model_class = models\Translation::class;
+    public string $model_class = models\Translation::class;
 
     /**
      * Exclusion regex replacement pattern
-     *
-     * @var string
      * */
-    public $exclusion_pattern = '<span translate="no">$0</span>';
+    public string $exclusion_pattern = '<span translate="no">$0</span>';
 
     /**
      * Keep originals to use for validation
-     *
-     * @var array
      * */
-    private $translate_original_texts = [];
+    private array $translate_original_texts = [];
 
     /**
      * Keep originals to use for validation
-     *
-     * @var array
      * */
-    private $re_translate_original_texts = [];
+    private array $re_translate_original_texts = [];
 
     /**
      * Show helper attributes that contains
      * All information about current node and child Text/Attr nodes
-     *
-     * @var bool
      * */
-    private $helper_attributes = [];
+    private array $helper_attributes = [];
 
     /**
      * {@inheritdoc}
@@ -177,7 +152,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    private function _fetchSavedTranslations(
+    private function fetchSavedTranslations(
         string $from_language,
         array $to_languages,
         array &$translations,
@@ -313,7 +288,7 @@ abstract class Translator extends Component implements interfaces\Translator
          * And unset existing translations from $texts array
          * */
         if ($this->get_translations_from_db) {
-            $this->_fetchSavedTranslations(
+            $this->fetchSavedTranslations(
                 $from_language,
                 $to_languages,
                 $translations,
