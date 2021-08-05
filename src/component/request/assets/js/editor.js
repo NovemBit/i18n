@@ -110,7 +110,11 @@
                         input.name = window.novembit.i18n.prefix + "-form[" + node.data.text[i][2] + "][" + node.data.text[i][0] + "]";
 
                         input.oninput = function () {
-                            editor.updateNodeText(node, i, this.value, node.data.text[i][4], node.data.text[i][5]);
+                            let new_value = this.value;
+                            if(!new_value){
+                                new_value = node.data.text[i][0];
+                            }
+                            editor.updateNodeText(node, i, new_value, node.data.text[i][4], node.data.text[i][5]);
                             if (this.form.classList.contains('saved')) {
                                 this.form.classList.remove('saved');
                             }
@@ -159,7 +163,13 @@
                         input.name = window.novembit.i18n.prefix + "-form[" + node.data.attr[attr_key][2] + "][" + node.data.attr[attr_key][0] + "]";
                         input.value = node.data.attr[attr_key][1];
                         input.oninput = function () {
-                            editor.updateNodeAttr(node, attr_key, this.value, node.data.attr[attr_key][4], node.data.attr[attr_key][5]);
+
+                            let new_value = this.value;
+                            if(!new_value){
+                                new_value = node.data.attr[attr_key][0];
+                            }
+
+                            editor.updateNodeAttr(node, attr_key, new_value, node.data.attr[attr_key][4], node.data.attr[attr_key][5]);
                             if (this.form.classList.contains('saved')) {
                                 this.form.classList.remove('saved');
                             }
