@@ -112,9 +112,6 @@ class XML extends Type implements interfaces\XML
         string $xml,
         string $language
     ): \NovemBit\i18n\system\parsers\XML {
-
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/asdas', var_export($this->xpath_query_map, true));
-
         return new \NovemBit\i18n\system\parsers\XML(
             $xml,
             $this->xpath_query_map,
