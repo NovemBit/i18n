@@ -180,6 +180,8 @@ class JSON extends Type implements interfaces\JSON
             );
         }
 
+//        error_log(var_export($to_translate,'true'));
+
         foreach ($to_translate as $type => $values) {
 
             /** @var Translator $translator */
@@ -194,6 +196,8 @@ class JSON extends Type implements interfaces\JSON
                 $ignore_cache
             );
         }
+
+//        error_log(var_export($to_translate,'true'));die;
 
         foreach ($this->objects as $json => &$object) {
             foreach ($to_languages as $language) {

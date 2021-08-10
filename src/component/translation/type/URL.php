@@ -124,6 +124,8 @@ class URL extends Type implements interfaces\URL
             $this->save_translations = false;
         }
 
+        $this->use_already_saved_translations = true;
+
         if ($this->base_domain === null && Environment::server('HTTP_HOST')) {
             $this->base_domain = Environment::server('HTTP_HOST');
         }

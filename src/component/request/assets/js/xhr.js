@@ -62,7 +62,6 @@
 
     window.fetch = function(url, options) {
         url = addLanguageToUrl(url);
-        console.log(url);
         return fetch_original(url, options);
     }
 })();

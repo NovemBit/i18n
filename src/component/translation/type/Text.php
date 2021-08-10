@@ -48,6 +48,11 @@ class Text extends Type
     public bool $save_translations = false;
 
     /**
+     * @var bool
+     */
+    public bool $use_already_saved_translations = true;
+
+    /**
      * {@inheritdoc}
      * */
     public bool $validation = true;
