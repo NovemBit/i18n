@@ -31,8 +31,7 @@ interface Translator extends Component
     public function getModels(
         array $texts,
         string $from_language,
-        array $to_languages,
-        bool $reverse = false
+        array $to_languages
     ): array;
 
     public function reTranslate(

@@ -108,7 +108,7 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Get type of string
      *
-     * @param string $str String content
+     * @param  string|null  $str  String content
      *
      * @return string|null
      */

@@ -15,6 +15,8 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use Doctrine\DBAL\ConnectionException;
+use NovemBit\i18n\component\localization\exceptions\LanguageException;
+use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\helpers\Environment;
@@ -87,7 +89,7 @@ class URL extends Type implements interfaces\URL
     /**
      * Model class name of ActiveRecord
      *
-     * @var \NovemBit\i18n\component\translation\models\Translation
+     * @var string
      * */
     public string $model_class = models\URL::class;
 
@@ -134,9 +136,16 @@ class URL extends Type implements interfaces\URL
         parent::mainInit();
     }
 
+    /**
+     * @param  array  $translations
+     * @param  int  $level
+     * @param  false  $overwrite
+     * @param  array  $result
+     *
+     * @throws ConnectionException
+     */
     public function saveModels($translations, $level = 0, $overwrite = false, &$result = []): void
     {
-
         foreach ($translations as $origin => &$language_translations) {
             foreach ($language_translations as $language => &$translation) {
                 $this->validateBeforeTranslate($translation);
@@ -194,6 +203,7 @@ class URL extends Type implements interfaces\URL
      * @param  array|null  $verbose  Verbose
      *
      * @return bool
+     * @throws LanguageException
      */
     protected function validateAfterTranslate(
         string $before,
@@ -241,11 +251,11 @@ class URL extends Type implements interfaces\URL
         $parts = parse_url($url);
 
         foreach ($this->url_validation_rules as $key => $rules) {
-            if ( ! isset($parts[$key])) {
+            if (! isset($parts[$key])) {
                 $parts[$key] = '';
             }
             foreach ($rules as $rule) {
-                if ( ! preg_match("/$rule/", $parts[$key])) {
+                if (! preg_match("/$rule/", $parts[$key])) {
                     return false;
                 }
             }
@@ -276,7 +286,6 @@ class URL extends Type implements interfaces\URL
     {
         return $this->prepareUrlToProcess($url);
     }
-
 
     /**
      * Building translation result that
@@ -388,7 +397,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return mixed
      */
-    private function getUrlParts($url)
+    private function getUrlParts(string $url)
     {
         return parse_url($url);
     }
@@ -401,7 +410,7 @@ class URL extends Type implements interfaces\URL
      *
      * @return string|null
      */
-    private function preparePathPart($url): ?string
+    private function preparePathPart(string $url): ?string
     {
         /**
          * Remove all html special characters
@@ -458,7 +467,12 @@ class URL extends Type implements interfaces\URL
      */
     protected function validateBeforeReTranslate(&$url): bool
     {
-        return $this->prepareUrlToProcess($url);
+        $status = $this->prepareUrlToProcess($url);
+
+        if(!$this->save_translations){
+            $url = $this->context->context->localization->removeLanguageFromURI($url);
+        }
+        return $status;
     }
 
     /**

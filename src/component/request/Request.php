@@ -413,7 +413,7 @@ class Request extends Component implements interfaces\Request
             ->url
             ->reTranslate([$translate]);
 
-        return $re_translate[$translate] ?? null;
+        return $re_translate[$to_language][$translate] ?? null;
     }
 
     /**
@@ -599,7 +599,7 @@ class Request extends Component implements interfaces\Request
                     ->url->translate(
                         [$this->getDestination()],
                         $verbose,
-                        true,
+                        false,
                         true
                     )
                 [$this->getDestination()] ?? null
@@ -631,7 +631,7 @@ class Request extends Component implements interfaces\Request
                     ->translate(
                         [$this->getSourceUrl()],
                         $verbose,
-                        true,
+                        false,
                         true
                     )[$this->getSourceUrl()]
                 ?? null
@@ -857,7 +857,7 @@ class Request extends Component implements interfaces\Request
         /*
          * Remove Language from URI
          * */
-        $http_referer = $this->removeLanguageFromURI($http_referer);
+        $http_referer = $this->context->localization->removeLanguageFromURI($http_referer);
 
         /**
          * Change HTTP_REFERER value
@@ -918,7 +918,7 @@ class Request extends Component implements interfaces\Request
         /**
          * Remove Language from URI
          * */
-        $new_url = $this->removeLanguageFromURI($url);
+        $new_url = $this->context->localization->removeLanguageFromURI($url);
 
         /**
          * When user trying to access url that contains `domain`
@@ -1025,30 +1025,6 @@ class Request extends Component implements interfaces\Request
         $this->getTranslation()->setRegion($this->getRegion());
 
         return true;
-    }
-
-    /**
-     * Remove language from uri string
-     *
-     * @param  string|null  $uri  Referenced variable of URI string
-     *
-     * @return string
-     */
-    private function removeLanguageFromURI(?string $uri): string
-    {
-        $parts = parse_url(trim($uri, '/'));
-        if (isset($parts['path'])) {
-            $path = explode('/', ltrim($parts['path'], '/'));
-
-            if ($this->context->localization->validateLanguage($path[0])) {
-                unset($path[0]);
-            }
-            $parts['path'] = implode('/', $path);
-            $new_url       = URL::buildUrl($parts);
-            $uri           = empty($new_url) ? '/' : $new_url;
-        }
-
-        return $uri;
     }
 
     public $source_type_map = [];

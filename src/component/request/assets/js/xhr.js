@@ -30,25 +30,39 @@
     let valid_hosts = [
         //    'test.com'
     ];
-    let original_xhr = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function () {
-        let req_parsed = parseURL(arguments[1]);
+
+    function addLanguageToUrl(url){
+        let req_parsed = parseURL(url);
         let cur_parsed = parseURL(window.location.href);
         if (req_parsed.host === cur_parsed.host && valid_hosts.indexOf(req_parsed.host)) {
-            arguments[1] = addParameterToURL(
-                arguments[1],
+            url = addParameterToURL(
+                url,
                 window.novembit.i18n.language_query_key,
                 window.novembit.i18n.current_language
             );
 
             if (window.novembit.i18n.editor.is_editor === true) {
-                arguments[1] = addParameterToURL(
-                    arguments[1],
+                url = addParameterToURL(
+                    url,
                     window.novembit.i18n.prefix + '-' + window.novembit.i18n.editor.query_key,
                     1
                 );
             }
         }
+        return url;
+    }
+
+    let original_xhr = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function () {
+        arguments[1] = addLanguageToUrl(arguments[1]);
         original_xhr.apply(this, arguments);
+    }
+
+    let fetch_original = window.fetch;
+
+    window.fetch = function(url, options) {
+        url = addLanguageToUrl(url);
+        console.log(url);
+        return fetch_original(url, options);
     }
 })();

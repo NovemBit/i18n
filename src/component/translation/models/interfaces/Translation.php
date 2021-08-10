@@ -20,8 +20,22 @@ interface Translation
     public static function get(
         $texts,
         $from_language,
-        $to_languages,
-        $reverse = false
+        $to_languages
+    ) : array;
+
+    /**
+     * Main method to get re translations from DB
+     *
+     * @param array  $texts         Texts array to translate
+     * @param string $from_language From language
+     * @param array  $to_languages  To languages list
+     *
+     * @return array
+     */
+    public static function getReversed(
+        $texts,
+        $to_language,
+        $from_languages
     ) : array;
 
     /**

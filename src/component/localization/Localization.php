@@ -439,7 +439,31 @@ class Localization extends Component implements interfaces\Localization
         }
     }
 
-    
+    /**
+     * Remove language from uri string
+     *
+     * @param  string|null  $uri  Referenced variable of URI string
+     *
+     * @return string
+     */
+    public function removeLanguageFromURI(?string $uri): string
+    {
+        $parts = parse_url(trim($uri, '/'));
+        if (isset($parts['path'])) {
+            $path = explode('/', ltrim($parts['path'], '/'));
+
+            if ($this->validateLanguage($path[0])) {
+                unset($path[0]);
+            }
+            $parts['path'] = implode('/', $path);
+            $new_url       = URL::buildUrl($parts);
+            $uri           = empty($new_url) ? '/' : $new_url;
+        }
+
+        return $uri;
+    }
+
+
     /**
      * @param string $url Simple url
      * @param string $language language code

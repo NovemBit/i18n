@@ -100,7 +100,7 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public function mainInit(): void
     {
-        if ($this->save_translations == true && !isset($this->model_class)) {
+        if ($this->save_translations == true && ! isset($this->model_class)) {
             throw new TranslationException(
                 'Unknown configuration: Property "model_class" is required.'
             );
@@ -112,7 +112,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Before translate method
      *
-     * @param array $texts Texts array
+     * @param  array  $texts  Texts array
      *
      * @return void
      */
@@ -126,8 +126,8 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * After translate method
      *
-     * @param array      $translations Translations array
-     * @param array|null $verbose      Verbose
+     * @param  array  $translations  Translations array
+     * @param  array|null  $verbose  Verbose
      *
      * @return void
      */
@@ -159,7 +159,6 @@ abstract class Translator extends Component implements interfaces\Translator
         array &$texts,
         ?array &$verbose
     ): void {
-
         /**
          * Find translations from DB with ActiveData
          * */
@@ -170,11 +169,10 @@ abstract class Translator extends Component implements interfaces\Translator
         );
 
         foreach ($models as $model) {
-
             /**
              * Adding saved translations on array
              * */
-            if (!isset($translations[$model['source']][$model['to_language']])) {
+            if ( ! isset($translations[$model['source']][$model['to_language']])) {
                 $translations[$model['source']][$model['to_language']]
                     = $model['translate'];
             }
@@ -185,7 +183,7 @@ abstract class Translator extends Component implements interfaces\Translator
              * */
             if (
                 $verbose !== null
-                && !isset($verbose[$model['source']][$model['to_language']]['id'])
+                && ! isset($verbose[$model['source']][$model['to_language']]['id'])
             ) {
                 $verbose[$model['source']][$model['to_language']]['id']
                     = $model['id'] ?? null;
@@ -210,9 +208,9 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Get cache key for combination
      *
-     * @param string $from_language From language
-     * @param array  $to_languages  To languages array
-     * @param array  $texts         Texts array
+     * @param  string  $from_language  From language
+     * @param  array  $to_languages  To languages array
+     * @param  array  $texts  Texts array
      *
      * @return string
      */
@@ -250,15 +248,14 @@ abstract class Translator extends Component implements interfaces\Translator
         bool $only_saved = false,
         bool $ignore_cache = false
     ): array {
-
         $from_language = $this->context->getFromLanguage();
-        $to_languages = $this->context->getLanguages();
+        $to_languages  = $this->context->getLanguages();
 
-        if ($this->isCacheResult() === true && !$ignore_cache) {
+        if ($this->isCacheResult() === true && ! $ignore_cache) {
             $cache_key = $this->getCacheKey($from_language, $to_languages, $texts);
 
             $cache = $this->getCachePool()
-                ->get($cache_key, null);
+                          ->get($cache_key, null);
 
             if ($cache !== null) {
                 return $cache;
@@ -301,7 +298,7 @@ abstract class Translator extends Component implements interfaces\Translator
          * If $texts array not empty then
          * Make new translates
          * */
-        if (!$only_saved && !empty($texts)) {
+        if ( ! $only_saved && ! empty($texts)) {
             $new_translations = $this->doTranslate(
                 $texts,
                 $from_language,
@@ -348,7 +345,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * Re Translate already translated texts, find sources of
      * Bunch text strings
      *
-     * @param array $texts Array of texts
+     * @param  array  $texts  Array of texts
      *
      * @return array
      * @throws exceptions\TranslationException
@@ -356,35 +353,32 @@ abstract class Translator extends Component implements interfaces\Translator
     public function reTranslate(array $texts): array
     {
         $from_language = $this->context->getFromLanguage();
-        $to_languages = $this->context->getLanguages();
-
-        if (count($to_languages) != 1) {
-            throw new TranslationException(
-                "Language not set or set multiple languages."
-            );
-        }
-
-        if ($this->save_translations === false) {
-            return [];
-        }
-
-        $language = $to_languages[0];
-
-        $result = [];
+        $to_languages  = $this->context->getLanguages();
 
         $this->beforeReTranslate($texts);
 
-        foreach ($texts as $text) {
-            $model = $this->getModels([$text], $from_language, [$language], true);
+        $result = $this->doReTranslate($texts, $to_languages[0], [$from_language]);
 
-            if (!isset($model[0]['source'])) {
+        $this->afterReTranslate($result);
+
+        return $result;
+    }
+
+    protected function doReTranslate(
+        array $texts,
+        string $to_language,
+        array $from_languages
+    ): array {
+        $result = [];
+
+        foreach ($texts as $text) {
+            $model = $this->getReversedModels([$text], $to_language, $from_languages);
+            if ( ! isset($model[0]['source'])) {
                 continue;
             }
 
-            $result[$text] = $model[0]['source'];
+            $result[$model[0]['to_language']][$text] = $model[0]['source'];
         }
-
-        $this->afterReTranslate($result);
 
         return $result;
     }
@@ -392,7 +386,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Before Translate method
      *
-     * @param array $texts Array of texts
+     * @param  array  $texts  Array of texts
      *
      * @return void
      */
@@ -406,7 +400,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * After ReTranslate method
      *
-     * @param array $result Referenced array of results
+     * @param  array  $result  Referenced array of results
      *
      * @return void
      */
@@ -420,15 +414,15 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate all before ReTranslate method
      *
-     * @param array $texts Array of texts
+     * @param  array  $texts  Array of texts
      *
      * @return void
      */
-    protected function validateAllBeforeReTranslate(&$texts): void
+    protected function validateAllBeforeReTranslate(array &$texts): void
     {
         foreach ($texts as $key => & $text) {
             $original = $text;
-            if (!$this->validateBeforeReTranslate($text)) {
+            if ( ! $this->validateBeforeReTranslate($text)) {
                 unset($texts[$key]);
             } else {
                 $this->re_translate_original_texts[$original] = $text;
@@ -440,7 +434,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate all after ReTranslate
      *
-     * @param array $result Referenced variable array of results
+     * @param  array  $result  Referenced variable array of results
      *
      * @return void
      */
@@ -451,11 +445,13 @@ abstract class Translator extends Component implements interfaces\Translator
         * Building result from origin values
         * */
         foreach ($this->re_translate_original_texts as $before => $after) {
-            if ($before != $after && isset($result[$after])) {
-                $result[$before] = $result[$after];
+            foreach ($result as &$language_result) {
+                if ($before != $after && isset($language_result[$after])) {
+                    $language_result[$before] = $language_result[$after];
 
-                if (!$this->validateAfterReTranslate($before, $after, $result)) {
-                    unset($result[$before]);
+                    if ( ! $this->validateAfterReTranslate($before, $after, $language_result)) {
+                        unset($language_result  [$before]);
+                    }
                 }
             }
         }
@@ -464,8 +460,10 @@ abstract class Translator extends Component implements interfaces\Translator
          * Unset unnecessary keys from result
          * */
         foreach ($this->re_translate_original_texts as $before => $after) {
-            if ($before != $after) {
-                unset($result[$after]);
+            foreach ($result as &$language_result) {
+                if ($before != $after) {
+                    unset($language_result[$after]);
+                }
             }
         }
 
@@ -475,7 +473,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate before ReTranslate
      *
-     * @param string $text Text to validate
+     * @param  string  $text  Text to validate
      *
      * @return bool
      */
@@ -487,9 +485,9 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate after ReTranslate
      *
-     * @param  string  $before Initial value of string
+     * @param  string  $before  Initial value of string
      * @param  string  $after  final value of string
-     * @param  array  $result Referenced variable array of results
+     * @param  array  $result  Referenced variable array of results
      *
      * @return bool
      */
@@ -501,7 +499,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate before translate
      *
-     * @param string $text Referenced text variable
+     * @param  string  $text  Referenced text variable
      *
      * @return bool
      */
@@ -513,10 +511,10 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate after translate
      *
-     * @param  string  $before     initial value of string
-     * @param  string  $after      final value of string
-     * @param  array  $translates Referenced variable of already translated values
-     * @param array|null $verbose    Verbose
+     * @param  string  $before  initial value of string
+     * @param  string  $after  final value of string
+     * @param  array  $translates  Referenced variable of already translated values
+     * @param  array|null  $verbose  Verbose
      *
      * @return bool
      */
@@ -527,13 +525,14 @@ abstract class Translator extends Component implements interfaces\Translator
         ?array &$verbose
     ): bool {
         $verbose[$before]['after'] = $after;
+
         return true;
     }
 
     /**
      * Validate all before translate
      *
-     * @param array $texts Array of texts to translate
+     * @param  array  $texts  Array of texts to translate
      *
      * @return void
      */
@@ -541,7 +540,7 @@ abstract class Translator extends Component implements interfaces\Translator
     {
         foreach ($texts as $key => & $text) {
             $original = $text;
-            if (!$this->validateBeforeTranslate($text)) {
+            if ( ! $this->validateBeforeTranslate($text)) {
                 unset($texts[$key]);
             } else {
                 $this->doExclusion($text);
@@ -554,8 +553,8 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Validate all after translate
      *
-     * @param array      $translates Array of translations
-     * @param array|null $verbose    Verbose
+     * @param  array  $translates  Array of translations
+     * @param  array|null  $verbose  Verbose
      *
      * @return void
      */
@@ -577,12 +576,12 @@ abstract class Translator extends Component implements interfaces\Translator
                 }
 
                 if (
-                    !$this->validateAfterTranslate(
-                        $before,
-                        $after,
-                        $translates,
-                        $verbose
-                    )
+                ! $this->validateAfterTranslate(
+                    $before,
+                    $after,
+                    $translates,
+                    $verbose
+                )
                 ) {
                     unset($translates[$before]);
                     unset($verbose[$before]);
@@ -627,7 +626,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Doing exclusion from text
      *
-     * @param string $text Text to make exclusion from there
+     * @param  string  $text  Text to make exclusion from there
      *
      * @return void
      */
@@ -649,10 +648,10 @@ abstract class Translator extends Component implements interfaces\Translator
      * Abstract method that must be extended from
      * Child methods to translate texts
      *
-     * @param array  $texts         Texts array to translate
-     * @param string $from_language From language
-     * @param array  $to_languages  To languages array
-     * @param bool   $ignore_cache  Ignore cache
+     * @param  array  $texts  Texts array to translate
+     * @param  string  $from_language  From language
+     * @param  array  $to_languages  To languages array
+     * @param  bool  $ignore_cache  Ignore cache
      *
      * @return array
      */
@@ -668,10 +667,10 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Main method to save translations in DB
      *
-     * @param array $translations Translations of texts
-     * @param int   $level        Level of translation
-     * @param bool  $overwrite    If translation exists, then overwrite value
-     * @param array $result       Result about saving
+     * @param  array  $translations  Translations of texts
+     * @param  int  $level  Level of translation
+     * @param  bool  $overwrite  If translation exists, then overwrite value
+     * @param  array  $result  Result about saving
      *
      * @return void
      * @throws ConnectionException
@@ -689,7 +688,6 @@ abstract class Translator extends Component implements interfaces\Translator
             $overwrite,
             $result
         );
-
         /**
          * To debug saving of models
          *
@@ -706,25 +704,42 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Main method to get translations from DB
      *
-     * @param array  $texts         Texts array to translate
-     * @param string $from_language From language
-     * @param array  $to_languages  To languages list
-     * @param bool   $reverse       Use translate column as source (ReTranslate)
+     * @param  array  $texts  Texts array to translate
+     * @param  string  $from_language  From language
+     * @param  array  $to_languages  To languages list
      *
      * @return array
      */
     public function getModels(
         array $texts,
         string $from_language,
-        array $to_languages,
-        bool $reverse = false
+        array $to_languages
     ): array {
-
         return $this->model_class::get(
             $texts,
             $from_language,
-            $to_languages,
-            $reverse
+            $to_languages
+        );
+    }
+
+    /**
+     * Main method to get translations from DB
+     *
+     * @param  array  $texts  Texts array to translate
+     * @param  string  $to_language
+     * @param  array  $from_languages
+     *
+     * @return array
+     */
+    public function getReversedModels(
+        array $texts,
+        string $to_language,
+        array $from_languages
+    ): array {
+        return $this->model_class::getReversed(
+            $texts,
+            $to_language,
+            $from_languages
         );
     }
 
@@ -751,7 +766,7 @@ abstract class Translator extends Component implements interfaces\Translator
     /**
      * Set cache result status
      *
-     * @param bool $cache_status Status
+     * @param  bool  $cache_status  Status
      *
      * @return void
      */
@@ -769,7 +784,7 @@ abstract class Translator extends Component implements interfaces\Translator
     }
 
     /**
-     * @param array $types Types list to get on helper attributes
+     * @param  array  $types  Types list to get on helper attributes
      *                     e.g ['text','url']
      *
      * @return void

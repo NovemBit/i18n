@@ -44,4 +44,6 @@ interface Localization extends Component
      * @return bool
      */
     public function validateLanguages(array $languages): bool;
+
+    public function removeLanguageFromURI(?string $uri): string;
 }

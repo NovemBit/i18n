@@ -19,9 +19,7 @@ use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use NovemBit\i18n\models\DataMapper;
-use NovemBit\i18n\models\exceptions\ActiveRecordException;
 use NovemBit\i18n\Module;
-use yii\db\Exception;
 
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
@@ -59,8 +57,7 @@ class Translation extends DataMapper implements interfaces\Translation
     public static function get(
         $texts,
         $from_language,
-        $to_languages,
-        $reverse = false
+        $to_languages
     ): array {
 
         $result = [];
@@ -91,15 +88,82 @@ class Translation extends DataMapper implements interfaces\Translation
             ->where('type = :type')
             ->andWhere('from_language = :from_language')
             ->andWhere('to_language IN (:to_language)')
-            ->andWhere(
-                ($reverse ? 'translate_hash' : 'source_hash') . ' IN (:hashes)'
-            )
+            ->andWhere('source_hash IN (:hashes)')
             ->addOrderBy('level', 'DESC')
             ->addOrderBy('id', 'ASC')
             ->setParameter('type', static::TYPE)
             ->setParameter('from_language', $from_language)
             ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
             ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
+
+        $db_result = $queryBuilder->execute()->fetchAll();
+
+        /*$stmt = self::getDB()->executeCacheQuery(
+            $queryBuilder->getSQL(),
+            $queryBuilder->getParameters(),
+            $queryBuilder->getParameterTypes(),
+            new QueryCacheProfile(10000, self::TYPE . '_type')
+        );
+
+        $db_result = $stmt->fetchAll();
+
+        $stmt->closeCursor(); // at this point the result is cached*/
+
+        $result = array_merge($result, $db_result);
+
+
+        return $result;
+    }
+
+
+    /**
+     * @param $texts
+     * @param $to_language
+     * @param $from_languages
+     *
+     * @return array
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public static function getReversed(
+        $texts,
+        $to_language,
+        $from_languages
+    ): array {
+
+        $result = [];
+        $texts = array_values($texts);
+        $from_languages = array_values($from_languages);
+
+        if (($key = array_search($to_language, $from_languages)) !== false) {
+
+            unset($from_languages[$key]);
+            foreach ($texts as &$text) {
+                $result[] = [
+                    'source' => $text,
+                    'to_language' => $to_language,
+                    'translate' => $text,
+                ];
+            }
+        }
+
+        $hashes = [];
+        foreach ($texts as $text) {
+            $hashes[] = self::createHash($text);
+        }
+
+        $queryBuilder = self::getDB()->createQueryBuilder();
+        $queryBuilder->select('id', 'source', 'to_language', 'translate', 'level')
+                     ->from(static::TABLE)
+                     ->where('type = :type')
+                     ->andWhere('to_language = :to_language')
+                     ->andWhere('from_language IN (:from_languages)')
+                     ->andWhere( 'translate_hash IN (:hashes)')
+                     ->addOrderBy('level', 'DESC')
+                     ->addOrderBy('id', 'ASC')
+                     ->setParameter('type', static::TYPE)
+                     ->setParameter('to_language', $to_language)
+                     ->setParameter('from_languages', $from_languages, Connection::PARAM_STR_ARRAY)
+                     ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
 
         $db_result = $queryBuilder->execute()->fetchAll();
 
