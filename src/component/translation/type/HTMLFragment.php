@@ -37,10 +37,5 @@ class HTMLFragment extends HTML implements interfaces\HTMLFragment
 
     public bool $cache_result = true;
 
-    /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = false;
-
     protected int $parser_type = parsers\interfaces\XML::HTML_FRAGMENT;
 }

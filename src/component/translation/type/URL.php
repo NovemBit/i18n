@@ -48,11 +48,6 @@ class URL extends Type implements interfaces\URL
     public bool $cache_result = true;
 
     /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = true;
-
-    /**
      * @var string
      */
     public string $model = models\URL::class;

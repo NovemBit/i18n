@@ -47,11 +47,6 @@ abstract class Method extends Translator implements interfaces\Method
     public bool $save_translations = true;
 
     /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = true;
-
-    /**
      * Model class name of ActiveRecord
      *
      * @var \NovemBit\i18n\component\translation\models\Translation

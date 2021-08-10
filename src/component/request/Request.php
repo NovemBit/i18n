@@ -573,10 +573,11 @@ class Request extends Component implements interfaces\Request
      * Set original urls that already translated and cached on DB
      *
      * @return bool
-     * @throws RequestException
      * @throws ConnectionException
      * @throws InvalidArgumentException
+     * @throws RequestException
      * @throws UnsupportedLanguagesException
+     * @throws \Doctrine\DBAL\Exception
      */
     private function prepareSourceUrl(): bool
     {

@@ -39,11 +39,6 @@ class HTML extends XML implements interfaces\HTML
     public string $name = 'html';
 
     /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = false;
-
-    /**
      * Xpath Query for parser
      *
      * @var string

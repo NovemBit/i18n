@@ -35,11 +35,6 @@ use Psr\SimpleCache\InvalidArgumentException;
 class JSON extends Type implements interfaces\JSON
 {
     /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = false;
-
-    /**
      * {@inheritdoc}
      * */
     public string $name = 'json';

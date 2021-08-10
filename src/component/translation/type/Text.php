@@ -53,11 +53,6 @@ class Text extends Type
     public bool $validation = true;
 
     /**
-     * @var bool
-     */
-    public bool $get_translations_from_db = true;
-
-    /**
      * Dont translate regexp patterns
      *
      * @var string[]

@@ -54,8 +54,6 @@ abstract class Translator extends Component implements interfaces\Translator
      * */
     public bool $save_translations = true;
 
-    public bool $get_translations_from_db = true;
-
     /**
      * If true then methods before and after validation runes
      * */
@@ -280,11 +278,11 @@ abstract class Translator extends Component implements interfaces\Translator
         $translations = [];
 
         /*
-         * If use_saved_translations is true
+         * If save_translations is true
          * Then take try to take translations from DB
          * And unset existing translations from $texts array
          * */
-        if ($this->get_translations_from_db) {
+        if ($this->save_translations) {
             $this->fetchSavedTranslations(
                 $from_language,
                 $to_languages,
