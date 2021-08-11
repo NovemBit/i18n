@@ -14,10 +14,7 @@
 
 namespace NovemBit\i18n\system;
 
-use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Exception;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 use NovemBit\i18n\system\helpers\Arrays;
@@ -225,7 +222,6 @@ abstract class Component implements interfaces\Component
     {
     }
 
-
     /**
      * Init method only for CLI
      *
@@ -277,7 +273,6 @@ abstract class Component implements interfaces\Component
         }
         return $this->logger;
     }
-
 
     /**
      * Set logger
@@ -332,15 +327,6 @@ abstract class Component implements interfaces\Component
      */
     public function getCachePool(): CacheInterface
     {
-        if (!isset($this->cache_pool)) {
-            $path = trim(str_replace('\\', '/', static::class), '/');
-            $cache_dir = $this->getRuntimeDir() . '/cache/' . $path;
-
-            $filesystemAdapter = new Local($cache_dir);
-            $filesystem = new Filesystem($filesystemAdapter);
-            $this->setCachePool(new FilesystemCachePool($filesystem, 'cache'));
-        }
-
         return $this->cache_pool;
     }
 
