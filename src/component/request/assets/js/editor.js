@@ -103,6 +103,10 @@
 
                     for (let i = 0; i < node.data.text.length; i++) {
 
+                        if (!window.novembit.i18n.url_path_translations && node.data.text[i][2] === 'url') {
+                            continue;
+                        }
+
                         let input = document.createElement('textarea');
                         let label = document.createElement('label');
                         //label.innerText = "Text " + (i + 1);
@@ -125,9 +129,7 @@
                         original.textContent = node.data.text[i][0];
                         original.classList.add('level-' + node.data.text[i][3] + '');
 
-
                         label.appendChild(original);
-
                         label.appendChild(input);
                         form.appendChild(label);
                     }
@@ -145,6 +147,9 @@
                     }
 
                     for (let attr_key in node.data.attr) {
+                        if (!window.novembit.i18n.url_path_translations && node.data.attr[attr_key][2] === 'url') {
+                            continue;
+                        }
 
                         if (!node.data.attr.hasOwnProperty(attr_key)) continue;
 
