@@ -687,7 +687,7 @@ class Request extends Component implements interfaces\Request
          * */
         register_shutdown_function(
             function () {
-                if (! in_array(http_response_code(), [400, 401, 402, 403, 404])) {
+                if ( ! in_array(http_response_code(), [400, 401, 402, 403, 404])) {
                     $this->getTranslation()
                          ->setLanguages(
                              $this->getAcceptLanguages()
@@ -1084,8 +1084,8 @@ class Request extends Component implements interfaces\Request
                     /** @var HTML $translator */
                     $types_to_show = ['text'];
 
+                    $types_to_show[] = 'url';
                     if ($this->context->translation->url->isPathTranslation()) {
-                        $types_to_show[] = 'url';
                     }
 
                     $translator->setHelperAttributes($types_to_show);
@@ -1206,7 +1206,7 @@ class Request extends Component implements interfaces\Request
             return;
         }
 
-        if (! $this->prepare()) {
+        if ( ! $this->prepare()) {
             return;
         }
 
@@ -1371,23 +1371,24 @@ class Request extends Component implements interfaces\Request
         $config = json_encode(
             [
                 'i18n' => [
-                    'current_language'     => $this->getLanguage(),
-                    'default_language'     => $this->getDefaultLanguage(),
-                    'accept_languages'     => $this->getAcceptLanguages(true),
-                    'language_query_key'   => $this->context->localization->getLanguageQueryKey(),
-                    'editor'               => [
+                    'current_language'      => $this->getLanguage(),
+                    'default_language'      => $this->getDefaultLanguage(),
+                    'accept_languages'      => $this->getAcceptLanguages(true),
+                    'language_query_key'    => $this->context->localization->getLanguageQueryKey(),
+                    'url_path_translations' => $this->context->translation->url->isPathTranslation(),
+                    'editor'                => [
                         'is_editor'        => $this->isEditor(),
                         'query_key'        => $this->editor_query_key,
                         'url_translations' => $this->getEditorUrlTranslations()
                     ],
-                    'prefix'               => $this->context->prefix,
-                    'orig_request_uri'     => $this->getOrigRequestUri(),
-                    'destination'          => $this->getDestination(),
-                    'uri'                  => $this->getSourceUrl(),
-                    'orig_referer'         => $this->getReferer(),
-                    'referer'              => $this->getRefererSourceUrl(),
-                    'url_translations'     => $this->getUrlTranslations(),
-                    'referer_translations' => $this->getRefererTranslations(),
+                    'prefix'                => $this->context->prefix,
+                    'orig_request_uri'      => $this->getOrigRequestUri(),
+                    'destination'           => $this->getDestination(),
+                    'uri'                   => $this->getSourceUrl(),
+                    'orig_referer'          => $this->getReferer(),
+                    'referer'               => $this->getRefererSourceUrl(),
+                    'url_translations'      => $this->getUrlTranslations(),
+                    'referer_translations'  => $this->getRefererTranslations(),
                 ]
             ]
         );
