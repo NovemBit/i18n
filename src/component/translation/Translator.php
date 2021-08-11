@@ -773,7 +773,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function setCacheResult(?bool $cache_status): void
+    public function setCacheResult(bool $cache_status): void
     {
         $this->cache_result = $cache_status;
     }

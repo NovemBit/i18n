@@ -13,13 +13,11 @@
 
 namespace NovemBit\i18n\component\translation\models;
 
-use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use NovemBit\i18n\models\DataMapper;
-use NovemBit\i18n\Module;
 
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
