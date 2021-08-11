@@ -119,7 +119,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function beforeTranslate(array &$texts): void
+    private function beforeTranslate(array &$texts): void
     {
         if ($this->validation == true) {
             $this->validateAllBeforeTranslate($texts);
@@ -134,7 +134,7 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return void
      */
-    public function afterTranslate(
+    private function afterTranslate(
         array &$translations,
         ?array &$verbose
     ): void {
@@ -451,9 +451,8 @@ abstract class Translator extends Component implements interfaces\Translator
             foreach ($result as &$language_result) {
                 if ($before != $after && isset($language_result[$after])) {
                     $language_result[$before] = $language_result[$after];
-
                     if ( ! $this->validateAfterReTranslate($before, $after, $language_result)) {
-                        unset($language_result  [$before]);
+                        unset($language_result[$before]);
                     }
                 }
             }
@@ -659,7 +658,7 @@ abstract class Translator extends Component implements interfaces\Translator
      * @return array
      */
     protected function doTranslate(
-        array $texts,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache

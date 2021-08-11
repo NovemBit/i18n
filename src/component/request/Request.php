@@ -14,6 +14,7 @@
 
 namespace NovemBit\i18n\component\request;
 
+use NovemBit\i18n\component\localization\exceptions\LanguageException;
 use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use Psr\SimpleCache\InvalidArgumentException;
 use Doctrine\DBAL\ConnectionException;
@@ -293,6 +294,11 @@ class Request extends Component implements interfaces\Request
     public $after_ready_callback;
 
     /**
+     * @var array
+     */
+    public array $source_type_map = [];
+
+    /**
      * Get allowed request methods
      *
      * @return array
@@ -420,7 +426,7 @@ class Request extends Component implements interfaces\Request
      * Prepare Destination to find source
      *
      * @return bool
-     * @throws \NovemBit\i18n\component\localization\exceptions\LanguageException
+     * @throws LanguageException
      */
     private function prepareDestination(): bool
     {
@@ -820,6 +826,7 @@ class Request extends Component implements interfaces\Request
      * Prepare Referer language
      *
      * @return bool
+     * @throws LanguageException
      */
     private function prepareRefererLanguage(): bool
     {
@@ -872,6 +879,7 @@ class Request extends Component implements interfaces\Request
      * Prepare language
      *
      * @return bool
+     * @throws LanguageException
      */
     private function prepareLanguage(): bool
     {
@@ -1028,8 +1036,6 @@ class Request extends Component implements interfaces\Request
         return true;
     }
 
-    public $source_type_map = [];
-
     /**
      * Get type of response
      *
@@ -1052,7 +1058,7 @@ class Request extends Component implements interfaces\Request
     /**
      * Translate buffer of request content
      *
-     * @param  string  $content  content of request buffer
+     * @param  string|null  $content  content of request buffer
      *
      * @return string
      * @throws ConnectionException
@@ -1082,11 +1088,7 @@ class Request extends Component implements interfaces\Request
 
                 if ($this->isEditor()) {
                     /** @var HTML $translator */
-                    $types_to_show = ['text'];
-
-                    $types_to_show[] = 'url';
-                    if ($this->context->translation->url->isPathTranslation()) {
-                    }
+                    $types_to_show = ['text', 'url'];
 
                     $translator->setHelperAttributes($types_to_show);
                 }
@@ -1115,14 +1117,14 @@ class Request extends Component implements interfaces\Request
                     );
                 }
 
-                $content = $translator
-                               ->translate(
-                                   [$content],
-                                   $verbose,
-                                   false,
-                                   $this->isEditor()
-                               )[$content][$this->getLanguage()]
-                           ?? $content;
+                $translates = $translator->translate(
+                    [$content],
+                    $verbose,
+                    false,
+                    $this->isEditor()
+                );
+
+                $content    = $translates[$content][$this->getLanguage()] ?? $content;
             }
         }
 

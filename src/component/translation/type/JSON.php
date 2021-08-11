@@ -80,8 +80,8 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Get field type
      *
-     * @param string $value Value of field
-     * @param string $route Route of field
+     * @param  string  $value  Value of field
+     * @param  string  $route  Route of field
      *
      * @return string|callable|null
      */
@@ -119,7 +119,7 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Get field type by route
      *
-     * @param string $route Route of object element
+     * @param  string  $route  Route of object element
      *
      * @return string|callable|null
      */
@@ -130,37 +130,37 @@ class JSON extends Type implements interfaces\JSON
                 return $type;
             }
         }
+
         return null;
     }
 
     /**
      * Doing translate method
      *
-     * @param array $jsons Jsons string array
+     * @param  array  $nodes  Jsons string array
      *
-     * @param string $from_language
-     * @param array $to_languages
-     * @param bool $ignore_cache
+     * @param  string  $from_language
+     * @param  array  $to_languages
+     * @param  bool  $ignore_cache
+     *
      * @return array
      * @throws ConnectionException
      * @throws InvalidArgumentException
      */
     protected function doTranslate(
-        array $jsons,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
     ): array {
-
         $to_translate = [];
         $translations = [];
-        $result = [];
+        $result       = [];
 
-        foreach ($jsons as $json) {
+        foreach ($nodes as $json) {
             Arrays::arrayWalkWithRoute(
                 $this->objects[$json],
-                function ($key, &$val, $route) use (&$to_translate) {
-
+                function ($key, &$val, string $route) use (&$to_translate): void {
                     $maybe_html_value = html_entity_decode(
                         $val,
                         ENT_NOQUOTES,
@@ -169,7 +169,7 @@ class JSON extends Type implements interfaces\JSON
 
                     $type = $this->getFieldType($maybe_html_value, $route);
 
-                    if (is_string($type) && $type !== null) {
+                    if (is_string($type)) {
                         if (in_array($type, ['html', 'html_fragment'])) {
                             $val = $maybe_html_value;
                         }
@@ -180,13 +180,9 @@ class JSON extends Type implements interfaces\JSON
             );
         }
 
-//        error_log(var_export($to_translate,'true'));
-
         foreach ($to_translate as $type => $values) {
-
             /** @var Translator $translator */
             $translator = $this->context->{$type};
-            
             $translator->setHelperAttributes($this->getHelperAttributes());
 
             $translations[$type] = $translator->translate(
@@ -197,14 +193,11 @@ class JSON extends Type implements interfaces\JSON
             );
         }
 
-//        error_log(var_export($to_translate,'true'));die;
-
         foreach ($this->objects as $json => &$object) {
             foreach ($to_languages as $language) {
                 Arrays::arrayWalkWithRoute(
                     $object,
                     function ($key, &$val, $route) use ($translations, $language) {
-
                         $type = $this->getFieldType($val, $route);
 
                         if ($type !== null) {
@@ -213,10 +206,12 @@ class JSON extends Type implements interfaces\JSON
                             } elseif (is_callable($type)) {
                                 $val = $type($val, $language);
                             }
+                            $val = mb_convert_encoding($val, 'UTF-8', 'UTF-8');
                         }
                     }
                 );
-                $result[$json][$language] = json_encode($object);
+
+                $result[$json][$language] = \GuzzleHttp\json_encode($object);
             }
         }
 
@@ -226,7 +221,7 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Validate json string before translate
      *
-     * @param string $json Json string
+     * @param  string  $json  Json string
      *
      * @return bool
      */
@@ -235,8 +230,9 @@ class JSON extends Type implements interfaces\JSON
         $obj = json_decode($json, true);
         if (is_array($obj)) {
             $this->objects[$json] = $obj;
-            return true;
+            return parent::validateBeforeTranslate(...func_get_args());
         }
+
         return false;
     }
 }

@@ -25,7 +25,8 @@
     "google/cloud-translate": "*",
     "masterminds/html5": "^2.7",
     "monolog/monolog": "*",
-    "doctrine/dbal": "*"
+    "doctrine/dbal": "*",
+    "guzzlehttp/guzzle": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
