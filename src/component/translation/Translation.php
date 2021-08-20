@@ -14,11 +14,13 @@
 
 namespace NovemBit\i18n\component\translation;
 
+use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
 use NovemBit\i18n\component\translation\method\interfaces\Method;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * @property Module $context
@@ -85,7 +87,7 @@ class Translation extends Component implements interfaces\Translation
     /**
      * Set languages for translation
      *
-     * @param array|string $languages list of languages
+     * @param  array|string  $languages  list of languages
      *
      * @return self
      * @throws TranslationException
@@ -94,6 +96,7 @@ class Translation extends Component implements interfaces\Translation
     {
         if ($this->context->localization->validateLanguages($languages)) {
             $this->languages = $languages;
+
             return $this;
         } else {
             throw new UnsupportedLanguagesException($languages);
@@ -103,13 +106,14 @@ class Translation extends Component implements interfaces\Translation
     /**
      * {@inheritDoc}
      *
-     * @param string $country Country
+     * @param  string  $country  Country
      *
      * @return interfaces\Translation
      */
     public function setCountry(?string $country): interfaces\Translation
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -126,13 +130,14 @@ class Translation extends Component implements interfaces\Translation
     /**
      * {@inheritDoc}
      *
-     * @param string $region Region
+     * @param  string  $region  Region
      *
      * @return interfaces\Translation
      */
     public function setRegion(?string $region): interfaces\Translation
     {
         $this->region = $region;
+
         return $this;
     }
 
@@ -169,5 +174,26 @@ class Translation extends Component implements interfaces\Translation
     public function getFromLanguage(): string
     {
         return $this->context->localization->getFromLanguage();
+    }
+
+    /**
+     * @param  array  $to_translate
+     *
+     * @return array
+     * @throws ConnectionException
+     * @throws InvalidArgumentException
+     */
+    public function translateCombination(array $to_translate): array
+    {
+        $translations = [];
+
+        foreach ($to_translate as $type => $nodes) {
+            $translator = $this->{$type};
+            if ($translator instanceof \NovemBit\i18n\component\translation\interfaces\Translator) {
+                $translations[$type] = $translator->translate($nodes);
+            }
+        }
+
+        return $translations;
     }
 }

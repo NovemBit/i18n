@@ -31,7 +31,7 @@ interface Translation extends Component
     /**
      * Set languages
      *
-     * @param array $_languages Languages list
+     * @param  array  $_languages  Languages list
      *
      * @return $this
      *
@@ -49,4 +49,5 @@ interface Translation extends Component
 
     public function getRegion(): ?string;
 
+    public function translateCombination(array $to_translate): array;
 }
