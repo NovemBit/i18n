@@ -73,15 +73,10 @@
                     let title = document.createElement('div');
                     title.classList.add('title');
 
-                    //  let description = document.createElement('div');
-                    //  description.classList.add('description');
-                    // description.innerText = "Texts: " + node.data.text.length + " | Attributes: " + Object.keys(node.data.attr).length;
-                    //console.log(node)
                     title.innerText = this.getNodeType(node) + ' ' + '<' + node.nodeName.toLowerCase() + '>';
                     editor.getNodeType(node);
                     inspector.appendChild(unexpand);
                     inspector.appendChild(title);
-                    //inspector.appendChild(description);
 
                     let forms = document.createElement('div'), submit, form;
                     forms.classList.add('forms');
@@ -94,13 +89,6 @@
                     /*
                     * Texts form
                     * */
-                    // if (Object.keys(node.data.text).length > 0) {
-                    //     let title = document.createElement('h4');
-                    //     title.innerText = "Content";
-                    //     title.classList.add('title');
-                    //     form.appendChild(title);
-                    // }
-
                     for (let i = 0; i < node.data.text.length; i++) {
 
                         if (!window.novembit.i18n.url_path_translations && node.data.text[i][2] === 'url') {
@@ -115,7 +103,7 @@
 
                         input.oninput = function () {
                             let new_value = this.value;
-                            if(!new_value){
+                            if (!new_value) {
                                 new_value = node.data.text[i][0];
                             }
                             editor.updateNodeText(node, i, new_value, node.data.text[i][4], node.data.text[i][5]);
@@ -135,16 +123,6 @@
                     }
 
                     forms.appendChild(form);
-
-                    /*
-                    * Attr form
-                    * */
-                    if (Object.keys(node.data.attr).length > 0) {
-                        // let title = document.createElement('div');
-                        // title.classList.add('title');
-                        // title.innerText = "Attributes";
-                        // form.appendChild(title);
-                    }
 
                     for (let attr_key in node.data.attr) {
                         if (!window.novembit.i18n.url_path_translations && node.data.attr[attr_key][2] === 'url') {
@@ -170,7 +148,7 @@
                         input.oninput = function () {
 
                             let new_value = this.value;
-                            if(!new_value){
+                            if (!new_value) {
                                 new_value = node.data.attr[attr_key][0];
                             }
 
@@ -301,7 +279,7 @@
                         node.selector.classList.add('selector');
                         node.setAttribute(this.node_num_attr, key);
                         node.selector.setAttribute('n', key);
-                        const content_text = editor.getNodeContentData(node).join(', ').replace(/[\n\r]/g, "").substr(0, 40) ;
+                        const content_text = editor.getNodeContentData(node).join(', ').replace(/[\n\r]/g, "").substr(0, 40);
                         const string_bold = document.createElement('b');
                         string_bold.innerText = '<' + node.tagName.toLowerCase() + '> ';
                         node.selector.innerText = content_text;
@@ -374,6 +352,15 @@
                 }
             },
             addParameterToURL: function (url, key, value) {
+
+                if (!url) {
+                    url = document.location.href;
+                }
+
+                if (url.startsWith('#')) {
+                    return url;
+                }
+
                 url = new URL(url, document.baseURI);
                 url.searchParams.set(key, value);
                 return url.href;
@@ -457,11 +444,11 @@
                             for (const content_key in contents) {
                                 if (contents.hasOwnProperty(content_key)) {
                                     let content = contents[content_key];
-                                    if(content) {
-                                        if(content[0]) {
+                                    if (content) {
+                                        if (content[0]) {
                                             result.push(content[0]);
                                         }
-                                        if(include_translations) {
+                                        if (include_translations) {
                                             if (content[1]) {
                                                 result.push(content[1]);
                                             }
@@ -471,11 +458,11 @@
                             }
                         } else {
                             contents.forEach(function (content) {
-                                if(content) {
-                                    if(content[0]) {
+                                if (content) {
+                                    if (content[0]) {
                                         result.push(content[0].trim());
                                     }
-                                    if(include_translations) {
+                                    if (include_translations) {
                                         if (content[1]) {
                                             result.push(content[1].trim());
                                         }
