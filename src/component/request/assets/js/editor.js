@@ -561,6 +561,8 @@
         }
     };
 
+    const editor = window.novembit.i18n.editor;
+
     function stopScroll(el, callback) {
         let a = true;
         el.onscroll = function () {
@@ -569,19 +571,19 @@
                 setTimeout(function () {
                     a = true;
                     callback();
-                }, 500);
+                }, 200);
             }
         }
     }
 
     document.addEventListener("DOMContentLoaded", function (event) {
-        if (window.novembit.i18n.editor.is_editor) {
-            window.novembit.i18n.editor.start();
+        if (editor.is_editor) {
+            editor.start();
         }
     });
 
     stopScroll(window, function () {
-        window.novembit.i18n.editor.update();
+        editor.update();
     });
 
 })();
