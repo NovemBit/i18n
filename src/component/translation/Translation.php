@@ -27,70 +27,69 @@ use Psr\SimpleCache\InvalidArgumentException;
  */
 class Translation extends Component implements interfaces\Translation
 {
-
     /**
      * Method Translator
      *
      * @var Method
      * */
-    public $method;
+    public Method $method;
 
     /**
      * Text Translator
      *
      * @var type\interfaces\Text
      * */
-    public $text;
+    public type\interfaces\Text $text;
 
     /**
      * Url Translator
      *
      * @var type\interfaces\URL
      * */
-    public $url;
+    public type\interfaces\URL $url;
 
     /**
      * HTML Translator
      *
      * @var type\interfaces\HTML
      * */
-    public $html;
+    public type\interfaces\HTML $html;
 
     /**
      * JSON Translator
      *
      * @var type\interfaces\JSON
      * */
-    public $json;
+    public type\interfaces\JSON $json;
 
     /**
      * Languages of current instance
      *
      * @var array
      * */
-    private $languages;
+    private array $languages;
 
     /**
      * Country name
      *
-     * @var string
+     * @var ?string
      * */
-    private $country;
+    private ?string $country;
 
     /**
      * Region name
      *
-     * @var string
+     * @var ?string
      * */
-    private $region;
+    private ?string $region;
 
     /**
      * Set languages for translation
      *
-     * @param  array|string  $languages  list of languages
+     * @param  string[]  $languages  list of languages
      *
      * @return self
-     * @throws TranslationException
+     * @throws UnsupportedLanguagesException
      */
     public function setLanguages(array $languages): interfaces\Translation
     {
@@ -98,15 +97,13 @@ class Translation extends Component implements interfaces\Translation
             $this->languages = $languages;
 
             return $this;
-        } else {
-            throw new UnsupportedLanguagesException($languages);
         }
+
+        throw new UnsupportedLanguagesException($languages);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param  string  $country  Country
+     * @param  string|null  $country  Country
      *
      * @return interfaces\Translation
      */
@@ -118,9 +115,7 @@ class Translation extends Component implements interfaces\Translation
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return string
+     * @return ?string
      */
     public function getCountry(): ?string
     {
@@ -161,9 +156,9 @@ class Translation extends Component implements interfaces\Translation
     {
         if (isset($this->languages)) {
             return $this->languages;
-        } else {
-            throw new TranslationException('Languages not set.');
         }
+
+        throw new TranslationException('Languages not set.');
     }
 
     /**

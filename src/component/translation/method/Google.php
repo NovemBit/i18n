@@ -63,7 +63,7 @@ class Google extends Method
     /**
      * Doing translate method
      *
-     * @param array $texts Array of texts to translate
+     * @param array $nodes Array of texts to translate
      * @param string $from_language
      * @param array $to_languages
      * @param bool $ignore_cache
@@ -72,7 +72,7 @@ class Google extends Method
      * @throws Exception
      */
     protected function doTranslate(
-        array $texts,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
@@ -83,14 +83,14 @@ class Google extends Method
 
         foreach ($to_languages as $language) {
             if ($from_language === $language) {
-                foreach ($texts as $text) {
+                foreach ($nodes as $text) {
                     $result[$text][$language] = $text;
                 }
                 continue;
             }
 
             if ($timestamp === null || $timestamp + $this->api_limit_expire_delay < time()) {
-                $this->translateOneLanguage($texts, $from_language, $language, $result);
+                $this->translateOneLanguage($nodes, $from_language, $language, $result);
             }
         }
 

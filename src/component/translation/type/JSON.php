@@ -15,11 +15,14 @@
 namespace NovemBit\i18n\component\translation\type;
 
 use Doctrine\DBAL\ConnectionException;
+use JsonException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Arrays;
 use Psr\SimpleCache\InvalidArgumentException;
+
+use function json_encode;
 
 /**
  * JSON type for translation component
@@ -51,10 +54,8 @@ class JSON extends Type implements interfaces\JSON
 
     /**
      * Model class name of ActiveRecord
-     *
-     * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public string $model_class = models\JSON::class;
+    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\JSON::class;
 
     /**
      * Detect property type automatically
@@ -68,7 +69,7 @@ class JSON extends Type implements interfaces\JSON
      *
      * @var array
      * */
-    public $fields_to_translate = [];
+    public array $fields_to_translate = [];
 
     /**
      * To translate objects
@@ -80,12 +81,12 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Get field type
      *
-     * @param  string  $value  Value of field
-     * @param  string  $route  Route of field
+     * @param  string|null  $value  Value of field
+     * @param  string|null  $route  Route of field
      *
      * @return string|callable|null
      */
-    private function getFieldType(?string $value, ?string $route)
+    private function getFieldType(?string $value, ?string $route): callable|string|null
     {
         $type = null;
 
@@ -123,7 +124,7 @@ class JSON extends Type implements interfaces\JSON
      *
      * @return string|callable|null
      */
-    private function getFieldTypeByRoute(string $route)
+    private function getFieldTypeByRoute(string $route): callable|string|null
     {
         foreach ($this->fields_to_translate as $pattern => $type) {
             if (preg_match($pattern, $route)) {
@@ -211,7 +212,7 @@ class JSON extends Type implements interfaces\JSON
                     }
                 );
 
-                $result[$json][$language] = \GuzzleHttp\json_encode($object);
+                $result[$json][$language] = json_encode($object, JSON_THROW_ON_ERROR);
             }
         }
 
@@ -221,15 +222,16 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Validate json string before translate
      *
-     * @param  string  $json  Json string
+     * @param  string  $text  Json string
      *
      * @return bool
+     * @throws JsonException
      */
-    protected function validateBeforeTranslate(string &$json): bool
+    protected function validateBeforeTranslate(string &$text): bool
     {
-        $obj = json_decode($json, true);
+        $obj = json_decode($text, true, 512, JSON_THROW_ON_ERROR);
         if (is_array($obj)) {
-            $this->objects[$json] = $obj;
+            $this->objects[$text] = $obj;
             return parent::validateBeforeTranslate(...func_get_args());
         }
 

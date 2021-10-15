@@ -43,15 +43,16 @@ class Manual extends Method
     /**
      * Doing translation method
      *
-     * @param array $texts Array of texts to translate
+     * @param array $nodes  Array of texts to translate
      *
      * @param string $from_language
      * @param array $to_languages
      * @param bool $ignore_cache
+     *
      * @return array
      */
     protected function doTranslate(
-        array $texts,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
@@ -59,7 +60,7 @@ class Manual extends Method
 
         $result = [];
 
-        foreach ($texts as $key => $text) {
+        foreach ($nodes as $key => $text) {
             foreach ($to_languages as $language) {
                 $result[(string)$text][$language] = $text;
             }

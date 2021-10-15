@@ -73,7 +73,7 @@ class Module extends system\Component
      *
      * @var Module
      * */
-    private static $instance;
+    private static self $instance;
 
     /**
      * Prefix for any script public action
@@ -83,12 +83,12 @@ class Module extends system\Component
      *
      * @var string
      * */
-    public $prefix = 'i18n';
+    public string $prefix = 'i18n';
 
     /**
-     * @var boolean
+     * @var bool
      * */
-    public $ssl = false;
+    public bool $ssl = false;
 
     /**
      * Default component configuration
@@ -163,9 +163,9 @@ class Module extends system\Component
     /**
      * Creating module main instance
      *
-     * @param null|array $config Main configuration array
+     * @param  null|array  $config  Main configuration array
      *
-     * @return self
+     * @return Module|null
      */
     public static function instance(?array $config = null): ?self
     {

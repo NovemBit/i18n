@@ -55,10 +55,8 @@ class HTML extends XML implements interfaces\HTML
 
     /**
      * Model class name of ActiveRecord
-     *
-     * @var string
      * */
-    public string $model_class = models\HTML::class;
+    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\HTML::class;
 
     protected int $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::HTML;
 

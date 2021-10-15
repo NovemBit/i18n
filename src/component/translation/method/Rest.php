@@ -81,7 +81,7 @@ class Rest extends Method
     /**
      * Doing translate method
      *
-     * @param array $texts Array of texts to translate
+     * @param array $nodes Array of texts to translate
      * @param string $from_language
      * @param array $to_languages
      * @param bool $ignore_cache
@@ -91,7 +91,7 @@ class Rest extends Method
      * @throws Exception
      */
     protected function doTranslate(
-        array $texts,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
@@ -110,7 +110,7 @@ class Rest extends Method
         $query = [
             'languages' => $to_languages,
             'localization_config' => $this->getLocalizationConfig(),
-            'texts' => $texts,
+            'texts' => $nodes,
         ];
         
 

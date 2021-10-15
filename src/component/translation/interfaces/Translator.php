@@ -23,8 +23,8 @@ interface Translator extends Component
 
     public function saveModels(
         $translations,
-        $level = 0,
-        $overwrite = false,
+        $level,
+        $overwrite,
         &$result = []
     ): void;
 

@@ -51,7 +51,7 @@ abstract class Method extends Translator implements interfaces\Method
      *
      * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public string $model_class = models\Method::class;
+    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\Method::class;
 
     /**
      * {@inheritdoc}

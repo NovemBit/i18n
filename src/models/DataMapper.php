@@ -14,8 +14,8 @@
 namespace NovemBit\i18n\models;
 
 
+use Doctrine\DBAL\Connection;
 use NovemBit\i18n\Module;
-use yii\db\Connection;
 
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
@@ -29,9 +29,9 @@ use yii\db\Connection;
 class DataMapper
 {
     /**
-     * @return \Doctrine\DBAL\Connection
+     * @return Connection
      */
-    public static function getDB(): \Doctrine\DBAL\Connection
+    public static function getDB(): Connection
     {
         return Module::instance()->db->getConnection();
     }

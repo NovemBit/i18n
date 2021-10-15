@@ -31,17 +31,17 @@ interface Translation extends Component
     /**
      * Set languages
      *
-     * @param  array  $_languages  Languages list
+     * @param  array  $languages  Languages list
      *
      * @return $this
      *
      * @throws UnsupportedLanguagesException
      */
-    public function setLanguages(array $_languages): self;
+    public function setLanguages(array $languages): self;
 
-    public function setCountry(?string $_country): self;
+    public function setCountry(?string $country): self;
 
-    public function setRegion(?string $_region): self;
+    public function setRegion(?string $region): self;
 
     public function getLanguages(): array;
 

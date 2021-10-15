@@ -52,10 +52,8 @@ class XML extends Type implements interfaces\XML
 
     /**
      * Model class name of ActiveRecord
-     *
-     * @var string
      * */
-    public string $model_class = models\XML::class;
+    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\XML::class;
 
     private array $before_parse_callbacks = [];
 

@@ -93,15 +93,13 @@ class Text extends Type
 
     /**
      * Model class name of ActiveRecord
-     *
-     * @var \NovemBit\i18n\component\translation\models\Translation
      * */
-    public string $model_class = models\Text::class;
+    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\Text::class;
 
     /**
      * Doing translate method
      *
-     * @param array $texts List of texts to translate
+     * @param array $nodes List of texts to translate
      *
      * @param string $from_language
      * @param array $to_languages
@@ -112,7 +110,7 @@ class Text extends Type
      * @throws InvalidArgumentException
      */
     protected function doTranslate(
-        array $texts,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
@@ -120,14 +118,14 @@ class Text extends Type
         $translator = $this->context->method;
 
         $translations = $translator->translate(
-            $texts,
+            $nodes,
             $verbose,
             false,
             $ignore_cache
         );
 
-        foreach ($translations as $source => &$translation) {
-            foreach ($translation as $language => &$text) {
+        foreach ($translations as &$translation) {
+            foreach ($translation as &$text) {
                 $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_HTML401);
             }
         }
@@ -162,7 +160,7 @@ class Text extends Type
         $verbose[$before]['suffix'] = $suffix;
 
         if ($before !== $after && isset($translates[$before])) {
-            foreach ($translates[$before] as $language => &$translate) {
+            foreach ($translates[$before] as &$translate) {
                 $translate = $prefix . $translate . $suffix;
             }
         }
