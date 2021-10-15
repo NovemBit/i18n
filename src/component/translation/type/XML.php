@@ -191,7 +191,7 @@ class XML extends Type implements interfaces\XML
      * @param  array  $data
      */
     public function buildToTranslateFields(
-        DOMNode &$node,
+        DOMNode $node,
         array $params,
         array &$data
     ) {
@@ -215,7 +215,7 @@ class XML extends Type implements interfaces\XML
      * @param  array  $data
      */
     public function replaceTranslatedFields(
-        DOMNode &$node,
+        DOMNode $node,
         array $params,
         array &$data
     ) {

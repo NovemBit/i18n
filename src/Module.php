@@ -67,13 +67,6 @@ use NovemBit\i18n\component\db\DB;
  */
 class Module extends system\Component
 {
-
-    /**
-     * @deprecated
-     * @var Languages
-     * */
-    public $languages;
-
     /**
      * Main instance of Module
      * Using singleton pattern only for main instance
@@ -141,8 +134,6 @@ class Module extends system\Component
      */
     public function commonInit(): void
     {
-        $this->languages = &$this->localization->languages;
-
         parent::commonInit();
     }
 

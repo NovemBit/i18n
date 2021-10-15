@@ -108,7 +108,7 @@ class DB extends Component
     /**
      * Set connection of DB
      *
-     * @param Connection $_connection Yii2 db connection
+     * @param  Connection  $connection
      *
      * @return void
      */

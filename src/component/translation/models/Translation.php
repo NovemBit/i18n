@@ -205,7 +205,6 @@ class Translation extends DataMapper implements interfaces\Translation
 
         self::getDB()->beginTransaction();
 
-
         foreach ($translations as $source => $haystack) {
             $source_hash = self::createHash($source);
             foreach ($haystack as $to_language => $translate) {
@@ -239,7 +238,7 @@ class Translation extends DataMapper implements interfaces\Translation
                         ->setParameter('translate', $translate)
                         ->setParameter('source_hash', $source_hash)
                         ->setParameter('translate_hash', $translate_hash)
-                        ->execute();
+                        ->executeQuery();
                 } catch (UniqueConstraintViolationException $exception) {
 
                     if ($overwrite === true) {
@@ -267,7 +266,7 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->setParameter('source_hash', $source_hash)
                                 ->setFirstResult(1)
                                 ->setMaxResults(1)
-                                ->execute();
+                                ->executeQuery();
                         } catch (ConstraintViolationException $exception){
 
                             $result['errors'][] = $exception->getMessage();
@@ -281,13 +280,5 @@ class Translation extends DataMapper implements interfaces\Translation
         }
 
         self::getDB()->commit();
-
-        //        try {
-        //
-        //            $query->fl();
-        //
-        //        } catch (\Exception $exception){
-        //            Module::instance()->log->logger()->warning($exception->getMessage());
-        //        }
     }
 }

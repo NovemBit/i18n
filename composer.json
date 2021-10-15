@@ -26,7 +26,8 @@
     "masterminds/html5": "*",
     "monolog/monolog": "*",
     "doctrine/dbal": "*",
-    "guzzlehttp/guzzle": "*"
+    "guzzlehttp/guzzle": "*",
+    "symfony/dependency-injection": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
