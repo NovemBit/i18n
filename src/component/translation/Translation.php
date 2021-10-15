@@ -17,7 +17,7 @@ namespace NovemBit\i18n\component\translation;
 use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
-use NovemBit\i18n\component\translation\method\interfaces\Method;
+use NovemBit\i18n\component\translation\method\Method;
 use NovemBit\i18n\system\Component;
 use NovemBit\i18n\Module;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -36,31 +36,23 @@ class Translation extends Component implements interfaces\Translation
 
     /**
      * Text Translator
-     *
-     * @var type\interfaces\Text
      * */
-    public type\interfaces\Text $text;
+    public type\Text $text;
 
     /**
      * Url Translator
-     *
-     * @var type\interfaces\URL
-     * */
-    public type\interfaces\URL $url;
+     */
+    public type\URL $url;
 
     /**
      * HTML Translator
-     *
-     * @var type\interfaces\HTML
      * */
-    public type\interfaces\HTML $html;
+    public type\HTML $html;
 
     /**
      * JSON Translator
-     *
-     * @var type\interfaces\JSON
      * */
-    public type\interfaces\JSON $json;
+    public type\JSON $json;
 
     /**
      * Languages of current instance
@@ -78,8 +70,6 @@ class Translation extends Component implements interfaces\Translation
 
     /**
      * Region name
-     *
-     * @var ?string
      * */
     private ?string $region;
 
