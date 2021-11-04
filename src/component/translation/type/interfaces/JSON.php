@@ -22,7 +22,7 @@ namespace NovemBit\i18n\component\translation\type\interfaces;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  */
-interface JSON extends Type
+interface JSON extends TypeInterface
 {
 
 }

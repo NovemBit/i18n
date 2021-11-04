@@ -17,6 +17,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use NovemBit\i18n\component\db\DB;
 use NovemBit\i18n\models\DataMapper;
 
 /**
@@ -36,33 +37,35 @@ use NovemBit\i18n\models\DataMapper;
  * @property string $translate
  * @property int $level
  * */
-class Translation extends DataMapper implements interfaces\Translation
+class TranslationDataMapper implements interfaces\Translation
 {
-    const TYPE = 0;
+    public const TABLE = "i18n_translations";
 
-    const TABLE = "i18n_translations";
-
+    public function __construct(
+        private DB $db
+    ){}
     /**
      * Main method to get translations from DB
      *
-     * @param array  $texts         Texts array to translate
-     * @param string $from_language From language
-     * @param array  $to_languages  To languages list
-     * @param bool   $reverse       Use translate column as source (ReTranslate)
+     * @param  array  $texts  Texts array to translate
+     * @param  string  $from_language  From language
+     * @param  array  $to_languages  To languages list
+     * @param  int  $type
      *
      * @return array
      */
-    public static function get(
-        $texts,
-        $from_language,
-        $to_languages
+    public function get(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        int $type
     ): array {
 
         $result = [];
         $texts = array_values($texts);
         $to_languages = array_values($to_languages);
 
-        if (($key = array_search($from_language, $to_languages)) !== false) {
+        if (($key = array_search($from_language, $to_languages, true)) !== false) {
 
             unset($to_languages[$key]);
             foreach ($texts as &$text) {
@@ -72,6 +75,7 @@ class Translation extends DataMapper implements interfaces\Translation
                     'translate' => $text,
                 ];
             }
+            unset($text);
         }
 
         $hashes = [];
@@ -79,8 +83,9 @@ class Translation extends DataMapper implements interfaces\Translation
         foreach ($texts as $text) {
             $hashes[] = self::createHash($text);
         }
+        $connection = $this->db->getConnection();
 
-        $queryBuilder = self::getDB()->createQueryBuilder();
+        $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->select('id', 'source', 'to_language', 'translate', 'level')
             ->from(static::TABLE)
             ->where('type = :type')
@@ -89,12 +94,12 @@ class Translation extends DataMapper implements interfaces\Translation
             ->andWhere('source_hash IN (:hashes)')
             ->addOrderBy('level', 'DESC')
             ->addOrderBy('id', 'ASC')
-            ->setParameter('type', static::TYPE)
+            ->setParameter('type', $type)
             ->setParameter('from_language', $from_language)
             ->setParameter('to_language', $to_languages, Connection::PARAM_STR_ARRAY)
             ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
 
-        $db_result = $queryBuilder->execute()->fetchAll();
+        $db_result = $queryBuilder->executeQuery()->fetchAllAssociative();
 
         /*$stmt = self::getDB()->executeCacheQuery(
             $queryBuilder->getSQL(),
@@ -122,10 +127,11 @@ class Translation extends DataMapper implements interfaces\Translation
      * @return array
      * @throws \Doctrine\DBAL\Exception
      */
-    public static function getReversed(
-        $texts,
-        $to_language,
-        $from_languages
+    public function getReversed(
+        array $texts,
+        string $to_language,
+        array $from_languages,
+        int $type
     ): array {
 
         $result = [];
@@ -142,6 +148,7 @@ class Translation extends DataMapper implements interfaces\Translation
                     'translate' => $text,
                 ];
             }
+            unset($text);
         }
 
         $hashes = [];
@@ -149,7 +156,8 @@ class Translation extends DataMapper implements interfaces\Translation
             $hashes[] = self::createHash($text);
         }
 
-        $queryBuilder = self::getDB()->createQueryBuilder();
+        $connection = $this->db->getConnection();
+        $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->select('id', 'source', 'to_language', 'translate', 'level')
                      ->from(static::TABLE)
                      ->where('type = :type')
@@ -158,12 +166,12 @@ class Translation extends DataMapper implements interfaces\Translation
                      ->andWhere( 'translate_hash IN (:hashes)')
                      ->addOrderBy('level', 'DESC')
                      ->addOrderBy('id', 'ASC')
-                     ->setParameter('type', static::TYPE)
+                     ->setParameter('type', $type)
                      ->setParameter('to_language', $to_language)
                      ->setParameter('from_languages', $from_languages, Connection::PARAM_STR_ARRAY)
                      ->setParameter('hashes', $hashes, Connection::PARAM_STR_ARRAY);
 
-        $db_result = $queryBuilder->execute()->fetchAll();
+        $db_result = $queryBuilder->executeQuery()->fetchAllAssociative();
 
         /*$stmt = self::getDB()->executeCacheQuery(
             $queryBuilder->getSQL(),
@@ -195,15 +203,17 @@ class Translation extends DataMapper implements interfaces\Translation
      * @param  array  $result
      * @throws ConnectionException
      */
-    public static function saveTranslations(
-        $from_language,
-        $translations,
-        $level = 0,
-        $overwrite = false,
-        &$result = []
+    public function saveTranslations(
+        string $from_language,
+        array $translations,
+        int $type,
+        int $level = 0,
+        bool $overwrite = false,
+        array &$result = []
     ) {
 
-        self::getDB()->beginTransaction();
+        $connection = $this->db->getConnection();
+        $connection->beginTransaction();
 
         foreach ($translations as $source => $haystack) {
             $source_hash = self::createHash($source);
@@ -215,7 +225,7 @@ class Translation extends DataMapper implements interfaces\Translation
 
                 $translate_hash =  self::createHash($translate);
 
-                $query = self::getDB()->createQueryBuilder();
+                $query = $connection->createQueryBuilder();
 
                 try {
                     $query->insert(static::TABLE)->values(
@@ -234,7 +244,7 @@ class Translation extends DataMapper implements interfaces\Translation
                         ->setParameter('to_language', $to_language)
                         ->setParameter('source', $source)
                         ->setParameter('level', $level)
-                        ->setParameter('type', static::TYPE)
+                        ->setParameter('type', $type)
                         ->setParameter('translate', $translate)
                         ->setParameter('source_hash', $source_hash)
                         ->setParameter('translate_hash', $translate_hash)
@@ -242,7 +252,7 @@ class Translation extends DataMapper implements interfaces\Translation
                 } catch (UniqueConstraintViolationException $exception) {
 
                     if ($overwrite === true) {
-                        $query = self::getDB()->createQueryBuilder();
+                        $query = $connection->createQueryBuilder();
                         try {
                             $query->update(static::TABLE)
                                 ->set('translate', ':translate')
@@ -259,7 +269,7 @@ class Translation extends DataMapper implements interfaces\Translation
                                 ->addOrderBy('id', 'DESC')
                                 ->addOrderBy('level', 'ASC')
 
-                                ->setParameter('type', static::TYPE)
+                                ->setParameter('type', $type)
                                 ->setParameter('from_language', $from_language)
                                 ->setParameter('to_language', $to_language)
                                 ->setParameter('level', $level)
@@ -279,6 +289,6 @@ class Translation extends DataMapper implements interfaces\Translation
             }
         }
 
-        self::getDB()->commit();
+        $connection->commit();
     }
 }

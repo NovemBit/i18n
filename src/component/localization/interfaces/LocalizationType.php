@@ -14,12 +14,13 @@ use NovemBit\i18n\system\interfaces\Component;
  * @property Regions $regions
  * @property Countries $countries
  * */
-interface LocalizationType extends Component
+interface LocalizationType
 {
     public function getByPrimary(
         string $key,
         string $by,
-        ?string $return = null
+        ?string $return = null,
+        bool $all = false
     );
 
     public function getByContains(

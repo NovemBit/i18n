@@ -6,7 +6,7 @@ use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\system\interfaces\Component;
 use Psr\SimpleCache\InvalidArgumentException;
 
-interface Translator extends Component
+interface Translator
 {
 
     /**
@@ -15,6 +15,8 @@ interface Translator extends Component
      * */
     public function translate(
         array $texts,
+        string $from_language,
+        array $to_languages,
         ?array &$verbose = null,
         bool $only_saved = false,
         bool $ignore_cache = false
@@ -22,20 +24,23 @@ interface Translator extends Component
 
 
     public function saveModels(
-        $translations,
-        $level,
-        $overwrite,
-        &$result = []
+        array $translations,
+        string $from_language,
+        int $level,
+        bool $overwrite,
+        array &$result = []
     ): void;
 
-    public function getModels(
+    public function getSavedTranslations(
         array $texts,
         string $from_language,
         array $to_languages
     ): array;
 
     public function reTranslate(
-        array $texts
+        array $texts,
+        string $from_language,
+        array $to_languages,
     ): array;
 
     public function isCacheResult(): ?bool;

@@ -18,8 +18,10 @@ use Doctrine\DBAL\ConnectionException;
 use JsonException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\translation\interfaces\Translator;
+use NovemBit\i18n\component\translation\models\TranslationDataMapper;
 use NovemBit\i18n\system\helpers\DataType;
 use NovemBit\i18n\system\helpers\Arrays;
+use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 use function json_encode;
@@ -32,10 +34,8 @@ use function json_encode;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation context
  */
-class JSON extends Type implements interfaces\JSON
+class JsonTranslator extends TypeAbstract implements interfaces\JSON
 {
     /**
      * {@inheritdoc}
@@ -55,7 +55,7 @@ class JSON extends Type implements interfaces\JSON
     /**
      * Model class name of ActiveRecord
      * */
-    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\JSON::class;
+    public string|\NovemBit\i18n\component\translation\models\TranslationDataMapper $model_class = models\JSON::class;
 
     /**
      * Detect property type automatically
@@ -77,6 +77,17 @@ class JSON extends Type implements interfaces\JSON
      * @var array
      * */
     private array $objects = [];
+
+    public function __construct(
+        CacheInterface $cache,
+        TranslationDataMapper $translation_data_mapper,
+        private TypeTranslatorFactory $type_factory,
+        Translation $translation
+    )
+    {
+
+        parent::__construct($cache, $translation, $translation_data_mapper);
+    }
 
     /**
      * Get field type
@@ -183,11 +194,13 @@ class JSON extends Type implements interfaces\JSON
 
         foreach ($to_translate as $type => $values) {
             /** @var Translator $translator */
-            $translator = $this->context->{$type};
+            $translator = $this->type_factory->getTypeTranslator($type);
             $translator->setHelperAttributes($this->getHelperAttributes());
 
             $translations[$type] = $translator->translate(
                 $values,
+                $from_language,
+                $to_languages,
                 $verbose,
                 false,
                 $ignore_cache
@@ -232,9 +245,14 @@ class JSON extends Type implements interfaces\JSON
         $obj = json_decode($text, true, 512, JSON_THROW_ON_ERROR);
         if (is_array($obj)) {
             $this->objects[$text] = $obj;
-            return parent::validateBeforeTranslate(...func_get_args());
+            return parent::validateBeforeTranslate($text);
         }
 
         return false;
+    }
+
+    public function getDbId(): int
+    {
+        return 4;
     }
 }

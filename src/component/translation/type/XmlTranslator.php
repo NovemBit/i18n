@@ -19,8 +19,11 @@ use DOMAttr;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\translation\interfaces\Translator;
+use NovemBit\i18n\component\translation\models\TranslationDataMapper;
+use NovemBit\i18n\component\translation\Translation;
+use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
@@ -31,17 +34,19 @@ use Psr\SimpleCache\InvalidArgumentException;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation context
  */
-class XML extends Type implements interfaces\XML
+class XmlTranslator extends TypeAbstract implements interfaces\XML
 {
     /**
      * {@inheritdoc}
      * */
     public string $name = 'xml';
 
-    public array $xpath_query_map = [];
+    public array $xpath_query_map = [
+        'ignore' => [
+            'ancestor-or-self::*[@translate="no"]'
+        ]
+    ];
 
     /**
      * Save translations
@@ -53,7 +58,7 @@ class XML extends Type implements interfaces\XML
     /**
      * Model class name of ActiveRecord
      * */
-    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\XML::class;
+    public string|\NovemBit\i18n\component\translation\models\TranslationDataMapper $model_class = models\XML::class;
 
     private array $before_parse_callbacks = [];
 
@@ -61,20 +66,26 @@ class XML extends Type implements interfaces\XML
 
     protected int $parser_type = \NovemBit\i18n\system\parsers\interfaces\XML::XML;
 
+    public function __construct(
+        private Localization $localization,
+        Translation $translation,
+        CacheInterface $cache,
+        TranslationDataMapper $translation_data_mapper,
+        private TypeTranslatorFactory $type_factory
+    ) {
+        parent::__construct($cache, $translation, $translation_data_mapper);
+    }
+
     /**
-     * {@inheritDoc}
+     * @param  array|\string[][]  $xpath_query_map
      *
-     * @return array
+     * @return XmlTranslator
      */
-    public static function defaultConfig(): array
+    public function setXpathQueryMap(array $xpath_query_map): self
     {
-        return [
-            'xpath_query_map' => [
-                'ignore' => [
-                    'ancestor-or-self::*[@translate="no"]'
-                ]
-            ]
-        ];
+        $this->xpath_query_map = $xpath_query_map;
+
+        return $this;
     }
 
     /**
@@ -99,29 +110,35 @@ class XML extends Type implements interfaces\XML
      * Get Html parser. Create new instance of HTML parser
      *
      * @param string $xml      XML content
-     * @param string $language Language code
+     * @param string $to_language Language code
      *
      * @return \NovemBit\i18n\system\parsers\XML
      */
     protected function getParser(
         string $xml,
-        string $language
-    ): \NovemBit\i18n\system\parsers\XML {
-        return new \NovemBit\i18n\system\parsers\XML(
-            $xml,
-            $this->xpath_query_map,
-            $this->getParserType(),
-            function ($xpath, $dom) {
-                foreach ($this->getBeforeParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
+        string $from_language,
+        string $to_language
+    ): \NovemBit\i18n\system\parsers\XML
+    {
+        return (new \NovemBit\i18n\system\parsers\XML())
+            ->setXml($xml)
+            ->setQueryMap($this->xpath_query_map)
+            ->setType($this->getParserType())
+            ->setBeforeTranslateCallback(
+                function ($xpath, $dom) {
+                    foreach ($this->getBeforeParseCallbacks() as $callback) {
+                        $callback($xpath, $dom);
+                    }
                 }
-            },
-            function ($xpath, $dom) use ($language) {
-                foreach ($this->getAfterParseCallbacks() as $callback) {
-                    call_user_func_array($callback, [$xpath, $dom]);
+            )
+            ->setAfterTranslateCallback(
+                function ($xpath, $dom) use ($to_language) {
+                    foreach ($this->getAfterParseCallbacks() as $callback) {
+                        $callback($xpath, $dom);
+                    }
                 }
-            }
-        );
+            )
+            ->load();
     }
 
     /**
@@ -129,33 +146,33 @@ class XML extends Type implements interfaces\XML
      *
      * @param  DOMNode  $node  Node element
      * @param  string  $type  type of node content
-     * @param  null  $node_type
+     * @param  string|null  $node_type
      *
      * @return string|null
      */
-    private function getNodeValue($node, $type, &$node_type = null): ?string
+    private function getNodeValue(DOMNode $node, string $type, string &$node_type = null): ?string
     {
         $node_value = null;
-        $node_type = $this->getNodeType($node);
+        $node_type  = $this->getNodeType($node);
 
-        if ($node_type == 'text') {
+        if ($node_type === 'text') {
             /**
              * Define node type
              *
              * @var DOMText $node Text node
              */
-            if ($type == 'url') {
+            if ($type === 'url') {
                 $node_value = urldecode($node->data);
             } else {
                 $node_value = $node->data;
             }
-        } elseif ($node_type == 'attr') {
+        } elseif ($node_type === 'attr') {
             /**
              * Define node type
              *
              * @var DOMAttr $node Text node
              */
-            if ($type == 'url') {
+            if ($type === 'url') {
                 $node_value = urldecode($node->value);
             } else {
                 $node_value = $node->value;
@@ -164,40 +181,27 @@ class XML extends Type implements interfaces\XML
         return $node_value;
     }
 
-    /**
-     * @param $node
-     *
-     * @return string|null
-     */
-    private function getNodeType($node): ?string
+    private function getNodeType(DOMNode $node): ?string
     {
-        if (
-            $node->nodeType == XML_TEXT_NODE
-            || $node->nodeType == XML_CDATA_SECTION_NODE
-        ) {
+        if ($node->nodeType === XML_TEXT_NODE
+            || $node->nodeType === XML_CDATA_SECTION_NODE) {
             return 'text';
-        } elseif ($node->nodeType == XML_ATTRIBUTE_NODE) {
-            return 'attr';
-        } else {
-            return null;
         }
+
+        if (
+            $node->nodeType === XML_ATTRIBUTE_NODE
+        ) {
+            return 'attr';
+        }
+
+        return null;
     }
 
-    /**
-     * @param  DOMNode  $node
-     * @param  array  $params
-     * @param  array  $data
-     */
     public function buildToTranslateFields(
         DOMNode $node,
         array $params,
         array &$data
-    ) {
-        /**
-         * Define node type
-         *
-         * @var DOMNode $node
-         */
+    ): void {
         $type = $params['type'] ?? 'text';
 
         $node_value = $this->getNodeValue($node, $type);
@@ -211,12 +215,14 @@ class XML extends Type implements interfaces\XML
      * @param  DOMNode  $node
      * @param  array  $params
      * @param  array  $data
+     *
+     * @throws \JsonException
      */
     public function replaceTranslatedFields(
         DOMNode $node,
         array $params,
         array &$data
-    ) {
+    ): void {
         /**
          * Define type of $node
          */
@@ -231,7 +237,7 @@ class XML extends Type implements interfaces\XML
 
         $node_value = $this->getNodeValue($node, $type, $node_type);
 
-        if ($node_type == null) {
+        if ( ! $node_type) {
             return;
         }
 
@@ -239,7 +245,7 @@ class XML extends Type implements interfaces\XML
             [$type][$node_value][$data['language']]
             ?? null;
 
-        if (in_array($type, $this->getHelperAttributes())) {
+        if (in_array($type, $this->getHelperAttributes(), true)) {
             /**
              * Define node type
              *
@@ -248,24 +254,26 @@ class XML extends Type implements interfaces\XML
             $parent = $node->parentNode;
 
             $_verbose = $data['verbose']
-                [$type][$node_value] ?? null;
+                        [$type][$node_value] ?? null;
 
-            if ($node_type == 'text') {
+            if ($node_type === 'text') {
                 /**
                  * Define node type
                  *
                  * @var DOMText $node
                  */
                 if (
-                    $parent->hasAttribute(
-                        $this->context->context->prefix . '-text'
-                    )
+                $parent->hasAttribute(
+                    $this->localization->getPrefix() . '-text'
+                )
                 ) {
                     $text = json_decode(
                         $parent->getAttribute(
-                            $this->context->context->prefix . '-text'
+                            $this->localization->getPrefix() . '-text'
                         ),
-                        true
+                        true,
+                        512,
+                        JSON_THROW_ON_ERROR
                     );
                 } else {
                     $text = [];
@@ -281,26 +289,28 @@ class XML extends Type implements interfaces\XML
                         $_verbose['suffix'] ?? null
                     ];
                     $parent->setAttribute(
-                        $this->context->context->prefix . '-text',
-                        json_encode($text)
+                        $this->localization->getPrefix() . '-text',
+                        json_encode($text, JSON_THROW_ON_ERROR)
                     );
                 }
-            } elseif ($node_type == 'attr') {
+            } elseif ($node_type === 'attr') {
                 /**
                  * Define node type
                  *
                  * @var DOMAttr $node
                  */
                 if (
-                    $parent->hasAttribute(
-                        $this->context->context->prefix . '-attr'
-                    )
+                $parent->hasAttribute(
+                    $this->localization->getPrefix() . '-attr'
+                )
                 ) {
                     $attr = json_decode(
                         $parent->getAttribute(
-                            $this->context->context->prefix . '-attr'
+                            $this->localization->getPrefix() . '-attr'
                         ),
-                        true
+                        true,
+                        512,
+                        JSON_THROW_ON_ERROR
                     );
                 } else {
                     $attr = [];
@@ -315,17 +325,17 @@ class XML extends Type implements interfaces\XML
                         $_verbose['suffix'] ?? null
                     ];
                     $parent->setAttribute(
-                        $this->context->context->prefix . '-attr',
-                        json_encode($attr)
+                        $this->localization->getPrefix() . '-attr',
+                        json_encode($attr, JSON_THROW_ON_ERROR)
                     );
                 }
             }
         }
 
         if (!empty($translate)) {
-            if ($node_type == 'text') {
+            if ($node_type === 'text') {
                 $node->data = $translate;
-            } elseif ($node_type == 'attr') {
+            } elseif ($node_type === 'attr') {
                 $node->value = htmlspecialchars($translate);
             }
         }
@@ -342,10 +352,10 @@ class XML extends Type implements interfaces\XML
      * And send to translation:
      * Using custom type of translation for each type of node
      *
-     * @param array  $xml_list      list of translatable HTML strings
-     * @param string $from_language From Language
-     * @param array  $to_languages  To Languages
-     * @param bool   $ignore_cache  Ignore Cache
+     * @param  array  $nodes  list of translatable HTML strings
+     * @param  string  $from_language  From Language
+     * @param  array  $to_languages  To Languages
+     * @param  bool  $ignore_cache  Ignore Cache
      *
      * @return mixed
      * @throws ConnectionException
@@ -354,7 +364,7 @@ class XML extends Type implements interfaces\XML
      * @see    DOMAttr
      */
     protected function doTranslate(
-        array $xml_list,
+        array $nodes,
         string $from_language,
         array $to_languages,
         bool $ignore_cache
@@ -374,14 +384,15 @@ class XML extends Type implements interfaces\XML
         /**
          * Finding translatable node values and attributes
          * */
-        foreach ($xml_list as $key => $html) {
-            foreach ($to_languages as $language) {
-                $parsed_dom[$key][$language] = $this->getParser(
+        foreach ($nodes as $key => $html) {
+            foreach ($to_languages as $to_language) {
+                $parsed_dom[$key][$to_language] = $this->getParser(
                     $html,
-                    $language
+                    $from_language,
+                    $to_language
                 );
 
-                $parsed_dom[$key][$language]->fetch(
+                $parsed_dom[$key][$to_language]->fetch(
                     [$this, 'buildToTranslateFields'],
                     ['to_translate' => &$to_translate]
                 );
@@ -395,7 +406,7 @@ class XML extends Type implements interfaces\XML
              *
              * @var Translator $translator
              */
-            $translator = $this->context->{$type};
+            $translator = $this->type_factory->getTypeTranslator($type);
 
             /**
              * Enable helper attributes for sub-translators
@@ -404,6 +415,8 @@ class XML extends Type implements interfaces\XML
 
             $translations[$type] = $translator->translate(
                 $texts,
+                $from_language,
+                $to_languages,
                 $verbose[$type],
                 false,
                 $ignore_cache
@@ -415,14 +428,14 @@ class XML extends Type implements interfaces\XML
          * Replace html node values to
          * Translated values
          * */
-        foreach ($xml_list as $key => $html) {
+        foreach ($nodes as $key => $html) {
             foreach ($to_languages as $language) {
                 $parsed_dom[$key][$language]->fetch(
                     [$this, 'replaceTranslatedFields'],
                     [
-                        'translations' => $translations,
-                        'verbose' => $verbose,
-                        'language' => $language,
+                        'translations'     => $translations,
+                        'verbose'          => $verbose,
+                        'language'         => $language,
                         'parsed_dom_mutex' => &$parsed_dom_mutex
                     ]
                 );
@@ -471,5 +484,10 @@ class XML extends Type implements interfaces\XML
     public function addXpathQuery(string $xpath, array $config): void
     {
         $this->xpath_query_map[$xpath] = $config;
+    }
+
+    public function getDbId(): int
+    {
+        return 5;
     }
 }

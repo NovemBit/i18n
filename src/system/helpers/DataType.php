@@ -13,8 +13,8 @@
 
 namespace NovemBit\i18n\system\helpers;
 
-use NovemBit\i18n\component\translation\type\HTML;
-use NovemBit\i18n\component\translation\type\JSON;
+use NovemBit\i18n\component\translation\type\HtmlTranslator;
+use NovemBit\i18n\component\translation\type\JsonTranslator;
 
 /**
  * Helper class for determine content types

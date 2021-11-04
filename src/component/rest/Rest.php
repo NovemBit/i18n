@@ -31,55 +31,55 @@ use Psr\SimpleCache\InvalidArgumentException;
  *
  * @property Module $context
  */
-class Rest extends Component implements interfaces\Rest
+class Rest implements interfaces\Rest
 {
 
     /**
      * @var string
      */
-    public $welcome = 'NovemBit I18n v1.3';
+    public string $welcome = 'NovemBit I18n v1.3';
 
     /**
      * Api keys list
      *
      * @var string[]
      * */
-    public $api_keys = [];
+    public array $api_keys = [];
 
     /**
      * Default endpoint of rest api
      *
      * @var string
      * */
-    public $endpoint = "i18n/rest/v1";
+    public string $endpoint = "i18n/rest/v1";
 
     /**
      * Action prefix
      *
      * @var string
      * */
-    public $actionPrefix = 'action';
+    public string $actionPrefix = 'action';
 
     /**
      * Default action
      *
      * @var string
      * */
-    public $defaultAction = 'index';
+    public string $defaultAction = 'index';
 
     /**
      * Restring action
      *
      * @var string
      * */
-    public $restrictAction = 'restrict';
+    public string $restrictAction = 'restrict';
 
     /**
      * Current api key
      *
      * @var string
      * */
-    private $api_key;
+    private string $api_key;
 
     /**
      * Start rest request

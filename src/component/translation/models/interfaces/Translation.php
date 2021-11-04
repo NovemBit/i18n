@@ -17,10 +17,11 @@ interface Translation
      *
      * @return array
      */
-    public static function get(
-        $texts,
-        $from_language,
-        $to_languages
+    public function get(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+        int $type
     ) : array;
 
     /**
@@ -32,10 +33,11 @@ interface Translation
      *
      * @return array
      */
-    public static function getReversed(
-        $texts,
-        $to_language,
-        $from_languages
+    public function getReversed(
+        array $texts,
+        string $to_language,
+        array $from_languages,
+        int $type
     ) : array;
 
     /**
@@ -48,11 +50,13 @@ interface Translation
      *
      * @return void
      */
-    public static function saveTranslations(
-        $from_language,
-        $translations,
-        $level = 0,
-        $overwrite = false
+    public function saveTranslations(
+        string $from_language,
+        array $translations,
+        int $type,
+        int $level = 0,
+        bool $overwrite = false,
+        array &$result = []
     );
 
 }

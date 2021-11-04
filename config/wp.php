@@ -1,11 +1,11 @@
 <?php
 
 use NovemBit\i18n\component\translation\method\Dummy;
-use NovemBit\i18n\component\translation\type\JSON;
-use NovemBit\i18n\component\translation\type\Text;
-use NovemBit\i18n\component\translation\type\URL;
-use NovemBit\i18n\component\translation\type\XML;
-use NovemBit\i18n\component\translation\type\HTML;
+use NovemBit\i18n\component\translation\type\JsonTranslator;
+use NovemBit\i18n\component\translation\type\TextTranslator;
+use NovemBit\i18n\component\translation\type\UrlTranslator;
+use NovemBit\i18n\component\translation\type\XmlTranslator;
+use NovemBit\i18n\component\translation\type\HtmlTranslator;
 use NovemBit\i18n\component\translation\method\Rest;
 use NovemBit\i18n\component\translation\Translation;
 
@@ -713,13 +713,13 @@ return [
                 ],
             'text' =>
                 [
-                    'class' => Text::class,
+                    'class' => TextTranslator::class,
                     'runtime_dir' => $runtime_dir,
                     'save_translations' => true,
                 ],
             'url' =>
                 [
-                    'class' => URL::class,
+                    'class' => UrlTranslator::class,
                     'runtime_dir' => $runtime_dir,
                     'path_separator' => '-',
                     'path_translation' => true,
@@ -748,12 +748,12 @@ return [
                 ],
             'xml' =>
                 [
-                    'class' => XML::class,
+                    'class' => XmlTranslator::class,
                     'runtime_dir' => $runtime_dir,
                 ],
             'sitemap_xml' =>
                 [
-                    'class' => XML::class,
+                    'class' => XmlTranslator::class,
                     'name' => 'sitemap_xml',
                     'runtime_dir' => $runtime_dir,
                     'xpath_query_map' =>
@@ -769,7 +769,7 @@ return [
                 ],
             'gpf_xml' =>
                 [
-                    'class' => XML::class,
+                    'class' => XmlTranslator::class,
                     'name' => 'gpf_xml',
                     'runtime_dir' => $runtime_dir,
                     'xpath_query_map' =>
@@ -793,7 +793,7 @@ return [
                 ],
             'html' =>
                 [
-                    'class' => HTML::class,
+                    'class' => HtmlTranslator::class,
                     'runtime_dir' => $runtime_dir,
                     'title_tag_template' => static function (array $params) {
                         $a = mb_convert_case(
@@ -996,7 +996,7 @@ return [
                 ],
             'html_fragment' =>
                 [
-                    'class' => 'NovemBit\\i18n\\component\\translation\\type\\HTMLFragment',
+                    'class' => 'NovemBit\\i18n\\component\\translation\\type\\HtmlFragmentTranslator',
                     'runtime_dir' => $runtime_dir,
                     'xpath_query_map' =>
                         [
@@ -1180,7 +1180,7 @@ return [
                 ],
             'json' =>
                 [
-                    'class' => JSON::class,
+                    'class' => JsonTranslator::class,
                     'runtime_dir' => $runtime_dir,
                     'save_translations' => false,
                     'fields_to_translate' =>
@@ -1191,7 +1191,7 @@ return [
                 ],
             'jsonld' =>
                 [
-                    'class' => JSON::class,
+                    'class' => JsonTranslator::class,
                     'runtime_dir' => $runtime_dir,
                     'name' => 'jsonld',
                     'save_translations' => false,

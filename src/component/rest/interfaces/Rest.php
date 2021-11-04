@@ -3,9 +3,8 @@
 
 namespace NovemBit\i18n\component\rest\interfaces;
 
-use NovemBit\i18n\system\interfaces\Component;
 
-interface Rest extends Component
+interface Rest
 {
     public const STATUS_NONE = 0;
     public const STATUS_DONE = 1;

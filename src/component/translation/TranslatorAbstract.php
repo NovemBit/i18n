@@ -17,8 +17,9 @@ namespace NovemBit\i18n\component\translation;
 use Doctrine\DBAL\ConnectionException;
 use JsonException;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
-use NovemBit\i18n\system\Component;
+use NovemBit\i18n\component\translation\models\TranslationDataMapper;
 use NovemBit\i18n\system\helpers\Arrays;
+use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
@@ -30,9 +31,8 @@ use Psr\SimpleCache\InvalidArgumentException;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  *
- * @property \NovemBit\i18n\component\translation\interfaces\Translation context
  */
-abstract class Translator extends Component implements interfaces\Translator
+abstract class TranslatorAbstract implements interfaces\Translator
 {
     /**
      * Name of public method
@@ -70,11 +70,6 @@ abstract class Translator extends Component implements interfaces\Translator
     public array $exclusions = [];
 
     /**
-     * Model class name of ActiveRecord
-     * */
-    public string|models\Translation $model_class = models\Translation::class;
-
-    /**
      * Exclusion regex replacement pattern
      * */
     public string $exclusion_pattern = '<span translate="no">$0</span>';
@@ -95,20 +90,13 @@ abstract class Translator extends Component implements interfaces\Translator
      * */
     private array $helper_attributes = [];
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return void
-     * @throws TranslationException
-     */
-    public function mainInit(): void
-    {
-        if ($this->save_translations && ! isset($this->model_class)) {
-            throw new TranslationException(
-                'Unknown configuration: Property "model_class" is required.'
-            );
-        }
+    abstract public function getDbId(): int;
 
+    public function __construct(
+        private CacheInterface $cache,
+        private Translation $translation,
+        private TranslationDataMapper $translation_data_mapper
+    ) {
         $this->initExclusions();
     }
 
@@ -162,7 +150,7 @@ abstract class Translator extends Component implements interfaces\Translator
         array &$texts,
         ?array &$verbose
     ): void {
-        $models = $this->getModels(
+        $models = $this->getSavedTranslations(
             $texts,
             $from_language,
             $to_languages
@@ -246,18 +234,16 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public function translate(
         array $texts,
+        string $from_language,
+        array $to_languages,
         ?array &$verbose = null,
         bool $only_saved = false,
         bool $ignore_cache = false
     ): array {
-        $from_language = $this->context->getFromLanguage();
-        $to_languages  = $this->context->getLanguages();
-
         if ( ! $ignore_cache && $this->isCacheResult() === true) {
             $cache_key = $this->getCacheKey($from_language, $to_languages, $texts);
 
-            $cache = $this->getCachePool()
-                          ->get($cache_key);
+            $cache = $this->cache->get($cache_key);
 
             if ($cache !== null) {
                 return $cache;
@@ -315,7 +301,7 @@ abstract class Translator extends Component implements interfaces\Translator
              * And without overwriting old values
              * */
             if ($this->save_translations) {
-                $this->saveModels($new_translations, 0, false);
+                $this->saveModels($new_translations, $from_language, 0, false);
             }
 
             /**
@@ -333,7 +319,7 @@ abstract class Translator extends Component implements interfaces\Translator
         $this->afterTranslate($translations, $verbose);
 
         if (isset($cache_key)) {
-            $this->getCachePool()->set(
+            $this->cache->set(
                 $cache_key,
                 $translations,
                 $this->cache_result_ttl
@@ -351,11 +337,11 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      */
-    public function reTranslate(array $texts): array
-    {
-        $from_language = $this->context->getFromLanguage();
-        $to_languages  = $this->context->getLanguages();
-
+    public function reTranslate(
+        array $texts,
+        string $from_language,
+        array $to_languages,
+    ): array {
         $this->beforeReTranslate($texts);
 
         $result = $this->doReTranslate($texts, $to_languages[0], [$from_language]);
@@ -365,6 +351,9 @@ abstract class Translator extends Component implements interfaces\Translator
         return $result;
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     protected function doReTranslate(
         array $texts,
         string $to_language,
@@ -679,14 +668,16 @@ abstract class Translator extends Component implements interfaces\Translator
      * @throws ConnectionException
      */
     public function saveModels(
-        $translations,
-        $level,
-        $overwrite,
-        &$result = []
+        array $translations,
+        string $from_language,
+        int $level,
+        bool $overwrite,
+        array &$result = []
     ): void {
-        ($this->model_class)::saveTranslations(
-            $this->context->getFromLanguage(),
+        $this->translation_data_mapper->saveTranslations(
+            $from_language,
             $translations,
+            $this->getDbId(),
             $level,
             $overwrite,
             $result
@@ -713,15 +704,16 @@ abstract class Translator extends Component implements interfaces\Translator
      *
      * @return array
      */
-    public function getModels(
+    public function getSavedTranslations(
         array $texts,
         string $from_language,
         array $to_languages
     ): array {
-        return $this->model_class::get(
+        return $this->translation_data_mapper->get(
             $texts,
             $from_language,
-            $to_languages
+            $to_languages,
+            $this->getDbId()
         );
     }
 
@@ -740,10 +732,11 @@ abstract class Translator extends Component implements interfaces\Translator
         string $to_language,
         array $from_languages
     ): array {
-        return $this->model_class::getReversed(
+        return $this->translation_data_mapper->getReversed(
             $texts,
             $to_language,
-            $from_languages
+            $from_languages,
+            $this->getDbId()
         );
     }
 
@@ -752,15 +745,15 @@ abstract class Translator extends Component implements interfaces\Translator
      */
     public function getTranslation(): interfaces\Translation
     {
-        return $this->context;
+        return $this->translation;
     }
 
     /**
      * If Cache Result enabled
      *
-     * @return bool|null
+     * @return bool
      */
-    public function isCacheResult(): ?bool
+    public function isCacheResult(): bool
     {
         return $this->cache_result;
     }

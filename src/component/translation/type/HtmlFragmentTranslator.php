@@ -25,10 +25,8 @@ use NovemBit\i18n\system\parsers;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation context
  */
-class HTMLFragment extends HTML implements interfaces\HTMLFragment
+class HtmlFragmentTranslator extends HtmlTranslator implements interfaces\HTMLFragment
 {
     /**
      * {@inheritdoc}

@@ -14,7 +14,7 @@
 
 namespace NovemBit\i18n\component\translation\type;
 
-use NovemBit\i18n\component\translation\Translator;
+use NovemBit\i18n\component\translation\TranslatorAbstract;
 
 /**
  * Type abstract class for translation component
@@ -24,9 +24,7 @@ use NovemBit\i18n\component\translation\Translator;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translator context
  */
-abstract class Type extends Translator implements interfaces\Type
+abstract class TypeAbstract extends TranslatorAbstract implements interfaces\TypeInterface
 {
 }

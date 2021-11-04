@@ -14,53 +14,46 @@
 
 namespace NovemBit\i18n\component\localization;
 
+use JetBrains\PhpStorm\Pure;
 use NovemBit\i18n\component\localization\countries\Countries;
 use NovemBit\i18n\component\localization\exceptions\LanguageException;
 use NovemBit\i18n\component\localization\languages\Languages;
 use NovemBit\i18n\component\localization\regions\Regions;
-use NovemBit\i18n\Module;
-use NovemBit\i18n\system\Component;
-use NovemBit\i18n\system\exception\Exception;
 use NovemBit\i18n\system\helpers\Environment;
 use NovemBit\i18n\system\helpers\URL;
 
 /**
  * Class Localization
  * @package NovemBit\i18n\component\localization
- *
- * @property Module $context
- * @property Languages $languages
- * @property Countries $countries
- * @property Regions $regions
  */
-class Localization extends Component implements interfaces\Localization
+class Localization implements interfaces\Localization
 {
-    
+
+    private bool $is_ssl = false;
+
     /**
      * Main content language
-     *
-     * @var string
      * */
-    public $from_language = 'en';
-    
+    private string $from_language = 'en';
+
     /**
      * Accepted languages
      *
      * @var string[]
      * */
-    public $accept_languages = ['fr', 'it', 'de'];
-    
+    private array $accept_languages = ['fr', 'it', 'de', 'en'];
+
     /**
      * Default language
      *
      * @var array[string][string]
      * */
-    public $localization_config = [];
+    private array $localization_config = [];
 
     /**
      * @var array
      * */
-    public $global_domains = [];
+    private array $global_domains;
 
     /**
      * Language query variable key
@@ -69,7 +62,7 @@ class Localization extends Component implements interfaces\Localization
      *
      * @var string
      * */
-    public $language_query_key = 'i18n-language';
+    private string $language_query_key = 'i18n-language';
 
     /**
      * Add language code on url path
@@ -78,7 +71,7 @@ class Localization extends Component implements interfaces\Localization
      *
      * @var bool
      * */
-    public $language_on_path = true;
+    private bool $language_on_path = true;
 
     /**
      * Pattern to exclude paths from url
@@ -91,49 +84,38 @@ class Localization extends Component implements interfaces\Localization
      *
      * @var string[]
      * */
-    public $path_exclusion_patterns = [];
-    
+    private array $path_exclusion_patterns = [];
+
     /**
      * Current script path in url
-     *
-     * @var string
      * */
-    private static $script_url;
+    private static string $script_url;
 
     /**
      * @var bool
      * */
-    public $localize_host = true;
-    
-    /**
-     * @throws Exception
-     */
-    public function commonInit(): void
-    {
-        if (empty($this->global_domains)) {
-            throw new Exception('Global domain field is required for "Localization" component.');
-        }
-        $this->commonLateInit();
+    private bool $localize_host = true;
+
+    private string $default_http_host;
+
+    private string $prefix = 'i18n';
+
+    public function __construct(
+        private Languages $languages,
+        private Countries $countries,
+        private Regions $regions
+    ) {
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public static function defaultConfig(): array
+    public function getDefaultHttpHost(): string
     {
-        return [
-            'languages' => ['class' => Languages::class],
-            'countries' => ['class' => Countries::class],
-            'regions' => ['class' => Regions::class],
-        ];
+        return $this->default_http_host;
     }
 
-    /**
-     * @param string|null $base_domain Base domain
-     * @param string|null $value
-     * @return array
-     */
-    public function getConfig(?string $base_domain = null, ?string $value = null)
+    public function getConfig(?string $base_domain = null, ?string $value = null): ?array
     {
         $config = [];
 
@@ -144,8 +126,8 @@ class Localization extends Component implements interfaces\Localization
             }
         }
 
-        if (!isset($config) && isset($this->localization_config['default'])) {
-            $config = $this->localization_config['default'];
+        if ( ! isset($config) && isset($this->localization_config['default'])) {
+            $config               = $this->localization_config['default'];
             $config['is_default'] = true;
         }
 
@@ -182,9 +164,10 @@ class Localization extends Component implements interfaces\Localization
     }
 
     /**
-     * @param string|null $base_domain
-     * @param bool $assoc include whole data
-     * @return array|null
+     * @param  string|null  $base_domain
+     * @param  bool  $assoc  include whole data
+     *
+     * @return array
      * @throws LanguageException
      */
     public function getAcceptLanguages(
@@ -223,6 +206,7 @@ class Localization extends Component implements interfaces\Localization
     {
         $domain = $this->countries->getByPrimary($language, 'languages', 'domain');
         $domain = $domain ?: $this->regions->getByPrimary($language, 'languages', 'domain');
+
         return $domain;
     }
 
@@ -230,6 +214,7 @@ class Localization extends Component implements interfaces\Localization
      * @param string $domain
      * @return bool
      */
+    #[Pure]
     public function isGlobalDomain(string $domain): bool
     {
         return in_array($domain, $this->getGlobalDomains(), true);
@@ -244,9 +229,10 @@ class Localization extends Component implements interfaces\Localization
     }
 
     /**
-     * {@inheritDoc}
+     * Validate one language
+     * Check if language exists in `$accepted_languages` array
      *
-     * @param string $language language code
+     * @param  string  $language  language code
      *
      * @return bool
      * @throws LanguageException
@@ -261,9 +247,11 @@ class Localization extends Component implements interfaces\Localization
     }
 
     /**
-     * {@inheritDoc}
+     * Validate list of Languages
+     * Check if each language code exists on
+     * Accepted languages list
      *
-     * @param string[] $languages language codes
+     * @param  string[]  $languages  language codes
      *
      * @return bool
      * @throws LanguageException
@@ -341,7 +329,7 @@ class Localization extends Component implements interfaces\Localization
             return null;
         }
 
-        if (strpos($request_uri, $script_name) === 0) {
+        if (str_starts_with($request_uri, $script_name)) {
             $str = $script_name;
         } else {
             $paths = explode('/', $script_name);
@@ -356,7 +344,7 @@ class Localization extends Component implements interfaces\Localization
 
         return self::$script_url;
     }
-    
+
     /**
      * @param string $url Simple url
      * @return string
@@ -379,7 +367,7 @@ class Localization extends Component implements interfaces\Localization
 
         return $url;
     }
-    
+
     /**
      * Get current language from URL path
      * f.e. https://novembit.com/fr/my/post/path
@@ -412,6 +400,7 @@ class Localization extends Component implements interfaces\Localization
 
         return null;
     }
+
     /**
      * @param string|null $base_domain Base domain
      * @return array
@@ -445,6 +434,7 @@ class Localization extends Component implements interfaces\Localization
      * @param  string|null  $uri  Referenced variable of URI string
      *
      * @return string
+     * @throws LanguageException
      */
     public function removeLanguageFromURI(?string $uri): string
     {
@@ -465,9 +455,19 @@ class Localization extends Component implements interfaces\Localization
 
 
     /**
-     * @param string $url Simple url
-     * @param string $language language code
-     * @param string|null $base_domain Base domain name
+     * Adding language code to
+     * Already translated URL
+     *
+     * If `$language_on_path` is true then adding
+     * Language code to beginning of url path
+     *
+     * If `$language_on_path` is false or url contains
+     * Script name or directory path then adding only
+     * Query parameter of language
+     *
+     * @param  string  $url  Simple url
+     * @param  string  $language  language code
+     * @param  string|null  $base_domain  Base domain name
      *
      * @return null|string
      * @throws LanguageException
@@ -508,7 +508,7 @@ class Localization extends Component implements interfaces\Localization
                             }
                         }
                     }
-                    $base_domain = $domain ?: $this->getGlobalDomains()[0] ?: $base_domain;
+                    $base_domain   = $domain ?: $this->getGlobalDomains()[0] ?: $base_domain;
                     $parts['host'] = $domain ?: $this->getGlobalDomains()[0] ?? null;
                 }
             }
@@ -524,7 +524,7 @@ class Localization extends Component implements interfaces\Localization
              * Normalize scheme
              * */
             if (!empty($parts['host']) && empty($parts['scheme'])) {
-                $scheme = $this->context->isSsl() ? 'https' : 'http';
+                $scheme          = $this->is_ssl ? 'https' : 'http';
                 $parts['scheme'] = $scheme;
             }
 
@@ -598,7 +598,7 @@ class Localization extends Component implements interfaces\Localization
      */
     public function getDefaultLanguage(?string $base_domain = null): string
     {
-        $base_domain = $base_domain ?? $this->context->request->getDefaultHttpHost();
+        $base_domain = $base_domain ?? $this->default_http_host;
 
         $language = $this->countries->getActiveLanguages($base_domain)[0] ?? null;
 
@@ -625,17 +625,135 @@ class Localization extends Component implements interfaces\Localization
 
     /**
      *
-     * @param string $from_language From language code
+     * @param  string  $from_language  From language code
      *
-     * @return void
+     * @return Localization
      * @throws LanguageException
      */
-    public function setFromLanguage(string $from_language): void
+    public function setFromLanguage(string $from_language): self
     {
-        if ($this->validateLanguage($from_language)) {
-            $this->from_language = $from_language;
-        } else {
+        if ( ! $this->validateLanguage($from_language)) {
             throw new LanguageException('Unknown from language parameter.');
         }
+
+        $this->from_language = $from_language;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix(): string
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @param  string[]  $accept_languages
+     *
+     * @return Localization
+     */
+    public function setAcceptLanguages(array $accept_languages): Localization
+    {
+        $this->accept_languages = $accept_languages;
+
+        return $this;
+    }
+
+    /**
+     * @param  array  $global_domains
+     *
+     * @return Localization
+     */
+    public function setGlobalDomains(array $global_domains): Localization
+    {
+        $this->global_domains = $global_domains;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $language_query_key
+     *
+     * @return Localization
+     */
+    public function setLanguageQueryKey(string $language_query_key): Localization
+    {
+        $this->language_query_key = $language_query_key;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $default_http_host
+     *
+     * @return Localization
+     */
+    public function setDefaultHttpHost(string $default_http_host): Localization
+    {
+        $this->default_http_host = $default_http_host;
+
+        return $this;
+    }
+
+    /**
+     * @param  string[]  $path_exclusion_patterns
+     *
+     * @return Localization
+     */
+    public function setPathExclusionPatterns(array $path_exclusion_patterns): Localization
+    {
+        $this->path_exclusion_patterns = $path_exclusion_patterns;
+
+        return $this;
+    }
+
+    /**
+     * @param  bool  $language_on_path
+     *
+     * @return Localization
+     */
+    public function setLanguageOnPath(bool $language_on_path): Localization
+    {
+        $this->language_on_path = $language_on_path;
+
+        return $this;
+    }
+
+    /**
+     * @param  array  $localization_config
+     *
+     * @return Localization
+     */
+    public function setLocalizationConfig(array $localization_config): Localization
+    {
+        $this->localization_config = $localization_config;
+
+        return $this;
+    }
+
+    /**
+     * @param  bool  $localize_host
+     *
+     * @return Localization
+     */
+    public function setLocalizeHost(bool $localize_host): Localization
+    {
+        $this->localize_host = $localize_host;
+
+        return $this;
+    }
+
+    /**
+     * @param  bool  $is_ssl
+     *
+     * @return Localization
+     */
+    public function setIsSsl(bool $is_ssl): Localization
+    {
+        $this->is_ssl = $is_ssl;
+
+        return $this;
     }
 }

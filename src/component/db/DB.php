@@ -19,13 +19,9 @@
 namespace NovemBit\i18n\component\db;
 
 use Doctrine\DBAL\Configuration;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\DriverManager;
-use Exception;
-use Monolog\Logger;
-use NovemBit\i18n\Module;
-use NovemBit\i18n\system\Component;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
+use NovemBit\i18n\Module;
 
 /**
  * DB component
@@ -37,7 +33,7 @@ use Doctrine\DBAL\Connection;
  * @link     https://github.com/NovemBit/i18n
  * @property Module $context
  */
-class DB extends Component
+class DB
 {
 
     /**
@@ -57,7 +53,7 @@ class DB extends Component
      *
      * @var array
      * */
-    public $connection_params;
+    private array $connection_params;
 
     /**
      * Doctrine DB connection
@@ -65,35 +61,8 @@ class DB extends Component
      * @see https://www.doctrine-project.org/projects/dbal.html
      * @var Connection
      * */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * {@inheritdoc}
-     * Init method of component.
-     * Setting default connection of DB
-     *
-     * @return void
-     * @throws DBALException
-     * @throws Exception
-     */
-    public function commonInit(): void
-    {
-        $config = new Configuration();
-
-        /**
-         * @todo Temporary disabled sql Logger
-         * */
-        /*$config->setSQLLogger(
-            new SQLFileLogger($this->getLogger())
-        );*/
-
-        $this->setConnection(
-            DriverManager::getConnection(
-                $this->getConnectionParams(),
-                $config
-            )
-        );
-    }
 
     /**
      * Get connection of DB
@@ -102,28 +71,29 @@ class DB extends Component
      */
     public function getConnection(): Connection
     {
+        if ( ! isset($this->connection)) {
+            $config = new Configuration();
+
+            $this->connection =
+                DriverManager::getConnection(
+                    $this->connection_params,
+                    $config
+                );
+        }
+
+
         return $this->connection;
     }
 
     /**
-     * Set connection of DB
+     * @param  array  $connection_params
      *
-     * @param  Connection  $connection
-     *
-     * @return void
+     * @return DB
      */
-    private function setConnection(Connection $connection): void
+    public function setConnectionParams(array $connection_params): DB
     {
-        $this->connection = $connection;
-    }
+        $this->connection_params = $connection_params;
 
-    /**
-     * Connection params getter
-     *
-     * @return array
-     */
-    public function getConnectionParams(): array
-    {
-        return $this->connection_params;
+        return $this;
     }
 }

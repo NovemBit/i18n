@@ -13,7 +13,7 @@
 
 namespace NovemBit\i18n\component\translation\type\models;
 
-use NovemBit\i18n\component\translation\models\Translation;
+use NovemBit\i18n\component\translation\models\TranslationDataMapper;
 
 /**
  * ActiveRecord class. Child of Yii ActiveRecord library
@@ -24,7 +24,7 @@ use NovemBit\i18n\component\translation\models\Translation;
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
  * */
-class XML extends Translation
+class XML extends TranslationDataMapper
 {
     public const TYPE = 5;
 }

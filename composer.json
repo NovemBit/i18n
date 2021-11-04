@@ -11,7 +11,7 @@
   "prefer-stable": true,
   "type": "library",
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-dom": "*",
     "ext-libxml": "*",
     "ext-pdo": "*",
@@ -42,7 +42,8 @@
     }
   },
   "scripts": {
-    "style": "phpcs --standard=PSR12"
+    "fix-cs": "php-cs-fixer fix",
+    "test-cs": "php-cs-fixer fix --dry-run -v"
   },
   "repositories": [
     {

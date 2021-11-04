@@ -13,6 +13,7 @@
 
 namespace NovemBit\i18n\system\parsers;
 
+use Closure;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
@@ -36,88 +37,53 @@ class XML
      *
      * @var string
      * */
-    protected $xml;
+    protected string $xml;
 
     /**
      * Translate fields set
      *
      * @var array
      * */
-    protected $query_map = [];
+    protected array $query_map = [];
 
     /**
      * Main DomDocument
      *
      * @var DomDocument
      * */
-    protected $dom;
+    protected DomDocument $dom;
 
     /**
      * Main xpath of dom
      *
      * @var DOMXPath
      * */
-    protected $xpath;
+    protected DOMXPath $xpath;
 
     /**
      * Before translate callback
-     *
-     * @var callable
      * */
-    private $_before_translate_callback = null;
+    private Closure $before_translate_callback;
 
     /**
      * After translate callback
      *
-     * @var callable
+     * @var Closure
      * */
-    private $_after_translate_callback = null;
+    private Closure $after_translate_callback;
 
-    private $_type = interfaces\XML::XML;
+    private int $type = interfaces\XML::XML;
 
-    /**
-     *
-     * @var HTML5
-     * */
-    private $_html5;
-
-
-    /**
-     * HTML parser constructor.
-     *
-     * @param string $xml XML content
-     * @param array $query_map Xpath Query
-     * @param int $type XML or HTML
-     * @param callable|null $before_translate_callback Before init callback
-     * @param callable|null $after_translate_callback After init callback
-     */
-    public function __construct(
-        string $xml,
-        array $query_map,
-        int $type = interfaces\XML::XML,
-        callable $before_translate_callback = null,
-        callable $after_translate_callback = null
-    ) {
-
-        $this->_setType($type);
-        $this->_setQueryMap($query_map);
-        $this->_setBeforeTranslateCallback($before_translate_callback);
-        $this->_setAfterTranslateCallback($after_translate_callback);
-
-        $this->load($xml);
-    }
-
+    private HTML5 $html5;
 
     /**
      * HTML constructor.
      *
-     * @param string $xml initial HTML content
-     *
      * @return self
      */
-    public function load(string $xml): self
+    public function load(): self
     {
-        $this->_setXml($xml);
+        $this->setXml($this->xml);
 
         $this->initDom();
 
@@ -136,15 +102,14 @@ class XML
      */
     public function _getHtml5(): HTML5
     {
-        return $this->_html5;
+        return $this->html5;
     }
 
-    /**
-     * @param HTML5 $html5
-     */
-    public function _setHtml5(HTML5 $html5): void
+    public function setHtml5(HTML5 $html5): self
     {
-        $this->_html5 = $html5;
+        $this->html5 = $html5;
+
+        return $this;
     }
 
 
@@ -152,9 +117,10 @@ class XML
      * Walk on DOMDocument and
      * run callback for each `DOMNode`
      *
-     * @param callable $callback Callback function with two params
+     * @param  callable  $callback  Callback function with two params
      *                           1. $node
      *                           2. $params
+     * @param  array  $data
      *
      * @return void
      */
@@ -190,26 +156,21 @@ class XML
         }
     }
 
-    /**
-     * Get Dom (DomDocument)
-     *
-     * @return DOMDocument
-     */
     protected function getDom(): DOMDocument
     {
         return $this->dom;
     }
 
     /**
-     * Set Dom (DomDocument)
+     * @param  DomDocument  $dom
      *
-     * @param DomDocument $dom Dom Document instance
-     *
-     * @return void
+     * @return XML
      */
-    protected function setDom(DOMDocument $dom): void
+    public function setDom(DOMDocument $dom): self
     {
         $this->dom = $dom;
+
+        return $this;
     }
 
 
@@ -225,8 +186,7 @@ class XML
         $this->setDom(new DomDocument('1.0', 'utf-8'));
 
         if ($this->_getType() === interfaces\XML::HTML) {
-
-            $this->_setHtml5(
+            $this->setHtml5(
                 new HTML5(
                     [
                         'encode_entities' => false,
@@ -238,7 +198,7 @@ class XML
             @$this->setDom($this->_getHtml5()->loadHTML($xml));
 
         } elseif ($this->_getType() === interfaces\XML::HTML_FRAGMENT) {
-            $this->_setHtml5(
+            $this->setHtml5(
                 new HTML5(
                     [
                         'encode_entities' => false,
@@ -305,12 +265,12 @@ class XML
      * Set HTML string
      *
      * @param string $xml Initial HTML content
-     *
-     * @return void
      */
-    private function _setXml(string $xml): void
+    public function setXml(string $xml): self
     {
         $this->xml = $xml;
+
+        return $this;
     }
 
     /**
@@ -330,9 +290,11 @@ class XML
      *
      * @return void
      */
-    protected function setXpath(DOMXpath $xpath): void
+    protected function setXpath(DOMXpath $xpath): self
     {
         $this->xpath = $xpath;
+
+        return $this;
     }
 
     /**
@@ -342,20 +304,15 @@ class XML
      */
     private function _getBeforeTranslateCallback(): ?callable
     {
-        return $this->_before_translate_callback;
+        return $this->before_translate_callback;
     }
 
-    /**
-     * Set before translate callback
-     *
-     * @param callable $before_translate_callback Callback
-     *
-     * @return void
-     */
-    private function _setBeforeTranslateCallback(
-        ?callable $before_translate_callback
-    ): void {
-        $this->_before_translate_callback = $before_translate_callback;
+    public function setBeforeTranslateCallback(
+        Closure $before_translate_callback
+    ): self {
+        $this->before_translate_callback = $before_translate_callback;
+
+        return $this;
     }
 
     /**
@@ -365,20 +322,18 @@ class XML
      */
     private function _getAfterTranslateCallback(): ?callable
     {
-        return $this->_after_translate_callback;
+        return $this->after_translate_callback;
     }
 
     /**
      * Set before translate callback
-     *
-     * @param callable $after_translate_callback Callback
-     *
-     * @return void
      */
-    private function _setAfterTranslateCallback(
-        ?callable $after_translate_callback
-    ): void {
-        $this->_after_translate_callback = $after_translate_callback;
+    public function setAfterTranslateCallback(
+        Closure $after_translate_callback
+    ): self {
+        $this->after_translate_callback = $after_translate_callback;
+
+        return $this;
     }
 
     /**
@@ -386,15 +341,17 @@ class XML
      */
     private function _getType(): int
     {
-        return $this->_type;
+        return $this->type;
     }
 
     /**
      * @param int $type
      */
-    private function _setType(int $type): void
+    public function setType(int $type): self
     {
-        $this->_type = $type;
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -405,11 +362,10 @@ class XML
         return $this->query_map;
     }
 
-    /**
-     * @param array $query_map
-     */
-    private function _setQueryMap(array $query_map): void
+    public function setQueryMap(array $query_map): self
     {
         $this->query_map = $query_map;
+
+        return $this;
     }
 }

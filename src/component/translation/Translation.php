@@ -14,46 +14,13 @@
 
 namespace NovemBit\i18n\component\translation;
 
-use Doctrine\DBAL\ConnectionException;
+use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\translation\exceptions\TranslationException;
 use NovemBit\i18n\component\translation\exceptions\UnsupportedLanguagesException;
-use NovemBit\i18n\component\translation\method\Method;
-use NovemBit\i18n\system\Component;
-use NovemBit\i18n\Module;
-use Psr\SimpleCache\InvalidArgumentException;
+use NovemBit\i18n\component\translation\type\TypeTranslatorFactory;
 
-/**
- * @property Module $context
- */
-class Translation extends Component implements interfaces\Translation
+class Translation implements interfaces\Translation
 {
-    /**
-     * Method Translator
-     *
-     * @var Method
-     * */
-    public Method $method;
-
-    /**
-     * Text Translator
-     * */
-    public type\Text $text;
-
-    /**
-     * Url Translator
-     */
-    public type\URL $url;
-
-    /**
-     * HTML Translator
-     * */
-    public type\HTML $html;
-
-    /**
-     * JSON Translator
-     * */
-    public type\JSON $json;
-
     /**
      * Languages of current instance
      *
@@ -73,6 +40,12 @@ class Translation extends Component implements interfaces\Translation
      * */
     private ?string $region;
 
+    public function __construct(
+        private Localization $localization,
+        private TypeTranslatorFactory $type_translator_factory
+    ) {
+    }
+
     /**
      * Set languages for translation
      *
@@ -80,10 +53,11 @@ class Translation extends Component implements interfaces\Translation
      *
      * @return self
      * @throws UnsupportedLanguagesException
+     * @throws \NovemBit\i18n\component\localization\exceptions\LanguageException
      */
     public function setLanguages(array $languages): interfaces\Translation
     {
-        if ($this->context->localization->validateLanguages($languages)) {
+        if ($this->localization->validateLanguages($languages)) {
             $this->languages = $languages;
 
             return $this;
@@ -151,32 +125,18 @@ class Translation extends Component implements interfaces\Translation
         throw new TranslationException('Languages not set.');
     }
 
-    /**
-     * Get from language from Languages component
-     *
-     * @return string
-     */
-    public function getFromLanguage(): string
-    {
-        return $this->context->localization->getFromLanguage();
-    }
-
-    /**
-     * @param  array  $to_translate
-     *
-     * @return array
-     * @throws ConnectionException
-     * @throws InvalidArgumentException
-     */
     public function translateCombination(array $to_translate): array
     {
         $translations = [];
 
         foreach ($to_translate as $type => $nodes) {
-            $translator = $this->{$type};
-            if ($translator instanceof \NovemBit\i18n\component\translation\interfaces\Translator) {
-                $translations[$type] = $translator->translate($nodes);
-            }
+            $translator = $this->type_translator_factory->getTypeTranslator($type);
+
+            $translations[$type] = $translator->translate(
+                $nodes,
+                $this->getFromLanguage(),
+                $this->localization->getFromLanguage()
+            );
         }
 
         return $translations;

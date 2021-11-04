@@ -5,17 +5,15 @@ namespace NovemBit\i18n\component\localization\countries;
 use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\helpers\Arrays;
+use NovemBit\i18n\system\helpers\Countries as CountriesHelper;
 
 /**
  * @property Localization $context
  * */
 class Countries extends LocalizationType implements interfaces\Countries
 {
-    public static function defaultConfig(): array
-    {
-        return [
-            'all' => \NovemBit\i18n\system\helpers\Countries::getData()
-        ];
+    public function __construct(){
+        $this->setAll(CountriesHelper::getData());
     }
 
     /**
@@ -36,7 +34,7 @@ class Countries extends LocalizationType implements interfaces\Countries
      */
     public function getCountriesMap(string $key, string $value): array
     {
-        return Arrays::map($this->all, $key, $value);
+        return Arrays::map($this->getAll(), $key, $value);
     }
 
     /**

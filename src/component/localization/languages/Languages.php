@@ -3,9 +3,9 @@
 namespace NovemBit\i18n\component\localization\languages;
 
 use NovemBit\i18n\component\localization\exceptions\LanguageException;
-use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\helpers\Arrays;
+use NovemBit\i18n\system\helpers\Languages as LanguagesHelper;
 
 /**
  * Localization language sub component
@@ -15,21 +15,11 @@ use NovemBit\i18n\system\helpers\Arrays;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Localization $context
  * */
 class Languages extends LocalizationType implements interfaces\Languages
 {
-    public $all;
-
-    /**
-     * @return array
-     */
-    public static function defaultConfig(): array
-    {
-        return [
-            'all' => \NovemBit\i18n\system\helpers\Languages::getData()
-        ];
+    public function __construct(){
+        $this->setAll(LanguagesHelper::getData());
     }
 
     /**
@@ -40,96 +30,7 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getLanguagesMap(string $key, string $value): array
     {
-        return Arrays::map($this->all, $key, $value);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string|null $url Simple URL
-     *
-     * @return string|null
-     * @deprecated
-     * @throws LanguageException
-     */
-    public function getLanguageFromUrl(string $url): ?string
-    {
-        return $this->context->getLanguageFromUrl($url);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string $url Simple url
-     * @deprecated
-     * @return string
-     */
-    public function removeScriptNameFromUrl(string $url): string
-    {
-        return $this->context->removeScriptNameFromUrl($url);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string $url Simple url
-     * @param string $language language code
-     * @param string|null $base_domain Base domain name
-     *
-     * @return null|string
-     * @throws LanguageException
-     * @deprecated
-     */
-    public function addLanguageToUrl(
-        string $url,
-        string $language,
-        ?string $base_domain = null
-    ): ?string {
-        return $this->context->addLanguageToUrl($url, $language, $base_domain);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string $language language code
-     *
-     * @return bool
-     * @throws LanguageException
-     * @deprecated use `localization->validateLanguage()`
-     */
-    public function validateLanguage(string $language): bool
-    {
-        return $this->context->validateLanguage($language);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string[] $languages language codes
-     *
-     * @return bool
-     * @throws LanguageException
-     * @deprecated use `localization->validateLanguages()`
-     */
-    public function validateLanguages(array $languages): bool
-    {
-        return $this->context->validateLanguages($languages);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param bool $assoc include whole data
-     *
-     * @return array|null
-     * @throws LanguageException
-     * @deprecated use localization->getAcceptLanguages()
-     */
-    public function getAcceptLanguages(
-        bool $assoc = false,
-        ?string $base_domain = null
-    ): array {
-        return $this->context->getAcceptLanguages($base_domain, $assoc);
+        return Arrays::map($this->getAll(), $key, $value);
     }
 
     /**
@@ -147,68 +48,6 @@ class Languages extends LocalizationType implements interfaces\Languages
             'native' => $this->getLanguageNativeNameByCode($language_key),
             'direction' => $this->getLanguageDirectionByCode($language_key),
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return mixed
-     * @deprecated
-     */
-    public function getFromLanguage(): string
-    {
-        return $this->context->getFromLanguage();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string|null $base_domain Base domain
-     *
-     * @return array
-     */
-    public function getLocalizationConfig(?string $base_domain = null): array
-    {
-        return $this->context->getConfig($base_domain);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string|null $base_domain Base domain name
-     *                                 (usually $_SERVER['HTTP_HOST'])
-     *
-     * @return string
-     * @deprecated
-     * @throws LanguageException
-     */
-    public function getDefaultLanguage(?string $base_domain = null): string
-    {
-        return $this->context->getDefaultLanguage($base_domain);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @deprecated
-     * @return mixed
-     */
-    public function getLanguageQueryKey(): string
-    {
-        return $this->context->getLanguageQueryKey();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string $from_language From language code
-     *
-     * @return void
-     * @deprecated
-     * @throws LanguageException
-     */
-    public function setFromLanguage(string $from_language): void
-    {
-        $this->context->setFromLanguage($from_language);
     }
 
     /**
@@ -284,8 +123,8 @@ class Languages extends LocalizationType implements interfaces\Languages
      */
     public function getLanguageFlagByCode(
         string $code,
-        $rectangle = true,
-        $html = false
+        bool $rectangle = true,
+        bool $html = false
     ): string {
         $flag = $this->getByPrimary(
             $code,

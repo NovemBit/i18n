@@ -5,7 +5,6 @@ namespace NovemBit\i18n\component\localization\interfaces;
 use NovemBit\i18n\component\localization\countries\interfaces\Countries;
 use NovemBit\i18n\component\localization\languages\interfaces\Languages;
 use NovemBit\i18n\component\localization\regions\interfaces\Regions;
-use NovemBit\i18n\system\interfaces\Component;
 
 /**
  * Languages component interface
@@ -14,7 +13,7 @@ use NovemBit\i18n\system\interfaces\Component;
  * @property Regions $regions
  * @property Countries $countries
  * */
-interface Localization extends Component
+interface Localization
 {
     public function getGlobalDomains(): array;
 
@@ -39,11 +38,28 @@ interface Localization extends Component
      * Check if each language code exists on
      * Accepted languages list
      *
-     * @param string[] $languages language codes
+     * @param  string[]  $languages  language codes
      *
      * @return bool
      */
     public function validateLanguages(array $languages): bool;
 
     public function removeLanguageFromURI(?string $uri): string;
+
+    /**
+     * Default `HTTP_HOST`
+     * This property not required but recommended,
+     * To prevent page content translations for default domain with default language
+     * */
+    public function getDefaultHttpHost(): string;
+
+    /**
+     * Prefix for any script public action
+     * For example in translated HTML document attributes
+     * JS global variables
+     * e.t.c.
+     *
+     * @var string
+     * */
+    public function getPrefix(): string;
 }

@@ -16,7 +16,10 @@ namespace NovemBit\i18n\component\translation\type;
 
 use Doctrine\DBAL\ConnectionException;
 use NovemBit\i18n\component\translation\interfaces\Translation;
+use NovemBit\i18n\component\translation\method\Method;
+use NovemBit\i18n\component\translation\models\TranslationDataMapper;
 use NovemBit\i18n\system\helpers\Strings;
+use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
@@ -27,10 +30,8 @@ use Psr\SimpleCache\InvalidArgumentException;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation context
  */
-class Text extends Type
+class TextTranslator extends TypeAbstract
 {
     /**
      * {@inheritdoc}
@@ -94,16 +95,25 @@ class Text extends Type
     /**
      * Model class name of ActiveRecord
      * */
-    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\Text::class;
+    public string|TranslationDataMapper $model_class = models\Text::class;
+
+    public function __construct(
+        CacheInterface $cache,
+        Translation $translation,
+        TranslationDataMapper $translation_data_mapper,
+        private Method $method
+    ) {
+        parent::__construct($cache, $translation, $translation_data_mapper);
+    }
 
     /**
      * Doing translate method
      *
-     * @param array $nodes List of texts to translate
+     * @param  array  $nodes  List of texts to translate
      *
-     * @param string $from_language
-     * @param array $to_languages
-     * @param bool $ignore_cache
+     * @param  string  $from_language
+     * @param  array  $to_languages
+     * @param  bool  $ignore_cache
      *
      * @return array
      * @throws ConnectionException
@@ -115,10 +125,10 @@ class Text extends Type
         array $to_languages,
         bool $ignore_cache
     ): array {
-        $translator = $this->context->method;
-
-        $translations = $translator->translate(
+        $translations = $this->method->translate(
             $nodes,
+            $from_language,
+            $to_languages,
             $verbose,
             false,
             $ignore_cache
@@ -193,5 +203,10 @@ class Text extends Type
         $text = preg_replace('/\s+/', ' ', $text);
 
         return parent::validateBeforeTranslate($text);
+    }
+
+    public function getDbId(): int
+    {
+        return 1;
     }
 }

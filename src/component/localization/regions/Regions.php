@@ -2,9 +2,11 @@
 
 namespace NovemBit\i18n\component\localization\regions;
 
+use NovemBit\i18n\component\localization\countries\Countries;
 use NovemBit\i18n\component\localization\Localization;
 use NovemBit\i18n\component\localization\LocalizationType;
 use NovemBit\i18n\system\helpers\Arrays;
+use NovemBit\i18n\system\helpers\Regions as RegionsHelper;
 
 /**
  * Class Regions
@@ -17,14 +19,10 @@ class Regions extends LocalizationType implements interfaces\Regions
     public const INCLUDE_CHILD_PRIMARY_LANGUAGES = 1;
     public const INCLUDE_CHILD_ALL_LANGUAGES = 2;
 
-    /**
-     * @return array
-     */
-    public static function defaultConfig(): array
-    {
-        return [
-            'all' => \NovemBit\i18n\system\helpers\Regions::getData()
-        ];
+    public function __construct(
+        Countries $countries
+    ){
+        $this->setAll(RegionsHelper::getData());
     }
 
     /**
@@ -35,7 +33,7 @@ class Regions extends LocalizationType implements interfaces\Regions
      */
     public function getCountriesMap(string $key, string $value): array
     {
-        return Arrays::map($this->all, $key, $value);
+        return Arrays::map($this->getAll(), $key, $value);
     }
 
     /**
@@ -49,8 +47,9 @@ class Regions extends LocalizationType implements interfaces\Regions
     }
 
     /**
-     * @param string|null $base_domain Base domain
-     * @return string
+     * @param  string|null  $base_domain  Base domain
+     *
+     * @return string|null
      */
     public function getDefaultRegion(?string $base_domain = null): ?string
     {
@@ -94,7 +93,7 @@ class Regions extends LocalizationType implements interfaces\Regions
         $include = $region['include_languages'] ?? self::DONT_INCLUDE_CHILD_LANGUAGES;
 
         if (in_array($include, [self::INCLUDE_CHILD_PRIMARY_LANGUAGES, self::INCLUDE_CHILD_ALL_LANGUAGES], true)) {
-            $countries_languages = $this->context->countries->getByPrimary(
+            $countries_languages = $this->countries->getByPrimary(
                 $region['code'],
                 'regions',
                 'languages',

@@ -28,13 +28,13 @@
 
 namespace NovemBit\i18n;
 
-use Exception;
-use NovemBit\i18n\component\localization\interfaces\Localization;
-use NovemBit\i18n\component\localization\languages\Languages;
-use NovemBit\i18n\component\request\interfaces\Request;
-use NovemBit\i18n\component\rest\interfaces\Rest;
-use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\component\db\DB;
+use NovemBit\i18n\component\localization\Localization;
+use NovemBit\i18n\component\request\Request;
+use NovemBit\i18n\component\rest\Rest;
+use NovemBit\i18n\component\translation\Translation;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * Module class
@@ -58,21 +58,9 @@ use NovemBit\i18n\component\db\DB;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation translation
- * @property Localization localization
- * @property Request request
- * @property Rest rest
- * @property DB db
  */
-class Module extends system\Component
+class Module
 {
-    /**
-     * Main instance of Module
-     * Using singleton pattern only for main instance
-     *
-     * @var Module
-     * */
     private static self $instance;
 
     /**
@@ -90,61 +78,14 @@ class Module extends system\Component
      * */
     public bool $ssl = false;
 
-    /**
-     * Default component configuration
-     *
-     * @return array
-     * @throws Exception
-     */
-    public static function defaultConfig(): array
-    {
-        return [
-            'localization' => [
-                'class' => component\localization\Localization::class,
-            ],
-            'translation' => [
-                'class' => component\translation\Translation::class,
-            ],
-            'request' => [
-                'class' => component\request\Request::class,
-            ],
-            'rest' => [
-                'class' => component\rest\Rest::class,
-            ],
-            'db' => [
-                'class' => DB::class,
-            ]
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return void
-     * @throws Exception
-     */
-    public function mainInit(): void
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return void
-     */
-    public function commonInit(): void
-    {
-        parent::commonInit();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return void
-     */
-    public function commonLateInit(): void
-    {
-        parent::commonLateInit();
+    public function __construct(
+        private Localization $localization,
+        private Translation $translation,
+        private Request $request,
+//        private Rest $rest,
+        private DB $db,
+        private CacheInterface $cache_item_pool
+    ) {
     }
 
     /**
@@ -156,23 +97,8 @@ class Module extends system\Component
      */
     public function start(): void
     {
-        $this->rest->start();
+        //$this->rest->start();
         $this->request->start();
-    }
-
-    /**
-     * Creating module main instance
-     *
-     * @param  null|array  $config  Main configuration array
-     *
-     * @return Module|null
-     */
-    public static function instance(?array $config = null): ?self
-    {
-        if (!isset(self::$instance) && ($config !== null)) {
-            self::$instance = new self($config);
-        }
-        return self::$instance;
     }
 
     /**
@@ -181,5 +107,20 @@ class Module extends system\Component
     public function isSsl(): bool
     {
         return $this->ssl;
+    }
+
+    public function setSsl(bool $ssl): self
+    {
+        $this->ssl = $ssl;
+
+        return $this;
+    }
+
+    /**
+     * @return CacheItemPoolInterface
+     */
+    public function getCacheItemPool(): CacheItemPoolInterface
+    {
+        return $this->cache_item_pool;
     }
 }

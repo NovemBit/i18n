@@ -5,7 +5,7 @@ namespace NovemBit\i18n\component\request\interfaces;
 use NovemBit\i18n\component\translation\interfaces\Translation;
 use NovemBit\i18n\system\interfaces\Component;
 
-interface Request extends Component
+interface Request
 {
     public function isEditor(): bool;
 
@@ -32,8 +32,6 @@ interface Request extends Component
     public function getEditorUrlTranslations(): array;
 
     public function isAllowEditor(): bool;
-
-    public function getDefaultHttpHost(): string;
 
     public function getActiveLanguages(): array;
 

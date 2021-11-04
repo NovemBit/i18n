@@ -14,8 +14,7 @@
 
 namespace NovemBit\i18n\component\translation\method;
 
-use NovemBit\i18n\component\translation\interfaces\Translation;
-use NovemBit\i18n\component\translation\Translator;
+use NovemBit\i18n\component\translation\TranslatorAbstract;
 
 /**
  * Main Translation method abstract
@@ -26,10 +25,8 @@ use NovemBit\i18n\component\translation\Translator;
  * @author   Aaron Yordanyan <aaron.yor@gmail.com>
  * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
  * @link     https://github.com/NovemBit/i18n
- *
- * @property Translation context
  */
-abstract class Method extends Translator implements interfaces\Method
+abstract class Method extends TranslatorAbstract implements interfaces\Method
 {
     /**
      * {@inheritdoc}
@@ -49,12 +46,15 @@ abstract class Method extends Translator implements interfaces\Method
     /**
      * Model class name of ActiveRecord
      *
-     * @var \NovemBit\i18n\component\translation\models\Translation
+     * @var \NovemBit\i18n\component\translation\models\TranslationDataMapper
      * */
-    public string|\NovemBit\i18n\component\translation\models\Translation $model_class = models\Method::class;
+    public string|\NovemBit\i18n\component\translation\models\TranslationDataMapper $model_class = models\Method::class;
 
     /**
-     * {@inheritdoc}
-     * */
-    public bool $validation = false;
+     * @return int
+     */
+    public function getDbId(): int
+    {
+        return 0;
+    }
 }
